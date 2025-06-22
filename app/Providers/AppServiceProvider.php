@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
+
         
         DB::prohibitDestructiveCommands(app()->isProduction());
         Model::shouldBeStrict(! app()->isProduction());
@@ -39,14 +40,15 @@ class AppServiceProvider extends ServiceProvider
 
         Date::use(CarbonImmutable::class);
 
-        Relation::enforceMorphMap([
-            'manager' => \App\Models\Manager::class,
-            // 'user' => User::class,
-        ]);
+        // Relation::enforceMorphMap([
+        //     'manager' => \App\Models\Manager::class,
+        //     // 'user' => User::class,
+        // ]);
         Paginator::useBootstrapFive();
 
         Blade::directive('image', function ($path) {
             return "<?php echo asset('storage/' . $path); ?>";
         });
+
     }
 }
