@@ -5,7 +5,6 @@ namespace App\Repository\Eloquent;
 use App\Models\Otp;
 use App\Repository\OtpRepositoryInterface;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class OtpRepository extends Repository implements OtpRepositoryInterface
@@ -21,8 +20,7 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
             $user = auth('api')->user();
         $user->otps()?->delete();
         return $user->otp()?->create([
-            //            'otp' => rand(1234, 9999), //TODO uncomment this and remove 1111
-            'otp' => 1111,
+            'otp' => rand(1234, 9999),
             'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
         ]);
@@ -34,10 +32,9 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
             $user = auth('api')->user();
         $user->otps()?->delete();
         return $user->otp()?->create([
-            //            'otp' => rand(1234, 9999), //TODO uncomment this and remove 1111
             'email' => $email,
-            'otp' => 1111,
-            'expire_at' => Carbon::now()->addMinutes(5),
+            'otp' => rand(1234, 9999),
+             'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
         ]);
     }

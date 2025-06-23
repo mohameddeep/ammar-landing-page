@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\Email\ChangeEmailController;
 use App\Http\Controllers\Api\V1\Auth\Otp\OtpController;
 use App\Http\Controllers\Api\V1\Auth\Password\PasswordController;
+use App\Http\Controllers\Api\V1\Auth\UserProfile\UserProfileController;
+use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth', 'controller' => AuthController::class], function () {
@@ -29,4 +31,29 @@ Route::group(['prefix' => 'password'], function () {
     Route::post('/verify-otp', [PasswordController::class, 'verifyOtp']);
     Route::post('/reset', [PasswordController::class, 'reset']);
     Route::post('/update', [PasswordController::class, 'updatePassword']);
+});
+
+
+
+Route::group([ 'middleware' => ['auth:api']], function () {
+
+
+    // user profile
+   Route::group(['prefix' => 'user-profile',
+   'controller' => UserProfileController::class], function () {
+    Route::get('/',  'userProfile');
+    Route::put('/update',  'updateUserProfile');
+    });
+
+    Route::group([
+        'prefix' => 'user-address',
+        'controller' => UserAddressController::class
+    ], function () {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+        Route::post('/', 'store');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::put('/change-status/{id}', 'changeAddressStatus');
+    });
 });
