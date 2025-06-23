@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1\Auth\Otp;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Api\V1\Auth\Otp\OtpService;
 use App\Http\Requests\Api\V1\Otp\OtpVerifyRequest;

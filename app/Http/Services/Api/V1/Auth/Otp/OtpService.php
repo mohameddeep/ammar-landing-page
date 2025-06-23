@@ -4,13 +4,10 @@ namespace App\Http\Services\Api\V1\Auth\Otp;
 
 use App\Http\Helpers\Http;
 use App\Http\Resources\V1\Otp\OtpResource;
-// use App\Http\Traits\Responser;
-// use App\Jobs\SendingEmail;
-// use App\Mail\GenerateOtp;
-// use App\Mail\ResetPassword;
 use App\Repository\OtpRepositoryInterface;
 use Illuminate\Support\Facades\DB;
-// use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendMailJob;
+use App\Mail\SendOtpMail;
 
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
@@ -28,6 +25,9 @@ class OtpService
             'otp_verified' => false
         ]);
         // TODO :Sending OTP in email
+
+                SendMailJob::dispatchAfterResponse($user->email, new SendOtpMail($otp));
+
         return responseSuccess(message: __('messages.OTP_Is_Send'), data: OtpResource::make($otp));
     }
 

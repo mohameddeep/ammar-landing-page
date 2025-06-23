@@ -32,7 +32,7 @@ abstract class AuthService extends PlatformService
             $user = $this->userRepository->create($data);
 
             $this->otpService->generate($user);
-            $user->load('otp');
+            $this->userRepository->update($user->id, ['is_active' => true]);
             DB::commit();
             return responseSuccess(Http::CREATED, __('messages.created successfully'),  new UserResource($user, true));
         } catch (Exception $e) {
@@ -57,5 +57,19 @@ abstract class AuthService extends PlatformService
     {
         auth('api')->logout();
         return responseSuccess(Http::OK, __('messages.Successfully loggedOut'));
+    }
+
+
+        final public function deleteAccount()
+    {
+        $user = auth('api')->user();
+
+        if ($user) {
+            $user->delete();
+
+            return responseSuccess(message: 'تم حذف الحساب بنجاح');
+        }
+
+        return responseFail(message: 'فشل في حذف الحساب');
     }
 }

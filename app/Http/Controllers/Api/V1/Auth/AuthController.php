@@ -28,6 +28,11 @@ class AuthController extends Controller
         return $this->auth->signOut();
     }
 
+    public function deleteAccount()
+    {
+        return $this->auth->deleteAccount();
+    }
+
     public function whatIsMyPlatform()
     {
         return $this->auth->whatIsMyPlatform();
