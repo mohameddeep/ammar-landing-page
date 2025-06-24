@@ -33,8 +33,8 @@ class AuthController extends Controller
         return $this->auth->deleteAccount();
     }
 
-    public function whatIsMyPlatform()
-    {
-        return $this->auth->whatIsMyPlatform();
-    }
+    // public function whatIsMyPlatform()
+    // {
+    //     return $this->auth->whatIsMyPlatform();
+    // }
 }

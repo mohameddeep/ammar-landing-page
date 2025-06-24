@@ -5,6 +5,9 @@ use App\Http\Controllers\Api\V1\Auth\Email\ChangeEmailController;
 use App\Http\Controllers\Api\V1\Auth\Otp\OtpController;
 use App\Http\Controllers\Api\V1\Auth\Password\PasswordController;
 use App\Http\Controllers\Api\V1\Auth\UserProfile\UserProfileController;
+use App\Http\Controllers\Api\V1\Category\CategoryController;
+use App\Http\Controllers\Api\V1\Home\HomeController;
+use App\Http\Controllers\Api\V1\Package\PackageController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,4 +59,23 @@ Route::group([ 'middleware' => ['auth:api']], function () {
         Route::delete('/{id}', 'destroy');
         Route::put('/change-status/{id}', 'changeAddressStatus');
     });
+
+
+    Route::group([
+        'prefix' => 'packages',
+        'controller' => PackageController::class
+    ], function () {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+    });
 });
+
+
+Route::group(['prefix' => 'categories',
+   'controller' => CategoryController::class], function () {
+    Route::get('/',  'index');
+    Route::get('/{id}',  'show');
+    });
+
+
+    Route::get("/home",[HomeController::class,'index']);
