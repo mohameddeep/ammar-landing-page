@@ -70,6 +70,14 @@
             direction: rtl !important;
         }
 
+        html[data-toggled="close"] #sidebar {
+            display: none !important;
+        }
+
+        html[data-toggled="open"] #sidebar {
+            display: block !important;
+        }
+
         .breadcrumb-contain {
             direction: ltr !important;
         }
