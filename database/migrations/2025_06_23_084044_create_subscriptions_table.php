@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-           $table->id();
-            $table->foreignId(column: "package_id")->constrained("packages")->cascadeOnDelete();
-            $table->foreignId(column: "user_id")->constrained("users")->cascadeOnDelete();
+            $table->id();
+            $table->foreignId("package_id")->constrained("packages")->cascadeOnDelete();
+            $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
             $table->dateTime("end_date")->nullable();
             $table->boolean("is_active")->default(0);
             $table->timestamps();

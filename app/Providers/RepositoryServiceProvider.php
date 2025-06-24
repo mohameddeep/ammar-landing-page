@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repository\CommissionRepositoryInterface;
+use App\Repository\Eloquent\CommissionRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\OtpRepository;
 use App\Repository\Eloquent\PermissionRepository;
@@ -35,6 +37,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(ManagerRepositoryInterface::class, ManagerRepository::class);
         $this->app->singleton(OtpRepositoryInterface::class, OtpRepository::class);
         $this->app->singleton(UserAddressRepositoryInterface::class, UserAddressRepository::class);
+        $this->app->singleton(CommissionRepositoryInterface::class, CommissionRepository::class);
     }
 
     /**

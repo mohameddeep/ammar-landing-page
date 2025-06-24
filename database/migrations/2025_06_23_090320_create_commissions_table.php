@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CommissionTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +14,11 @@ return new class extends Migration
     {
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->nullable();
+            $table->string("name_ar")->nullable();
+            $table->string("name_en")->nullable();
             $table->integer("value")->default(0);
-            $table->enum("type",["store","designer","individual"]);
+            $table->enum("type", CommissionTypeEnum::values());
+               
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

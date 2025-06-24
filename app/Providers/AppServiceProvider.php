@@ -6,7 +6,7 @@ use App\Exceptions\Handler;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
+
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        
+
         DB::prohibitDestructiveCommands(app()->isProduction());
         Model::shouldBeStrict(! app()->isProduction());
         //        Model::unguard();
@@ -49,6 +49,5 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('image', function ($path) {
             return "<?php echo asset('storage/' . $path); ?>";
         });
-
     }
 }

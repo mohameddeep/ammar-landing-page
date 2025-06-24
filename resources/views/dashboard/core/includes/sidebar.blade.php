@@ -108,6 +108,18 @@
 
 
 
+                {{-- start commission --}}
+                <li class="slide">
+                    <a href="{{ route('commissions.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['commissions.index', 'commissions.edit']) ? 'active' : '' }}">
+                        <i class="ti ti-cash side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.commission')</span>
+                    </a>
+                </li>
+
+
+                {{-- end commission --}}
+
 
 
 

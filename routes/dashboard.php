@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Auth\AuthController;
+use App\Http\Controllers\Dashboard\Commissions\CommissionController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
@@ -40,5 +41,6 @@ Route::group([
             Route::put('/{manager}', 'update')->name('update');
             Route::delete('/{manager}', action: 'destroy')->name('destroy');
         });
-    // Route::resource('managers', MangerController::class)->except('show', 'index');
+    Route::resource('commissions', CommissionController::class)->except('show', 'create', 'store', 'destroy');
+    Route::post('/commissions/toggle/{id}', [CommissionController::class, 'toggle'])->name('commissions.toggle');
 });

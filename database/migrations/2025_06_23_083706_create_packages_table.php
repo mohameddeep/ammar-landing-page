@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string("name_ar");
             $table->string("name_en")->nullable();
-            $table->string("duration");
+            $table->string("duration")->comment("Duration of the package, in days");
             $table->decimal("price");
-            $table->string("product_num");
-            $table->enum("type",["store","designer","individual"]);
+            $table->string("product_number")->comment("Unique identifier for the package");
+            $table->enum("type", ["store", "designer", "individual"]);
             $table->boolean("is_active")->default(0);
             $table->boolean("is_hidden")->default(0);
             $table->timestamps();
