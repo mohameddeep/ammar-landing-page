@@ -8,7 +8,7 @@
             font-size: 24px;
 
             color: #ffffff;
-            background: linear-gradient(135deg, #6f42c1, #8e44ad);
+            background: linear-gradient(135deg, #f3eeff, #8e44ad);
 
             border-radius: 50%;
             display: flex;
@@ -35,7 +35,11 @@
                 @foreach ($commissions as $commission)
                     <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 border-end border-inline-end-dashed pe-0">
                         <div class="p-4">
-                            <h6 class="fw-semibold text-center">{{ $commission->t('name') }}</h6>
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="fw-semibold mb-0">{{ $commission->t('name') }}</h6>
+                                <x-buttons.edit-button :route="route('commissions.edit', $commission->id)" />
+                            </div>
+
                             <div class="py-4 d-flex align-items-center justify-content-center">
                                 <div class="pricing-svg1">
                                     <i class="{{ $commission->type->icon() }}"></i>

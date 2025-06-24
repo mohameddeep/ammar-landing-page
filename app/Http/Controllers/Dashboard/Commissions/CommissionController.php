@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Commissions;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Commissions\CommissionRequest;
 use App\Http\Services\Dashboard\Commissions\CommissionService;
 use App\Models\Commission;
 use Illuminate\Http\Request;
@@ -20,7 +21,16 @@ class CommissionController extends Controller
 
     public function toggle(Request $request, $id)
     {
-         return $this->service->toggle($request, $id);
+        return $this->service->toggle($request, $id);
     }
-        
+
+    public function edit($id)
+    {
+        return $this->service->edit($id);
+    }
+
+    public function update(CommissionRequest $request, $id)
+    {
+        return $this->service->update($request, $id);
+    }
 }

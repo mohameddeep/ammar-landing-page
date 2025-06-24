@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests\Dashboard\Commissions;
 
+use App\Enums\CommissionTypeEnum;
+use Illuminate\Validation\Rule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommissionRequest extends FormRequest
@@ -11,7 +14,7 @@ class CommissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +22,14 @@ class CommissionRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
         return [
-            //
+            'name_ar' => 'nullable|string|max:255',
+            'name_en' => 'nullable|string|max:255',
+            'value' => 'required|integer|min:0',
+            'type' => ['required', Rule::in(CommissionTypeEnum::values())],
         ];
     }
 }

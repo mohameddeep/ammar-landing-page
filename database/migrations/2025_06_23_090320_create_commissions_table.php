@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string("name_en")->nullable();
             $table->integer("value")->default(0);
             $table->enum("type", CommissionTypeEnum::values());
-               
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

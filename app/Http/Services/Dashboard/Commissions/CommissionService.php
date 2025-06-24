@@ -33,7 +33,7 @@ class CommissionService
     public function update($request, $id)
     {
         try {
-            $data = $request->all();
+            $data = $request->validated();
             $commission = $this->repository->update($id, $data);
             return redirect()->route('commissions.index')->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
