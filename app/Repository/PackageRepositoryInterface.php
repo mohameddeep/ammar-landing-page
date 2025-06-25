@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
-use App\Repository\RepositoryInterface;
+interface PackageRepositoryInterface extends RepositoryInterface
+{
 
-
-interface PackageRepositoryInterface extends RepositoryInterface {}
+        public function getPackagesByUserType();
+}

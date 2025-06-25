@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
-    use LanguageToggle;
     protected $guarded = [];
 
 
-
-    public function getDurationInDaysAttribute()
+    public function features()
     {
-        return (int) $this->duration;
+        return $this->hasMany(PackageFeature::class);
     }
 }
