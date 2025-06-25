@@ -116,12 +116,18 @@
                         <span class="side-menu__label">@lang('dashboard.commission')</span>
                     </a>
                 </li>
-
-
                 {{-- end commission --}}
 
 
-
+                {{-- start packages --}}
+                <li class="slide">
+                    <a href="{{ route('packages.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['packages.index', 'packages.edit', 'packages.create']) ? 'active' : '' }}">
+                        <i class="ti ti-package side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.packages')</span>
+                    </a>
+                </li>
+                {{-- end packages --}}
 
 
 

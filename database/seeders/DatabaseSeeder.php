@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ManagerSeeder::class,
             UserSeeder::class,
             CommissionSeeder::class,
+            PackageSeeder::class,
         ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Repository\CommissionRepositoryInterface;
 use App\Repository\Eloquent\CommissionRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\OtpRepository;
+use App\Repository\Eloquent\PackageRepository;
 use App\Repository\Eloquent\PermissionRepository;
 use App\Repository\Eloquent\Repository;
 use App\Repository\Eloquent\RoleRepository;
@@ -14,6 +15,7 @@ use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\OtpRepositoryInterface;
+use App\Repository\PackageRepositoryInterface;
 use App\Repository\PermissionRepositoryInterface;
 use App\Repository\RepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
@@ -38,6 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(OtpRepositoryInterface::class, OtpRepository::class);
         $this->app->singleton(UserAddressRepositoryInterface::class, UserAddressRepository::class);
         $this->app->singleton(CommissionRepositoryInterface::class, CommissionRepository::class);
+        $this->app->singleton(PackageRepositoryInterface::class, PackageRepository::class);
     }
 
     /**
