@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
+use function App\Http\Helpers\update_model;
 
 class PackageService
 {
@@ -33,6 +34,14 @@ class PackageService
         return view('dashboard.site.packages.create', compact('types'));
     }
 
+
+
+    public function edit($id)
+    {
+        $types = PackageTypeEnum::values();
+        $package = $this->repository->getById($id, relations: ['features']);
+        return view('dashboard.site.packages.edit', compact('types', 'package'));
+    }
     public function store($request)
     {
         try {
@@ -58,6 +67,41 @@ class PackageService
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
+    public function update($request, $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = $request->validated();
+            $packageData = collect($data)->except('features')->toArray();
+
+            update_model($this->repository, $id, $packageData);
+
+
+            $this->featureRepository->deleteBy(['package_id' => $id]);
+
+            foreach ($data['features'] ?? [] as $feature) {
+                $this->featureRepository->create([
+                    'package_id' => $id,
+                    'feature_ar' => $feature['feature_ar'] ?? '',
+                    'feature_en' => $feature['feature_en'] ?? '',
+                    'is_active'  => isset($feature['is_active']) ? 1 : 0,
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('packages.index')->with(['success' => __('messages.updated_successfully')]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with(['error' => __('messages.Something went wrong')]);
+        }
+    }
+
+
+
+
+
+
 
     public function toggleHidden($request, $id)
     {

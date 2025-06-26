@@ -39,7 +39,7 @@
             font-size: 18px;
             border-radius: 50%;
         }
-        
+
         .tooltip-primary,
         .tooltip-secondary,
         .tooltip-warning,
@@ -68,15 +68,11 @@
                 </div>
             </x-slot>
             <div class="row py-3 px-2">
-
-
                 @foreach ($packages as $package)
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
                         <div class="card card-container h-100 d-flex flex-column">
 
-                            {{-- ✅ أزرار التحكم الجانبية --}}
                             <div class="card-actions-sidebar">
-                                {{-- زر التفعيل / إلغاء التفعيل --}}
                                 <button type="button"
                                     class="btn btn-icon {{ $package->is_active ? 'btn-outline-secondary' : 'btn-outline-success' }} toggle-package-btn"
                                     data-id="{{ $package->id }}" data-active="{{ $package->is_active }}"
@@ -88,7 +84,6 @@
                                         class="{{ $package->is_active ? 'ri-close-circle-line' : 'ri-checkbox-circle-line' }}"></i>
                                 </button>
 
-                                {{-- زر الإخفاء / الإظهار --}}
                                 <button type="button"
                                     class="btn btn-icon {{ $package->is_hidden ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
                                     data-id="{{ $package->id }}" data-active="{{ $package->is_hidden }}"
@@ -100,13 +95,9 @@
                                 </button>
                                 <x-buttons.edit-button :route="route('packages.edit', $package->id)" />
                                 <x-buttons.delete-button :route="route('packages.destroy', $package->id)" :itemId="$package->id" />
-
                             </div>
-
-                            {{-- ✅ باقي الكارد زي ما هو --}}
                             <div class="card-body d-flex flex-column">
                                 <div class="p-1 flex-grow-1 d-flex flex-column">
-                                    {{-- عنوان و نوع الباقة --}}
                                     <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
                                         <h5 class="fw-bold mb-0"
                                             style="word-break: break-word; white-space: normal; max-width: 60%;">
@@ -119,34 +110,35 @@
                                             <span>{{ $package->type->t() }}</span>
                                         </span>
                                     </div>
-
-                                    {{-- معلومات الباقة --}}
                                     <div class="card p-3 rounded-3 mb-2">
                                         <div class="row text-center mb-3">
                                             <div class="col">
-                                                <div class="fs-20 fw-bold">{{ $package->duration }}</div>
+
+                                                <div class="fs-18 fw-bold"><i
+                                                        class="ri-time-line  me-1"></i>{{ $package->duration }}</div>
                                                 <div class="text-muted fs-12">Days Duration</div>
                                             </div>
                                             <div class="col">
-                                                <div class="fs-20 fw-bold">{{ $package->price }}</div>
+
+                                                <div class="fs-18 fw-bold"><i
+                                                        class="ri-money-dollar-circle-line  me-1"></i>{{ $package->price }}
+                                                </div>
                                                 <div class="text-muted fs-12">USD</div>
                                             </div>
                                             <div class="col">
-                                                <div class="fs-20 fw-bold">{{ $package->product_number }}</div>
+
+                                                <div class="fs-18 fw-bold mb-1"><i
+                                                        class="ri-stack-line me-1"></i>{{ $package->product_number }}</div>
                                                 <div class="text-muted fs-12">Products Allowed</div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    {{-- وصف الباقة --}}
                                     <div class="text-muted small">{{ $package->t('description') }}</div>
-
-                                    {{-- مميزات الباقة --}}
-                                    <ul class="list-unstyled mb-0 flex-grow-1" style="flex-wrap: wrap;">
+                                    <ul class="list-unstyled mb-0 flex-grow-1 mt-3" style="flex-wrap: wrap;">
                                         @forelse ($package->features as $feature)
                                             <li class="d-flex align-items-center mb-2">
                                                 <span class="me-2">
-                                                    <i class="ri-checkbox-circle-line fs-15 toggle-feature-icon {{ $feature->is_active ? 'text-success' : 'text-muted' }}"
+                                                    <i class="ri-checkbox-circle-line fs-2 toggle-feature-icon {{ $feature->is_active ? 'text-success' : 'text-muted' }}"
                                                         data-id="{{ $feature->id }}"
                                                         data-active="{{ $feature->is_active ? 1 : 0 }}"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
@@ -168,10 +160,7 @@
                         </div>
                     </div>
                 @endforeach
-
-
             </div>
-
         </x-cards.page-card>
     </div>
 @endsection

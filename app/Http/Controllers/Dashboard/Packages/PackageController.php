@@ -23,13 +23,19 @@ class PackageController extends Controller
     {
         return $this->service->store($request);
     }
-
-
     public function create()
     {
         return $this->service->create();
     }
+    public function  edit($id)
+    {
+        return $this->service->edit($id);
+    }
 
+    public function update(PackageRequest $request, $id)
+    {
+        return $this->service->update($request, $id);
+    }
     public function toggleHidden(Request $request, $id)
     {
         return $this->service->toggleHidden($request, $id);
