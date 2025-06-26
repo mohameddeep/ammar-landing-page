@@ -29,6 +29,21 @@
         @include('dashboard.core.alerts.sweet-alert.success')
     @endif
 
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @foreach ($errors->all() as $error)
+                    toastr.error({!! json_encode($error) !!}, '', {
+                        positionClass: 'toast-top-right',
+                        timeOut: 5000,
+                        progressBar: true,
+                        closeButton: true
+                    });
+                @endforeach
+            });
+        </script>
+    @endif
+
 </body>
 
 </html>

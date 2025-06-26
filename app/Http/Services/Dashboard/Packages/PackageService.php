@@ -2,15 +2,20 @@
 
 namespace App\Http\Services\Dashboard\Packages;
 
+use App\Enums\PackageTypeEnum;
 use App\Http\Helpers\Http;
+use App\Repository\PackageFeatureRepositoryInterface;
 use App\Repository\PackageRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
+use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
 class PackageService
 {
     public function __construct(
         private PackageRepositoryInterface $repository,
+        private PackageFeatureRepositoryInterface $featureRepository,
     ) {}
 
     public function index()
@@ -21,39 +26,76 @@ class PackageService
     }
 
 
-
-
-
-    public function edit($id)
+    public function create()
     {
-        $commission = $this->repository->getById($id);
-        return view('dashboard.site.commissions.edit', compact('commission'));
+        $types = PackageTypeEnum::values();
+
+        return view('dashboard.site.packages.create', compact('types'));
     }
 
-    public function update($request, $id)
+    public function store($request)
     {
         try {
+            DB::beginTransaction();
+
             $data = $request->validated();
-            $commission = $this->repository->update($id, $data);
-            return redirect()->route('commissions.index')->with(['success' => __('messages.updated_successfully')]);
+            $package = $this->repository->create(
+                collect($data)->except('features')->toArray()
+            );
+
+            foreach ($data['features'] ?? [] as $feature) {
+                $this->featureRepository->create([
+                    'package_id' => $package->id,
+                    'feature_ar' => $feature['feature_ar'] ?? '',
+                    'feature_en' => $feature['feature_en'] ?? '',
+                    'is_active'  => isset($feature['is_active']) ? 1 : 0,
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('packages.index')->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
 
+    public function toggleHidden($request, $id)
+    {
+        $package = $this->repository->getById($id);
 
-
+        $package->is_hidden = $request->input('is_hidden');
+        $package->save();
+        return responseSuccess(Http::OK, __('messages.updated_successfully'), [
+            'success' => true,
+            'is_hidden' => $package->is_hidden,
+        ]);
+    }
 
     public function toggle($request, $id)
     {
-        $commission = $this->repository->getById($id);
+        $package = $this->repository->getById($id);
 
-        $commission->is_active = $request->input('is_active');
-        $commission->save();
+        $package->is_active = $request->input('is_active');
+        $package->save();
 
         return responseSuccess(Http::OK, __('messages.updated_successfully'), [
             'success' => true,
-            'is_active' => $commission->is_active,
+            'is_active' => $package->is_active,
         ]);
+    }
+
+
+    public function destroy($id)
+    {
+        try {
+            $deleted = $this->repository->delete($id);
+            if ($deleted) {
+                return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);
+            } else {
+                return responseFail(Http::NOT_FOUND, __('messages.Not Found or Already Deleted'));
+            }
+        } catch (\Exception $e) {
+            return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
+        }
     }
 }

@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\PackageTypeEnum;
+use App\Http\Traits\LanguageToggle;
 use Illuminate\Database\Eloquent\Model;
 
 class PackageFeature extends Model
 {
-    protected $guarded=[];
+    use LanguageToggle;
 
-    public function package(){
+    protected $guarded = [];
+
+    public function package()
+    {
         return $this->belongsTo(Package::class);
     }
 }

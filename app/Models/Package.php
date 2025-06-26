@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\PackageTypeEnum;
 use App\Http\Traits\LanguageToggle;
 use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
+    use LanguageToggle;
+    protected $casts = [
+        'type' => PackageTypeEnum::class,
+    ];
     protected $guarded = [];
 
 

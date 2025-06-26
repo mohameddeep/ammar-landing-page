@@ -33,9 +33,17 @@
                     success: function(response) {
 
                         if (response.data === true) {
-                            $(`#row-${itemId}`).slideUp(300, function() {
-                                $(this).remove();
+                            // $(`#row-${itemId}`).slideUp(300, function() {
+                            //     $(this).remove();
+                            let $deleteButton = $(`.btn-delete[data-id="${itemId}"]`);
+                            let $targetRow = $(`#row-${itemId}`);
 
+                            if (!$targetRow.length) {
+                                $targetRow = $deleteButton.closest('.deletable-item');
+                            }
+
+                            $targetRow.slideUp(300, function() {
+                                $(this).remove();
                                 Swal.fire({
                                     icon: 'success',
                                     title: response.message,

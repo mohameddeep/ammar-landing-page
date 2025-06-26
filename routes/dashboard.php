@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\Commissions\CommissionController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
+use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\User\UserController;
@@ -50,5 +51,9 @@ Route::group([
 
         // package Routes
         Route::resource('packages', PackageController::class);
+        Route::post('/packages/toggle/{id}', [PackageController::class, 'toggle'])->name('packages.toggle');
+        Route::post('/packages/toggle_hidden/{id}', [PackageController::class, 'toggleHidden'])->name('packages.toggle_hidden');
+        Route::post('/packages/feature/toggle/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.toggle.details');
+        Route::get('/packages/feature/show/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.show.details');
     });
 });
