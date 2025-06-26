@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             CommissionSeeder::class,
             PackageSeeder::class,
             PackageFeatureSeeder::class,
+            CategorySeeder::class,
+
         ]);
     }
 }

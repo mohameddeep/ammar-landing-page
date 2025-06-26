@@ -39,14 +39,19 @@
                                     </button>
                                 </div>
                                 <div class="p-1 flex-grow-1 d-flex flex-column">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h5 class="fw-bold mb-0">{{ $package->t('name') }}</h5>
+                                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+                                        <h5 class="fw-bold mb-0"
+                                            style="word-break: break-word; white-space: normal; max-width: 70%;">
+                                            {{ $package->t('name') }}
+                                        </h5>
                                         <span
-                                            class="badge {{ $package->type->color() }} text-capitalize d-flex align-items-center ms-2 gap-1">
+                                            class="badge {{ $package->type->color() }} text-capitalize d-flex align-items-center ms-2 gap-1"
+                                            style="max-width: 28%; word-break: break-word;">
                                             <i class="{{ $package->type->icon() }}"></i>
-                                            {{ $package->type->t() }}
+                                            <span>{{ $package->type->t() }}</span>
                                         </span>
                                     </div>
+
 
                                     <div class="card p-3 rounded-3 mb-2">
                                         <div class="row text-center mb-3">
@@ -67,7 +72,7 @@
 
                                     <div class="text-muted small">{{ $package->t('description') }}</div>
 
-                                    {{-- <ul class="list-unstyled mb-0 flex-grow-1">
+                                    <ul class="list-unstyled mb-0 flex-grow-1" style="flex-wrap: wrap;">
                                         @forelse ($package->features as $feature)
                                             <li class="d-flex align-items-center mb-2">
                                                 <span class="me-2">
@@ -80,15 +85,15 @@
                                                         role="button" style="cursor: pointer;">
                                                     </i>
                                                 </span>
-                                                <span>
-                                                    <strong class="me-1">2 Free</strong>
+                                                <span style="word-break: break-word; white-space: normal;">
                                                     {{ $feature->t('feature') }}
                                                 </span>
+
                                             </li>
                                         @empty
                                             <li class="text-muted">No features available</li>
                                         @endforelse
-                                    </ul> --}}
+                                    </ul>
                                     <div class="mt-auto pt-3 d-flex justify-content-between align-items-center">
                                         <x-buttons.show-button tooltipTitle="show details" :route="route('packages.show.details', $package->id)" />
                                         <x-buttons.edit-button :route="route('packages.edit', $package->id)" />

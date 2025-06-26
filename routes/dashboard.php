@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
@@ -55,5 +56,9 @@ Route::group([
         Route::post('/packages/toggle_hidden/{id}', [PackageController::class, 'toggleHidden'])->name('packages.toggle_hidden');
         Route::post('/packages/feature/toggle/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.toggle.details');
         Route::get('/packages/feature/show/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.show.details');
+
+        // categories Routes
+        Route::resource('categories', CategoryController::class);
+        Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
     });
 });

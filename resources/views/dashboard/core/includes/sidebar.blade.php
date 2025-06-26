@@ -131,7 +131,15 @@
 
 
 
-
+                {{-- start categories --}}
+                <li class="slide">
+                    <a href="{{ route('categories.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['categories.index', 'categories.edit', 'categories.create']) ? 'active' : '' }}">
+                        <i class="ti ti-category-plus side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.categories')</span>
+                    </a>
+                </li>
+                {{-- end categories --}}
 
 
 
