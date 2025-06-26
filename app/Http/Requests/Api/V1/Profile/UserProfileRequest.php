@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Auth\Password;
-use App\Rules\EmailExistsInUsersOrMerchants;
+declare(strict_types=1);
+
+namespace App\Http\Requests\Api\V1\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class VerifyOtpRequest extends FormRequest
+final class UserProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +25,9 @@ class VerifyOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => ["required","email", new EmailExistsInUsersOrMerchants()],
-            'otp_token' => ['required' , 'string'] ,
-            'otp' => ['required' , 'string'] ,
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email:rfc,dns'],
+            'phone' => ['required'],
         ];
     }
 }

@@ -5,8 +5,7 @@ namespace App\Http\Services\Api\V1\Auth\Email;
 use App\Http\Resources\V1\Otp\OtpResource;
 use App\Repository\OtpRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
-use Illuminate\Support\Facades\Mail;
-use PhpParser\Node\Stmt\Return_;
+
 
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;

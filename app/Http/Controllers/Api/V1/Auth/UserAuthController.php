@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\SignInRequest;
-use App\Http\Requests\Api\V1\Auth\SignUpRequest;
-use App\Http\Services\Api\V1\Auth\AuthService;
+use App\Http\Requests\Api\V1\Auth\User\SignUpRequest;
+use App\Http\Services\Api\V1\Auth\UserAuthService;
 
-class AuthController extends Controller
+class UserAuthController extends Controller
 {
     public function __construct(
-        private readonly AuthService $auth,
+        private readonly UserAuthService $auth,
     )
     {
     }

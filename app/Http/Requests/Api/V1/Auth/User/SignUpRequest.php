@@ -1,13 +1,14 @@
 <?php
 
-declare(strict_types=1);
+namespace App\Http\Requests\Api\V1\Auth\User;
 
-namespace App\Http\Requests\Api\V1\User;
-
+use App\Enums\UserTypeEnum;
+use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
-final class UserProfileRequest extends FormRequest
+class SignUpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +28,10 @@ final class UserProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')],
-            'phone' => ['required'],
+            'phone' => ['required', new Phone, Rule::unique('users', 'phone')->ignore(auth('api')->id())],
+            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
+            'fcm_token' => ['nullable', "string"]
+
         ];
     }
 }

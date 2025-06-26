@@ -21,12 +21,12 @@ class OtpService
     public function generate($user = null)
     {
         $otp = $this->otpRepository->generateOtp($user);
-        auth('api')->user()?->update([
+        auth()->user()?->update([
             'otp_verified' => false
         ]);
+        
         // TODO :Sending OTP in email
-
-                SendMailJob::dispatchAfterResponse($user->email, new SendOtpMail($otp));
+                SendMailJob::dispatchAfterResponse( $user->email, new SendOtpMail($otp));
 
         return responseSuccess(message: __('messages.OTP_Is_Send'), data: OtpResource::make($otp));
     }
@@ -39,8 +39,8 @@ class OtpService
             if (!$this->otpRepository->check($data['otp'], $data['otp_token']))
                 return responseFail(message: __('messages.Wrong OTP code or expired'));
 
-            auth('api')->user()?->otps()?->delete();
-            auth('api')->user()?->update([
+            auth()->user()?->otps()?->delete();
+            auth()->user()?->update([
                 'otp_verified' => true
             ]);
             DB::commit();

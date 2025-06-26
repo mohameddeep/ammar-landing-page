@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1\Auth\Password;
 
+use App\Rules\EmailExistsInUsersOrMerchants;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ForgetPasswordRequest extends FormRequest
@@ -22,7 +23,7 @@ class ForgetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email"=> "required|email|exists:users,email",
+            "email"=> ["required","email", new EmailExistsInUsersOrMerchants()],
         ];
     }
 }

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Resources\V1\User;
+namespace App\Http\Resources\V1\merchant;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function App\Http\Helpers\fileFullPath;
 
-class UserResource extends JsonResource
+class MerchantResource extends JsonResource
 {
-    public function __construct($resource, private readonly bool $withToken)
+    public function __construct($resource)
     {
         parent::__construct($resource);
     }
@@ -22,9 +23,11 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'otp_token' => $this->whenNotNull($this->otp?->token),
-            'otp_verified' => $this->whenNotNull($this->otp_verified),
-            'token' => $this->when($this->withToken, $this->token()),
+            'image' => fileFullPath($this->image),
+            'is_active' =>$this->is_active,
+            'type' =>$this->type,
+
+    
         ];
     }
 }
