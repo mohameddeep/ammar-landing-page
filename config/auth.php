@@ -44,6 +44,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'merchant-api' => [
+        'driver' => 'jwt',
+        'provider' => 'merchants',
+    ],
     ],
 
     /*
@@ -72,6 +76,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Manager::class,
         ],
+        'merchants' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Merchant::class,
+    ],
     ],
 
     /*

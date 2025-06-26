@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Services\Api\V1\Auth\Profile;
+namespace App\Http\Services\Api\V1\Profile;
 
 use App\Http\Helpers\Http;
 use App\Http\Resources\V1\User\UserProfileResource;
-use App\Http\Resources\V1\User\UserResource;
 use App\Repository\OtpRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -12,21 +11,19 @@ use Exception;
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
-class ProfileService
+class UserProfileService
 {
     public function __construct(
         private readonly OtpRepositoryInterface $otpRepository,
     ) {}
 
  
-   final public function userProfile()
+   final public function profile()
     {
-
-        return responseSuccess( data: new UserProfileResource(auth('api')->user()));
-
+            return responseSuccess( data: new UserProfileResource(auth('api')->user()));
     }
 
-    final public function updateUserProfile($request)
+    final public function updateProfile($request)
     {
 
         DB::beginTransaction();

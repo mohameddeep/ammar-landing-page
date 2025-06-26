@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -14,23 +12,23 @@ use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 
 
-class User extends Authenticatable implements JWTSubject , LaratrustUser
+class Merchant extends  Authenticatable implements JWTSubject , LaratrustUser
 {
-    use HasApiTokens, HasFactory, Notifiable , HasRolesAndPermissions;
+      use HasApiTokens, HasFactory, Notifiable , HasRolesAndPermissions;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
+
+
+        protected $fillable = [
         'name',
         'email',
         'password',
         'phone',
         'otp_verified',
         'is_active',
-        'fcm_token'
+        'type',
+        'fcm_token',
+        'is_featured',
+        "image"
     ];
 
     /**
@@ -71,16 +69,12 @@ class User extends Authenticatable implements JWTSubject , LaratrustUser
     }
 
 
-     public function otp()
+   public function otp()
 {
     return $this->morphOne(Otp::class, 'otppable');
-}    public function otps()
+}
+    public function otps()
 {
     return $this->morphMany(Otp::class, 'otppable');
 }
-
-    public function addresses(): HasMany
-    {
-        return $this->hasMany(UserAddress::class, 'user_id', 'id');
-    }
 }

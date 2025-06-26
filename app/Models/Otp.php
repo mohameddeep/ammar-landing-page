@@ -9,4 +9,9 @@ class Otp extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function otppable()
+    {
+        return $this->morphTo();
+    }
 }
