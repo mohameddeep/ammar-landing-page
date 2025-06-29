@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,13 +13,13 @@ use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 
 
-class Merchant extends  Authenticatable implements JWTSubject , LaratrustUser
+class Merchant extends  Authenticatable implements JWTSubject, LaratrustUser
 {
-      use HasApiTokens, HasFactory, Notifiable , HasRolesAndPermissions;
+    use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions;
 
 
 
-        protected $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'password',
@@ -51,6 +52,7 @@ class Merchant extends  Authenticatable implements JWTSubject , LaratrustUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'type' => UserTypeEnum::class
         ];
     }
     public function getJWTIdentifier()
@@ -69,12 +71,12 @@ class Merchant extends  Authenticatable implements JWTSubject , LaratrustUser
     }
 
 
-   public function otp()
-{
-    return $this->morphOne(Otp::class, 'otppable');
-}
+    public function otp()
+    {
+        return $this->morphOne(Otp::class, 'otppable');
+    }
     public function otps()
-{
-    return $this->morphMany(Otp::class, 'otppable');
-}
+    {
+        return $this->morphMany(Otp::class, 'otppable');
+    }
 }

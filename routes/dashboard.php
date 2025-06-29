@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Merchant\MerchantController;
 use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
@@ -29,11 +30,21 @@ Route::group([
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [HomeController::class, 'index'])->name('/');
+
+        // users route
         Route::resource('users', UserController::class);
+
+        // merchant routes 
+        Route::resource('merchants', MerchantController::class);
+        Route::post('/toggle/feature/{id}', [MerchantController::class, 'toggleFeature'])->name('merchants.toggle.feature');
+        Route::post('/toggle/activate/{id}', [MerchantController::class, 'toggleActivate'])->name('merchants.toggle.activate');
 
         Route::resource('settings', SettingController::class)->only('edit', 'update');
         Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
+        // roles
         Route::resource('roles', RoleController::class);
+
+
         Route::get('role/{id}/managers', [RoleController::class, 'mangers'])->name('roles.mangers');
         Route::controller(MangerController::class)->prefix('managers')->name('managers.')
             ->group(function () {

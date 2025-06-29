@@ -295,5 +295,7 @@ return [
     'Designed with' => 'تم التصميم باستخدام',
     'by' => 'بواسطة',
     'All rights reserved' => 'جميع الحقوق محفوظة',
-
-];
+    'User Management' => 'إدارة المستخدمين',
+    'Users and Merchent' => 'المستخدمين و التجار',
+    'Merchent' => 'التجار'
+    ];

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId("package_id")->constrained("packages")->cascadeOnDelete();
-            $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
+            $table->foreignId("merchant_id")->constrained("merchants")->cascadeOnDelete();
             $table->dateTime("end_date")->nullable();
             $table->boolean("is_active")->default(0);
             $table->timestamps();

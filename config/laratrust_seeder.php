@@ -16,10 +16,23 @@ return [
             'users' => 'c,r,u,d,s',
             'roles' => 'c,r,u,d,s',  // Roles && assign permission
             'managers' => 'c,r,u,d,s',
+            'merchants' => 'c,r,u,d,s',
             'profile' => 'r,u,s',
         ],
         'admin' => [
-            'users' => 'r',
+            'merchants' => 'r',
+            'profile' => 'r,u,s',
+        ],
+        'store' => [
+            'merchants' => 'r',
+            'profile' => 'r,u,s',
+        ],
+        'designer' => [
+            'merchants' => 'r',
+            'profile' => 'r,u,s',
+        ],
+        'individual' => [
+            'merchants' => 'r',
             'profile' => 'r,u,s',
         ],
 

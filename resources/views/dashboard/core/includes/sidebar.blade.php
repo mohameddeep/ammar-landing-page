@@ -47,7 +47,6 @@
                         <span class="side-menu__label">@lang('dashboard.Dashboard')</span>
                     </a>
                 </li>
-
                 {{-- end one slide dashboard --}}
 
                 {{-- nested slide slide users --}}
@@ -67,19 +66,50 @@
                         ? 'open active'
                         : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item ">
-                        <i class="bx bx-home side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.Home')<span
-                                class="badge bg-warning-transparent ms-2">12</span></span>
+                        <i class="ri ri-user-settings-line side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.User Management')</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
-                        <li class="slide">
-                            <a href="{{ route('users.index') }}"
-                                class="side-menu__item {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
-                                    ? 'active'
-                                    : '' }}">
-                                @lang('dashboard.users')
-                            </a>
+                        <li class="slide side-menu__label1">
+                            <a href="javascript:void(0)">@lang('dashboard.Users and Merchent')</a>
+                        </li>
+
+                        <li
+                            class="slide has-sub {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
+                                ? 'open active'
+                                : '' }}">
+
+                            <a href="javascript:void(0);" class="side-menu__item">@lang('dashboard.Users and Merchent')
+                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
+                            <ul class="slide-menu child2">
+
+                                <li class="slide">
+                                    <a href="{{ route('users.index') }}"
+                                        class="side-menu__item {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
+                                            ? 'active'
+                                            : '' }}">
+                                        @lang('dashboard.users')
+                                    </a>
+                                </li>
+
+                                <li class="slide">
+                                    <a href="{{ route('merchants.index') }}"
+                                        class="side-menu__item {{ in_array(request()->route()->getName(), [
+                                            'merchants.index',
+                                            'merchants.create',
+                                            'merchants.edit',
+                                            'merchants.show',
+                                        ])
+                                            ? 'active'
+                                            : '' }}">
+                                        @lang('dashboard.Merchent')
+                                    </a>
+                                </li>
+
+
+                            </ul>
+
                         </li>
 
                         @permission('roles-read')
@@ -100,6 +130,7 @@
                             </li>
                         @endpermission
                     </ul>
+
                 </li>
                 {{-- end nested slide slide users --}}
 

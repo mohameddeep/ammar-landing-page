@@ -295,4 +295,9 @@ return [
     'Designed with' => 'Designed with',
     'by' => 'by',
     'All rights reserved' => 'All rights reserved',
+    'User Management' => 'User Management',
+
+    'Merchent' => 'Merchants',
+    'Users and Merchent' => 'Users and Merchent'
+
 ];
