@@ -27,7 +27,12 @@
                 <x-input.input-field name="product_number" type="text" label="{{ __('dashboard.product_number') }}"
                     :value="old('product_number', $package->product_number)" />
 
-                <x-input.input-field name="price" type="text" label="{{ __('dashboard.price') }}" :value="old('price', $package->price)" />
+
+                <x-input.input-field name="free_product_count" type="text"
+                    label="{{ __('dashboard.free_product_count') }}" :value="old('free_product_count', $package->free_product_count)" />
+
+                <x-input.input-field name="price" type="text" label="{{ __('dashboard.price') }}"
+                    :value="old('price', $package->price)" />
 
                 <x-input.input-field name="duration" type="text" label="{{ __('dashboard.duration') }}"
                     :value="old('duration', $package->duration)" />

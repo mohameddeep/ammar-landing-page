@@ -24,18 +24,18 @@ enum PackageTypeEnum: string
     public function icon(): string
     {
         return match ($this) {
-            self::Store => 'ti ti-building-store',         
-            self::Designer => 'ti ti-brush',               
-            self::Individual => 'ti ti-user-circle',      
+            self::Store => 'ti ti-building-store',
+            self::Designer => 'ti ti-brush',
+            self::Individual => 'ti ti-user-circle',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Store => 'bg-primary',      
-            self::Designer => 'bg-purple',   
-            self::Individual => 'bg-teal',     
+            self::Store => 'bg-primary',
+            self::Designer => 'bg-purple',
+            self::Individual => 'bg-teal',
         };
     }
 }

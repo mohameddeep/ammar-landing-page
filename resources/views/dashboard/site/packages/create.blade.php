@@ -37,6 +37,10 @@
                 <x-input.input-field name="product_number" type="text" label="{{ __('dashboard.product_number') }}"
                     placeholder="{{ __('dashboard.product_number') }}" :value="old('product_number')" />
 
+                <x-input.input-field name="free_product_count" type="text"
+                    label="{{ __('dashboard.free_product_count') }}"
+                    placeholder="{{ __('dashboard.free_product_count') }}" :value="old('free_product_count')" />
+
                 <x-input.input-field name="price" type="text" label="{{ __('dashboard.price') }}"
                     placeholder="{{ __('dashboard.price') }}" :value="old('price')" />
 

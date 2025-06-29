@@ -69,7 +69,7 @@
             </x-slot>
             <div class="row py-3 px-2">
                 @foreach ($packages as $package)
-                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
+                    <div class="col-xxl-4 col-xl-4 col-lg-3 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
                         <div class="card card-container h-100 d-flex flex-column">
 
                             <div class="card-actions-sidebar">
@@ -112,27 +112,37 @@
                                     </div>
                                     <div class="card p-3 rounded-3 mb-2">
                                         <div class="row text-center mb-3">
-                                            <div class="col">
-
-                                                <div class="fs-18 fw-bold"><i
-                                                        class="ri-time-line  me-1"></i>{{ $package->duration }}</div>
+                                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                                <div class="fs-18 fw-bold">
+                                                    <i class="ri-time-line me-1"></i>{{ $package->duration }}
+                                                </div>
                                                 <div class="text-muted fs-12">Days Duration</div>
                                             </div>
-                                            <div class="col">
 
-                                                <div class="fs-18 fw-bold"><i
-                                                        class="ri-money-dollar-circle-line  me-1"></i>{{ $package->price }}
+                                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                                <div class="fs-18 fw-bold">
+                                                    <i class="ri-money-dollar-circle-line me-1"></i>{{ $package->price }}
                                                 </div>
                                                 <div class="text-muted fs-12">USD</div>
                                             </div>
-                                            <div class="col">
 
-                                                <div class="fs-18 fw-bold mb-1"><i
-                                                        class="ri-stack-line me-1"></i>{{ $package->product_number }}</div>
+                                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                                <div class="fs-18 fw-bold mb-1">
+                                                    <i class="ri-stack-line me-1"></i>{{ $package->product_number }}
+                                                </div>
                                                 <div class="text-muted fs-12">Products Allowed</div>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <div class="fs-18 fw-bold mb-1">
+                                                    <i
+                                                        class="ri-gift-line me-1 text-primary"></i>{{ $package->free_product_count }}
+                                                </div>
+                                                <div class="text-muted fs-12">Free Product</div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="text-muted small">{{ $package->t('description') }}</div>
                                     <ul class="list-unstyled mb-0 flex-grow-1 mt-3" style="flex-wrap: wrap;">
                                         @forelse ($package->features as $feature)
