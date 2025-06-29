@@ -24,5 +24,11 @@ return [
     'Successfully authenticated' => 'Successfully authenticated.',
     'created successfully' => 'Created successfully.',
     'Your account has been verified successfully' => 'Your account has been verified successfully.',
-    'OTP_Is_Send' => 'OTP has been sent.'
+    'OTP_Is_Send' => 'OTP has been sent.',
+    'you_already_subscribed_to_this_package' => 'You are already subscribed to this package',
+    'invalid_coupon' => 'The coupon is invalid',
+    'subscribed_successfully' => 'Subscribed successfully',
+
+
+
 ];

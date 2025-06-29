@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\Category\CategoryController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
 use App\Http\Controllers\Api\V1\Merchant\MerchantController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
+use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
@@ -137,6 +138,19 @@ Route::group([ 'middleware' => ['auth:api']], function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');
     });
+
+
+//subscription
+    Route::group([
+        'prefix' => 'subscription',
+        'controller' => SubscriptionController::class
+    ], function () {
+        Route::post('/', 'subscribe');
+        Route::post('/apply-coupon', 'applyCoupon');
+    });
+
+
+
 });
 
 

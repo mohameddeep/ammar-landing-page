@@ -24,9 +24,9 @@ class OtpService
         auth()->user()?->update([
             'otp_verified' => false
         ]);
-        
+        $email=$user->email ?? auth()->user()->email;
         // TODO :Sending OTP in email
-                SendMailJob::dispatchAfterResponse( $user->email, new SendOtpMail($otp));
+        SendMailJob::dispatchAfterResponse( $email, new SendOtpMail($otp));
 
         return responseSuccess(message: __('messages.OTP_Is_Send'), data: OtpResource::make($otp));
     }

@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests\Api\V1\Profile;
+namespace App\Http\Requests\Api\V1\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class UserProfileRequest extends FormRequest
+class CouponRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +22,10 @@ final class UserProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email:rfc,dns'],
-            'phone' => ['required'],
+            "price" =>["required"],
+            "coupon_code" =>["required"],
         ];
     }
+
+    
 }
