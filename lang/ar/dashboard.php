@@ -303,8 +303,8 @@ return [
     'usage_count' => 'عدد مرات الاستخدام',
     'expire_at' => 'تاريخ الانتهاء',
 
-
+    'Allure Collection' => 'ألور كوليكشن',
     'User Management' => 'إدارة المستخدمين',
     'Users and Merchent' => 'المستخدمين و التجار',
     'Merchent' => 'التجار'
-    ];
+];
