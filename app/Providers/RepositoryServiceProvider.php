@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\CommissionRepositoryInterface;
+use App\Repository\CouponRepositoryInterface;
 use App\Repository\Eloquent\CommissionRepository;
+use App\Repository\Eloquent\CouponRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\MerchantRepository;
 use App\Repository\Eloquent\OtpRepository;
@@ -31,8 +33,9 @@ use App\Repository\SliderRepositoryInterface;
 use App\Repository\UserAddressRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
-use App\Http\Services\Api\V1\Auth\UserAuthService;
-use App\Http\Services\Api\V1\Auth\Otp\OtpService;
+use App\Repository\Eloquent\SubscriptionRepository;
+use App\Repository\SubscriptionRepositoryInterface;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -55,8 +58,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(CommissionRepositoryInterface::class, CommissionRepository::class);
         $this->app->singleton(PackageRepositoryInterface::class, PackageRepository::class);
         $this->app->singleton(MerchantRepositoryInterface::class, MerchantRepository::class);
-
-
+        $this->app->singleton(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
+        $this->app->singleton(CouponRepositoryInterface::class, CouponRepository::class);
     }
 
     /**

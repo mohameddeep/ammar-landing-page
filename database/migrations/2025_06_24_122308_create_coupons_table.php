@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('coupons', function (Blueprint $table) {
-           $table->id();
+            $table->id();
             $table->string('code')->unique();
             $table->string('name');
             $table->decimal('discount', 5, 2);
             $table->integer('usage_count')->default(0);
             $table->dateTime('expire_at')->nullable();
+             $table->timestamps();
         });
     }
 

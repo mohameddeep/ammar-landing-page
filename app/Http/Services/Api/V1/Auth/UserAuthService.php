@@ -7,7 +7,6 @@ use App\Http\Services\Api\V1\Auth\Otp\OtpService;
 use App\Repository\UserRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Api\V1\Auth\SignUpRequest;
 use App\Http\Resources\V1\User\UserResource;
 
 use function App\Http\Helpers\responseFail;
@@ -34,8 +33,8 @@ class UserAuthService extends AuthService
 
     public function signUp( $request)
     {
-        // DB::beginTransaction();
-        // try {
+        DB::beginTransaction();
+        try {
             $data = $request->validated();
             $user = $this->userRepository->create($data);
             $this->otpService->generate($user);
@@ -43,9 +42,9 @@ class UserAuthService extends AuthService
             DB::commit();
 
             return responseSuccess(Http::CREATED, __('messages.created successfully'),  new UserResource($user, true));
-        // } catch (Exception $e) {
-        //     DB::rollBack();
-        //     return responseFail(Http::BAD_REQUEST, __('messages.Something went wrong'));
-        // }
+        } catch (Exception $e) {
+            DB::rollBack();
+            return responseFail(Http::BAD_REQUEST, __('messages.Something went wrong'));
+        }
     }
 }

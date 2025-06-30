@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Merchant\MerchantController;
 use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
+use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
@@ -71,5 +72,8 @@ Route::group([
         // categories Routes
         Route::resource('categories', CategoryController::class);
         Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
+    
+            Route::resource('coupons', CouponController::class)->except('show');
+
     });
 });

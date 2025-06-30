@@ -185,7 +185,14 @@
                 </li>
                 {{-- end categories --}}
 
-
+                <!-- Start::coupons -->
+                <li class="slide">
+                    <a href="{{ route('coupons.index') }}" class="side-menu__item {{ request()->routeIs('coupons.index') ? 'active' : '' }}">
+                        <i class="ti ti-discount-2 side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.coupons')</span>
+                    </a>
+                </li>
+                <!-- End::coupons -->
 
 
 
