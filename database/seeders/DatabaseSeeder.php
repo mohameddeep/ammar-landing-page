@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             PackageSeeder::class,
             PackageFeatureSeeder::class,
             CategorySeeder::class,
+            SubscriptionSeeder::class,
 
         ]);
     }

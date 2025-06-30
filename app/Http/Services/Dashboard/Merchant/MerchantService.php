@@ -24,13 +24,17 @@ class MerchantService
         return view('dashboard.site.merchants.index', compact('merchants'));
     }
 
-    public function create($id)
+    public function create()
     {
-
-        $role = $this->roleRepository->getById($id);
-        return view('dashboard.site.merchants.create', compact('role'));
+        return view('dashboard.site.merchants.create');
     }
 
+    public function show($id)
+    {
+        $merchant = $this->repository->getById($id, relations: ['products', 'packages']);
+
+        return view('dashboard.site.merchants.show', compact('merchant'));
+    }
     public function store($request)
     {
         try {
@@ -46,16 +50,7 @@ class MerchantService
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
-    public function show($id)
-    {
-        $user = $this->repository->getById($id);
-        return view('dashboard.site.users.show', compact('user'));
-    }
-    public function edit($id)
-    {
-        $user = $this->repository->getById($id);
-        return view('dashboard.site.users.edit', compact('user'));
-    }
+
 
     public function update($request, $id)
     {

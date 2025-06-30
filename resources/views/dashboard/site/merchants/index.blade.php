@@ -24,6 +24,7 @@
                             <th style="width: 10px">#</th>
                             <th>@lang('dashboard.Name')</th>
                             <th>@lang('dashboard.Phone')</th>
+                            <th>@lang('dashboard.product_count')</th>
                             <th>@lang('dashboard.Type')</th>
                             <th>@lang('dashboard.Active')</th>
                             <th>@lang('dashboard.Featured')</th>
@@ -55,6 +56,7 @@
                                 </td>
 
                                 <td>{{ $merchant->phone ?? '-' }}</td>
+                                <td class="text-center">{{ $merchant->products_count ?? '-' }}</td>
                                 <td class="text-center">
 
                                     <span class=" ms-2 badge {{ $merchant->type->color() }}">

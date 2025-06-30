@@ -2,7 +2,7 @@
 @section('title', __('dashboard.commissions'))
 @section('css_addons')
     <style>
-        .card-container {
+        .card-container-css {
             position: relative;
         }
 
@@ -24,7 +24,7 @@
             z-index: 10;
         }
 
-        .card-container:hover .card-actions-sidebar {
+        .card-container-css:hover .card-actions-sidebar {
             opacity: 1;
             transform: translateY(0);
         }
@@ -69,103 +69,114 @@
             </x-slot>
             <div class="row py-3 px-2">
                 @foreach ($packages as $package)
-                    <div class="col-xxl-4 col-xl-4 col-lg-3 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
-                        <div class="card card-container h-100 d-flex flex-column">
-
-                            <div class="card-actions-sidebar">
-                                <button type="button"
-                                    class="btn btn-icon {{ $package->is_active ? 'btn-outline-secondary' : 'btn-outline-success' }} toggle-package-btn"
-                                    data-id="{{ $package->id }}" data-active="{{ $package->is_active }}"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-custom-class="{{ $package->is_active ? 'tooltip-secondary' : 'tooltip-success' }}"
-                                    data-bs-placement="top"
-                                    title="{{ $package->is_active ? 'إلغاء التفعيل' : 'تفعيل الباقة' }}">
-                                    <i
-                                        class="{{ $package->is_active ? 'ri-close-circle-line' : 'ri-checkbox-circle-line' }}"></i>
-                                </button>
-
-                                <button type="button"
-                                    class="btn btn-icon {{ $package->is_hidden ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
-                                    data-id="{{ $package->id }}" data-active="{{ $package->is_hidden }}"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-custom-class="{{ $package->is_hidden ? 'tooltip-warning' : 'tooltip-primary' }}"
-                                    data-bs-placement="top"
-                                    title="{{ $package->is_hidden ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
-                                    <i class="{{ $package->is_hidden ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
-                                </button>
-                                <x-buttons.edit-button :route="route('packages.edit', $package->id)" />
-                                <x-buttons.delete-button :route="route('packages.destroy', $package->id)" :itemId="$package->id" />
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <div class="p-1 flex-grow-1 d-flex flex-column">
-                                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
-                                        <h5 class="fw-bold mb-0"
-                                            style="word-break: break-word; white-space: normal; max-width: 60%;">
-                                            {{ $package->t('name') }}
-                                        </h5>
-                                        <span
-                                            class="badge {{ $package->type->color() }} text-capitalize d-flex align-items-center ms-2 gap-1"
-                                            style="max-width: 35%; word-break: break-word;">
-                                            <i class="{{ $package->type->icon() }}"></i>
-                                            <span>{{ $package->type->t() }}</span>
-                                        </span>
-                                    </div>
-                                    <div class="card p-3 rounded-3 mb-2">
-                                        <div class="row text-center mb-3">
-                                            <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                                <div class="fs-18 fw-bold">
-                                                    <i class="ri-time-line me-1"></i>{{ $package->duration }}
-                                                </div>
-                                                <div class="text-muted fs-12">Days Duration</div>
+                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
+                        <div class="card h-100 d-flex flex-column card-container-css">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+                                    <div class="d-flex align-items-center flex-grow-1 gap-3">
+                                        @if (isset($package->image) && $package->image)
+                                            <span data-status-indicator data-package-id="{{ $package->id }}"
+                                                class="avatar avatar-lg avatar-rounded {{ $package->is_active ? 'online' : 'offline' }} overflow-hidden"
+                                                data-status-indicator data-package-id="{{ $package->id }}">
+                                                <img src="@image($package->image)" alt="img" class="img-fluid">
+                                            </span>
+                                        @else
+                                            <div data-status-indicator data-package-id="{{ $package->id }}"
+                                                class="avatar avatar-lg avatar-rounded {{ $package->is_active ? 'online' : 'offline' }} d-flex align-items-center justify-content-center bg-light text-primary"
+                                                data-status-indicator data-package-id="{{ $package->id }}">
+                                                <img src="{{ $package->type->icon() }}" alt="Icon" class="img-fluid"
+                                                    style="width: 24px;">
                                             </div>
+                                        @endif
 
-                                            <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                                <div class="fs-18 fw-bold">
-                                                    <i class="ri-money-dollar-circle-line me-1"></i>{{ $package->price }}
-                                                </div>
-                                                <div class="text-muted fs-12">USD</div>
-                                            </div>
-
-                                            <div class="col-6 col-md-3 mb-3 mb-md-0">
-                                                <div class="fs-18 fw-bold mb-1">
-                                                    <i class="ri-stack-line me-1"></i>{{ $package->product_number }}
-                                                </div>
-                                                <div class="text-muted fs-12">Products Allowed</div>
-                                            </div>
-
-                                            <div class="col-6 col-md-3">
-                                                <div class="fs-18 fw-bold mb-1">
-                                                    <i
-                                                        class="ri-gift-line me-1 text-primary"></i>{{ $package->free_product_count }}
-                                                </div>
-                                                <div class="text-muted fs-12">Free Product</div>
+                                        <div class="d-flex flex-column">
+                                            <p class="fw-bold mb-1 text-dark d-flex align-items-center gap-2">
+                                                {{ $package->t('name') }}
+                                                <span class="badge {{ $package->type->color() }}">
+                                                    {{ $package->type->t() }}
+                                                </span>
+                                            </p>
+                                            <div class="text-muted fw-semibold d-flex align-items-center">
+                                                {{ $package->price }}
+                                                <img src="{{ asset('icons/Saudi_Riyal_Symbol.svg') }}" alt="SAR"
+                                                    class="mx-1" style="width: 16px;">
+                                                / {{ $package->duration }} @lang('dashboard.days')
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card-actions-sidebar">
+                                        <button type="button"
+                                            class="btn btn-icon {{ $package->is_active ? 'btn-outline-secondary' : 'btn-outline-success' }} toggle-package-btn"
+                                            data-id="{{ $package->id }}" data-active="{{ $package->is_active }}"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-custom-class="{{ $package->is_active ? 'tooltip-secondary' : 'tooltip-success' }}"
+                                            data-bs-placement="top"
+                                            title="{{ $package->is_active ? 'إلغاء التفعيل' : 'تفعيل الباقة' }}">
+                                            <i
+                                                class="{{ $package->is_active ? 'ri-close-circle-line' : 'ri-checkbox-circle-line' }}"></i>
+                                        </button>
 
-                                    <div class="text-muted small">{{ $package->t('description') }}</div>
-                                    <ul class="list-unstyled mb-0 flex-grow-1 mt-3" style="flex-wrap: wrap;">
-                                        @forelse ($package->features as $feature)
-                                            <li class="d-flex align-items-center mb-2">
-                                                <span class="me-2">
-                                                    <i class="ri-checkbox-circle-line fs-2 toggle-feature-icon {{ $feature->is_active ? 'text-success' : 'text-muted' }}"
-                                                        data-id="{{ $feature->id }}"
-                                                        data-active="{{ $feature->is_active ? 1 : 0 }}"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-custom-class="{{ $feature->is_active ? 'tooltip-success' : 'tooltip-muted' }}"
-                                                        title="{{ $feature->is_active ? 'اضغط لإلغاء التفعيل' : 'اضغط للتفعيل' }}"
-                                                        role="button" style="cursor: pointer;">
-                                                    </i>
-                                                </span>
-                                                <span style="word-break: break-word; white-space: normal;">
-                                                    {{ $feature->t('feature') }}
-                                                </span>
-                                            </li>
-                                        @empty
-                                            <li class="text-muted">No features available</li>
-                                        @endforelse
-                                    </ul>
+                                        <button type="button"
+                                            class="btn btn-icon {{ $package->is_hidden ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
+                                            data-id="{{ $package->id }}" data-active="{{ $package->is_hidden }}"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-custom-class="{{ $package->is_hidden ? 'tooltip-warning' : 'tooltip-primary' }}"
+                                            data-bs-placement="top"
+                                            title="{{ $package->is_hidden ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
+                                            <i class="{{ $package->is_hidden ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
+                                        </button>
+                                        <x-buttons.edit-button :route="route('packages.edit', $package->id)" />
+                                        <x-buttons.delete-button :route="route('packages.destroy', $package->id)" :itemId="$package->id" />
+                                    </div>
+
                                 </div>
+                                <div class="mb-3">
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="border rounded-2 p-3 bg-light ">
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <i class="ri-stack-line text-primary me-2 fs-5"></i>
+                                                    <span class="text-muted small">@lang('dashboard.number')</span>
+                                                </div>
+                                                <div class="fw-bold fs-5">{{ $package->product_number }}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="border rounded-2 p-3 bg-light">
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <i class="ri-gift-line text-success me-2 fs-5"></i>
+                                                    <span class="text-muted small">@lang('dashboard.free product')</span>
+                                                </div>
+                                                <div class="fw-bold fs-5">{{ $package->free_product_count }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-muted small mt-3">
+                                    {{ $package->t('description') }}
+                                </div>
+                                <ul class="list-unstyled mb-0 flex-grow-1 mt-3" style="flex-wrap: wrap;">
+                                    @forelse ($package->features as $feature)
+                                        <li class="d-flex align-items-center mb-2">
+                                            <span class="me-2">
+                                                <i class="ri-checkbox-circle-line fs-2 toggle-feature-icon {{ $feature->is_active ? 'text-success' : 'text-muted' }}"
+                                                    data-id="{{ $feature->id }}"
+                                                    data-active="{{ $feature->is_active ? 1 : 0 }}"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-custom-class="{{ $feature->is_active ? 'tooltip-success' : 'tooltip-muted' }}"
+                                                    title="{{ $feature->is_active ? 'اضغط لإلغاء التفعيل' : 'اضغط للتفعيل' }}"
+                                                    role="button" style="cursor: pointer;">
+                                                </i>
+                                            </span>
+                                            <span style="word-break: break-word; white-space: normal;">
+                                                {{ $feature->t('feature') }}
+                                            </span>
+                                        </li>
+                                    @empty
+                                        <li class="text-muted">No features available</li>
+                                    @endforelse
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -232,6 +243,11 @@
                             .attr('class', iconClass);
 
                         new bootstrap.Tooltip(btn[0]);
+                        const avatar = $(`[data-status-indicator][data-package-id="${packageId}"]`);
+                        avatar
+                            .removeClass('online offline')
+                            .addClass(newState ? 'online' : 'offline')
+                            .data('active', newState);
 
                         Swal.fire({
                             icon: 'success',

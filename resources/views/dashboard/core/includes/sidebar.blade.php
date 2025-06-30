@@ -52,6 +52,10 @@
                 {{-- nested slide slide users --}}
                 <li
                     class="slide has-sub {{ in_array(request()->route()->getName(), [
+                        'merchants.index',
+                        'merchants.create',
+                        'merchants.edit',
+                        'merchants.show',
                         'users.index',
                         'users.create',
                         'users.edit',
@@ -76,7 +80,16 @@
                         </li>
 
                         <li
-                            class="slide has-sub {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
+                            class="slide has-sub {{ in_array(request()->route()->getName(), [
+                                'merchants.index',
+                                'merchants.create',
+                                'merchants.edit',
+                                'merchants.show',
+                                'users.index',
+                                'users.create',
+                                'users.edit',
+                                'users.show',
+                            ])
                                 ? 'open active'
                                 : '' }}">
 
@@ -166,7 +179,7 @@
                 <li class="slide">
                     <a href="{{ route('categories.index') }}"
                         class="side-menu__item {{ in_array(request()->route()->getName(), ['categories.index', 'categories.edit', 'categories.create']) ? 'active' : '' }}">
-                        <i class="ti ti-category-plus side-menu__icon"></i>
+                        <i class="bx bx-grid-alt side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.categories')</span>
                     </a>
                 </li>

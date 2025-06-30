@@ -19,4 +19,10 @@ class Package extends Model
     {
         return $this->hasMany(PackageFeature::class);
     }
+    public function merchants()
+    {
+        return $this->belongsToMany(Merchant::class, 'subscriptions')
+            ->withPivot('end_date', 'is_active')
+            ->withTimestamps();
+    }
 }

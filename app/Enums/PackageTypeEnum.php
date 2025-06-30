@@ -24,9 +24,9 @@ enum PackageTypeEnum: string
     public function icon(): string
     {
         return match ($this) {
-            self::Store => 'ti ti-building-store',
-            self::Designer => 'ti ti-brush',
-            self::Individual => 'ti ti-user-circle',
+            self::Store => asset('icons/store.svg'),
+            self::Designer => asset('icons/designer.svg'),
+            self::Individual => asset('icons/individual.svg'),
         };
     }
 
