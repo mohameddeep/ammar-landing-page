@@ -74,6 +74,7 @@ return [
     't-Create' => 'إنشاء :t',
     't-Edit' => 'تعديل :t',
     't-Details' => 'تفاصيل :t',
+    'Update' => 'تحديث',
     'create' => 'إنشاء',
     'update' => 'تحديث',
     'delete' => 'حذف',
@@ -295,5 +296,11 @@ return [
     'Designed with' => 'تم التصميم باستخدام',
     'by' => 'بواسطة',
     'All rights reserved' => 'جميع الحقوق محفوظة',
+
+    'coupons' => 'كوبونات الخصم',
+    'code' => 'كود الخصم',
+    'discount' => 'قيمة الخصم',
+    'usage_count' => 'عدد مرات الاستخدام',
+    'expire_at' => 'تاريخ الانتهاء',
 
 ];

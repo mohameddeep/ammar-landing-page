@@ -295,4 +295,10 @@ return [
     'Designed with' => 'Designed with',
     'by' => 'by',
     'All rights reserved' => 'All rights reserved',
+
+    'code' => 'Code',
+    'discount' => 'Discount',
+    'usage_count' => 'Usage Count',
+    'expire_at' => 'Expiration Date',
+    'coupons' => 'Coupons',
 ];

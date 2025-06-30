@@ -28,6 +28,10 @@ final class SubscriptionRepository extends Repository implements  SubscriptionRe
 
     public function calculateSubscriptionEndDate($package)
     {
+
+        if (empty($package->duration)) {
+            return null;
+        }
         $numOfMonths = (int)$package->duration;
         return  Carbon::now()->addMonths($numOfMonths);
     }
