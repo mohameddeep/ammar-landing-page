@@ -127,7 +127,7 @@ return [
     'direct_manager_email' => 'بريد المدير المباشر',
     'purchase_orders' => 'طلبات الشراء',
     'purchase_order' => 'طلب الشراء',
-    'title' => 'عنوان',
+    'title' => 'العنوان',
     'status' => 'الحالة',
     'direct_purchase' => 'شراء مباشر',
     'tender' => 'مناقصة',
@@ -306,5 +306,9 @@ return [
 
     'User Management' => 'إدارة المستخدمين',
     'Users and Merchent' => 'المستخدمين و التجار',
-    'Merchent' => 'التجار'
+    'Merchent' => 'التجار',
+
+    'content_ar' => 'المحتوى (عربي)',
+    'content_en' => 'المحتوى (إنجليزي)',
+    'sliders' => 'صور (slider)',
     ];

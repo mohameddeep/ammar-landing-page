@@ -231,7 +231,7 @@ return [
     'infos' => 'Website Infos',
     'Website Info Content' => 'Website Info Content',
     'Publish' => 'Publish',
-    'content' => 'content',
+    'content' => 'Content',
     'website' => 'Website',
     'title_ar' => 'Title (Arabic)',
     'Title' => 'Title',
@@ -305,5 +305,8 @@ return [
 
     'Merchent' => 'Merchants',
     'Users and Merchent' => 'Users and Merchent',
-    'days' => 'days'
+    'days' => 'days',
+     'content_ar' => 'Content (Arabic)',
+    'content_en' => 'Content (English)',
+    'sliders' => 'Slider',
 ];

@@ -194,7 +194,14 @@
                 </li>
                 <!-- End::coupons -->
 
-
+                <!-- Start::sliders -->
+                <li class="slide">
+                    <a href="{{ route('sliders.index') }}" class="side-menu__item {{ request()->routeIs('sliders.index') ? 'active' : '' }}">
+                        <i class="ti ti-photo side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.sliders')</span>
+                    </a>
+                </li>
+                <!-- End::orders -->
 
                 <!-- Start::slide -->
                 <li class="slide has-sub">
