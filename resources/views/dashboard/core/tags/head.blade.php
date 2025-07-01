@@ -29,7 +29,7 @@
     {{-- <link id="style" rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}"> --}}
 
     <!-- Style Css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 
     <!-- Icons Css -->
     <link rel="stylesheet" href="{{ asset('assets/css/icons.css') }}">
@@ -71,7 +71,7 @@
             direction: rtl !important;
         }
 
-        html[data-toggled="close"] #sidebar {
+        /* html[data-toggled="close"] #sidebar {
             display: none !important;
         }
 
@@ -81,7 +81,7 @@
 
         .breadcrumb-contain {
             direction: ltr !important;
-        }
+        } */
     </style>
     <!-- CSS addons -->
     @yield('css_addons')

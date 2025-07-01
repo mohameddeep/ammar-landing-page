@@ -303,7 +303,7 @@ return [
     'usage_count' => 'عدد مرات الاستخدام',
     'expire_at' => 'تاريخ الانتهاء',
 
-
+    'Allure Collection' => 'ألور كوليكشن',
     'User Management' => 'إدارة المستخدمين',
     'Users and Merchent' => 'المستخدمين و التجار',
     'Merchent' => 'التجار',
@@ -311,4 +311,6 @@ return [
     'content_ar' => 'المحتوى (عربي)',
     'content_en' => 'المحتوى (إنجليزي)',
     'sliders' => 'صور (slider)',
-    ];
+    
+    'commissions' => 'العمولات'
+];

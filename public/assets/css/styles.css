@@ -699,10 +699,11 @@ typography
   --menu-prime-color: #a3aed1;
 }
 
+/* romio */
 [data-menu-styles=color] {
-  --menu-bg: var(--primary-color);
-  --menu-prime-color: rgba(255, 255, 255, 0.6);
-  --menu-border-color: rgba(255, 255, 255, 0.1);
+  --menu-bg: linear-gradient(to bottom, #476B59 0%, #678073 50%, #8fa299 100%);
+  --menu-prime-color: rgba(255, 255, 255, 0.85);
+  --menu-border-color: rgba(255, 255, 255, 0.15);
 }
 [data-menu-styles=color][data-nav-layout=vertical] .app-sidebar .main-sidebar-header .header-logo .desktop-dark {
   display: block;

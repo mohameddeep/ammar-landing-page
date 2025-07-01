@@ -47,7 +47,14 @@
             font-size: 12px;
             padding: 4px 8px;
         }
+
+        /* RTL Support */
+        [dir="rtl"] .card-actions-sidebar {
+            right: auto;
+            left: 1rem;
+        }
     </style>
+
 
 
 @endsection

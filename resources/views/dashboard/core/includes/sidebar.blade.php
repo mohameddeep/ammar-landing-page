@@ -2,12 +2,25 @@
 <aside class="app-sidebar sticky" id="sidebar">
 
     <!-- Start::main-sidebar-header -->
+
+    {{-- <div class="main-sidebar-header">
+        <a href="{{ route('/') }}" class="header-logo">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-logo">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="toggle-logo">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
+
+            <img src="{{ asset(path: 'icons/logo.png') }}" alt="logo" class="toggle-dark">
+        </a>
+    </div> --}}
     <div class="main-sidebar-header">
         <a href="{{ route('/') }}" class="header-logo">
-            <img src="{{ asset('assets/images/brand-logos/desktop-logo.png') }}" alt="logo" class="desktop-logo">
-            <img src="{{ asset('assets/images/brand-logos/toggle-logo.png" alt="logo') }}" class="toggle-logo">
-            <img src="{{ asset('assets/images/brand-logos/desktop-dark.png" alt="logo') }}" class="desktop-dark">
-            <img src="{{ asset('assets/images/brand-logos/toggle-dark.png" alt="logo') }}" class="toggle-dark">
+            {{-- <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-logo" style="width: 80px; height: auto;">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="toggle-logo"
+                style="width: 80px; height: auto;"> --}}
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
+            {{-- <img src="{{ asset(path: 'icons/logo.png') }}" alt="logo"
+                class="toggle-dark"style="width: 80px; height: auto;"> --}}
+            <span class="m-0 app-brand-text demo menu-text fw-bold allure-font">@lang('dashboard.Allure Collection')</span>
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -157,7 +170,7 @@
                     <a href="{{ route('commissions.index') }}"
                         class="side-menu__item {{ in_array(request()->route()->getName(), ['commissions.index', 'commissions.edit']) ? 'active' : '' }}">
                         <i class="ti ti-cash side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.commission')</span>
+                        <span class="side-menu__label">@lang('dashboard.commissions')</span>
                     </a>
                 </li>
                 {{-- end commission --}}
@@ -187,7 +200,8 @@
 
                 <!-- Start::coupons -->
                 <li class="slide">
-                    <a href="{{ route('coupons.index') }}" class="side-menu__item {{ request()->routeIs('coupons.index') ? 'active' : '' }}">
+                    <a href="{{ route('coupons.index') }}"
+                        class="side-menu__item {{ request()->routeIs('coupons.index') ? 'active' : '' }}">
                         <i class="ti ti-discount-2 side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.coupons')</span>
                     </a>
@@ -202,6 +216,20 @@
                     </a>
                 </li>
                 <!-- End::orders -->
+
+
+
+
+                <!-- Start::coupons -->
+                <li class="slide">
+                    <a href="{{ route('calendar.index') }}" class="side-menu__item ">
+                        <i class="ti ti-discount-2 side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.calendar')</span>
+                    </a>
+                </li>
+                <!-- End::coupons -->
+
+
 
                 <!-- Start::slide -->
                 <li class="slide has-sub">

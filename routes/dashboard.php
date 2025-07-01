@@ -16,9 +16,9 @@ use App\Http\Controllers\Dashboard\User\UserController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('dashboard.site.index');
-// });
+Route::get('/calendar/calendar/calendar', function () {
+    return view('dashboard.site.calendar');
+})->name('calendar.index');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),

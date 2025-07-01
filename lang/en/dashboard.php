@@ -309,4 +309,7 @@ return [
      'content_ar' => 'Content (Arabic)',
     'content_en' => 'Content (English)',
     'sliders' => 'Slider',
+    'Allure Collection' => 'Allure Collection',
+    'commissions' => 'Commissions'
+
 ];
