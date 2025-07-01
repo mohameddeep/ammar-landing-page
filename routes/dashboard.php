@@ -15,9 +15,9 @@ use App\Http\Controllers\Dashboard\User\UserController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('dashboard.site.index');
-// });
+Route::get('/calendar/calendar/calendar', function () {
+    return view('dashboard.site.calendar');
+})->name('calendar.index');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -72,8 +72,7 @@ Route::group([
         // categories Routes
         Route::resource('categories', CategoryController::class);
         Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
-    
-            Route::resource('coupons', CouponController::class)->except('show');
 
+        Route::resource('coupons', CouponController::class)->except('show');
     });
 });

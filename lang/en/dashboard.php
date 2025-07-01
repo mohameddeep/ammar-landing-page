@@ -306,5 +306,7 @@ return [
     'Merchent' => 'Merchants',
     'Users and Merchent' => 'Users and Merchent',
     'days' => 'days',
-    'Allure Collection' => 'Allure Collection'
+    'Allure Collection' => 'Allure Collection',
+    'commissions' => 'Commissions'
+
 ];
