@@ -29,6 +29,4 @@ return [
     'invalid_coupon' => 'The coupon is invalid',
     'subscribed_successfully' => 'Subscribed successfully',
 
-
-
 ];

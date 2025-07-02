@@ -17,21 +17,20 @@ final class PackageRepository extends Repository implements PackageRepositoryInt
         parent::__construct($model);
     }
 
-
     public function getPackagesByUserType()
     {
         $user = auth()->user();
 
         $type = match ($user->type) {
-            'store'     => 'store',
-            'designer'  => 'designer',
-            default     => 'individual',
+            'store' => 'store',
+            'designer' => 'designer',
+            default => 'individual',
         };
 
         return $this->model->with([
             'features' => function ($q) {
                 $q->where('is_active', 1);
-            }
+            },
         ])
             ->where('type', $type)
             ->where('is_hidden', false)

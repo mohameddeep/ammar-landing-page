@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
-            $table->string("name_ar")->nullable();
-            $table->string("name_en")->nullable();
-            $table->integer("value")->default(0);
-            $table->enum("type", CommissionTypeEnum::values());
+            $table->string('name_ar')->nullable();
+            $table->string('name_en')->nullable();
+            $table->integer('value')->default(0);
+            $table->enum('type', CommissionTypeEnum::values());
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

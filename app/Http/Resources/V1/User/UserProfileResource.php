@@ -11,6 +11,7 @@ class UserProfileResource extends JsonResource
     {
         parent::__construct($resource);
     }
+
     /**
      * Transform the resource into an array.
      *
@@ -22,7 +23,7 @@ class UserProfileResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            
+
         ];
     }
 }

@@ -31,7 +31,7 @@ class SignUpRequest extends FormRequest
             'phone' => ['required', new Phone, Rule::unique('merchants', 'phone')->ignore(auth('merchant-api')->id())],
             'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
             'type' => ['required', Rule::in(UserTypeEnum::values())],
-            'fcm_token' => ['nullable', "string"]
+            'fcm_token' => ['nullable', 'string'],
         ];
     }
 }

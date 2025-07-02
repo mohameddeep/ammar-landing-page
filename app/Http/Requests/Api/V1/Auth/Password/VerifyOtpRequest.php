@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests\Api\V1\Auth\Password;
-use App\Rules\EmailExistsInUsersOrMerchants;
 
+use App\Rules\EmailExistsInUsersOrMerchants;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VerifyOtpRequest extends FormRequest
@@ -23,9 +23,9 @@ class VerifyOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => ["required","email", new EmailExistsInUsersOrMerchants()],
-            'otp_token' => ['required' , 'string'] ,
-            'otp' => ['required' , 'string'] ,
+            'email' => ['required', 'email', new EmailExistsInUsersOrMerchants],
+            'otp_token' => ['required', 'string'],
+            'otp' => ['required', 'string'],
         ];
     }
 }

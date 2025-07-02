@@ -11,10 +11,7 @@ use App\Http\Services\Api\V1\Auth\Password\UserPasswordService;
 
 class UserPasswordController extends Controller
 {
-    public function __construct(private UserPasswordService $service)
-    {
-    }
-
+    public function __construct(private UserPasswordService $service) {}
 
     public function forgot(ForgetPasswordRequest $request)
     {
@@ -31,8 +28,8 @@ class UserPasswordController extends Controller
         return $this->service->reset($request);
     }
 
-    public function updatePassword(PasswordRequest $request){
+    public function updatePassword(PasswordRequest $request)
+    {
         return $this->service->updatePassword($request);
     }
-
 }

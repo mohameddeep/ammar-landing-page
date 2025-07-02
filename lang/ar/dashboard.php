@@ -307,5 +307,5 @@ return [
     'User Management' => 'إدارة المستخدمين',
     'Users and Merchent' => 'المستخدمين و التجار',
     'Merchent' => 'التجار',
-    'commissions' => 'العمولات'
+    'commissions' => 'العمولات',
 ];

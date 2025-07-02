@@ -6,8 +6,8 @@ use App\Http\Helpers\Http;
 use App\Http\Resources\V1\merchant\MerchantResource;
 use App\Http\Traits\FileTrait;
 use App\Repository\OtpRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
@@ -15,15 +15,15 @@ use function App\Http\Helpers\responseSuccess;
 class MerchantProfileService
 {
     use FileTrait;
+
     public function __construct(
         private readonly OtpRepositoryInterface $otpRepository,
     ) {}
 
- 
-   final public function profile()
+    final public function profile()
     {
 
-        return responseSuccess( data: new MerchantResource(auth('merchant-api')->user()));
+        return responseSuccess(data: new MerchantResource(auth('merchant-api')->user()));
     }
 
     final public function updateProfile($request)
@@ -32,7 +32,7 @@ class MerchantProfileService
         DB::beginTransaction();
         try {
             $data = $request->validated();
-             if ($request->hasFile('image')) {
+            if ($request->hasFile('image')) {
                 $data['image'] = $this->image($request->file('image'), 'merchants/images');
             }
             $user = auth('merchant-api')->user();
@@ -46,6 +46,5 @@ class MerchantProfileService
 
             return responseFail(Http::BAD_REQUEST, __('messages.Something went wrong'));
         }
-
     }
 }

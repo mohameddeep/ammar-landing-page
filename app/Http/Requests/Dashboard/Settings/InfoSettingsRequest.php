@@ -23,11 +23,11 @@ class InfoSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'  , 'string'],
+            'name' => ['required', 'string'],
             'image' => 'nullable',
-            'email' => ['required' , Rule::unique('managers' , 'email')->ignore(auth()->id())],
-            'phone' => ['nullable' , Rule::unique('managers' , 'phone')->ignore(auth()->id())],
-            'current_status' => 'nullable'
+            'email' => ['required', Rule::unique('managers', 'email')->ignore(auth()->id())],
+            'phone' => ['nullable', Rule::unique('managers', 'phone')->ignore(auth()->id())],
+            'current_status' => 'nullable',
         ];
     }
 }

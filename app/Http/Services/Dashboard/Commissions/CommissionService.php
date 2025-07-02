@@ -20,13 +20,10 @@ class CommissionService
         return view('dashboard.site.commissions.index', compact('commissions'));
     }
 
-
-
-
-
     public function edit($id)
     {
         $commission = $this->repository->getById($id);
+
         return view('dashboard.site.commissions.edit', compact('commission'));
     }
 
@@ -35,14 +32,12 @@ class CommissionService
         try {
             $data = $request->validated();
             $commission = $this->repository->update($id, $data);
+
             return redirect()->route('commissions.index')->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
-
-
-
 
     public function toggle($request, $id)
     {

@@ -22,10 +22,8 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "price" =>["required"],
-            "coupon_code" =>["required"],
+            'price' => ['required'],
+            'coupon_code' => ['required'],
         ];
     }
-
-    
 }

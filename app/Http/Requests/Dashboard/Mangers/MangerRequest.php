@@ -25,14 +25,14 @@ class MangerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['nullable',Rule::exists('managers', 'id')] ,
+            'id' => ['nullable', Rule::exists('managers', 'id')],
             'name' => 'required|string',
             'email' => [
                 'required',
                 'email:rfc,dns',
                 $this->method() == 'POST'
                     ? Rule::unique('managers', 'email')
-                    : Rule::unique('managers', 'email')->ignore($this->id, 'id')
+                    : Rule::unique('managers', 'email')->ignore($this->id, 'id'),
             ],
             'phone' => [
                 'required',
@@ -41,9 +41,9 @@ class MangerRequest extends FormRequest
                     ? Rule::unique('managers', 'phone')
                     : Rule::unique('managers', 'phone')->ignore($this->id, 'id'),
             ],
-            'password' => $this->method() == 'POST'?Password::min(8)->required():'nullable',
+            'password' => $this->method() == 'POST' ? Password::min(8)->required() : 'nullable',
             'image' => ['nullable', 'exclude', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'is_active'=>'in:on,',
+            'is_active' => 'in:on,',
 
         ];
     }

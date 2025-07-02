@@ -11,13 +11,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use function App\Http\Helpers\paginatedJsonResponse;
 
-
 Route::get('/test-exception', function () {
     request()->headers->set('Accept', 'application/json');
-    throw new NotFoundHttpException();
+    throw new NotFoundHttpException;
 });
 Route::get('test', function () {
     $users = User::paginate(10);
+
     return paginatedJsonResponse(
         __('messages.Data fetched successfully'),
 

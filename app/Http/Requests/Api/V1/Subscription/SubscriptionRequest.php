@@ -22,20 +22,20 @@ class SubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "merchant_id" =>["required","exists:merchants,id"],
-            "package_id" =>["required","exists:packages,id"],
-            "price" =>["required"],
+            'merchant_id' => ['required', 'exists:merchants,id'],
+            'package_id' => ['required', 'exists:packages,id'],
+            'price' => ['required'],
             // "status" =>["required"],
-            "end_date" =>["nullable","date"],
-            "is_active" =>["nullable","in:0,1"],
+            'end_date' => ['nullable', 'date'],
+            'is_active' => ['nullable', 'in:0,1'],
         ];
     }
 
     public function prepareForValidation()
     {
         $this->merge([
-            'merchant_id' =>auth("merchant-api")->user()->id ,
-            'is_active' =>1 ,
+            'merchant_id' => auth('merchant-api')->user()->id,
+            'is_active' => 1,
         ]);
     }
 }

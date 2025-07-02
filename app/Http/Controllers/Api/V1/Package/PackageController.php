@@ -20,5 +20,4 @@ final class PackageController extends Controller
     {
         return $this->packageService->show($id);
     }
-
 }

@@ -6,6 +6,5 @@ namespace App\Repository;
 
 interface PackageRepositoryInterface extends RepositoryInterface
 {
-
-        public function getPackagesByUserType();
+    public function getPackagesByUserType();
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard\Mangers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Mangers\MangerRequest;
 use App\Http\Services\Dashboard\Manager\ManagerService;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -20,6 +19,7 @@ class MangerController extends Controller implements HasMiddleware
             new Middleware('permission:managers-delete', ['destroy']),
         ];
     }
+
     public function __construct(private ManagerService $service) {}
 
     public function create($id)

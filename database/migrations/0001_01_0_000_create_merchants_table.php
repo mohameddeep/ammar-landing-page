@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(1);
-            $table->enum("type",UserTypeEnum::values())
-            ->default(UserTypeEnum::Individual->value);
-            $table->text("fcm_token")->nullable();
+            $table->enum('type', UserTypeEnum::values())
+                ->default(UserTypeEnum::Individual->value);
+            $table->text('fcm_token')->nullable();
             $table->boolean('is_featured')->default(0);
             $table->boolean('otp_verified')->default(0);
             $table->timestamps();

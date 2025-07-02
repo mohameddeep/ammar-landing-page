@@ -17,28 +17,24 @@ final class CategoryRepository extends Repository implements CategoryRepositoryI
         parent::__construct($model);
     }
 
-
-
-     public function getParentCategories()
+    public function getParentCategories()
     {
-         $query = $this->model::query();  
+        $query = $this->model::query();
 
-    $query->when(request()->filled('search'), function ($q) {
-        $search = request('search');
-        $q->where(function ($q2) use ($search) {
-            $q2->where('name_ar', 'like', '%' . $search . '%')
-               ->orWhere('name_en', 'like', '%' . $search . '%')
-               ->orWhere('slug', 'like', '%' . $search . '%');
+        $query->when(request()->filled('search'), function ($q) {
+            $search = request('search');
+            $q->where(function ($q2) use ($search) {
+                $q2->where('name_ar', 'like', '%'.$search.'%')
+                    ->orWhere('name_en', 'like', '%'.$search.'%')
+                    ->orWhere('slug', 'like', '%'.$search.'%');
+            });
         });
-    });
 
-    return $query
-        ->whereNull('parent_id')
-        ->where('is_active', true)
-        ->latest()
-        ->paginate(10);
+        return $query
+            ->whereNull('parent_id')
+            ->where('is_active', true)
+            ->latest()
+            ->paginate(10);
 
     }
-
-    
 }

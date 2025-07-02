@@ -4,12 +4,9 @@ namespace App\Http\Services\Dashboard\Manager;
 
 use App\Http\Helpers\Http;
 use App\Http\Requests\Dashboard\Mangers\MangerRequest;
-
 use App\Http\Traits\FileTrait;
-
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
-
 use Illuminate\Support\Facades\DB;
 
 use function App\Http\Helpers\delete_model;
@@ -24,13 +21,14 @@ class ManagerService
 
     public function __construct(
         private ManagerRepositoryInterface $repository,
-        private RoleRepositoryInterface    $roleRepository,
+        private RoleRepositoryInterface $roleRepository,
     ) {}
 
     public function index()
     {
 
         $role = $this->roleRepository->getById(1, relations: ['managers']);
+
         return view('dashboard.site.managers.index', compact('role'));
     }
 
@@ -38,6 +36,7 @@ class ManagerService
     {
 
         $role = $this->roleRepository->getById($id);
+
         return view('dashboard.site.managers.create', compact('role'));
     }
 
@@ -62,9 +61,11 @@ class ManagerService
                 $manger->addRole($roleId);
             }
             DB::commit();
+
             return redirect()->route('roles.index')->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
@@ -73,6 +74,7 @@ class ManagerService
     {
         $manager = $this->repository->getById($id);
         $role = $manager->roles->first();
+
         return view('dashboard.site.managers.edit', compact('role', 'manager'));
     }
 
@@ -89,22 +91,22 @@ class ManagerService
 
             }
 
-            if (!isset($data['password'])) {
+            if (! isset($data['password'])) {
                 unset($data['password']);
             }
 
             $roleId = $data['role_id'];
             unset($data['role_id']);
 
-
-
             update_model($this->repository, $id, $data);
 
             DB::commit();
+
             return redirect()->route('roles.mangers', ['id' => $roleId])
                 ->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
@@ -112,10 +114,10 @@ class ManagerService
     public function toggle($id)
     {
         $manager = $this->repository->getById($id);
-        $manager->is_active = !$manager->is_active;
+        $manager->is_active = ! $manager->is_active;
         $manager->save();
 
-        return responseSuccess(Http::OK, __('messages.updated_successfully'),  ['success' => true, 'is_active' => $manager->is_active]);
+        return responseSuccess(Http::OK, __('messages.updated_successfully'), ['success' => true, 'is_active' => $manager->is_active]);
     }
 
     public function destroy($id)
@@ -123,9 +125,10 @@ class ManagerService
         DB::beginTransaction();
         try {
             $manger = $this->repository->getById($id);
-            if ($manger->image)
+            if ($manger->image) {
                 $this->deleteFile($manger->image);
-            $deleted =  delete_model($this->repository, $id);
+            }
+            $deleted = delete_model($this->repository, $id);
             DB::commit();
             if ($deleted) {
                 return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);

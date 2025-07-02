@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\PackageTypeEnum;
 use App\Http\Traits\LanguageToggle;
 use Illuminate\Database\Eloquent\Model;
 

@@ -45,9 +45,9 @@ return [
             'provider' => 'users',
         ],
         'merchant-api' => [
-        'driver' => 'jwt',
-        'provider' => 'merchants',
-    ],
+            'driver' => 'jwt',
+            'provider' => 'merchants',
+        ],
     ],
 
     /*
@@ -77,9 +77,9 @@ return [
             'model' => App\Models\Manager::class,
         ],
         'merchants' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Merchant::class,
-    ],
+            'driver' => 'eloquent',
+            'model' => App\Models\Merchant::class,
+        ],
     ],
 
     /*

@@ -43,6 +43,6 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
-        's' => 'show'
+        's' => 'show',
     ],
 ];

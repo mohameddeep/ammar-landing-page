@@ -15,7 +15,7 @@ class OtpResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'otp_token' => $this->token
+            'otp_token' => $this->token,
         ];
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Requests\Api\V1\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 final class MerchantProfileRequest extends FormRequest
 {
@@ -28,7 +27,7 @@ final class MerchantProfileRequest extends FormRequest
             'name' => ['required', 'string'],
             'email' => ['required', 'email:rfc,dns'],
             'phone' => ['required'],
-            'image' => ['nullable','mimes:jpeg,png,jpg'],
+            'image' => ['nullable', 'mimes:jpeg,png,jpg'],
         ];
     }
 }

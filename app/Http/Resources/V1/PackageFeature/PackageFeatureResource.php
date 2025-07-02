@@ -11,6 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 final class PackageFeatureResource extends JsonResource
 {
     use LanguageToggle;
+
     /**
      * Transform the resource into an array.
      *

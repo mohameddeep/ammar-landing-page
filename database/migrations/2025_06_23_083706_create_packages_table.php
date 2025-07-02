@@ -14,18 +14,18 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->string("name_ar");
-            $table->string("name_en")->nullable();
-            $table->string("duration")->comment("Duration of the package, in days");
-            $table->decimal("price");
-            $table->text("description_ar")->nullable()->comment("Description in Arabic");
-            $table->text("description_en")->nullable();
-            $table->string("product_number")->comment("Unique identifier for the package");
-            $table->unsignedInteger("free_product_count")->default(0)->comment("Number of free dresses included in the package");
+            $table->string('name_ar');
+            $table->string('name_en')->nullable();
+            $table->string('duration')->comment('Duration of the package, in days');
+            $table->decimal('price');
+            $table->text('description_ar')->nullable()->comment('Description in Arabic');
+            $table->text('description_en')->nullable();
+            $table->string('product_number')->comment('Unique identifier for the package');
+            $table->unsignedInteger('free_product_count')->default(0)->comment('Number of free dresses included in the package');
 
-            $table->enum("type", PackageTypeEnum::values());
-            $table->boolean("is_active")->default(0);
-            $table->boolean("is_hidden")->default(0);
+            $table->enum('type', PackageTypeEnum::values());
+            $table->boolean('is_active')->default(0);
+            $table->boolean('is_hidden')->default(0);
             $table->timestamps();
         });
     }

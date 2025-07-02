@@ -10,29 +10,35 @@ class CouponController extends Controller
 {
     public function __construct(
         private readonly CouponService $service,
-    )
+    ) {}
+
+    public function index()
     {
-    }
-    public function index(){
         return $this->service->index();
     }
 
-    public function create(){
+    public function create()
+    {
         return $this->service->create();
     }
 
-    public function store(CouponRequest $request){
+    public function store(CouponRequest $request)
+    {
         return $this->service->store($request);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         return $this->service->edit($id);
     }
-    public function update(CouponRequest $request,$id){
-        return $this->service->update($request,$id);
-    }
-    public function destroy($id){
-        return $this->service->destroy($id);
+
+    public function update(CouponRequest $request, $id)
+    {
+        return $this->service->update($request, $id);
     }
 
+    public function destroy($id)
+    {
+        return $this->service->destroy($id);
+    }
 }

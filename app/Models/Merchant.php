@@ -8,18 +8,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Laratrust\Contracts\LaratrustUser;
-use Laratrust\Traits\HasRolesAndPermissions;
 
-
-class Merchant extends  Authenticatable implements JWTSubject, LaratrustUser
+class Merchant extends Authenticatable implements JWTSubject, LaratrustUser
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions;
-
-
+    use HasApiTokens, HasFactory, HasRolesAndPermissions, Notifiable;
 
     protected $fillable = [
         'name',
@@ -31,7 +28,7 @@ class Merchant extends  Authenticatable implements JWTSubject, LaratrustUser
         'type',
         'fcm_token',
         'is_featured',
-        "image"
+        'image',
     ];
 
     /**
@@ -54,9 +51,10 @@ class Merchant extends  Authenticatable implements JWTSubject, LaratrustUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'type' => UserTypeEnum::class
+            'type' => UserTypeEnum::class,
         ];
     }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -72,15 +70,16 @@ class Merchant extends  Authenticatable implements JWTSubject, LaratrustUser
         return JWTAuth::fromUser($this);
     }
 
-
     public function otp()
     {
         return $this->morphOne(Otp::class, 'otppable');
     }
+
     public function otps()
     {
         return $this->morphMany(Otp::class, 'otppable');
     }
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

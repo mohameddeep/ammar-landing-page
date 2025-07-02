@@ -6,21 +6,18 @@ use App\Exceptions\Handler;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void {
-        
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap any application services.
@@ -31,10 +28,6 @@ class AppServiceProvider extends ServiceProvider
             abstract: ExceptionHandler::class,
             concrete: Handler::class
         );
-
-
-
-
 
         DB::prohibitDestructiveCommands(app()->isProduction());
         Model::shouldBeStrict(! app()->isProduction());
@@ -62,6 +55,6 @@ class AppServiceProvider extends ServiceProvider
                 }
             ?>";
         });
-        Blade::directive('formatTime', fn($expression): string => "<?php echo \Carbon\Carbon::parse($expression)->format('h:i A'); ?>");
+        Blade::directive('formatTime', fn ($expression): string => "<?php echo \Carbon\Carbon::parse($expression)->format('h:i A'); ?>");
     }
 }

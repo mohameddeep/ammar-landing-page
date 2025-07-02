@@ -12,7 +12,7 @@ class PackageFeatureService
     public function __construct(
         private PackageFeatureRepositoryInterface $repository,
     ) {}
-    
+
     public function toggle($request, $id)
     {
         $package = $this->repository->getById($id);

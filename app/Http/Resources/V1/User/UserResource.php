@@ -11,6 +11,7 @@ class UserResource extends JsonResource
     {
         parent::__construct($resource);
     }
+
     /**
      * Transform the resource into an array.
      *

@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Merchant\MerchantController;
-use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
+use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
+use App\Http\Controllers\Dashboard\Merchant\MerchantController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\User\UserController;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::get('/calendar/calendar/calendar', function () {
     return view('dashboard.site.calendar');
@@ -35,7 +35,7 @@ Route::group([
         // users route
         Route::resource('users', UserController::class);
 
-        // merchant routes 
+        // merchant routes
         Route::resource('merchants', MerchantController::class);
         Route::post('/toggle/feature/{id}', [MerchantController::class, 'toggleFeature'])->name('merchants.toggle.feature');
         Route::post('/toggle/activate/{id}', [MerchantController::class, 'toggleActivate'])->name('merchants.toggle.activate');
@@ -44,7 +44,6 @@ Route::group([
         Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
         // roles
         Route::resource('roles', RoleController::class);
-
 
         Route::get('role/{id}/managers', [RoleController::class, 'mangers'])->name('roles.mangers');
         Route::controller(MangerController::class)->prefix('managers')->name('managers.')
@@ -60,7 +59,6 @@ Route::group([
         // Commissions Routes
         Route::resource('commissions', CommissionController::class)->except('show', 'create', 'store', 'destroy');
         Route::post('/commissions/toggle/{id}', [CommissionController::class, 'toggle'])->name('commissions.toggle');
-
 
         // package Routes
         Route::resource('packages', PackageController::class);

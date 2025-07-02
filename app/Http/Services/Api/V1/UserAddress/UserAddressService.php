@@ -6,7 +6,6 @@ namespace App\Http\Services\Api\V1\UserAddress;
 
 use App\Http\Helpers\Http;
 use App\Http\Resources\V1\UserAddress\UserAddressResource;
-
 use App\Repository\UserAddressRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -17,8 +16,6 @@ use function App\Http\Helpers\responseSuccess;
 
 final class UserAddressService
 {
-   
-
     public function __construct(
 
         private UserAddressRepositoryInterface $userAddressRepository
@@ -36,12 +33,12 @@ final class UserAddressService
     {
         // DB::beginTransaction();
         // try {
-            $data = $request->validated();
+        $data = $request->validated();
 
-            $this->userAddressRepository->create($data);
-            DB::commit();
+        $this->userAddressRepository->create($data);
+        DB::commit();
 
-            return responseSuccess(Http::OK, __('messages.created successfully'));
+        return responseSuccess(Http::OK, __('messages.created successfully'));
         // } catch (Exception $e) {
         //     DB::rollback();
 

@@ -3,25 +3,23 @@
 namespace App\Http\Services\Dashboard\Coupon;
 
 use App\Http\Helpers\Http;
-use Illuminate\Support\Facades\DB;
 use App\Repository\CouponRepositoryInterface;
 use Exception;
+use Illuminate\Support\Facades\DB;
+
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
 class CouponService
 {
-
     public function __construct(
         private readonly CouponRepositoryInterface $couponRepository,
-    )
-    {
-    }
-
+    ) {}
 
     public function index()
     {
         $coupons = $this->couponRepository->paginate();
+
         return view('dashboard.site.coupons.index', compact('coupons'));
     }
 
@@ -38,9 +36,11 @@ class CouponService
             $data = $request->validated();
             $this->couponRepository->create($data);
             DB::commit();
+
             return redirect()->route('coupons.index')->with(['success' => 'تم الاضافه بنجاح']);
         } catch (Exception $exception) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
@@ -48,7 +48,8 @@ class CouponService
     public function edit($id)
     {
         $coupon = $this->couponRepository->getById($id);
-        return view('dashboard.site.coupons.edit', compact("coupon"));
+
+        return view('dashboard.site.coupons.edit', compact('coupon'));
     }
 
     public function update($request, $id)
@@ -59,14 +60,14 @@ class CouponService
             $this->couponRepository->update($id, $data);
 
             DB::commit();
+
             return redirect()->route('coupons.index')->with(['success' => 'تم التعديل بنجاح']);
         } catch (Exception $exception) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
-
-
 
     public function destroy($id)
     {
@@ -82,7 +83,4 @@ class CouponService
             return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
         }
     }
-
-    }
-
-    
+}

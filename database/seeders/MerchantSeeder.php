@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\UserTypeEnum;
 use App\Models\Merchant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,7 +25,7 @@ class MerchantSeeder extends Seeder
         for ($i = 1; $i <= 8; $i++) {
             $image = $images[array_rand($images)];
 
-        Merchant::create([
+            Merchant::create([
                 'name' => $faker->name,
                 'email' => "merchant{$i}@example.com",
                 'phone' => $faker->unique()->phoneNumber,
@@ -38,7 +37,7 @@ class MerchantSeeder extends Seeder
                 'is_featured' => $faker->boolean(30),
                 'otp_verified' => $faker->boolean(70),
             ]);
-           
+
         }
     }
 }

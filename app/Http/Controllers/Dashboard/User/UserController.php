@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\user\UserService;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {

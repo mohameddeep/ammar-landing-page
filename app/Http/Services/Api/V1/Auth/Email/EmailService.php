@@ -6,7 +6,6 @@ use App\Http\Resources\V1\Otp\OtpResource;
 use App\Repository\OtpRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 
-
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
@@ -14,7 +13,7 @@ class EmailService
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
-        private OtpRepositoryInterface  $otpRepository
+        private OtpRepositoryInterface $otpRepository
     ) {}
 
     public function sendOtp($request)
@@ -22,8 +21,9 @@ class EmailService
         $data = $request->validated();
         $otp = $this->otpRepository->generateOtpForEmail(email: $data['email']);
         auth('api')->user()?->update([
-            'otp_verified' => false
+            'otp_verified' => false,
         ]);
+
         // TODO: Send OTP to the new email (via mail service)
         return responseSuccess(message: __('messages.OTP_Is_Send'), data: new OtpResource($otp));
     }
@@ -37,9 +37,10 @@ class EmailService
                 'email' => $request->email,
             ]);
             auth('api')->user()?->update([
-                'otp_verified' => true
+                'otp_verified' => true,
             ]);
             auth('api')->user()->otps()?->delete();
+
             return responseSuccess(message: __('messages.Your email has been verified successfully'));
         } else {
             return responseFail(message: __('messages.Wrong OTP code'));

@@ -8,16 +8,14 @@ use App\Http\Resources\V1\Category\CategoryDetailResource;
 use App\Http\Resources\V1\Category\CategoryResource;
 use App\Repository\CategoryRepositoryInterface;
 use Exception;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\JsonResponse;
+
 use function App\Http\Helpers\paginatedJsonResponse;
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
 final class CategoryService
 {
-   
-
     public function __construct(
 
         private CategoryRepositoryInterface $categoryRepository
@@ -27,17 +25,15 @@ final class CategoryService
     {
         $categories = $this->categoryRepository->getParentCategories();
 
-        return paginatedJsonResponse(message: __('dashboard_api.show_successfully'),  data: ['items' => CategoryResource::collection($categories)]);
+        return paginatedJsonResponse(message: __('dashboard_api.show_successfully'), data: ['items' => CategoryResource::collection($categories)]);
 
     }
-
-   
 
     public function show($id): JsonResponse
     {
 
         try {
-            $category = $this->categoryRepository->getById($id,relations:["children","products","parent"]);
+            $category = $this->categoryRepository->getById($id, relations: ['children', 'products', 'parent']);
 
             return responseSuccess(message: __('dashboard_api.show_successfully'), data: new CategoryDetailResource($category));
 
@@ -45,6 +41,4 @@ final class CategoryService
             return responseFail(message: $exception->getMessage());
         }
     }
-
-  
 }

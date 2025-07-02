@@ -14,6 +14,7 @@ class ProductList extends Component
     {
         $this->product = $product;
     }
+
     public function render(): View|Closure|string
     {
         return view('components.cards.lists.product.product-list');

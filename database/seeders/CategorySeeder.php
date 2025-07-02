@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -26,9 +25,9 @@ class CategorySeeder extends Seeder
             $image = $images[array_rand($images)];
 
             $category = Category::create([
-                'name_ar' => 'قسم الفساتين الرئيسي ' . $i,
-                'name_en' => 'Main Category ' . $i,
-                'slug' => Str::slug('Main Category ' . $i),
+                'name_ar' => 'قسم الفساتين الرئيسي '.$i,
+                'name_en' => 'Main Category '.$i,
+                'slug' => Str::slug('Main Category '.$i),
                 'image' => $image,
                 'is_active' => rand(0, 1),
                 'parent_id' => null,
@@ -42,9 +41,9 @@ class CategorySeeder extends Seeder
             $image = $images[array_rand($images)];
 
             Category::create([
-                'name_ar' => 'قسم فرعي ' . $i,
-                'name_en' => 'Sub Category ' . $i,
-                'slug' => Str::slug('Sub Category ' . $i),
+                'name_ar' => 'قسم فرعي '.$i,
+                'name_en' => 'Sub Category '.$i,
+                'slug' => Str::slug('Sub Category '.$i),
                 'image' => $image,
                 'is_active' => rand(0, 1),
                 'parent_id' => $parentId,

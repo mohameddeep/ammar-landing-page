@@ -27,12 +27,13 @@ class UpdatePasswordRequest extends FormRequest
             'new_password' => [Password::min(8), 'confirmed'],
         ];
     }
+
     public function attributes()
     {
         return [
-            'current_password'=>'current password',
-            'new_password'=>'new password',
-            'new_password_confirmation'=>'new_password confirmation',
+            'current_password' => 'current password',
+            'new_password' => 'new password',
+            'new_password_confirmation' => 'new_password confirmation',
         ];
     }
 }

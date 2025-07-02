@@ -7,9 +7,7 @@ use App\Http\Requests\Api\V1\Auth\SignInRequest;
 use App\Http\Resources\V1\User\UserResource;
 use App\Http\Services\Api\V1\Auth\Otp\OtpService;
 use App\Http\Services\PlatformService;
-
 use App\Repository\UserRepositoryInterface;
-
 
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
@@ -20,8 +18,6 @@ abstract class AuthService extends PlatformService
         private readonly UserRepositoryInterface $userRepository,
         private readonly OtpService $otpService,
     ) {}
-
-    
 
     public function signIn(SignInRequest $request)
     {
@@ -38,6 +34,7 @@ abstract class AuthService extends PlatformService
     public function signOut()
     {
         auth($this->getGuard())->logout();
+
         return responseSuccess(Http::OK, __('messages.Successfully loggedOut'));
     }
 
@@ -48,6 +45,7 @@ abstract class AuthService extends PlatformService
 
         if ($user) {
             $user->delete();
+
             return responseSuccess(message: 'تم حذف الحساب بنجاح');
         }
 

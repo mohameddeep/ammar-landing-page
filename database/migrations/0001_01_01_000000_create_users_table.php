@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(1);
-            $table->text("fcm_token")->nullable();
+            $table->text('fcm_token')->nullable();
             $table->boolean('otp_verified')->default(0);
             $table->timestamps();
         });

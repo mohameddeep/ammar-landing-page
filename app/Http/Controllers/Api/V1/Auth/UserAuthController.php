@@ -11,15 +11,15 @@ class UserAuthController extends Controller
 {
     public function __construct(
         private readonly UserAuthService $auth,
-    )
-    {
-    }
+    ) {}
 
-    public function signUp(SignUpRequest $request) {
+    public function signUp(SignUpRequest $request)
+    {
         return $this->auth->signUp($request);
     }
 
-    public function signIn(SignInRequest $request) {
+    public function signIn(SignInRequest $request)
+    {
         return $this->auth->signIn($request);
     }
 

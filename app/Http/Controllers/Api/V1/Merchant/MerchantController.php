@@ -20,5 +20,4 @@ final class MerchantController extends Controller
     {
         return $this->merchantService->show($id);
     }
-
 }

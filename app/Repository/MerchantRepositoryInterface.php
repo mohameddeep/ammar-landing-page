@@ -2,6 +2,4 @@
 
 namespace App\Repository;
 
-interface MerchantRepositoryInterface extends RepositoryInterface
-{
-}
+interface MerchantRepositoryInterface extends RepositoryInterface {}
