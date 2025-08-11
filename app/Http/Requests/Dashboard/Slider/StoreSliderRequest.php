@@ -34,7 +34,6 @@ final class StoreSliderRequest extends FormRequest
         ];
     }
 
-
     public function prepareForValidation()
     {
         $this->merge([

@@ -311,7 +311,7 @@ return [
     'content_ar' => 'المحتوى (عربي)',
     'content_en' => 'المحتوى (إنجليزي)',
     'sliders' => 'صور (slider)',
-    
-    'commissions' => 'العمولات'
+
+    'commissions' => 'العمولات',
 
 ];

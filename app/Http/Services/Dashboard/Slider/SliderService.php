@@ -24,7 +24,7 @@ final class SliderService
         private readonly SliderRepositoryInterface $repository,
     ) {}
 
-     public function index()
+    public function index()
     {
         $sliders = $this->repository->paginate(10);
 
@@ -33,7 +33,7 @@ final class SliderService
 
     public function create()
     {
-        
+
         return view('dashboard.site.sliders.create');
     }
 
@@ -41,21 +41,21 @@ final class SliderService
     {
         DB::beginTransaction();
         try {
-              $data = $request->except( 'image', '_token', 'is_active');
+            $data = $request->except('image', '_token', 'is_active');
             $data['is_active'] = $request->is_active == 'on' ? 1 : 0;
-
 
             if ($request->hasFile('image')) {
                 $data['image'] = $this->image($request->file('image'), 'sliders');
-            };
+            }
 
             store_model($this->repository, $data, true);
 
-
             DB::commit();
+
             return redirect()->route('sliders.index')->with(['success' => __('messages.created_successfully')]);
         } catch (Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
@@ -67,9 +67,6 @@ final class SliderService
         return view('dashboard.site.sliders.edit', compact('slider'));
     }
 
-
-
-
     public function update($request, $id)
     {
         DB::beginTransaction();
@@ -80,21 +77,22 @@ final class SliderService
             update_model($this->repository, $id, $data);
 
             DB::commit();
+
             return redirect()->route('sliders.index')->with(['success' => __('messages.updated_successfully')]);
         } catch (Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
 
-
     public function toggle($id)
     {
         $slider = $this->repository->getById($id);
-        $slider->is_active = !$slider->is_active;
+        $slider->is_active = ! $slider->is_active;
         $slider->save();
 
-        return responseSuccess(Http::OK, __('messages.updated_successfully'),  ['success' => true, 'is_active' => $slider->is_active]);
+        return responseSuccess(Http::OK, __('messages.updated_successfully'), ['success' => true, 'is_active' => $slider->is_active]);
     }
 
     public function destroy($id)
@@ -102,9 +100,10 @@ final class SliderService
         DB::beginTransaction();
         try {
             $slider = $this->repository->getById($id);
-            if ($slider->image)
+            if ($slider->image) {
                 $this->deleteFile($slider->image);
-            $deleted =  delete_model($this->repository, $id);
+            }
+            $deleted = delete_model($this->repository, $id);
             DB::commit();
             if ($deleted) {
                 return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);

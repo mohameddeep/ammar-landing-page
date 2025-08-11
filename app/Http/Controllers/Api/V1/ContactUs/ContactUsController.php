@@ -10,9 +10,8 @@ class ContactUsController extends Controller
 {
     public function __construct(
         private readonly ContactUsService $service,
-    )
-    {
-    }
+    ) {}
+
     public function __invoke(ContactUsRequest $request)
     {
         return $this->service->contactUs($request);

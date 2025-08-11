@@ -303,7 +303,7 @@ return [
     'Merchent' => 'Merchants',
     'Users and Merchent' => 'Users and Merchent',
     'days' => 'days',
-     'content_ar' => 'Content (Arabic)',
+    'content_ar' => 'Content (Arabic)',
     'content_en' => 'Content (English)',
     'sliders' => 'Slider',
     'Allure Collection' => 'Allure Collection',

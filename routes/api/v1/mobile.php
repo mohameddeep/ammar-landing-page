@@ -4,20 +4,17 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\Email\ChangeEmailController;
 use App\Http\Controllers\Api\V1\Auth\Otp\OtpController;
 use App\Http\Controllers\Api\V1\Auth\Password\PasswordController;
-use App\Http\Controllers\Api\V1\Profile\UserProfileController;
 use App\Http\Controllers\Api\V1\Category\CategoryController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
 use App\Http\Controllers\Api\V1\Merchant\MerchantController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
-use App\Http\Controllers\Api\V1\Profile\MerchantProfileController;
+use App\Http\Controllers\Api\V1\Profile\UserProfileController;
 use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
-
-
-//user routes  
+// user routes
 Route::group(['prefix' => 'auth', 'controller' => AuthController::class], function () {
     Route::group(['prefix' => 'sign'], function () {
         Route::post('in', 'signIn');
@@ -74,8 +71,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/{id}', 'show');
     });
 
-
-    //packages
+    // packages
     Route::group([
         'prefix' => 'packages',
         'controller' => PackageController::class,
@@ -84,27 +80,23 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/{id}', 'show');
     });
 
-            //subscriptions
-        Route::group([
-            'prefix' => 'subscription',
-            'controller' => SubscriptionController::class
-        ], function () {
-            Route::post('/', 'subscribe');
-            Route::post('/apply-coupon', 'applyCoupon');
-        });
+    // subscriptions
+    Route::group([
+        'prefix' => 'subscription',
+        'controller' => SubscriptionController::class,
+    ], function () {
+        Route::post('/', 'subscribe');
+        Route::post('/apply-coupon', 'applyCoupon');
+    });
 
-        //categories
+    // categories
     Route::group(['prefix' => 'categories',
         'controller' => CategoryController::class], function () {
-        Route::get('/',  'index');
-        Route::get('/{id}',  'show');
+            Route::get('/', 'index');
+            Route::get('/{id}', 'show');
         });
 
 });
 
-
-
-
-
-    Route::get("/home",[HomeController::class,'index']);
-    Route::post('/contact-us', ContactUsController::class);
+Route::get('/home', [HomeController::class, 'index']);
+Route::post('/contact-us', ContactUsController::class);

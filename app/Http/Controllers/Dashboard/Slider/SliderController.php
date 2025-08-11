@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Dashboard\Slider;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Dashboard\Slider\StoreSliderRequest;
 use App\Http\Requests\Dashboard\Slider\UpdateSliderRequest;
 use App\Http\Services\Dashboard\Slider\SliderService;
@@ -50,6 +49,4 @@ final class SliderController extends Controller
 
         return $this->slider->toggle($id);
     }
-
-    
 }

@@ -22,9 +22,9 @@ class VerifyOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => ["required","email", "exists:users,email"],
-            'otp_token' => ['required' , 'string'] ,
-            'otp' => ['required' , 'string'] ,
+            'email' => ['required', 'email', 'exists:users,email'],
+            'otp_token' => ['required', 'string'],
+            'otp' => ['required', 'string'],
         ];
     }
 }

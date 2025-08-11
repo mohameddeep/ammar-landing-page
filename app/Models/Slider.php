@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\LanguageToggle;
+use Illuminate\Database\Eloquent\Model;
+
 class Slider extends Model
 {
     use LanguageToggle;
+
     protected $guarded = [];
 }

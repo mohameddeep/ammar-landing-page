@@ -2,6 +2,4 @@
 
 namespace App\Repository;
 
-interface ContactUsRepositoryInterface extends RepositoryInterface
-{
-}
+interface ContactUsRepositoryInterface extends RepositoryInterface {}

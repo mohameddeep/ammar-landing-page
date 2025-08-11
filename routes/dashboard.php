@@ -73,8 +73,7 @@ Route::group([
         Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
         Route::resource('coupons', CouponController::class)->except('show');
 
-
-        // start sliders 
+        // start sliders
         Route::resource('sliders', controller: SliderController::class)->except(['show']);
         Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
 

@@ -12,18 +12,22 @@ use App\Http\Services\Api\V1\Auth\Password\PasswordService;
 class PasswordController extends Controller
 {
     public function __construct(private readonly PasswordService $service) {}
+
     public function forgot(ForgetPasswordRequest $request)
     {
         return $this->service->forgot($request);
     }
+
     public function verifyOtp(VerifyOtpRequest $request)
     {
         return $this->service->verifyOtp($request);
     }
+
     public function reset(ResetPasswordRequest $request)
     {
         return $this->service->reset($request);
     }
+
     public function updatePassword(PasswordRequest $request)
     {
         return $this->service->updatePassword($request);

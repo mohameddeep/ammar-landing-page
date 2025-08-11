@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Slider;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SliderSeeder extends Seeder
@@ -14,7 +13,7 @@ class SliderSeeder extends Seeder
     public function run(): void
     {
 
-          $images = [
+        $images = [
             'static_images/1.png',
             'static_images/2.png',
             'static_images/3.png',
@@ -24,10 +23,10 @@ class SliderSeeder extends Seeder
             $image = $images[array_rand($images)];
 
             Slider::create([
-                'title_ar' => 'صورة ' . $i,
-                'title_en' => 'image' . $i,
-                'content_ar' => 'محتوي ' . $i,
-                'content_en' => 'content' . $i,
+                'title_ar' => 'صورة '.$i,
+                'title_en' => 'image'.$i,
+                'content_ar' => 'محتوي '.$i,
+                'content_en' => 'content'.$i,
                 'image' => $image,
                 'is_active' => rand(0, 1),
             ]);

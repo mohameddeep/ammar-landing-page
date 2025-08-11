@@ -30,7 +30,7 @@ class SignUpRequest extends FormRequest
             'email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')],
             'phone' => ['required', new Phone, Rule::unique('users', 'phone')->ignore(auth('api')->id())],
             'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
-            'fcm_token' => ['nullable', "string"],
+            'fcm_token' => ['nullable', 'string'],
             'type' => ['required', Rule::in(UserTypeEnum::values())],
         ];
     }

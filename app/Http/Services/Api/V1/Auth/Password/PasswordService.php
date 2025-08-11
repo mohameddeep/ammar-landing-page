@@ -9,7 +9,6 @@ use App\Jobs\SendMailJob;
 use App\Mail\SendOtpMail;
 use App\Repository\OtpRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
-use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +21,7 @@ final class PasswordService
 {
     public function __construct(private UserRepositoryInterface $repository, private OtpRepositoryInterface $otpRepository) {}
 
-     public function forgot($request)
+    public function forgot($request)
     {
         $user = $this->repository->get('email', $request->email)?->first();
         $user->update(['otp_verified' => false]);
@@ -68,7 +67,7 @@ final class PasswordService
                 return responseFail(message: __('messages.Invalid or expired reset token.'));
             }
 
-            Cache::forget('reset_token_' . $request->email);
+            Cache::forget('reset_token_'.$request->email);
             $user = $this->repository->get('email', $request->email)?->first();
 
             $this->repository->update($user->id, ['password' => $request->password]);
@@ -84,7 +83,7 @@ final class PasswordService
 
     public function updatePassword($request)
     {
-        $user = auth("api")->user();
+        $user = auth('api')->user();
 
         if (Hash::check($request->new_password, $user->password)) {
             return responseFail(message: __('messages.The new password must be different from the current password.'));

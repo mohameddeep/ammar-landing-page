@@ -22,8 +22,8 @@ class PlatformServiceProvider extends ServiceProvider
             AuthService::class => [
                 AuthWebService::class,
                 AuthMobileService::class,
-        
-            ]
+
+            ],
         ],
     ];
 

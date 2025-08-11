@@ -31,5 +31,4 @@ final class UpdateSliderRequest extends FormRequest
             'image' => 'nullable|mimes:jpeg,png,jpg',
         ];
     }
-
 }

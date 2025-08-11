@@ -12,18 +12,22 @@ class AuthController extends Controller
     public function __construct(
         private readonly AuthService $auth,
     ) {}
+
     public function signUp(SignUpRequest $request)
     {
         return $this->auth->signUp($request);
     }
+
     public function signIn(SignInRequest $request)
     {
         return $this->auth->signIn($request);
     }
+
     public function signOut()
     {
         return $this->auth->signOut();
     }
+
     public function deleteAccount()
     {
         return $this->auth->deleteAccount();
