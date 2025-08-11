@@ -1,8 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,12 +14,13 @@ class DatabaseSeeder extends Seeder
             LaratrustSeeder::class,
             ManagerSeeder::class,
             UserSeeder::class,
-            MerchantSeeder::class,
             CommissionSeeder::class,
             PackageSeeder::class,
             PackageFeatureSeeder::class,
             CategorySeeder::class,
             SubscriptionSeeder::class,
+            CouponSeeder::class,
+            SliderSeeder::class,
 
         ]);
     }

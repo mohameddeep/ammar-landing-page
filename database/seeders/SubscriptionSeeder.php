@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Merchant;
+use App\Models\User;
 use App\Models\Package;
 use App\Models\Subscription;
 use Carbon\Carbon;
@@ -15,7 +15,7 @@ class SubscriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        $merchants = Merchant::inRandomOrder()->take(8)->get();
+        $merchants = User::inRandomOrder()->take(8)->get();
         $packages = Package::inRandomOrder()->take(15)->get();
 
         foreach ($merchants as $merchant) {

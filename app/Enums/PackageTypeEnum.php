@@ -8,34 +8,34 @@ enum PackageTypeEnum: string
 {
     use Enumable;
 
-    case Store = 'store';
+    case Shop = 'shop';
     case Designer = 'designer';
-    case Individual = 'individual';
+    case User = 'user';
 
     public function t(): string
     {
         return match ($this) {
-            self::Store => __('Store'),
+            self::Shop => __('Shop'),
             self::Designer => __('Designer'),
-            self::Individual => __('Individual'),
+            self::User => __('User'),
         };
     }
 
     public function icon(): string
     {
         return match ($this) {
-            self::Store => asset('icons/store.svg'),
+            self::Shop => asset('icons/store.svg'),
             self::Designer => asset('icons/designer.svg'),
-            self::Individual => asset('icons/individual.svg'),
+            self::User => asset('icons/individual.svg'),
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Store => 'bg-primary',
+            self::Shop => 'bg-primary',
             self::Designer => 'bg-purple',
-            self::Individual => 'bg-teal',
+            self::User => 'bg-teal',
         };
     }
 }

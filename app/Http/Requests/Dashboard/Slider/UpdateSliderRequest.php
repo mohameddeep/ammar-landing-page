@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Auth\Password;
+declare(strict_types=1);
 
-use App\Rules\EmailExistsInUsersOrMerchants;
+namespace App\Http\Requests\Dashboard\Slider;
+
 use Illuminate\Foundation\Http\FormRequest;
 
-class ForgetPasswordRequest extends FormRequest
+final class UpdateSliderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +24,12 @@ class ForgetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email"=> ["required","email","exists:users,email"],
+            'title_ar' => 'nullable|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'content_ar' => 'nullable|string',
+            'content_en' => 'nullable|string',
+            'image' => 'nullable|mimes:jpeg,png,jpg',
         ];
     }
+
 }

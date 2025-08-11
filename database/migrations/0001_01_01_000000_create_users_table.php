@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\UserTypeEnum;
 
 return new class extends Migration
 {
@@ -17,8 +18,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('password');
+            $table->enum("type",UserTypeEnum::values())
+            ->default(UserTypeEnum::User->value);
+            $table->text("fcm_token")->nullable();
+            $table->boolean('is_featured')->default(0);
             $table->boolean('is_active')->default(1);
-            $table->text('fcm_token')->nullable();
             $table->boolean('otp_verified')->default(0);
             $table->timestamps();
         });

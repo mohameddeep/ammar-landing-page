@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
+use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -70,7 +71,12 @@ Route::group([
         // categories Routes
         Route::resource('categories', CategoryController::class);
         Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
-
         Route::resource('coupons', CouponController::class)->except('show');
+
+
+        // start sliders 
+        Route::resource('sliders', controller: SliderController::class)->except(['show']);
+        Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
+
     });
 });
