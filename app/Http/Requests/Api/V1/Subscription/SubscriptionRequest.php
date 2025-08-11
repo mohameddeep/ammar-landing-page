@@ -22,7 +22,7 @@ class SubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'merchant_id' => ['required', 'exists:merchants,id'],
+            'user_id' => ['required', 'exists:users,id'],
             'package_id' => ['required', 'exists:packages,id'],
             'price' => ['required'],
             // "status" =>["required"],
@@ -34,7 +34,7 @@ class SubscriptionRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'merchant_id' => auth('merchant-api')->user()->id,
+            'user_id' => auth('api')->user()->id,
             'is_active' => 1,
         ]);
     }

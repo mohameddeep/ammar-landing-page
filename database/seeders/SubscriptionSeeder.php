@@ -15,14 +15,14 @@ class SubscriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        $merchants = User::inRandomOrder()->take(8)->get();
+        $users = User::inRandomOrder()->take(8)->get();
         $packages = Package::inRandomOrder()->take(15)->get();
 
-        foreach ($merchants as $merchant) {
+        foreach ($users as $user) {
             $package = $packages->random();
 
             Subscription::create([
-                'merchant_id' => $merchant->id,
+                'user_id' => $user->id,
                 'package_id' => $package->id,
                 'end_date' => Carbon::now()->addDays(30),
                 'is_active' => true,

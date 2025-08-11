@@ -8,14 +8,14 @@ class Subscription extends Model
 {
     protected $fillable = [
         'package_id',
-        'merchant_id',
+        'user_id',
         'end_date',
         'is_active',
     ];
 
-    public function merchant()
+    public function user()
     {
-        return $this->belongsTo(Merchant::class);
+        return $this->belongsTo(User::class);
     }
 
     public function package()

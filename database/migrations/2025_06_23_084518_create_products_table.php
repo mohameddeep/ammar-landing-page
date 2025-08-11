@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('old_seller')->nullable();
             $table->text('detail_ar');
             $table->text('detail_en')->nullable();
-            $table->foreignId('merchant_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('type', ['old', 'new'])->default('new');
             $table->dateTime('expired_at')->nullable();

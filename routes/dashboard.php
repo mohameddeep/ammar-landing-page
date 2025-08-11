@@ -6,7 +6,6 @@ use App\Http\Controllers\Dashboard\Commissions\CommissionController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
-use App\Http\Controllers\Dashboard\Merchant\MerchantController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
@@ -36,10 +35,6 @@ Route::group([
         // users route
         Route::resource('users', UserController::class);
 
-        // merchant routes
-        Route::resource('merchants', MerchantController::class);
-        Route::post('/toggle/feature/{id}', [MerchantController::class, 'toggleFeature'])->name('merchants.toggle.feature');
-        Route::post('/toggle/activate/{id}', [MerchantController::class, 'toggleActivate'])->name('merchants.toggle.activate');
 
         Route::resource('settings', SettingController::class)->only('edit', 'update');
         Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');

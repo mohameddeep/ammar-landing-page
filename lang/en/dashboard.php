@@ -300,7 +300,6 @@ return [
     'coupons' => 'Coupons',
     'User Management' => 'User Management',
 
-    'Merchent' => 'Merchants',
     'Users and Merchent' => 'Users and Merchent',
     'days' => 'days',
     'content_ar' => 'Content (Arabic)',

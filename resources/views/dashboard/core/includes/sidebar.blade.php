@@ -65,10 +65,6 @@
                 {{-- nested slide slide users --}}
                 <li
                     class="slide has-sub {{ in_array(request()->route()->getName(), [
-                        'merchants.index',
-                        'merchants.create',
-                        'merchants.edit',
-                        'merchants.show',
                         'users.index',
                         'users.create',
                         'users.edit',
@@ -89,53 +85,16 @@
                     </a>
                     <ul class="slide-menu child1">
                         <li class="slide side-menu__label1">
-                            <a href="javascript:void(0)">@lang('dashboard.Users and Merchent')</a>
+                            <a href="javascript:void(0)">@lang('dashboard.Users')</a>
                         </li>
 
-                        <li
-                            class="slide has-sub {{ in_array(request()->route()->getName(), [
-                                'merchants.index',
-                                'merchants.create',
-                                'merchants.edit',
-                                'merchants.show',
-                                'users.index',
-                                'users.create',
-                                'users.edit',
-                                'users.show',
-                            ])
-                                ? 'open active'
-                                : '' }}">
-
-                            <a href="javascript:void(0);" class="side-menu__item">@lang('dashboard.Users and Merchent')
-                                <i class="fe fe-chevron-right side-menu__angle"></i></a>
-                            <ul class="slide-menu child2">
-
-                                <li class="slide">
-                                    <a href="{{ route('users.index') }}"
-                                        class="side-menu__item {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
-                                            ? 'active'
-                                            : '' }}">
-                                        @lang('dashboard.users')
-                                    </a>
-                                </li>
-
-                                <li class="slide">
-                                    <a href="{{ route('merchants.index') }}"
-                                        class="side-menu__item {{ in_array(request()->route()->getName(), [
-                                            'merchants.index',
-                                            'merchants.create',
-                                            'merchants.edit',
-                                            'merchants.show',
-                                        ])
-                                            ? 'active'
-                                            : '' }}">
-                                        @lang('dashboard.Merchent')
-                                    </a>
-                                </li>
-
-
-                            </ul>
-
+                        <li class="slide">
+                            <a href="{{ route('users.index') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
+                                    ? 'active'
+                                    : '' }}">
+                                @lang('dashboard.users')
+                            </a>
                         </li>
 
                         @permission('roles-read')
@@ -210,7 +169,8 @@
 
                 <!-- Start::sliders -->
                 <li class="slide">
-                    <a href="{{ route('sliders.index') }}" class="side-menu__item {{ request()->routeIs('sliders.index') ? 'active' : '' }}">
+                    <a href="{{ route('sliders.index') }}"
+                        class="side-menu__item {{ request()->routeIs('sliders.index') ? 'active' : '' }}">
                         <i class="ti ti-photo side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.sliders')</span>
                     </a>

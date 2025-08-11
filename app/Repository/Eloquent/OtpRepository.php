@@ -16,7 +16,7 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
 
     private function getCurrentUser()
     {
-        return auth('api')->user() ? auth('api')->user() : auth('merchant-api')->user();
+        return auth('api')->user();
     }
 
     public function generateOtp($user = null)

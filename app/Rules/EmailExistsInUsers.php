@@ -2,12 +2,11 @@
 
 namespace App\Rules;
 
-use App\Models\Merchant;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class EmailExistsInUsersOrMerchants implements ValidationRule
+class EmailExistsInUsers implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -17,9 +16,8 @@ class EmailExistsInUsersOrMerchants implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $existsInUsers = User::where('email', $value)->exists();
-        $existsInMerchants = Merchant::where('email', $value)->exists();
 
-        if (! ($existsInUsers || $existsInMerchants)) {
+        if (! ($existsInUsers)) {
             $fail(__('validation.exists')); // Default error message for consistency
         }
     }

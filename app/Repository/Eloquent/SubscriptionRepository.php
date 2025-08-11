@@ -20,7 +20,7 @@ final class SubscriptionRepository extends Repository implements SubscriptionRep
 
     public function checkExistingSubscription($id)
     {
-        return $this->model->where('merchant_id', auth('merchant-api')->user()->id)
+        return $this->model->where('user_id', auth('api')->user()->id)
             ->where('package_id', '=', $id)
             ->where('is_active', '=', 1)->exists();
     }
