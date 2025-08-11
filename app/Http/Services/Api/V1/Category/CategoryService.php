@@ -8,7 +8,6 @@ use App\Http\Resources\V1\Category\CategoryDetailResource;
 use App\Http\Resources\V1\Category\CategoryResource;
 use App\Repository\CategoryRepositoryInterface;
 use Exception;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\JsonResponse;
 use function App\Http\Helpers\paginatedJsonResponse;
 use function App\Http\Helpers\responseFail;

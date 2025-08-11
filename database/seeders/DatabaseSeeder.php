@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
             LaratrustSeeder::class,
             ManagerSeeder::class,
             UserSeeder::class,
-            MerchantSeeder::class,
             CommissionSeeder::class,
             PackageSeeder::class,
             PackageFeatureSeeder::class,

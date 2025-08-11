@@ -7,11 +7,11 @@ use App\Http\Requests\Api\V1\Auth\Password\ForgetPasswordRequest;
 use App\Http\Requests\Api\V1\Auth\Password\PasswordRequest;
 use App\Http\Requests\Api\V1\Auth\Password\ResetPasswordRequest;
 use App\Http\Requests\Api\V1\Auth\Password\VerifyOtpRequest;
-use App\Http\Services\Api\V1\Auth\Password\UserPasswordService;
+use App\Http\Services\Api\V1\Auth\Password\PasswordService;
 
-class UserPasswordController extends Controller
+class PasswordController extends Controller
 {
-    public function __construct(private UserPasswordService $service)
+    public function __construct(private readonly PasswordService $service)
     {
     }
 

@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\CommissionRepositoryInterface;
+use App\Repository\ContactUsRepositoryInterface;
 use App\Repository\CouponRepositoryInterface;
 use App\Repository\Eloquent\CommissionRepository;
+use App\Repository\Eloquent\ContactUsRepository;
 use App\Repository\Eloquent\CouponRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\MerchantRepository;
@@ -60,6 +62,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(MerchantRepositoryInterface::class, MerchantRepository::class);
         $this->app->singleton(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
         $this->app->singleton(CouponRepositoryInterface::class, CouponRepository::class);
+        $this->app->singleton(ContactUsRepositoryInterface::class, ContactUsRepository::class);
     }
 
     /**

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string("name_en")->nullable();
             $table->string("duration")->comment("Duration of the package, in days");
             $table->decimal("price");
-            $table->text("description_ar")->nullable()->comment("Description in Arabic");
-            $table->text("description_en")->nullable();
+            // $table->text("description_ar")->nullable()->comment("Description in Arabic");
+            // $table->text("description_en")->nullable();
             $table->string("product_number")->comment("Unique identifier for the package");
             $table->unsignedInteger("free_product_count")->default(0)->comment("Number of free dresses included in the package");
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Auth\Password;
+namespace App\Http\Requests\Api\V1\ContatUs\ContactUs;
 
-use App\Rules\EmailExistsInUsersOrMerchants;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ForgetPasswordRequest extends FormRequest
+class ContactUsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +22,11 @@ class ForgetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email"=> ["required","email","exists:users,email"],
+            "name" =>"required|string|max:255",
+            "email" =>"required|email|max:255",
+            "phone" =>"required",
+            "subject" =>"nullable|string",
+            "message" =>"required",
         ];
     }
 }

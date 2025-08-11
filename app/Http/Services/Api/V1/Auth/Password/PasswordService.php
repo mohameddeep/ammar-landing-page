@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Services\Api\V1\Auth\Password;
 
 use App\Http\Resources\V1\Otp\OtpResource;
 use App\Jobs\SendMailJob;
 use App\Mail\SendOtpMail;
 use App\Repository\OtpRepositoryInterface;
+use App\Repository\UserRepositoryInterface;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,18 +18,13 @@ use Illuminate\Support\Str;
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
-abstract class PasswordService
+final class PasswordService
 {
-    public function __construct(
-        protected OtpRepositoryInterface $otpRepository
-    ) {}
+    public function __construct(private UserRepositoryInterface $repository, private OtpRepositoryInterface $otpRepository) {}
 
-    abstract protected function getRepository();
-    abstract protected function getGuard(): string;
-
-    public function forgot($request)
+     public function forgot($request)
     {
-        $user = $this->getRepository()->get('email', $request->email)?->first();
+        $user = $this->repository->get('email', $request->email)?->first();
         $user->update(['otp_verified' => false]);
         $otp = $this->otpRepository->generateOtp($user);
 
@@ -38,7 +37,7 @@ abstract class PasswordService
     {
         try {
             DB::beginTransaction();
-            $user = $this->getRepository()->get('email', $request->email)?->first();
+            $user = $this->repository->get('email', $request->email)?->first();
 
             if (!$this->otpRepository->check($request->otp, $request->otp_token, $user)) {
                 return responseFail(message: __('messages.Wrong OTP code or expired'));
@@ -69,9 +68,9 @@ abstract class PasswordService
             }
 
             Cache::forget('reset_token_' . $request->email);
-            $user = $this->getRepository()->get('email', $request->email)?->first();
+            $user = $this->repository->get('email', $request->email)?->first();
 
-            $this->getRepository()->update($user->id, ['password' => $request->password]);
+            $this->repository->update($user->id, ['password' => $request->password]);
             DB::commit();
 
             return responseSuccess(message: __('messages.Password reset successfully.'));
@@ -83,13 +82,13 @@ abstract class PasswordService
 
     public function updatePassword($request)
     {
-        $user = auth($this->getGuard())->user();
+        $user = auth("api")->user();
 
         if (Hash::check($request->new_password, $user->password)) {
             return responseFail(message: __('messages.The new password must be different from the current password.'));
         }
 
-        $updated = $this->getRepository()->update($user->id, ['password' => $request->new_password]);
+        $updated = $this->repository->update($user->id, ['password' => $request->new_password]);
 
         return $updated
             ? responseSuccess(message: __('messages.updated successfully'))

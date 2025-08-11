@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Auth\Merchant;
+namespace App\Http\Requests\Api\V1\Auth;
 
 use App\Enums\UserTypeEnum;
 use App\Rules\Phone;
@@ -27,11 +27,13 @@ class SignUpRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required', 'email:rfc,dns', Rule::unique('merchants', 'email')],
-            'phone' => ['required', new Phone, Rule::unique('merchants', 'phone')->ignore(auth('merchant-api')->id())],
+            'email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')],
+            'phone' => ['required', new Phone, Rule::unique('users', 'phone')->ignore(auth('api')->id())],
             'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
+            'fcm_token' => ['nullable', "string"],
             'type' => ['required', Rule::in(UserTypeEnum::values())],
-            'fcm_token' => ['nullable', "string"]
+
+
         ];
     }
 }

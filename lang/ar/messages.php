@@ -27,7 +27,7 @@ return [
     'OTP_Is_Send' => 'تم إرسال رمز التحقق.',
     'you_already_subscribed_to_this_package' => 'أنت مشترك بالفعل في هذه الباقة',
     'invalid_coupon' => 'الكوبون غير صالح',
-        'subscribed_successfully' => 'تم الاشتراك بنجاح',
+    'subscribed_successfully' => 'تم الاشتراك بنجاح',
 
 
 

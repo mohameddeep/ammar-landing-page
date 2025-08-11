@@ -29,7 +29,9 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'otp_verified',
         'is_active',
-        'fcm_token'
+        'fcm_token',
+        'is_featured',
+        'type',
     ];
 
     /**

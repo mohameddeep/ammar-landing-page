@@ -19,9 +19,10 @@ return new class extends Migration
             $table->decimal("price");
             $table->integer("discount")->nullable();
             $table->integer("quantity")->nullable();
+            $table->string("old_seller")->nullable();
             $table->text("detail_ar");
             $table->text("detail_en")->nullable();
-            $table->foreignId("merchant_id")->constrained("merchants")->cascadeOnDelete();
+            $table->foreignId("merchant_id")->constrained("users")->cascadeOnDelete();
             $table->foreignId("category_id")->constrained("categories")->cascadeOnDelete();
             $table->enum("type", ["old", "new"])->default("new");
             $table->dateTime("expired_at")->nullable();

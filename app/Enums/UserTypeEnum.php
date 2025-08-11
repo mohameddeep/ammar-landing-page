@@ -8,34 +8,34 @@ enum UserTypeEnum: string
 {
     use Enumable;
 
-    case Store = 'store';
+    case Shop = 'shop';
     case Designer = 'designer';
-    case Individual = 'individual';
+    case User = 'user';
 
     public function t(): string
     {
         return match ($this) {
-            self::Store => __('Store'),
+            self::Shop => __('Shop'),
             self::Designer => __('Designer'),
-            self::Individual => __('Individual'),
+            self::User => __('User'),
         };
     }
 
     public function icon(): string
     {
         return match ($this) {
-            self::Store => 'ti ti-building-store',
+            self::Shop => 'ti ti-building-store',
             self::Designer => 'ti ti-brush',
-            self::Individual => 'ti ti-user-circle',
+            self::User => 'ti ti-user-circle',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::Store => 'bg-primary',
+            self::Shop => 'bg-primary',
             self::Designer => 'bg-purple',
-            self::Individual => 'bg-teal',
+            self::User => 'bg-teal',
         };
     }
 }
