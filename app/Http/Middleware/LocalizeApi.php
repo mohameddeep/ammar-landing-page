@@ -4,11 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class LocalizeApi
 {
     const LOCALES = ['en', 'ar'];
+
     public function handle(Request $request, Closure $next)
     {
         $locale = $request->header('Accept-Language');

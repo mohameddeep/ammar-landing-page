@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
 use App\Http\Controllers\Api\V1\Merchant\MerchantController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
+use App\Http\Controllers\Api\V1\Profile\MerchantProfileController;
+use App\Http\Controllers\Api\V1\Profile\UserProfileController;
 use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +37,6 @@ Route::group(['prefix' => 'email', 'middleware' => ['auth:api']], function () {
     Route::post('/otp/verify', [ChangeEmailController::class, 'change']);
 });
 
-
 Route::group(['prefix' => 'password'], function () {
     Route::post('/forgot', [PasswordController::class, 'forgot']);
     Route::post('/verify-otp', [PasswordController::class, 'verifyOtp']);
@@ -43,22 +44,20 @@ Route::group(['prefix' => 'password'], function () {
     Route::post('/update', [PasswordController::class, 'updatePassword']);
 });
 
-Route::group([ 'middleware' => ['auth:api']], function () {
-
+Route::group(['middleware' => ['auth:api']], function () {
 
     // user profile
-   Route::group(['prefix' => 'user-profile',
-   'controller' => UserProfileController::class], function () {
-    Route::get('/',  'profile');
-    Route::put('/update',  'updateProfile');
-    });
-
+    Route::group(['prefix' => 'user-profile',
+        'controller' => UserProfileController::class], function () {
+            Route::get('/', 'profile');
+            Route::put('/update', 'updateProfile');
+        });
 
     // user addresses
 
     Route::group([
         'prefix' => 'user-address',
-        'controller' => UserAddressController::class
+        'controller' => UserAddressController::class,
     ], function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');
@@ -68,11 +67,9 @@ Route::group([ 'middleware' => ['auth:api']], function () {
         Route::put('/change-status/{id}', 'changeAddressStatus');
     });
 
-
-
-     Route::group([
+    Route::group([
         'prefix' => 'merchants',
-        'controller' => MerchantController::class
+        'controller' => MerchantController::class,
     ], function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');
@@ -82,7 +79,7 @@ Route::group([ 'middleware' => ['auth:api']], function () {
     //packages
     Route::group([
         'prefix' => 'packages',
-        'controller' => PackageController::class
+        'controller' => PackageController::class,
     ], function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');

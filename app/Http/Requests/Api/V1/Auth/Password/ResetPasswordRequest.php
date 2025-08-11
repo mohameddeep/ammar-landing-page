@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests\Api\V1\Auth\Password;
-use App\Rules\EmailExistsInUsersOrMerchants;
 
+use App\Rules\EmailExistsInUsersOrMerchants;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 

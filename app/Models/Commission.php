@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commission extends Model
 {
-
     use LanguageToggle;
+
     protected $guarded = [];
 
     protected $casts = [
-      'type' => CommissionTypeEnum::class,
+        'type' => CommissionTypeEnum::class,
     ];
 }

@@ -11,8 +11,8 @@ class Category extends Model
 {
     use LanguageToggle;
 
-
     protected $guarded = [];
+
     public function parent()
     {
         return $this->belongsTo(self::class, 'parent_id');
@@ -36,7 +36,6 @@ class Category extends Model
             }
         );
     }
-
 
     public function subCategoriesCount(): Attribute
     {

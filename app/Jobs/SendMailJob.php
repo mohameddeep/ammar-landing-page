@@ -14,6 +14,7 @@ class SendMailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $emailable;
+
     private $email;
 
     /**

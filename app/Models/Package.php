@@ -9,16 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     use LanguageToggle;
+
     protected $casts = [
         'type' => PackageTypeEnum::class,
     ];
-    protected $guarded = [];
 
+    protected $guarded = [];
 
     public function features()
     {
         return $this->hasMany(PackageFeature::class);
     }
+
     public function merchants()
     {
         return $this->belongsToMany(Merchant::class, 'subscriptions')

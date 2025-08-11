@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard\Roles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Role\RoleRequest;
 use App\Http\Services\Dashboard\Roles\RoleService;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -21,13 +20,13 @@ class RoleController extends Controller implements HasMiddleware
             new Middleware('permission:managers-read', ['managers']),
         ];
     }
+
     public function __construct(private RoleService $service) {}
 
     public function index()
     {
         return $this->service->index();
     }
-
 
     public function mangers($id)
     {

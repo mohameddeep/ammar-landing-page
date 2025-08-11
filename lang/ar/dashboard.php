@@ -313,4 +313,5 @@ return [
     'sliders' => 'صور (slider)',
     
     'commissions' => 'العمولات'
+    'commissions' => 'العمولات',
 ];

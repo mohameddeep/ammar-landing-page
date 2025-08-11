@@ -10,9 +10,13 @@ use Illuminate\Support\ServiceProvider;
 class PlatformServiceProvider extends ServiceProvider
 {
     private const VERSIONS = [1];
+
     private const PLATFORMS = ['website', 'mobile'];
+
     private const DEFAULT_VERSION = 1;
+
     private const DEFAULT_PLATFORM = 'website';
+
     private const SERVICES = [
         1 => [
             AuthService::class => [
@@ -22,7 +26,9 @@ class PlatformServiceProvider extends ServiceProvider
             ]
         ],
     ];
+
     private ?int $version;
+
     private ?string $platform;
 
     public function __construct($app)
@@ -38,6 +44,7 @@ class PlatformServiceProvider extends ServiceProvider
                 if (request()->is($pattern)) {
                     $this->version = $version;
                     $this->platform = $platform;
+
                     return;
                 }
             }

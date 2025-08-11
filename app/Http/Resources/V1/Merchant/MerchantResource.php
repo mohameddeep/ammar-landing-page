@@ -4,6 +4,7 @@ namespace App\Http\Resources\V1\merchant;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+
 use function App\Http\Helpers\fileFullPath;
 
 class MerchantResource extends JsonResource
@@ -12,6 +13,7 @@ class MerchantResource extends JsonResource
     {
         parent::__construct($resource);
     }
+
     /**
      * Transform the resource into an array.
      *
@@ -24,10 +26,9 @@ class MerchantResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'image' => fileFullPath($this->image),
-            'is_active' =>$this->is_active,
-            'type' =>$this->type,
+            'is_active' => $this->is_active,
+            'type' => $this->type,
 
-    
         ];
     }
 }

@@ -16,10 +16,12 @@ class GetService
         try {
             $executable = $repository->$method(...$parameters);
             $records = $is_instance ? new $resource($executable, ...$resource_parameters) : $resource::collection($executable);
+
             return $this->responseSuccess(message: $message, data: $records);
         } catch (Exception $e) {
-            Log::error('CATCH: '. $e);
-//            return $e;
+            Log::error('CATCH: '.$e);
+
+            //            return $e;
             return $this->responseFail(status: 404, message: __('messages.No data found'));
         }
     }

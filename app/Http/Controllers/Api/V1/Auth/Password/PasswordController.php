@@ -31,8 +31,8 @@ class PasswordController extends Controller
         return $this->service->reset($request);
     }
 
-    public function updatePassword(PasswordRequest $request){
+    public function updatePassword(PasswordRequest $request)
+    {
         return $this->service->updatePassword($request);
     }
-
 }

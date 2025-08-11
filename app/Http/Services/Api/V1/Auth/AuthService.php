@@ -11,7 +11,6 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Repository\UserRepositoryInterface;
 
-
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
@@ -68,6 +67,7 @@ abstract class AuthService extends PlatformService
 
         if ($user) {
             $user->delete();
+
             return responseSuccess(message: 'تم حذف الحساب بنجاح');
         }
 

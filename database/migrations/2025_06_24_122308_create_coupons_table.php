@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('discount', 5, 2);
             $table->integer('usage_count')->default(0);
             $table->dateTime('expire_at')->nullable();
-             $table->timestamps();
+            $table->timestamps();
         });
     }
 

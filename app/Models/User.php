@@ -11,11 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-
-
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable ;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,6 +54,7 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -71,14 +70,15 @@ class User extends Authenticatable implements JWTSubject
         return JWTAuth::fromUser($this);
     }
 
+    public function otp()
+    {
+        return $this->morphOne(Otp::class, 'otppable');
+    }
 
-     public function otp()
-{
-    return $this->morphOne(Otp::class, 'otppable');
-}    public function otps()
-{
-    return $this->morphMany(Otp::class, 'otppable');
-}
+    public function otps()
+    {
+        return $this->morphMany(Otp::class, 'otppable');
+    }
 
     public function addresses(): HasMany
     {

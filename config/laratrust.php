@@ -118,9 +118,9 @@ return [
 
         'permission' => \App\Models\Permission::class,
 
-        /**
-         * Will be used only if the teams functionality is enabled.
-         */
+    /**
+     * Will be used only if the teams functionality is enabled.
+     */
         // 'team' => \App\Models\Team::class,
     ],
 
@@ -174,9 +174,9 @@ return [
          */
         'permission' => 'permission_id',
 
-        /**
-         * Role foreign key on Laratrust's role_user and permission_user tables.
-         */
+    /**
+     * Role foreign key on Laratrust's role_user and permission_user tables.
+     */
         // 'team' => 'team_id',
     ],
 
@@ -324,7 +324,7 @@ return [
         | These middleware will get added onto each Laratrust panel route.
         |
         */
-        'middleware' => ['web','api'],
+        'middleware' => ['web', 'api'],
 
         /*
         |--------------------------------------------------------------------------

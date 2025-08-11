@@ -15,8 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->double('item_price', 10, 2);
             $table->integer('quantity');
-            $table->foreignId(column: "order_id")->constrained("orders")->cascadeOnDelete();
-            $table->foreignId(column: "product_id")->constrained("products")->cascadeOnDelete();
+            $table->foreignId(column: 'order_id')->constrained('orders')->cascadeOnDelete();
+            $table->foreignId(column: 'product_id')->constrained('products')->cascadeOnDelete();
             $table->timestamps();
         });
     }

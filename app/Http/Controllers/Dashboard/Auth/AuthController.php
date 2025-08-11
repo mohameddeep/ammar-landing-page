@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Auth\LoginRequest;
 use App\Http\Requests\Dashboard\Auth\UpdatePasswordRequest;
 use App\Http\Services\Dashboard\Auth\AuthService;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -34,6 +33,7 @@ class AuthController extends Controller
     {
         return $this->auth->logout();
     }
+
     public function updatePassword(UpdatePasswordRequest $request)
     {
         return $this->auth->updatePassword($request);

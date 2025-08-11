@@ -3,8 +3,8 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Commission;
-use Illuminate\Database\Eloquent\Model;
 use App\Repository\CommissionRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 class CommissionRepository extends Repository implements CommissionRepositoryInterface
 {

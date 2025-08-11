@@ -8,6 +8,5 @@ interface CouponRepositoryInterface extends RepositoryInterface
 
     public function applyDiscount($packagePrice, $coupon);
 
-    public function decrementUsage( $coupon);
-
+    public function decrementUsage($coupon);
 }

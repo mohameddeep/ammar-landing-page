@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard\Merchant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Merchant\MerchantRequest;
 use App\Http\Services\Dashboard\Merchant\MerchantService;
-use Illuminate\Http\Request;
 
 class MerchantController extends Controller
 {
@@ -47,11 +46,11 @@ class MerchantController extends Controller
         return $this->service->destroy($id);
     }
 
-
     public function toggleActivate($id)
     {
         return $this->service->toggleActivate($id);
     }
+
     public function toggleFeature($id)
     {
         return $this->service->toggleFeature($id);

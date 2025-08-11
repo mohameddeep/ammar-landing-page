@@ -11,13 +11,15 @@ class SubscriptionController extends Controller
 {
     public function __construct(
         private readonly SubscriptionService $service,
-    )
+    ) {}
+
+    public function subscribe(SubscriptionRequest $request)
     {
-    }
-    public function subscribe(SubscriptionRequest $request){
         return $this->service->subscribe($request);
     }
-    public function applyCoupon(CouponRequest $request){
+
+    public function applyCoupon(CouponRequest $request)
+    {
         return $this->service->applyCoupon($request);
     }
 }

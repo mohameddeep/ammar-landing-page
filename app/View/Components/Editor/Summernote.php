@@ -9,8 +9,11 @@ use Illuminate\View\Component;
 class Summernote extends Component
 {
     public $id;
+
     public $label;
+
     public $name;
+
     public $value;
 
     public function __construct($id = 'summernote', $label = 'note', $name = 'content', $value = '')

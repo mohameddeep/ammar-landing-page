@@ -48,7 +48,7 @@ return [
     'not_editable' => 'Not Editable',
     'Managers_Count' => 'Managers Count',
     'ar' => 'In Arabic',
-    'en' =>  'In English',
+    'en' => 'In English',
     'Permissions' => 'Permissions',
     'categories' => 'Categories',
     'fields' => 'Fields',
@@ -276,7 +276,6 @@ return [
     'suppliers' => 'Suppliers',
     'Contact Information :' => 'Contact Information :',
 
-
     'Are you sure?' => 'Are you sure?',
     'This action cannot be undone!' => 'This action cannot be undone!',
     'Yes, delete it!' => 'Yes, delete it!',
@@ -286,8 +285,6 @@ return [
     'Error!' => 'Error!',
     'Something went wrong!' => 'Something went wrong!',
     'Unable to delete item.' => 'Unable to delete item.',
-
-
 
     'User List' => 'User List',
     'roles' => 'roles',
@@ -310,6 +307,6 @@ return [
     'content_en' => 'Content (English)',
     'sliders' => 'Slider',
     'Allure Collection' => 'Allure Collection',
-    'commissions' => 'Commissions'
+    'commissions' => 'Commissions',
 
 ];

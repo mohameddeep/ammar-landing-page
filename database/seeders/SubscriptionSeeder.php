@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Package;
 use App\Models\Subscription;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SubscriptionSeeder extends Seeder

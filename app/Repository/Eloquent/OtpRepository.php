@@ -14,42 +14,47 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
         parent::__construct($model);
     }
 
-
     private function getCurrentUser()
     {
-        return auth("api")->user() ?auth("api")->user() :auth("merchant-api")->user();
+        return auth('api')->user() ? auth('api')->user() : auth('merchant-api')->user();
     }
 
     public function generateOtp($user = null)
     {
-        if (!$user)
-             $user = $this->getCurrentUser();
+        if (! $user) {
+            $user = $this->getCurrentUser();
+        }
         $user->otps()?->delete();
+
         return $user->otp()?->create([
             'otp' => rand(1234, 9999),
             'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
-            'email' =>$user?->email ?? null
+            'email' => $user?->email ?? null,
         ]);
     }
 
     public function generateOtpForEmail($email, $user = null)
     {
-        if (!$user)
-        $user = $this->getCurrentUser();
+        if (! $user) {
+            $user = $this->getCurrentUser();
+        }
         $user->otps()?->delete();
+
         return $user->otp()?->create([
             'email' => $email,
             'otp' => rand(1234, 9999),
-             'expire_at' => Carbon::now()->addMinutes(5),
+            'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
         ]);
     }
 
     public function check($otp, $token, $user = null)
     {
-        if (!$user)
-        $user = $this->getCurrentUser();
+        if (! $user) {
+            $user = $this->getCurrentUser();
+        }
+
         return $this->model::query()
             ->where('otppable_id', $user->id)
             ->where('otp', $otp)

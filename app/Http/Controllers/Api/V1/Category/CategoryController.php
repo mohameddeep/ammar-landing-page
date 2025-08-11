@@ -20,5 +20,4 @@ final class CategoryController extends Controller
     {
         return $this->categoryService->show($id);
     }
-
 }

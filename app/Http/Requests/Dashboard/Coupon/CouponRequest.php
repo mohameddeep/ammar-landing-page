@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\Dashboard\Coupon;
 
-use Illuminate\Validation\Rule;
-
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CouponRequest extends FormRequest
 {
@@ -36,25 +35,24 @@ class CouponRequest extends FormRequest
     }
 
     public function messages(): array
-{
-    return [
-        'code.required' => 'كود الخصم مطلوب.',
-        'code.unique' => 'هذا الكود مستخدم من قبل.',
-        
-        'name.required' => 'الاسم مطلوب.',
-        
-        'discount.required' => 'قيمة الخصم مطلوبة.',
-        'discount.numeric' => 'قيمة الخصم يجب أن تكون رقمًا.',
-        'discount.min' => 'قيمة الخصم لا يمكن أن تكون أقل من 0.',
-        'discount.max' => 'قيمة الخصم لا يمكن أن تتجاوز 100.',
-        
-        'usage_count.required' => 'عدد مرات الاستخدام مطلوب.',
-        'usage_count.integer' => 'عدد مرات الاستخدام يجب أن يكون عددًا صحيحًا.',
-        'usage_count.min' => 'عدد مرات الاستخدام يجب أن يكون 1 على الأقل.',
-        
-        'expire_at.date' => 'تاريخ الانتهاء يجب أن يكون تاريخًا صالحًا.',
-        'expire_at.after_or_equal' => 'تاريخ الانتهاء يجب أن يكون اليوم أو بعده.',
-    ];
-}
+    {
+        return [
+            'code.required' => 'كود الخصم مطلوب.',
+            'code.unique' => 'هذا الكود مستخدم من قبل.',
 
+            'name.required' => 'الاسم مطلوب.',
+
+            'discount.required' => 'قيمة الخصم مطلوبة.',
+            'discount.numeric' => 'قيمة الخصم يجب أن تكون رقمًا.',
+            'discount.min' => 'قيمة الخصم لا يمكن أن تكون أقل من 0.',
+            'discount.max' => 'قيمة الخصم لا يمكن أن تتجاوز 100.',
+
+            'usage_count.required' => 'عدد مرات الاستخدام مطلوب.',
+            'usage_count.integer' => 'عدد مرات الاستخدام يجب أن يكون عددًا صحيحًا.',
+            'usage_count.min' => 'عدد مرات الاستخدام يجب أن يكون 1 على الأقل.',
+
+            'expire_at.date' => 'تاريخ الانتهاء يجب أن يكون تاريخًا صالحًا.',
+            'expire_at.after_or_equal' => 'تاريخ الانتهاء يجب أن يكون اليوم أو بعده.',
+        ];
+    }
 }

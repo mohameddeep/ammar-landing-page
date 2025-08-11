@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 final class PackageResource extends JsonResource
 {
     use LanguageToggle;
+
     /**
      * Transform the resource into an array.
      *
@@ -27,7 +28,7 @@ final class PackageResource extends JsonResource
             'price' => $this->price,
             'product_number' => $this->product_number,
             'is_active' => $this->is_active,
-            'features' => PackageFeatureResource::collection($this->whenLoaded("features")),
+            'features' => PackageFeatureResource::collection($this->whenLoaded('features')),
         ];
     }
 }

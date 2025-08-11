@@ -7,11 +7,13 @@ namespace App\Http\Resources\V1\Category;
 use App\Http\Traits\LanguageToggle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+
 use function App\Http\Helpers\fileFullPath;
 
 final class CategoryResource extends JsonResource
 {
     use LanguageToggle;
+
     /**
      * Transform the resource into an array.
      *

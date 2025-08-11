@@ -20,7 +20,8 @@ class AuthController extends Controller
         return $this->auth->signUp($request);
     }
 
-    public function signIn(SignInRequest $request) {
+    public function signIn(SignInRequest $request)
+    {
         return $this->auth->signIn($request);
     }
     

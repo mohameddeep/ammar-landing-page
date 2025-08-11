@@ -6,11 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Categories\CategoryRequest;
 use App\Http\Services\Dashboard\Categories\CategoryService;
 
-
-
 class CategoryController extends Controller
 {
-
     public function __construct(private readonly CategoryService $service) {}
 
     public function index()
@@ -18,7 +15,6 @@ class CategoryController extends Controller
 
         return $this->service->index();
     }
-
 
     public function create()
     {
@@ -39,9 +35,6 @@ class CategoryController extends Controller
     {
         return $this->service->update($request, $id);
     }
-
-
-
 
     public function toggle($id)
     {

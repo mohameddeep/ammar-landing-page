@@ -14,6 +14,4 @@ class MerchantRepository extends Repository implements MerchantRepositoryInterfa
     {
         parent::__construct($model);
     }
-
-    
 }

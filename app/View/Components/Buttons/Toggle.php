@@ -7,12 +7,19 @@ use Illuminate\View\Component;
 class Toggle extends Component
 {
     public $id;
+
     public $isActive;
+
     public $url;
+
     public $type;
+
     public $onText;
+
     public $offText;
+
     public $onClass;
+
     public $offClass;
 
     public function __construct($id, $isActive, $url, $type = 'button', $onText = '', $offText = '', $onClass = '', $offClass = '')

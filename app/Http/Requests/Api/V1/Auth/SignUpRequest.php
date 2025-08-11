@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Api\V1\Auth;
 
-use App\Enums\UserTypeEnum;
 use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

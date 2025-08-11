@@ -10,7 +10,6 @@ class PackageFeatureController extends Controller
 {
     public function __construct(private readonly PackageFeatureService $service) {}
 
-
     public function toggle(Request $request, $id)
     {
         return $this->service->toggle($request, $id);

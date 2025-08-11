@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use App\Repository\CategoryRepositoryInterface;
-use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\CommissionRepositoryInterface;
 use App\Repository\ContactUsRepositoryInterface;
 use App\Repository\CouponRepositoryInterface;
+use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\Eloquent\CommissionRepository;
 use App\Repository\Eloquent\ContactUsRepository;
 use App\Repository\Eloquent\CouponRepository;
@@ -20,6 +20,7 @@ use App\Repository\Eloquent\Repository;
 use App\Repository\Eloquent\RoleRepository;
 use App\Repository\Eloquent\SettingsRepository;
 use App\Repository\Eloquent\SliderRepository;
+use App\Repository\Eloquent\SubscriptionRepository;
 use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\ManagerRepositoryInterface;
@@ -32,11 +33,10 @@ use App\Repository\RepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
 use App\Repository\SettingsRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
+use App\Repository\SubscriptionRepositoryInterface;
 use App\Repository\UserAddressRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
-use App\Repository\Eloquent\SubscriptionRepository;
-use App\Repository\SubscriptionRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

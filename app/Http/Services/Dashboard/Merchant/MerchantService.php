@@ -5,7 +5,6 @@ namespace App\Http\Services\Dashboard\Merchant;
 use App\Http\Helpers\Http;
 use App\Repository\MerchantRepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
-use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 use function App\Http\Helpers\responseFail;
@@ -21,6 +20,7 @@ class MerchantService
     public function index()
     {
         $merchants = $this->repository->paginate(10);
+
         return view('dashboard.site.merchants.index', compact('merchants'));
     }
 
@@ -35,22 +35,23 @@ class MerchantService
 
         return view('dashboard.site.merchants.show', compact('merchant'));
     }
+
     public function store($request)
     {
         try {
             DB::beginTransaction();
             $data = $request->validated();
 
-
             $user = $this->repository->create($data);
             DB::commit();
+
             return redirect()->route('users.index', $user->id)->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
-
 
     public function update($request, $id)
     {
@@ -61,6 +62,7 @@ class MerchantService
                 unset($data['password']);
             }
             $this->repository->update($id, $data);
+
             return redirect()->route('users.update', $user->id)->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             return back()->with(['error' => __('messages.Something went wrong')]);
@@ -84,17 +86,18 @@ class MerchantService
     public function toggleActivate($id)
     {
         $merchant = $this->repository->getById($id);
-        $merchant->is_active = !$merchant->is_active;
+        $merchant->is_active = ! $merchant->is_active;
         $merchant->save();
 
-        return responseSuccess(Http::OK, __('messages.updated_successfully'),  ['success' => true, 'is_active' => $merchant->is_active]);
+        return responseSuccess(Http::OK, __('messages.updated_successfully'), ['success' => true, 'is_active' => $merchant->is_active]);
     }
+
     public function toggleFeature($id)
     {
         $merchant = $this->repository->getById($id);
-        $merchant->is_featured = !$merchant->is_featured;
+        $merchant->is_featured = ! $merchant->is_featured;
         $merchant->save();
 
-        return responseSuccess(Http::OK, __('messages.updated_successfully'),  ['success' => true, 'is_featured' => $merchant->is_active]);
+        return responseSuccess(Http::OK, __('messages.updated_successfully'), ['success' => true, 'is_featured' => $merchant->is_active]);
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class PageCard extends Component
 {
     public $header;
+
     public $footer;
 
     public function __construct($header = null, $footer = null)
@@ -16,6 +17,7 @@ class PageCard extends Component
         $this->header = $header;
         $this->footer = $footer;
     }
+
     public function render(): View|Closure|string
     {
         return view('components.cards.page-card');

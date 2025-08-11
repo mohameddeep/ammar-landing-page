@@ -5,7 +5,6 @@ namespace App\Repository\Eloquent;
 use App\Models\Coupon;
 use App\Repository\CouponRepositoryInterface;
 
-
 class CouponRepository extends Repository implements CouponRepositoryInterface
 {
     public function __construct(Coupon $model)
@@ -21,13 +20,12 @@ class CouponRepository extends Repository implements CouponRepositoryInterface
     public function applyDiscount($packagePrice, $coupon): float
     {
         $discountAmount = $packagePrice * ($coupon->discount / 100);
+
         return $packagePrice - $discountAmount;
     }
 
-    public function decrementUsage( $coupon): void
+    public function decrementUsage($coupon): void
     {
         $coupon->decrement('usage_count');
     }
-
-    
 }

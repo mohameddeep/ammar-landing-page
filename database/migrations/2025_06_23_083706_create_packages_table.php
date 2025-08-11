@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string("product_number")->comment("Unique identifier for the package");
             $table->unsignedInteger("free_product_count")->default(0)->comment("Number of free dresses included in the package");
 
-            $table->enum("type", PackageTypeEnum::values());
-            $table->boolean("is_active")->default(0);
-            $table->boolean("is_hidden")->default(0);
+            $table->enum('type', PackageTypeEnum::values());
+            $table->boolean('is_active')->default(0);
+            $table->boolean('is_hidden')->default(0);
             $table->timestamps();
         });
     }

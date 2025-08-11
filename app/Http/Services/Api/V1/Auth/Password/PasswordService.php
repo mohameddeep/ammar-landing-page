@@ -28,8 +28,8 @@ final class PasswordService
         $user->update(['otp_verified' => false]);
         $otp = $this->otpRepository->generateOtp($user);
 
+        SendMailJob::dispatchAfterResponse($user->email, new SendOtpMail($otp));
 
-        SendMailJob::dispatchAfterResponse( $user->email, new SendOtpMail($otp));
         return responseSuccess(message: __('messages.OTP code has been sent'), data: new OtpResource($otp));
     }
 
@@ -39,7 +39,7 @@ final class PasswordService
             DB::beginTransaction();
             $user = $this->repository->get('email', $request->email)?->first();
 
-            if (!$this->otpRepository->check($request->otp, $request->otp_token, $user)) {
+            if (! $this->otpRepository->check($request->otp, $request->otp_token, $user)) {
                 return responseFail(message: __('messages.Wrong OTP code or expired'));
             }
 
@@ -47,12 +47,13 @@ final class PasswordService
             $user->update(['otp_verified' => true]);
 
             $resetToken = Str::random(60);
-            Cache::put('reset_token_' . $request->email, $resetToken, now()->addMinutes(10));
+            Cache::put('reset_token_'.$request->email, $resetToken, now()->addMinutes(10));
             DB::commit();
 
             return responseSuccess(data: ['reset_token' => $resetToken]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return responseFail(message: __('messages.Something went wrong'));
         }
     }
@@ -61,9 +62,9 @@ final class PasswordService
     {
         try {
             DB::beginTransaction();
-            $cachedToken = Cache::get('reset_token_' . $request->email);
+            $cachedToken = Cache::get('reset_token_'.$request->email);
 
-            if (!$cachedToken || $cachedToken != $request->reset_token) {
+            if (! $cachedToken || $cachedToken != $request->reset_token) {
                 return responseFail(message: __('messages.Invalid or expired reset token.'));
             }
 
@@ -76,6 +77,7 @@ final class PasswordService
             return responseSuccess(message: __('messages.Password reset successfully.'));
         } catch (\Exception $e) {
             DB::rollBack();
+
             return responseFail(message: __('messages.Something went wrong'));
         }
     }

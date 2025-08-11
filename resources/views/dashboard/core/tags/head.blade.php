@@ -22,14 +22,16 @@
     <!-- Bootstrap Css -->
 
     @if (app()->getLocale() === 'ar')
-        <link id="style" rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.rtl.min.css') }}">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.rtl.min.css"
+            integrity="sha384-Xbg45MqvDIk1e563NLpGEulpX6AvL404DP+/iCgW9eFa2BqztiwTexswJo2jLMue" crossorigin="anonymous">
     @else
-        <link id="style" rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}">
+        <link id="style" rel="stylesheet" href="{{ asset(path: 'assets/libs/bootstrap/css/bootstrap.min.css') }}">
     @endif
     {{-- <link id="style" rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}"> --}}
 
     <!-- Style Css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
 
     <!-- Icons Css -->
     <link rel="stylesheet" href="{{ asset('assets/css/icons.css') }}">
@@ -63,13 +65,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
     <style>
-        .direction-ltr {
+        /* .direction-ltr {
             direction: ltr !important;
         }
 
         .direction-rtl {
             direction: rtl !important;
-        }
+        } */
 
         /* html[data-toggled="close"] #sidebar {
             display: none !important;
@@ -77,11 +79,11 @@
 
         html[data-toggled="open"] #sidebar {
             display: block !important;
-        }
+        } */
 
         .breadcrumb-contain {
             direction: ltr !important;
-        } */
+        }
     </style>
     <!-- CSS addons -->
     @yield('css_addons')

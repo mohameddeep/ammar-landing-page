@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Enums\PackageTypeEnum;
-use Illuminate\Database\Seeder;
 use App\Models\Package;
 use App\Models\PackageFeature;
-use Illuminate\Support\Str;
-use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class PackageFeatureSeeder extends Seeder
 {
@@ -30,10 +27,10 @@ class PackageFeatureSeeder extends Seeder
 
             foreach ($selectedFeatures as $feature) {
                 PackageFeature::create([
-                    'package_id'  => $package->id,
-                    'feature_ar'  => $feature['ar'],
-                    'feature_en'  => $feature['en'],
-                    'is_active'   => true,
+                    'package_id' => $package->id,
+                    'feature_ar' => $feature['ar'],
+                    'feature_en' => $feature['en'],
+                    'is_active' => true,
                 ]);
             }
         }

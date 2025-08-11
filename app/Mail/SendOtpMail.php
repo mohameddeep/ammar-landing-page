@@ -11,7 +11,9 @@ use Illuminate\Queue\SerializesModels;
 class SendOtpMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $otp;
+
     /**
      * Create a new message instance.
      */
@@ -36,8 +38,8 @@ class SendOtpMail extends Mailable
     public function content(): Content
     {
         return new Content(
-          view: 'mails.send-otp',
-          with: ['otp' => $this->otp],
+            view: 'mails.send-otp',
+            with: ['otp' => $this->otp],
         );
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Services\Dashboard\Roles;
 
 use App\Http\Helpers\Http;
-use App\Repository\ManagerRepositoryInterface;
 use App\Repository\PermissionRepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -25,12 +24,14 @@ class RoleService
     public function index()
     {
         $roles = $this->repository->paginate(20);
+
         return view('dashboard.site.roles.index', compact('roles'));
     }
 
     public function create()
     {
         $permissions = $this->permissionRepository->getAll();
+
         return view('dashboard.site.roles.create', compact('permissions'));
     }
 
@@ -43,9 +44,11 @@ class RoleService
             $role = store_model($this->repository, $data, true);
             $role->permissions()->attach($request->permissions);
             DB::commit();
+
             return redirect()->route('roles.index')->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             //            return $e->getMessage();
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
@@ -55,6 +58,7 @@ class RoleService
     {
         $role = $this->repository->getById($id, relations: ['permissions']);
         $permissions = $this->permissionRepository->getAll();
+
         return view('dashboard.site.roles.edit', compact('role', 'permissions'));
     }
 
@@ -67,15 +71,14 @@ class RoleService
             $role = update_model($this->repository, $id, $data, true);
             $role->permissions()->sync($request->permissions);
             DB::commit();
+
             return redirect()->route('roles.index')->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
-
-
-
 
     public function destroy($id)
     {
@@ -94,11 +97,12 @@ class RoleService
             return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
         }
     }
+
     public function mangers($id)
     {
         $role = $this->repository->getById($id, relations: ['managers']);
         $managers = $role->managers()->paginate(10);
 
-        return view('dashboard.site.managers.index', compact('managers' , 'role'));
+        return view('dashboard.site.managers.index', compact('managers', 'role'));
     }
 }

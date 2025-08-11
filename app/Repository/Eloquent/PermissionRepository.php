@@ -15,7 +15,8 @@ class PermissionRepository extends Repository implements PermissionRepositoryInt
         parent::__construct($model);
     }
 
-    public function permissionForm() {
+    public function permissionForm()
+    {
         return $this->model::query()->oldest()->pluck('name');
     }
 }

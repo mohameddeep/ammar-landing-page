@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Dashboard\Commissions;
 
 use App\Enums\CommissionTypeEnum;
-use Illuminate\Validation\Rule;
-
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CommissionRequest extends FormRequest
 {
@@ -22,7 +21,6 @@ class CommissionRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-
     public function rules(): array
     {
         return [
