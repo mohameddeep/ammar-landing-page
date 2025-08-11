@@ -3,7 +3,8 @@
 {{-- <html lang="{{ app()->getLocale() }}" @if (app()->getLocale() == 'ar') id="rtl" @endif> --}}
 {{-- romio --}}
 <html dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" lang="{{ app()->getLocale() }}"
-    class="{{ app()->getLocale() === 'ar' ? 'direction-rtl' : 'direction-ltr' }}" data-nav-layout="vertical"
+    {{-- class="{{ app()->getLocale() === 'ar' ? 'direction-rtl' : 'direction-ltr' }}"  --}}
+    data-nav-layout="vertical"
     data-theme-mode="light" data-header-styles="light" data-menu-styles="dark" data-toggled="close">
 
 @include('dashboard.core.tags.head')
