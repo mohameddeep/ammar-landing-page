@@ -22,9 +22,9 @@ final class PackageService
 
     public function index(): JsonResponse
     {
-        $categories = $this->packageRepository->getPackagesByUserType();
+        $categories = $this->packageRepository->getActiveWithPagination();
 
-        return paginatedJsonResponse(message: __('dashboard_api.show_successfully'), data: ['items' => PackageResource::collection($categories)]);
+        return paginatedJsonResponse(message: 'success', data: ['items' => PackageResource::collection($categories)]);
     }
 
     public function show($id): JsonResponse
@@ -37,7 +37,7 @@ final class PackageService
                 },
             ]);
 
-            return responseSuccess(message: __('dashboard_api.show_successfully'), data: new PackageResource($package));
+            return responseSuccess(message: 'success', data: new PackageResource($package));
         } catch (Exception $exception) {
             return responseFail(message: $exception->getMessage());
         }

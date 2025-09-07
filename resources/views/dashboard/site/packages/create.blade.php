@@ -26,8 +26,8 @@
                     placeholder="{{ __('dashboard.name_en') }}" :value="old('name_en')" />
 
 
-                <x-input.input-field name="type" type="select" label="{{ __('dashboard.type') }}" :options="$types"
-                    :value="old('type')" />
+{{--                <x-input.input-field name="type" type="select" label="{{ __('dashboard.type') }}" :options="$types"--}}
+{{--                    :value="old('type')" />--}}
 
                 <x-input.input-field name="product_count" type="text" label="{{ __('dashboard.product_count') }}"
                     placeholder="{{ __('dashboard.product_count') }}" :value="old('product_count')" />

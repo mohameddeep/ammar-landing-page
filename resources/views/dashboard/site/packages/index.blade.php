@@ -84,24 +84,24 @@
                                         @if (isset($package->image) && $package->image)
                                             <span data-status-indicator data-package-id="{{ $package->id }}"
                                                 class="avatar avatar-lg avatar-rounded {{ $package->is_active ? 'online' : 'offline' }} overflow-hidden"
-                                                data-status-indicator data-package-id="{{ $package->id }}">
+                                                >
                                                 <img src="@image($package->image)" alt="img" class="img-fluid">
                                             </span>
                                         @else
                                             <div data-status-indicator data-package-id="{{ $package->id }}"
                                                 class="avatar avatar-lg avatar-rounded {{ $package->is_active ? 'online' : 'offline' }} d-flex align-items-center justify-content-center bg-light text-primary"
                                                 data-status-indicator data-package-id="{{ $package->id }}">
-                                                <img src="{{ $package->type->icon() }}" alt="Icon" class="img-fluid"
-                                                    style="width: 24px;">
+{{--                                                <img src="{{ $package->type->icon() }}" alt="Icon" class="img-fluid"--}}
+{{--                                                    style="width: 24px;">--}}
                                             </div>
                                         @endif
 
                                         <div class="d-flex flex-column">
                                             <p class="fw-bold mb-1 text-dark d-flex align-items-center gap-2">
                                                 {{ $package->t('name') }}
-                                                <span class="badge {{ $package->type->color() }}">
-                                                    {{ $package->type->t() }}
-                                                </span>
+{{--                                                <span class="badge {{ $package->type->color() }}">--}}
+{{--                                                    {{ $package->type->t() }}--}}
+{{--                                                </span>--}}
                                             </p>
                                             <div class="text-muted fw-semibold d-flex align-items-center">
                                                 {{ $package->price }}
