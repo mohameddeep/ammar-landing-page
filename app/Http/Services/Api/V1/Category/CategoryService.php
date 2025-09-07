@@ -23,7 +23,7 @@ final class CategoryService
 
     public function index(): JsonResponse
     {
-        $categories = $this->categoryRepository->getParentCategories();
+        $categories = $this->categoryRepository->getActiveWithPagination();
 
         return paginatedJsonResponse(message: __('dashboard_api.show_successfully'), data: ['items' => CategoryResource::collection($categories)]);
 
