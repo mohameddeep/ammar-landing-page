@@ -16,6 +16,7 @@ class UserService
     public function index()
     {
         $users = $this->userRepository->paginate(10);
+
         return view('dashboard.site.users.index', compact('users'));
     }
 
@@ -30,23 +31,28 @@ class UserService
             DB::beginTransaction();
             $data = $request->validated();
 
-
             $user = $this->userRepository->create($data);
             DB::commit();
+
             return redirect()->route('users.index', $user->id)->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
+
     public function show($id)
     {
         $user = $this->userRepository->getById($id);
+
         return view('dashboard.site.users.show', compact('user'));
     }
+
     public function edit($id)
     {
         $user = $this->userRepository->getById($id);
+
         return view('dashboard.site.users.edit', compact('user'));
     }
 
@@ -59,6 +65,7 @@ class UserService
                 unset($data['password']);
             }
             $this->userRepository->update($id, $data);
+
             return redirect()->route('users.update', $user->id)->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             return back()->with(['error' => __('messages.Something went wrong')]);

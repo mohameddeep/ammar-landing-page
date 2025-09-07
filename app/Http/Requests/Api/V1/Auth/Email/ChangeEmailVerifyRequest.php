@@ -23,7 +23,7 @@ class ChangeEmailVerifyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => ['required', 'string', 'email:rfc,dns', Rule::unique('users', 'email')->ignore(auth('api')->id(), 'id')],
+            'email' => ['required', 'string', 'email:rfc,dns', Rule::unique('users', 'email')->ignore(auth('api')->id(), 'id')],
             'otp_token' => ['required', 'string'],
             'otp' => ['required', 'string'],
         ];

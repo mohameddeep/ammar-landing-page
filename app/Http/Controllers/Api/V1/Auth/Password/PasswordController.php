@@ -8,14 +8,10 @@ use App\Http\Requests\Api\V1\Auth\Password\PasswordRequest;
 use App\Http\Requests\Api\V1\Auth\Password\ResetPasswordRequest;
 use App\Http\Requests\Api\V1\Auth\Password\VerifyOtpRequest;
 use App\Http\Services\Api\V1\Auth\Password\PasswordService;
-use Illuminate\Http\Request;
 
 class PasswordController extends Controller
 {
-    public function __construct(private PasswordService $service)
-    {
-    }
-
+    public function __construct(private readonly PasswordService $service) {}
 
     public function forgot(ForgetPasswordRequest $request)
     {
@@ -32,8 +28,8 @@ class PasswordController extends Controller
         return $this->service->reset($request);
     }
 
-    public function updatePassword(PasswordRequest $request){
+    public function updatePassword(PasswordRequest $request)
+    {
         return $this->service->updatePassword($request);
     }
-
 }

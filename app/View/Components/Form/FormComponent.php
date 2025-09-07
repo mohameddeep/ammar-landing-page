@@ -9,8 +9,11 @@ use Illuminate\View\Component;
 class FormComponent extends Component
 {
     public $route;
+
     public $method;
+
     public $data;
+
     public $enctype;
 
     public function __construct($route, $method = 'POST', $data = null, $enctype = 'multipart/form-data')

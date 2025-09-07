@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +15,14 @@ class DatabaseSeeder extends Seeder
             LaratrustSeeder::class,
             ManagerSeeder::class,
             UserSeeder::class,
+            CommissionSeeder::class,
+            PackageSeeder::class,
+            PackageFeatureSeeder::class,
+            CategorySeeder::class,
+            SubscriptionSeeder::class,
+            CouponSeeder::class,
+            SliderSeeder::class,
+
         ]);
     }
 }

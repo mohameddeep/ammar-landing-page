@@ -4,7 +4,6 @@ namespace App\Repository\Eloquent;
 
 use App\Http\Traits\FileTrait;
 use App\Repository\RepositoryInterface;
-use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 abstract class Repository implements RepositoryInterface
 {
     use FileTrait;
+
     protected Model $model;
 
     public function __construct(Model $model)
@@ -29,6 +29,11 @@ abstract class Repository implements RepositoryInterface
     public function getActive(array $columns = ['*'], array $relations = []): Collection
     {
         return $this->model->with($relations)->where('is_active', true)->get($columns);
+    }
+
+    public function getActiveWithPagination(array $columns = ['*'], array $relations = [])
+    {
+        return $this->model->with($relations)->where('is_active', true)->paginate(20);
     }
 
     public function getById(
@@ -83,9 +88,11 @@ abstract class Repository implements RepositoryInterface
             foreach ($payload as $record) {
                 $this->model::query()->create($record);
             }
+
             return true;
         } catch (Exception $e) {
-            Log::error('CATCH: ' . $e);
+            Log::error('CATCH: '.$e);
+
             return false;
         }
     }
@@ -105,6 +112,7 @@ abstract class Repository implements RepositoryInterface
                 $this->deleteFile($model->$field);
             }
         }
+
         return $model->delete();
     }
 
@@ -116,6 +124,7 @@ abstract class Repository implements RepositoryInterface
                 $this->deleteFile($model->$field);
             }
         }
+
         return $model->forceDelete();
     }
 
@@ -131,9 +140,8 @@ abstract class Repository implements RepositoryInterface
         $orderBy = 'ASC',
         $columns = ['*'],
     ) {
-        return  $this->model::query()->select($columns)->where($query)->with($relations)->orderBy('id', $orderBy)->paginate($perPage);
+        return $this->model::query()->select($columns)->where($query)->with($relations)->orderBy('id', $orderBy)->paginate($perPage);
     }
-
 
     public function whereHasMorph($relation, $class)
     {

@@ -11,6 +11,7 @@ class UserResource extends JsonResource
     {
         parent::__construct($resource);
     }
+
     /**
      * Transform the resource into an array.
      *
@@ -21,6 +22,8 @@ class UserResource extends JsonResource
         return [
             'name' => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone,
+            'type' => $this->type,
             'otp_token' => $this->whenNotNull($this->otp?->token),
             'otp_verified' => $this->whenNotNull($this->otp_verified),
             'token' => $this->when($this->withToken, $this->token()),

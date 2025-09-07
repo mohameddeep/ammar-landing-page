@@ -14,6 +14,7 @@ class CreateButton extends Component
     {
         $this->route = $route;
     }
+
     public function render(): View|Closure|string
     {
         return view('components.buttons.create-button');

@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +11,8 @@ interface RepositoryInterface
     public function getAll(array $columns = ['*'], array $relations = []): Collection;
 
     public function getActive(array $columns = ['*'], array $relations = []): Collection;
+
+    public function getActiveWithPagination(array $columns = ['*'], array $relations = []);
 
     public function getById(
         $modelId,

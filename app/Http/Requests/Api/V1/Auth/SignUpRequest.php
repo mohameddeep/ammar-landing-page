@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Api\V1\Auth;
 
+use App\Enums\UserTypeEnum;
+use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -26,7 +28,10 @@ class SignUpRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')],
-            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()]
+            'phone' => ['required', new Phone, Rule::unique('users', 'phone')->ignore(auth('api')->id())],
+            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
+            'fcm_token' => ['nullable', 'string'],
+            'type' => ['required', Rule::in(UserTypeEnum::values())],
         ];
     }
 }

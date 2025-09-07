@@ -7,7 +7,6 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -19,7 +18,7 @@ use function App\Http\Helpers\responseFail;
 
 class Handler extends ExceptionHandler
 {
-   /**
+    /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
      * @var array<int, string>
@@ -37,7 +36,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if ($request->expectsJson()) {
-                return responseFail($e->getStatusCode(),  __('messages.No data found'));
+                return responseFail($e->getStatusCode(), __('messages.No data found'));
             }
         });
     }
@@ -45,24 +44,23 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param Request $request
-     * @param Throwable $e
-     * @return mixed
+     * @param  Request  $request
+     *
      * @throws Throwable
      */
     public function render($request, Throwable $e): mixed
     {
         if ($e instanceof TokenExpiredException) {
-            return responseFail(Http::UNAUTHORIZED,  'messages.Token expired');
+            return responseFail(Http::UNAUTHORIZED, 'messages.Token expired');
         }
         if ($e instanceof TokenBlacklistedException) {
-            return responseFail(Http::UNAUTHORIZED,  'messages.Token blacklisted');
+            return responseFail(Http::UNAUTHORIZED, 'messages.Token blacklisted');
         }
         if ($e instanceof TokenInvalidException) {
-            return responseFail(Http::UNAUTHORIZED,  'messages.Token invalid');
+            return responseFail(Http::UNAUTHORIZED, 'messages.Token invalid');
         }
         if ($e instanceof JWTException) {
-            return responseFail(Http::UNAUTHORIZED,  'messages.JWT error');
+            return responseFail(Http::UNAUTHORIZED, 'messages.JWT error');
         }
         if ($e instanceof AuthenticationException) {
             if ($request->expectsJson()) {
@@ -82,7 +80,7 @@ class Handler extends ExceptionHandler
             return $request->ajax() ? response()->json($errors, Http::UNPROCESSABLE_ENTITY) : redirect()->back()->withInput()->withErrors($errors);
         }
 
-        return responseFail(Http::BAD_REQUEST, 'messages.Validation error',  $errors);
+        return responseFail(Http::BAD_REQUEST, 'messages.Validation error', $errors);
     }
 
     private function isFrontend($request)

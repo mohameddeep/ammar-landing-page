@@ -16,10 +16,22 @@ return [
             'users' => 'c,r,u,d,s',
             'roles' => 'c,r,u,d,s',  // Roles && assign permission
             'managers' => 'c,r,u,d,s',
+
             'profile' => 'r,u,s',
         ],
         'admin' => [
-            'users' => 'r',
+
+            'profile' => 'r,u,s',
+        ],
+        'store' => [
+
+            'profile' => 'r,u,s',
+        ],
+        'designer' => [
+
+            'profile' => 'r,u,s',
+        ],
+        'individual' => [
             'profile' => 'r,u,s',
         ],
 
@@ -30,6 +42,6 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
-        's' => 'show'
+        's' => 'show',
     ],
 ];

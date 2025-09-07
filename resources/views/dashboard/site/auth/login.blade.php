@@ -11,6 +11,7 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Charm&display=swap" rel="stylesheet">
 
 
 
@@ -26,8 +27,16 @@
 
 
         body {
+            position: relative;
+            top: 1px;
             height: 100vh;
-            background-color: #f8f9fa;
+            background-color: rgba(248, 249, 250, 1);
+            background-image: url('{{ asset('icons/background.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: overlay;
+
         }
 
         .card {
@@ -55,6 +64,34 @@
 
             color: #0a58ca;
         }
+
+        .allure-font {
+            font-family: 'Charm', cursive;
+            font-weight: 400;
+            font-size: 30px;
+            line-height: 27px;
+            letter-spacing: 0;
+            text-align: center;
+            display: inline-block;
+            background: linear-gradient(90deg, #476B59, #8fa299, #678073);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-check-input:checked {
+            background-color: #476B59;
+            border-color: #476B59;
+        }
+
+        .form-control:focus {
+            border-color: #8fa299;
+            box-shadow: 0 0 0 0.25rem rgba(71, 107, 89, 0.25);
+        }
+
+        .form-check-input:focus {
+            border-color: #8fa299;
+            box-shadow: 0 0 0 0.25rem rgba(71, 107, 89, 0.25);
+        }
     </style>
 </head>
 
@@ -68,11 +105,12 @@
                         <!-- Logo -->
                         <div class="text-center mb-4">
                             <a href="" class="app-brand-link">
-                                <img src="{{ asset('assets/images/brand-logos/desktop-white.png') }}" alt="Logo"
-                                    style="width: 80px; height: auto;">
-                                <span class="app-brand-text demo menu-text fw-bold">@lang('dashboard.Elryad')</span>
+                                <img class="m-0" src="{{ asset('icons/logo.png') }}" alt="Logo"
+                                    style="width: 100px; height: auto;">
+                                
                             </a>
                         </div>
+
 
                         <form action="{{ route('auth.login') }}" method="post">
                             @csrf
@@ -99,7 +137,10 @@
                                     <label class="form-check-label" for="remember_me">@lang('dashboard.Remember Me')</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">@lang('dashboard.Login')</button>
+                            <button type="submit" class="btn btn-primary"
+                                style="background-color: #476B59; border-color: #476B59; color: #fff;">
+                                @lang('dashboard.Login')
+                            </button>
                         </form>
 
 

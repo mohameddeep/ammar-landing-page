@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,6 +28,12 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'otp_verified',
         'is_active',
+        'fcm_token',
+        'is_featured',
+        'type',
+        'otp',
+        'expire_at',
+        'token',
     ];
 
     /**
@@ -50,6 +58,7 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -65,13 +74,35 @@ class User extends Authenticatable implements JWTSubject
         return JWTAuth::fromUser($this);
     }
 
+    public function otp(): HasOne
+    {
+        return $this->HasOne(Otp::class, 'user_id', 'id')->latestOfMany();
+    }
 
-    public function otp()
+    public function otps(): HasMany
     {
-        return $this->hasOne(Otp::class);
+        return $this->HasMany(Otp::class, 'user_id', 'id');
     }
-    public function otps()
+
+    public function addresses(): HasMany
     {
-        return $this->hasMany(Otp::class);
+        return $this->hasMany(UserAddress::class, 'user_id', 'id');
     }
+
+    public function Packages(): HasMany
+    {
+        return $this->hasMany(Package::class, 'user_id', 'id');
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class, 'user_id', 'id');
+    }
+
+    public function currentSubscription()
+    {
+        return $this->hasOne(Subscription::class, 'user_id', 'id')->where('is_active', 1)->latestOfMany();
+    }
+
+
 }

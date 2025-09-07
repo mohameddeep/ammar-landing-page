@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Dashboard\User;
 
-use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -27,7 +26,7 @@ class UserRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')->ignore($this->user)],
-            'password' => $this->password ?['required', Password::min(8),'confirmed'] :'nullable',
+            'password' => $this->password ? ['required', Password::min(8), 'confirmed'] : 'nullable',
         ];
     }
 }

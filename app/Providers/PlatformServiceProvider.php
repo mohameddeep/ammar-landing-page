@@ -10,18 +10,25 @@ use Illuminate\Support\ServiceProvider;
 class PlatformServiceProvider extends ServiceProvider
 {
     private const VERSIONS = [1];
+
     private const PLATFORMS = ['website', 'mobile'];
+
     private const DEFAULT_VERSION = 1;
+
     private const DEFAULT_PLATFORM = 'website';
+
     private const SERVICES = [
         1 => [
             AuthService::class => [
                 AuthWebService::class,
-                AuthMobileService::class
-            ]
+                AuthMobileService::class,
+
+            ],
         ],
     ];
+
     private ?int $version;
+
     private ?string $platform;
 
     public function __construct($app)
@@ -37,6 +44,7 @@ class PlatformServiceProvider extends ServiceProvider
                 if (request()->is($pattern)) {
                     $this->version = $version;
                     $this->platform = $platform;
+
                     return;
                 }
             }
@@ -69,6 +77,8 @@ class PlatformServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->initiate();
+
+        // $this->app->singleton(AuthService::class, UserAuthService::class);
     }
 
     public function boot(): void

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard.site.index');
 // });
 
-
 // Route::get('/login', function () {
 //     return view('dashboard.site.auth.login');
 // });

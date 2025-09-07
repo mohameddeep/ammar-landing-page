@@ -16,6 +16,7 @@ class Role extends RoleModel
         'display_name_en',
         'description',
     ];
+
     public function managersCount(): Attribute
     {
         return Attribute::make(get: function () {

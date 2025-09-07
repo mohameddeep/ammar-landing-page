@@ -1,9 +1,11 @@
 @php use Illuminate\Support\Facades\Session; @endphp
 <!DOCTYPE html>
 {{-- <html lang="{{ app()->getLocale() }}" @if (app()->getLocale() == 'ar') id="rtl" @endif> --}}
-<html lang="{{ app()->getLocale() }}" class="{{ app()->getLocale() === 'ar' ? 'direction-rtl' : 'direction-ltr' }}"
-    data-nav-layout="vertical" data-theme-mode="light" data-header-styles="light" data-menu-styles="dark"
-    data-toggled="close">
+{{-- romio --}}
+<html dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" lang="{{ app()->getLocale() }}"
+    {{-- class="{{ app()->getLocale() === 'ar' ? 'direction-rtl' : 'direction-ltr' }}"  --}}
+    data-nav-layout="vertical"
+    data-theme-mode="light" data-header-styles="light" data-menu-styles="dark" data-toggled="close">
 
 @include('dashboard.core.tags.head')
 
@@ -27,6 +29,21 @@
 
     @if (Session::has('success'))
         @include('dashboard.core.alerts.sweet-alert.success')
+    @endif
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @foreach ($errors->all() as $error)
+                    toastr.error({!! json_encode($error) !!}, '', {
+                        positionClass: 'toast-top-right',
+                        timeOut: 5000,
+                        progressBar: true,
+                        closeButton: true
+                    });
+                @endforeach
+            });
+        </script>
     @endif
 
 </body>

@@ -48,7 +48,7 @@ return [
     'not_editable' => 'Not Editable',
     'Managers_Count' => 'Managers Count',
     'ar' => 'In Arabic',
-    'en' =>  'In English',
+    'en' => 'In English',
     'Permissions' => 'Permissions',
     'categories' => 'Categories',
     'fields' => 'Fields',
@@ -231,7 +231,7 @@ return [
     'infos' => 'Website Infos',
     'Website Info Content' => 'Website Info Content',
     'Publish' => 'Publish',
-    'content' => 'content',
+    'content' => 'Content',
     'website' => 'Website',
     'title_ar' => 'Title (Arabic)',
     'Title' => 'Title',
@@ -276,7 +276,6 @@ return [
     'suppliers' => 'Suppliers',
     'Contact Information :' => 'Contact Information :',
 
-
     'Are you sure?' => 'Are you sure?',
     'This action cannot be undone!' => 'This action cannot be undone!',
     'Yes, delete it!' => 'Yes, delete it!',
@@ -287,12 +286,32 @@ return [
     'Something went wrong!' => 'Something went wrong!',
     'Unable to delete item.' => 'Unable to delete item.',
 
-
-
     'User List' => 'User List',
     'roles' => 'roles',
     'copyright' => 'copyright',
     'Designed with' => 'Designed with',
     'by' => 'by',
     'All rights reserved' => 'All rights reserved',
+
+    'code' => 'Code',
+    'discount' => 'Discount',
+    'usage_count' => 'Usage Count',
+    'expire_at' => 'Expiration Date',
+    'coupons' => 'Coupons',
+    'User Management' => 'User Management',
+
+    'Users and Merchent' => 'Users and Merchent',
+    'days' => 'days',
+    'content_ar' => 'Content (Arabic)',
+    'content_en' => 'Content (English)',
+    'sliders' => 'Slider',
+    'Allure Collection' => 'Allure Collection',
+    'commissions' => 'Commissions',
+    'Profile'=>'Profile',
+    'calendar'=>'calendar',
+    'free_product_count'=>'Free Product Count',
+    'product_count'=>'Product Count',
+    'Percentage'=>'Percentage',
+    'Fixed'=>'Fixed',
+
 ];

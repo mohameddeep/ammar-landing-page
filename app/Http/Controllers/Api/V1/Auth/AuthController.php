@@ -11,15 +11,15 @@ class AuthController extends Controller
 {
     public function __construct(
         private readonly AuthService $auth,
-    )
-    {
-    }
+    ) {}
 
-    public function signUp(SignUpRequest $request) {
+    public function signUp(SignUpRequest $request)
+    {
         return $this->auth->signUp($request);
     }
 
-    public function signIn(SignInRequest $request) {
+    public function signIn(SignInRequest $request)
+    {
         return $this->auth->signIn($request);
     }
 
@@ -28,8 +28,8 @@ class AuthController extends Controller
         return $this->auth->signOut();
     }
 
-    public function whatIsMyPlatform()
+    public function deleteAccount()
     {
-        return $this->auth->whatIsMyPlatform();
+        return $this->auth->deleteAccount();
     }
 }

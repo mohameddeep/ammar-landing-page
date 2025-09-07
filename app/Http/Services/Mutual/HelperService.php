@@ -4,7 +4,8 @@ namespace App\Http\Services\Mutual;
 
 class HelperService
 {
-    public function safeArray($array) {
+    public function safeArray($array)
+    {
         foreach ($array as &$value) {
             if (is_array($value)) {
                 $value = $this->safeArray($value);
@@ -13,10 +14,12 @@ class HelperService
             }
         }
         unset($value);
+
         return $array;
     }
 
-    public function safeJson($json) {
+    public function safeJson($json)
+    {
         $result = [];
         foreach ($json as $key => $value) {
             if (is_array($value) && count(array_filter(array_keys($value), 'is_numeric')) === count($value)) {
@@ -25,6 +28,7 @@ class HelperService
                 $result[$key] = is_array($value) ? $this->safeJson($value) : $value;
             }
         }
+
         return $result;
     }
 }

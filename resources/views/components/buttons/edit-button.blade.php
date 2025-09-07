@@ -1,4 +1,4 @@
-<a href="{{ $route }}" class="btn btn-icon btn-outline-primary" data-bs-toggle="tooltip"
-    data-bs-custom-class="tooltip-primary" data-bs-placement="top" title="@lang('dashboard.Edit')">
-    <i class="ri-pencil-line"></i>
+<a href="{{ $route }}" class="{{ $class }}" data-bs-toggle="tooltip"
+    data-bs-custom-class="{{ $tooltipColor }}" data-bs-placement="top" title="{{ $tooltipTitle }}">
+    <i class="{{ $icon }}"></i>
 </a>

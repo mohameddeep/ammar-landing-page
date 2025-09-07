@@ -1,17 +1,23 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Auth\AuthController;
+use App\Http\Controllers\Dashboard\Categories\CategoryController;
+use App\Http\Controllers\Dashboard\Commissions\CommissionController;
+use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
+use App\Http\Controllers\Dashboard\Packages\PackageController;
+use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
+use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\User\UserController;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-// Route::get('/', function () {
-//     return view('dashboard.site.index');
-// });
+Route::get('/calendar/calendar/calendar', function () {
+    return view('dashboard.site.calendar');
+})->name('calendar.index');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -25,20 +31,45 @@ Route::group([
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [HomeController::class, 'index'])->name('/');
+
+        // users route
         Route::resource('users', UserController::class);
+
+        Route::resource('settings', SettingController::class)->only('edit', 'update');
+        Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
+        // roles
+        Route::resource('roles', RoleController::class);
+
+        Route::get('role/{id}/managers', [RoleController::class, 'mangers'])->name('roles.mangers');
+        Route::controller(MangerController::class)->prefix('managers')->name('managers.')
+            ->group(function () {
+                Route::get('/{role}/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::post('/toggle/{id}', 'toggle')->name('toggle');
+                Route::get('/{manager}/edit', 'edit')->name('edit');
+                Route::put('/{manager}', 'update')->name('update');
+                Route::delete('/{manager}', action: 'destroy')->name('destroy');
+            });
+
+        // Commissions Routes
+        Route::resource('commissions', CommissionController::class)->except('show', 'create', 'store', 'destroy');
+        Route::post('/commissions/toggle/{id}', [CommissionController::class, 'toggle'])->name('commissions.toggle');
+
+        // package Routes
+        Route::resource('packages', PackageController::class);
+        Route::post('/packages/toggle/{id}', [PackageController::class, 'toggle'])->name('packages.toggle');
+        Route::post('/packages/toggle_hidden/{id}', [PackageController::class, 'toggleHidden'])->name('packages.toggle_hidden');
+        Route::post('/packages/feature/toggle/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.toggle.details');
+        Route::get('/packages/feature/show/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.show.details');
+
+        // categories Routes
+        Route::resource('categories', CategoryController::class);
+        Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
+        Route::resource('coupons', CouponController::class)->except('show');
+
+        // start sliders
+        Route::resource('sliders', controller: SliderController::class)->except(['show']);
+        Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
+
     });
-    Route::resource('settings', SettingController::class)->only('edit', 'update');
-    Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
-    Route::resource('roles', RoleController::class);
-    Route::get('role/{id}/managers', [RoleController::class, 'mangers'])->name('roles.mangers');
-    Route::controller(MangerController::class)->prefix('managers')->name('managers.')
-        ->group(function () {
-            Route::get('/{role}/create', 'create')->name('create');
-            Route::post('/', 'store')->name('store');
-            Route::post('/toggle/{id}', 'toggle')->name('toggle');
-            Route::get('/{manager}/edit', 'edit')->name('edit');
-            Route::put('/{manager}', 'update')->name('update');
-            Route::delete('/{manager}', action: 'destroy')->name('destroy');
-        });
-    // Route::resource('managers', MangerController::class)->except('show', 'index');
 });

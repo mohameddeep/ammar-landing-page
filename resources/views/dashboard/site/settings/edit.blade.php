@@ -1,5 +1,5 @@
 @extends('dashboard.core.app')
-@section('title', __('dashboard.Settings'))
+@section('title', __('dashboard.Profile'))
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->

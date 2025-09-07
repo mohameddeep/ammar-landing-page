@@ -2,12 +2,24 @@
 <aside class="app-sidebar sticky" id="sidebar">
 
     <!-- Start::main-sidebar-header -->
+
+    {{-- <div class="main-sidebar-header">
+        <a href="{{ route('/') }}" class="header-logo">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-logo">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="toggle-logo">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
+
+            <img src="{{ asset(path: 'icons/logo.png') }}" alt="logo" class="toggle-dark">
+        </a>
+    </div> --}}
     <div class="main-sidebar-header">
         <a href="{{ route('/') }}" class="header-logo">
-            <img src="{{ asset('assets/images/brand-logos/desktop-logo.png') }}" alt="logo" class="desktop-logo">
-            <img src="{{ asset('assets/images/brand-logos/toggle-logo.png" alt="logo') }}" class="toggle-logo">
-            <img src="{{ asset('assets/images/brand-logos/desktop-dark.png" alt="logo') }}" class="desktop-dark">
-            <img src="{{ asset('assets/images/brand-logos/toggle-dark.png" alt="logo') }}" class="toggle-dark">
+            {{-- <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-logo" style="width: 80px; height: auto;">
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="toggle-logo"
+                style="width: 80px; height: auto;"> --}}
+            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
+            {{-- <img src="{{ asset(path: 'icons/logo.png') }}" alt="logo"
+                class="toggle-dark"style="width: 80px; height: auto;"> --}}
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -24,20 +36,12 @@
                 </svg>
             </div>
             <ul class="main-menu">
-                <!-- Start::slide__Main -->
-                <li class="slide__category"><span class="category-name">Main</span></li>
-                <!-- End::slide__Main -->
+
                 {{-- one slide dashboard --}}
 
 
                 {{-- settings --}}
-                <li class="slide">
-                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
-                        class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
-                        <i class="ti ti-settings side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.Settings')</span>
-                    </a>
-                </li>
+
 
 
                 <!-- Start::slide -->
@@ -47,7 +51,6 @@
                         <span class="side-menu__label">@lang('dashboard.Dashboard')</span>
                     </a>
                 </li>
-
                 {{-- end one slide dashboard --}}
 
                 {{-- nested slide slide users --}}
@@ -67,12 +70,15 @@
                         ? 'open active'
                         : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item ">
-                        <i class="bx bx-home side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.Home')<span
-                                class="badge bg-warning-transparent ms-2">12</span></span>
+                        <i class="ri ri-user-settings-line side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.User Management')</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
+                        <li class="slide side-menu__label1">
+                            <a href="javascript:void(0)">@lang('dashboard.Users')</a>
+                        </li>
+
                         <li class="slide">
                             <a href="{{ route('users.index') }}"
                                 class="side-menu__item {{ in_array(request()->route()->getName(), ['users.index', 'users.create', 'users.edit', 'users.show'])
@@ -100,6 +106,7 @@
                             </li>
                         @endpermission
                     </ul>
+
                 </li>
                 {{-- end nested slide slide users --}}
 
@@ -108,15 +115,78 @@
 
 
 
+                {{-- start commission --}}
+                <li class="slide">
+                    <a href="{{ route('commissions.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['commissions.index', 'commissions.edit']) ? 'active' : '' }}">
+                        <i class="ti ti-cash side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.commissions')</span>
+                    </a>
+                </li>
+                {{-- end commission --}}
+
+
+                {{-- start packages --}}
+                <li class="slide">
+                    <a href="{{ route('packages.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['packages.index', 'packages.edit', 'packages.create']) ? 'active' : '' }}">
+                        <i class="ti ti-package side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.packages')</span>
+                    </a>
+                </li>
+                {{-- end packages --}}
+
+
+
+                {{-- start categories --}}
+                <li class="slide">
+                    <a href="{{ route('categories.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['categories.index', 'categories.edit', 'categories.create']) ? 'active' : '' }}">
+                        <i class="bx bx-grid-alt side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.categories')</span>
+                    </a>
+                </li>
+                {{-- end categories --}}
+
+                <!-- Start::coupons -->
+                <li class="slide">
+                    <a href="{{ route('coupons.index') }}"
+                        class="side-menu__item {{ request()->routeIs('coupons.index') ? 'active' : '' }}">
+                        <i class="ti ti-discount-2 side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.coupons')</span>
+                    </a>
+                </li>
+                <!-- End::coupons -->
+
+                <!-- Start::sliders -->
+                <li class="slide">
+                    <a href="{{ route('sliders.index') }}"
+                        class="side-menu__item {{ request()->routeIs('sliders.index') ? 'active' : '' }}">
+                        <i class="ti ti-photo side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.sliders')</span>
+                    </a>
+                </li>
+                <!-- End::orders -->
 
 
 
 
+                <!-- Start::coupons -->
+                <li class="slide">
+                    <a href="{{ route('calendar.index') }}" class="side-menu__item ">
+                        <i class="ti ti-discount-2 side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.calendar')</span>
+                    </a>
+                </li>
+                <!-- End::coupons -->
 
-
-
-
-
+                <li class="slide">
+                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
+                       class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
+                        <i class="ti ti-user-circle side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Profile')</span>
+                    </a>
+                </li>
 
 
                 <!-- Start::slide -->
