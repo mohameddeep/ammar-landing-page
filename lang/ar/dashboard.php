@@ -313,5 +313,11 @@ return [
     'sliders' => 'صور (slider)',
 
     'commissions' => 'العمولات',
-
+    'Profile'=>'الملف الشخصي',
+    'calendar'=>'التقويم',
+    'days' => 'أيام',
+    'free_product_count'=>'عدد المنتجات المجانية',
+    'product_count'=>'عدد المنتجات',
+    'Percentage'=>'نسبة مئوية',
+    'Fixed'=>'مبلغ ثابت',
 ];

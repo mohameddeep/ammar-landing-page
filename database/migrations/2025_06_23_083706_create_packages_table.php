@@ -18,14 +18,12 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->string('duration')->comment('Duration of the package, in days');
             $table->decimal('price');
-            // $table->text("description_ar")->nullable()->comment("Description in Arabic");
-            // $table->text("description_en")->nullable();
-            $table->string('product_number')->comment('Unique identifier for the package');
-            $table->unsignedInteger('free_product_count')->default(0)->comment('Number of free dresses included in the package');
+            $table->integer('product_count')->comment('Unique identifier for the package');
+            $table->integer('free_product_count')->default(0)->comment('Number of free dresses included in the package');
 
             $table->enum('type', PackageTypeEnum::values());
             $table->boolean('is_active')->default(0);
-            $table->boolean('is_hidden')->default(0);
+            $table->boolean('coming_soon')->default(0);
             $table->timestamps();
         });
     }

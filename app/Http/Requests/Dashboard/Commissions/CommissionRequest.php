@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dashboard\Commissions;
 
 use App\Enums\CommissionTypeEnum;
+use App\Enums\CommissionValueTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,7 +28,8 @@ class CommissionRequest extends FormRequest
             'name_ar' => 'nullable|string|max:255',
             'name_en' => 'nullable|string|max:255',
             'value' => 'required|integer|min:0',
-            'type' => ['required', Rule::in(CommissionTypeEnum::values())],
+            'type' => ['nullable', Rule::in(CommissionTypeEnum::values())],
+            'value_type' => ['nullable', Rule::in(CommissionValueTypeEnum::values())],
         ];
     }
 }

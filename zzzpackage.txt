@@ -14,13 +14,13 @@
                                 </button>
 
                                 <button type="button"
-                                    class="btn btn-icon {{ $package->is_hidden ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
-                                    data-id="{{ $package->id }}" data-active="{{ $package->is_hidden }}"
+                                    class="btn btn-icon {{ $package->coming_soon ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
+                                    data-id="{{ $package->id }}" data-active="{{ $package->coming_soon }}"
                                     data-bs-toggle="tooltip"
-                                    data-bs-custom-class="{{ $package->is_hidden ? 'tooltip-warning' : 'tooltip-primary' }}"
+                                    data-bs-custom-class="{{ $package->coming_soon ? 'tooltip-warning' : 'tooltip-primary' }}"
                                     data-bs-placement="top"
-                                    title="{{ $package->is_hidden ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
-                                    <i class="{{ $package->is_hidden ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
+                                    title="{{ $package->coming_soon ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
+                                    <i class="{{ $package->coming_soon ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
                                 </button>
                                 <x-buttons.edit-button :route="route('packages.edit', $package->id)" />
                                 <x-buttons.delete-button :route="route('packages.destroy', $package->id)" :itemId="$package->id" />
@@ -57,7 +57,7 @@
 
                                             <div class="col-6 col-md-3 mb-3 mb-md-0">
                                                 <div class="fs-18 fw-bold mb-1">
-                                                    <i class="ri-stack-line me-1"></i>{{ $package->product_number }}
+                                                    <i class="ri-stack-line me-1"></i>{{ $package->product_count }}
                                                 </div>
                                                 <div class="text-muted fs-12">Products Allowed</div>
                                             </div>

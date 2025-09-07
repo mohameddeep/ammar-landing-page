@@ -27,7 +27,8 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
         $user->otps()?->delete();
 
         return $user->otp()?->create([
-            'otp' => rand(1234, 9999),
+            'otp' => 1111,
+//            'otp' => rand(1234, 9999),
             'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
             'email' => $user?->email ?? null,
@@ -56,7 +57,7 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
         }
 
         return $this->model::query()
-            ->where('otppable_id', $user->id)
+            ->where('user_id', $user->id)
             ->where('otp', $otp)
             ->where('token', $token)
             ->where('expire_at', '>', Carbon::now())
@@ -69,7 +70,7 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
         $user = $this->getCurrentUser();
 
         return $this->model::query()
-            ->where('otppable_id', $user->id)
+            ->where('user_id', $user->id)
             ->where('otp', $otp)
             ->where('email', $email)
             ->where('token', $token)

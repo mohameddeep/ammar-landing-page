@@ -106,9 +106,8 @@
                         <div class="text-center mb-4">
                             <a href="" class="app-brand-link">
                                 <img class="m-0" src="{{ asset('icons/logo.png') }}" alt="Logo"
-                                    style="width: 80px; height: auto;">
-                                <span
-                                    class="m-0 app-brand-text demo menu-text fw-bold allure-font">@lang('dashboard.Allure Collection')</span>
+                                    style="width: 100px; height: auto;">
+                                
                             </a>
                         </div>
 

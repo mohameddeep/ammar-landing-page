@@ -35,7 +35,6 @@ Route::group([
         // users route
         Route::resource('users', UserController::class);
 
-
         Route::resource('settings', SettingController::class)->only('edit', 'update');
         Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
         // roles

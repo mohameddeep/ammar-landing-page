@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('content_ar')->nullable();
             $table->string('content_en')->nullable();
             $table->string('image');
+            $table->string('link')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

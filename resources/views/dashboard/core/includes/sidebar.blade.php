@@ -20,7 +20,6 @@
             <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
             {{-- <img src="{{ asset(path: 'icons/logo.png') }}" alt="logo"
                 class="toggle-dark"style="width: 80px; height: auto;"> --}}
-            <span class="m-0 app-brand-text demo menu-text fw-bold allure-font">@lang('dashboard.Allure Collection')</span>
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -37,20 +36,12 @@
                 </svg>
             </div>
             <ul class="main-menu">
-                <!-- Start::slide__Main -->
-                <li class="slide__category"><span class="category-name">Main</span></li>
-                <!-- End::slide__Main -->
+
                 {{-- one slide dashboard --}}
 
 
                 {{-- settings --}}
-                <li class="slide">
-                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
-                        class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
-                        <i class="ti ti-settings side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.Settings')</span>
-                    </a>
-                </li>
+
 
 
                 <!-- Start::slide -->
@@ -189,6 +180,13 @@
                 </li>
                 <!-- End::coupons -->
 
+                <li class="slide">
+                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
+                       class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
+                        <i class="ti ti-user-circle side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Profile')</span>
+                    </a>
+                </li>
 
 
                 <!-- Start::slide -->

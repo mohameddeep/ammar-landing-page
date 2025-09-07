@@ -43,7 +43,7 @@
                                 <i class="ri-stack-line text-primary me-2 fs-5"></i>
                                 <span class="text-muted small">@lang('dashboard.number')</span>
                             </div>
-                            <div class="fw-bold fs-5">{{ $recevedData->product_number }}</div>
+                            <div class="fw-bold fs-5">{{ $recevedData->product_count }}</div>
                         </div>
                     </div>
 

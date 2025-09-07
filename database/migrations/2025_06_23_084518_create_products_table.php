@@ -16,9 +16,8 @@ return new class extends Migration
             $table->string('name_ar');
             $table->string('name_en')->nullable();
             $table->string('slug')->nullable();
-            $table->decimal('price');
-            $table->integer('discount')->nullable();
-            $table->integer('quantity')->nullable();
+            $table->decimal('original_price');
+            $table->decimal('total_price');
             $table->string('old_seller')->nullable();
             $table->text('detail_ar');
             $table->text('detail_en')->nullable();
@@ -26,9 +25,8 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('type', ['old', 'new'])->default('new');
             $table->dateTime('expired_at')->nullable();
-            $table->string('duration_days')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected', 'sold']);
-            $table->text('rejetion_reason')->nullable();
+            $table->text('rejection_reason')->nullable();
             $table->boolean('is_featured')->default(0);
             $table->boolean('is_active')->default(0);
             $table->timestamps();

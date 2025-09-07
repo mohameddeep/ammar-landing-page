@@ -15,17 +15,12 @@
 
                 <x-input.input-field name="name_en" type="text" label="{{ __('dashboard.name_en') }}" :value="old('name_en', $package->name_en)" />
 
-                <x-input.input-field name="description_ar" type="text" label="{{ __('dashboard.description_ar') }}"
-                    :value="old('description_ar', $package->description_ar)" />
-
-                <x-input.input-field name="description_en" type="text" label="{{ __('dashboard.description_en') }}"
-                    :value="old('description_en', $package->description_en)" />
 
                 <x-input.input-field name="type" type="select" label="{{ __('dashboard.type') }}" :options="$types"
                     :value="old('type', $package->type)" />
 
-                <x-input.input-field name="product_number" type="text" label="{{ __('dashboard.product_number') }}"
-                    :value="old('product_number', $package->product_number)" />
+                <x-input.input-field name="product_count" type="text" label="{{ __('dashboard.product_count') }}"
+                    :value="old('product_count', $package->product_count)" />
 
 
                 <x-input.input-field name="free_product_count" type="text"

@@ -104,12 +104,12 @@ class PackageService
     {
         $package = $this->repository->getById($id);
 
-        $package->is_hidden = $request->input('is_hidden');
+        $package->coming_soon = $request->input('coming_soon');
         $package->save();
 
         return responseSuccess(Http::OK, __('messages.updated_successfully'), [
             'success' => true,
-            'is_hidden' => $package->is_hidden,
+            'coming_soon' => $package->coming_soon,
         ]);
     }
 

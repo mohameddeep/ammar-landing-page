@@ -13,7 +13,7 @@ class PackageSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 30) as $i) {
+        foreach (range(1, 6) as $i) {
             $type = $faker->randomElement(PackageTypeEnum::cases());
 
             Package::create([
@@ -21,12 +21,11 @@ class PackageSeeder extends Seeder
                 'name_en' => 'Package '.$faker->word,
                 'duration' => $faker->numberBetween(7, 90),
                 'price' => $faker->randomFloat(2, 10, 500),
-                'product_number' => $faker->numberBetween(7, 90),
+                'product_count' => $faker->numberBetween(30, 90),
+                'free_product_count' => $faker->numberBetween(0, 20),
                 'type' => $type->value,
                 'is_active' => $faker->boolean(80),
-                'is_hidden' => $faker->boolean(20),
-                'description_ar' => 'باقة '.$faker->word.$faker->word.' وصف',
-                'description_en' => 'Package '.$faker->word.$faker->word.' description',
+                'coming_soon' => $faker->boolean(20),
             ]);
         }
     }

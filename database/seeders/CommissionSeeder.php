@@ -16,18 +16,21 @@ class CommissionSeeder extends Seeder
                 'name_en' => 'Store Commission',
                 'value' => 5,
                 'type' => CommissionTypeEnum::Store->value,
+                'value_type' => 'percentage',
             ],
             [
                 'name_ar' => 'عمولة المصمم',
                 'name_en' => 'Designer Commission',
                 'value' => 10,
                 'type' => CommissionTypeEnum::Designer->value,
+                'value_type' => 'fixed',
             ],
             [
                 'name_ar' => 'عمولة الفردي',
                 'name_en' => 'Individual Commission',
                 'value' => 7,
                 'type' => CommissionTypeEnum::Individual->value,
+                'value_type' => 'percentage',
             ],
         ];
 

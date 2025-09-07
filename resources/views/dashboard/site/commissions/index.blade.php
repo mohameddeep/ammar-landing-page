@@ -27,17 +27,19 @@
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.commissions') }}" :breadcrumbs="[['name' => __('dashboard.commissions')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.commissions') }}"
+                                 :breadcrumbs="[['name' => __('dashboard.commissions')]]"/>
         <!-- Page Header Close -->
         <x-cards.page-card>
 
             <div class="row p-3">
                 @foreach ($commissions as $commission)
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 border-end border-inline-end-dashed pe-0">
+                    <div
+                        class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 border-end border-inline-end-dashed pe-0">
                         <div class="p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="fw-semibold mb-0">{{ $commission->t('name') }}</h6>
-                                <x-buttons.edit-button :route="route('commissions.edit', $commission->id)" />
+                                <x-buttons.edit-button :route="route('commissions.edit', $commission->id)"/>
                             </div>
 
                             <div class="py-4 d-flex align-items-center justify-content-center">
@@ -45,7 +47,9 @@
                                     <i class="{{ $commission->type->icon() }}"></i>
                                 </div>
                                 <div class="text-end ms-5">
-                                    <p class="fs-25 fw-semibold mb-0"> %{{ $commission->value }}</p>
+                                    <p class="fs-25 fw-semibold mb-0">
+                                        <i class="{{ $commission->value_type->icon() }}"></i>
+                                    {{ $commission->value }}</p>
                                     <p class="text-muted op-5 fs-11 fw-semibold mb-0">{{ $commission->type->t() }}</p>
                                 </div>
                             </div>
@@ -67,7 +71,7 @@
 @endsection
 @push('scripts')
     <script>
-        $(document).on('click', '.toggle-commission-btn', function() {
+        $(document).on('click', '.toggle-commission-btn', function () {
             const $btn = $(this);
             const commissionId = $btn.data('id');
             const currentState = $btn.data('active');
@@ -83,7 +87,7 @@
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     is_active: newState
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log(response.data.success);
 
                     if (response.data.success) {
@@ -107,7 +111,7 @@
                         });
                     }
                 },
-                error: function(xhr, status) {
+                error: function (xhr, status) {
                     Swal.fire({
                         icon: 'error',
                         title: xhr.responseJSON?.message || 'Something went wrong',

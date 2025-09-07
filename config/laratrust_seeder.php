@@ -16,19 +16,19 @@ return [
             'users' => 'c,r,u,d,s',
             'roles' => 'c,r,u,d,s',  // Roles && assign permission
             'managers' => 'c,r,u,d,s',
-         
+
             'profile' => 'r,u,s',
         ],
         'admin' => [
-         
+
             'profile' => 'r,u,s',
         ],
         'store' => [
-         
+
             'profile' => 'r,u,s',
         ],
         'designer' => [
-           
+
             'profile' => 'r,u,s',
         ],
         'individual' => [

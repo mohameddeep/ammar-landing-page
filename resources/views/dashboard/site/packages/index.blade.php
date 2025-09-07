@@ -1,5 +1,5 @@
 @extends('dashboard.core.app')
-@section('title', __('dashboard.commissions'))
+@section('title', __('dashboard.packages'))
 @section('css_addons')
     <style>
         .card-container-css {
@@ -61,12 +61,12 @@
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.commissions') }}" :breadcrumbs="[['name' => __('dashboard.commissions')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.packages') }}" :breadcrumbs="[['name' => __('dashboard.packages')]]" />
         <!-- Page Header Close -->
         <x-cards.page-card>
             <x-slot name="header">
                 <div class="card-title">
-                    @lang('dashboard.Create Pcackage')
+                    @lang('dashboard.Create') @lang('dashboard.packages')
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
@@ -107,7 +107,7 @@
                                                 {{ $package->price }}
                                                 <img src="{{ asset('icons/Saudi_Riyal_Symbol.svg') }}" alt="SAR"
                                                     class="mx-1" style="width: 16px;">
-                                                / {{ $package->duration }} @lang('dashboard.days')
+                                                / {{ $package->duration }} @lang('dashboard.day')
                                             </div>
                                         </div>
                                     </div>
@@ -124,13 +124,13 @@
                                         </button>
 
                                         <button type="button"
-                                            class="btn btn-icon {{ $package->is_hidden ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
-                                            data-id="{{ $package->id }}" data-active="{{ $package->is_hidden }}"
+                                            class="btn btn-icon {{ $package->coming_soon ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
+                                            data-id="{{ $package->id }}" data-active="{{ $package->coming_soon }}"
                                             data-bs-toggle="tooltip"
-                                            data-bs-custom-class="{{ $package->is_hidden ? 'tooltip-warning' : 'tooltip-primary' }}"
+                                            data-bs-custom-class="{{ $package->coming_soon ? 'tooltip-warning' : 'tooltip-primary' }}"
                                             data-bs-placement="top"
-                                            title="{{ $package->is_hidden ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
-                                            <i class="{{ $package->is_hidden ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
+                                            title="{{ $package->coming_soon ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
+                                            <i class="{{ $package->coming_soon ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
                                         </button>
                                         <x-buttons.edit-button :route="route('packages.edit', $package->id)" />
                                         <x-buttons.delete-button :route="route('packages.destroy', $package->id)" :itemId="$package->id" />
@@ -143,9 +143,9 @@
                                             <div class="border rounded-2 p-3 bg-light ">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <i class="ri-stack-line text-primary me-2 fs-5"></i>
-                                                    <span class="text-muted small">@lang('dashboard.number')</span>
+                                                    <span class="text-muted small">@lang('dashboard.product_count')</span>
                                                 </div>
-                                                <div class="fw-bold fs-5">{{ $package->product_number }}</div>
+                                                <div class="fw-bold fs-5">{{ $package->product_count }}</div>
                                             </div>
                                         </div>
 
@@ -153,15 +153,12 @@
                                             <div class="border rounded-2 p-3 bg-light">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <i class="ri-gift-line text-success me-2 fs-5"></i>
-                                                    <span class="text-muted small">@lang('dashboard.free product')</span>
+                                                    <span class="text-muted small">@lang('dashboard.free_product_count')</span>
                                                 </div>
                                                 <div class="fw-bold fs-5">{{ $package->free_product_count }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="text-muted small mt-3">
-                                    {{ $package->t('description') }}
                                 </div>
                                 <ul class="list-unstyled mb-0 flex-grow-1 mt-3" style="flex-wrap: wrap;">
                                     @forelse ($package->features as $feature)
@@ -318,7 +315,7 @@
                     off: 'إظهار الباقة'
                 },
                 routePrefix: 'toggle_hidden',
-                fieldName: 'is_hidden'
+                fieldName: 'coming_soon'
             });
         });
 

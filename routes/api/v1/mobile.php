@@ -40,11 +40,32 @@ Route::group(['prefix' => 'password'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
+    // packages
+    Route::group([
+        'prefix' => 'packages',
+        'controller' => PackageController::class,
+    ], function () {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
+    });
 
+    // subscriptions
+    Route::group([
+        'prefix' => 'subscription',
+        'controller' => SubscriptionController::class,
+    ], function () {
+        Route::post('/', 'subscribe');
+        Route::post('/apply-coupon', 'applyCoupon');
+    });
+
+
+    Route::group(['prefix'=>'customer', 'middleware'=>['type:customer']],function(){
+
+    });
     // user profile
     Route::group([
         'prefix' => 'user-profile',
-        'controller' => UserProfileController::class
+        'controller' => UserProfileController::class,
     ], function () {
         Route::get('/', 'profile');
         Route::put('/update', 'updateProfile');
@@ -66,28 +87,10 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 
 
-    // packages
-    Route::group([
-        'prefix' => 'packages',
-        'controller' => PackageController::class,
-    ], function () {
-        Route::get('/', 'index');
-        Route::get('/{id}', 'show');
-    });
-
-    // subscriptions
-    Route::group([
-        'prefix' => 'subscription',
-        'controller' => SubscriptionController::class,
-    ], function () {
-        Route::post('/', 'subscribe');
-        Route::post('/apply-coupon', 'applyCoupon');
-    });
-
     // categories
     Route::group([
         'prefix' => 'categories',
-        'controller' => CategoryController::class
+        'controller' => CategoryController::class,
     ], function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');

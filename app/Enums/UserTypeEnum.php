@@ -12,12 +12,15 @@ enum UserTypeEnum: string
     case Designer = 'designer';
     case User = 'user';
 
+    case Customer = 'customer';
+
     public function t(): string
     {
         return match ($this) {
             self::Shop => __('Shop'),
             self::Designer => __('Designer'),
             self::User => __('User'),
+            self::Customer => __('Customer'),
         };
     }
 
@@ -27,6 +30,7 @@ enum UserTypeEnum: string
             self::Shop => 'ti ti-building-store',
             self::Designer => 'ti ti-brush',
             self::User => 'ti ti-user-circle',
+            self::Customer => 'ti ti-user-check',
         };
     }
 
@@ -36,6 +40,7 @@ enum UserTypeEnum: string
             self::Shop => 'bg-primary',
             self::Designer => 'bg-purple',
             self::User => 'bg-teal',
+            self::Customer => 'bg-info',
         };
     }
 }

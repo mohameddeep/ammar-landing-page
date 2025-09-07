@@ -33,7 +33,7 @@ final class PackageRepository extends Repository implements PackageRepositoryInt
             },
         ])
             ->where('type', $type)
-            ->where('is_hidden', false)
+            ->where('coming_soon', false)
             ->paginate(10);
     }
 }

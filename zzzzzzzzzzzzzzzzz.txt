@@ -15,13 +15,13 @@
                                     </button>
 
                                     <button type="button"
-                                        class="btn btn-icon {{ $package->is_hidden ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
-                                        data-id="{{ $package->id }}" data-active="{{ $package->is_hidden }}"
+                                        class="btn btn-icon {{ $package->coming_soon ? 'btn-outline-warning' : 'btn-outline-primary' }} toggle-package-btn-hidden"
+                                        data-id="{{ $package->id }}" data-active="{{ $package->coming_soon }}"
                                         data-bs-toggle="tooltip"
-                                        data-bs-custom-class="{{ $package->is_hidden ? 'tooltip-warning' : 'tooltip-primary' }}"
+                                        data-bs-custom-class="{{ $package->coming_soon ? 'tooltip-warning' : 'tooltip-primary' }}"
                                         data-bs-placement="top"
-                                        title="{{ $package->is_hidden ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
-                                        <i class="{{ $package->is_hidden ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
+                                        title="{{ $package->coming_soon ? 'إخفاء الباقة' : 'إظهار الباقة' }}">
+                                        <i class="{{ $package->coming_soon ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
                                     </button>
                                 </div>
 
@@ -52,7 +52,7 @@
                                                 <div class="text-muted fs-12">USD</div>
                                             </div>
                                             <div class="col">
-                                                <div class="fs-20 fw-bold">{{ $package->product_number }}</div>
+                                                <div class="fs-20 fw-bold">{{ $package->product_count }}</div>
                                                 <div class="text-muted fs-12">Products Allowed</div>
                                             </div>
                                         </div>

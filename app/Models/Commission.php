@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CommissionTypeEnum;
+use App\Enums\CommissionValueTypeEnum;
 use App\Http\Traits\LanguageToggle;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,5 +15,6 @@ class Commission extends Model
 
     protected $casts = [
         'type' => CommissionTypeEnum::class,
+        'value_type'=> CommissionValueTypeEnum::class
     ];
 }

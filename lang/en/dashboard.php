@@ -307,5 +307,11 @@ return [
     'sliders' => 'Slider',
     'Allure Collection' => 'Allure Collection',
     'commissions' => 'Commissions',
+    'Profile'=>'Profile',
+    'calendar'=>'calendar',
+    'free_product_count'=>'Free Product Count',
+    'product_count'=>'Product Count',
+    'Percentage'=>'Percentage',
+    'Fixed'=>'Fixed',
 
 ];
