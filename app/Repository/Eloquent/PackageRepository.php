@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Eloquent;
 
+use App\Models\Coupon;
 use App\Models\Package;
 use App\Repository\PackageRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;

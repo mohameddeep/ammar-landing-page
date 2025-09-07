@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Coupon extends Model
 {
@@ -10,7 +12,7 @@ class Coupon extends Model
 
     public function isValid(): bool
     {
-        return $this->usage_count > 0 && (is_null($this->expire_at) || now()->lessThan($this->expire_at));
+        return $this->usage_count > 0 && (is_null($this->expire_at) || now()->lessThan(Carbon::parse($this->expire_at)));
     }
 
     public function decrementCount(): void

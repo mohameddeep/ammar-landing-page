@@ -31,9 +31,9 @@ final class SubscriptionRepository extends Repository implements SubscriptionRep
         if (empty($package->duration)) {
             return null;
         }
-        $numOfMonths = (int) $package->duration;
+        $numOfDays = (int) $package->duration;
 
-        return Carbon::now()->addMonths($numOfMonths);
+        return Carbon::now()->addDays($numOfDays);
     }
 
     public function applyCouponIfValid($couponRepository, $packagePrice, $couponCode)

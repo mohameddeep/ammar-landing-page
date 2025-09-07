@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('package_id')->constrained('packages')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('price', 8, 2)->default(0);
-            $table->dateTime('start_date')->nullable();
+            $table->dateTime('start_date')->default(now());
             $table->dateTime('end_date')->nullable();
             $table->boolean('is_active')->default(0);
             $table->timestamps();

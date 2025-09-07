@@ -22,7 +22,7 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => ['required'],
+            'package_id' => ['required', 'exists:packages,id'],
             'coupon_code' => ['required'],
         ];
     }
