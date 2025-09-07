@@ -20,9 +20,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->integer('product_count')->comment('Unique identifier for the package');
             $table->integer('free_product_count')->default(0)->comment('Number of free dresses included in the package');
-
-            $table->enum('type', PackageTypeEnum::values());
-            $table->boolean('is_active')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->boolean('coming_soon')->default(0);
             $table->timestamps();
         });

@@ -10,11 +10,13 @@ use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\Eloquent\CommissionRepository;
 use App\Repository\Eloquent\ContactUsRepository;
 use App\Repository\Eloquent\CouponRepository;
+use App\Repository\Eloquent\FavouriteRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\OtpRepository;
 use App\Repository\Eloquent\PackageFeatureRepository;
 use App\Repository\Eloquent\PackageRepository;
 use App\Repository\Eloquent\PermissionRepository;
+use App\Repository\Eloquent\ProductRepository;
 use App\Repository\Eloquent\Repository;
 use App\Repository\Eloquent\RoleRepository;
 use App\Repository\Eloquent\SettingsRepository;
@@ -22,11 +24,13 @@ use App\Repository\Eloquent\SliderRepository;
 use App\Repository\Eloquent\SubscriptionRepository;
 use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
+use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\OtpRepositoryInterface;
 use App\Repository\PackageFeatureRepositoryInterface;
 use App\Repository\PackageRepositoryInterface;
 use App\Repository\PermissionRepositoryInterface;
+use App\Repository\ProductRepositoryInterface;
 use App\Repository\RepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
 use App\Repository\SettingsRepositoryInterface;
@@ -60,6 +64,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
         $this->app->singleton(CouponRepositoryInterface::class, CouponRepository::class);
         $this->app->singleton(ContactUsRepositoryInterface::class, ContactUsRepository::class);
+        $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->singleton(FavouriteRepositoryInterface::class, FavouriteRepository::class);
     }
 
     /**

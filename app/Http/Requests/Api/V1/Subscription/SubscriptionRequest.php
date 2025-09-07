@@ -22,20 +22,9 @@ class SubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id'],
             'package_id' => ['required', 'exists:packages,id'],
-            'price' => ['required'],
-            // "status" =>["required"],
-            'end_date' => ['nullable', 'date'],
-            'is_active' => ['nullable', 'in:0,1'],
+             "coupon_code" =>["nullable"],
         ];
     }
 
-    public function prepareForValidation()
-    {
-        $this->merge([
-            'user_id' => auth('api')->user()->id,
-            'is_active' => 1,
-        ]);
-    }
 }

@@ -26,7 +26,6 @@ class PackageRequest extends FormRequest
         return [
             'name_ar' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
-            'type' => ['required', Rule::in(PackageTypeEnum::values())],
             'product_count' => 'required|string|max:100',
             'free_product_count' => 'nullable|integer|min:0',
             'price' => 'required|numeric|min:0',

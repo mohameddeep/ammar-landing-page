@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\Category\CategoryController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
+use App\Http\Controllers\Api\V1\Product\ProductController;
 use App\Http\Controllers\Api\V1\Profile\UserProfileController;
 use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
@@ -94,6 +95,14 @@ Route::group(['middleware' => ['auth:api']], function () {
     ], function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');
+    });
+
+    Route::group([
+        'prefix' => 'products',
+        'controller' => ProductController::class,
+    ], function () {
+        Route::get('/', 'index');
+        Route::post('/{id}/add-to-favourite', 'addToFavourite');
     });
 });
 

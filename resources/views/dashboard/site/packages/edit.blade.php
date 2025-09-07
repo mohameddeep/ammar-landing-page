@@ -16,8 +16,8 @@
                 <x-input.input-field name="name_en" type="text" label="{{ __('dashboard.name_en') }}" :value="old('name_en', $package->name_en)" />
 
 
-                <x-input.input-field name="type" type="select" label="{{ __('dashboard.type') }}" :options="$types"
-                    :value="old('type', $package->type)" />
+{{--                <x-input.input-field name="type" type="select" label="{{ __('dashboard.type') }}" :options="$types"--}}
+{{--                    :value="old('type', $package->type)" />--}}
 
                 <x-input.input-field name="product_count" type="text" label="{{ __('dashboard.product_count') }}"
                     :value="old('product_count', $package->product_count)" />

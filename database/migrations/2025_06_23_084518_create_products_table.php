@@ -21,10 +21,8 @@ return new class extends Migration
             $table->string('old_seller')->nullable();
             $table->text('detail_ar');
             $table->text('detail_en')->nullable();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('type', ['old', 'new'])->default('new');
-            $table->dateTime('expired_at')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected', 'sold']);
             $table->text('rejection_reason')->nullable();
             $table->boolean('is_featured')->default(0);
