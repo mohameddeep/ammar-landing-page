@@ -22,9 +22,9 @@ final class PackageService
 
     public function index(): JsonResponse
     {
-        $categories = $this->packageRepository->getActiveWithPagination();
+        $package = $this->packageRepository->getActiveWithPagination(relations: ['features']);
 
-        return paginatedJsonResponse(message: 'success', data: ['items' => PackageResource::collection($categories)]);
+        return paginatedJsonResponse(message: 'success', data: ['items' => PackageResource::collection($package)]);
     }
 
     public function show($id): JsonResponse

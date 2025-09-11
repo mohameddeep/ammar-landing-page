@@ -41,15 +41,6 @@ Route::group(['prefix' => 'password'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-    // packages
-    Route::group([
-        'prefix' => 'packages',
-        'controller' => PackageController::class,
-    ], function () {
-        Route::get('/', 'index');
-        Route::get('/{id}', 'show');
-    });
-
     // subscriptions
     Route::group([
         'prefix' => 'subscription',
@@ -87,16 +78,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
 
-
-    // categories
-    Route::group([
-        'prefix' => 'categories',
-        'controller' => CategoryController::class,
-    ], function () {
-        Route::get('/', 'index');
-        Route::get('/{id}', 'show');
-    });
-
     Route::group([
         'prefix' => 'products',
         'controller' => ProductController::class,
@@ -108,3 +89,21 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::get('/home', [HomeController::class, 'index']);
 Route::post('/contact-us', ContactUsController::class);
+// categories
+Route::group([
+    'prefix' => 'categories',
+    'controller' => CategoryController::class,
+], function () {
+    Route::get('/', 'index');
+    Route::get('/{id}', 'show');
+});
+
+// packages
+Route::group([
+    'prefix' => 'packages',
+    'controller' => PackageController::class,
+], function () {
+    Route::get('/', 'index');
+    Route::get('/{id}', 'show');
+});
+
