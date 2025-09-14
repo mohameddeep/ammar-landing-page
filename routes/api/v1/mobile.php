@@ -83,7 +83,9 @@ Route::group(['middleware' => ['auth:api']], function () {
         'controller' => ProductController::class,
     ], function () {
         Route::get('/', 'index');
+        Route::get('/favourites', 'favourites');
         Route::post('/{id}/add-to-favourite', 'addToFavourite');
+        Route::post('/{id}/remove-from-favourite', 'removeFromFavourite');
     });
 });
 

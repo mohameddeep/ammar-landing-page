@@ -14,4 +14,14 @@ class FavouriteRepository extends Repository implements FavouriteRepositoryInter
     {
         parent::__construct($model);
     }
+
+    public function removeByProductId(string $productId)
+    {
+        return $this->model->query()
+            ->where(function ($query) use ($productId) {
+                $query->where('product_id', '=', $productId)
+                ->where('user_id', '=', auth('api')->id());
+            })
+            ->delete();
+    }
 }

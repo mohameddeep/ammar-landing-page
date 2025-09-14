@@ -22,6 +22,13 @@ class ProductService
         return paginatedJsonResponse(data: ['items' => ProductResource::collection($products)]);
     }
 
+    public function favourites()
+    {
+        $favourites = auth('api')->user()->favourites;
+//        dd($favourites);
+        return responseSuccess(data: ProductResource::collection($favourites));
+    }
+
     public function addToFavourite(string $id)
     {
         $this->favouriteRepository->create([
@@ -30,6 +37,12 @@ class ProductService
         ]);
 
         return responseSuccess(message: __('product_added_to_favourite'));
+    }
+
+    public function removeFromFavourites(string $id)
+    {
+        $this->favouriteRepository->removeByProductId($id);
+        return responseSuccess();
     }
 
 }

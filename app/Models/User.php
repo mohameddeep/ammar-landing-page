@@ -91,5 +91,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Subscription::class, 'user_id', 'id')->where('is_active', 1)->latestOfMany();
     }
 
+    public function favourites()
+    {
+        return $this->hasManyThrough(Product::class, Favourite::class, 'user_id', 'id', 'id', 'product_id');
+    }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'user_id', 'id');
+    }
+
 
 }

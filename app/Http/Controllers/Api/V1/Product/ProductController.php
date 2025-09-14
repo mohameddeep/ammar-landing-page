@@ -17,8 +17,18 @@ class ProductController extends Controller
         return $this->service->index();
     }
 
+    public function favourites()
+    {
+        return $this->service->favourites();
+    }
+
     public function addToFavourite(string $id)
     {
         return $this->service->addToFavourite($id);
+    }
+
+    public function removeFromFavourite(string $id)
+    {
+        return $this->service->removeFromFavourites($id);
     }
 }

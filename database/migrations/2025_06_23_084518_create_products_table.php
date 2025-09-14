@@ -13,20 +13,17 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name_ar');
-            $table->string('name_en')->nullable();
-            $table->string('slug')->nullable();
-            $table->decimal('original_price');
-            $table->decimal('total_price');
-            $table->string('old_seller')->nullable();
-            $table->text('detail_ar');
-            $table->text('detail_en')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('name');
+            $table->decimal('price');
+            $table->text('description');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('type', ['old', 'new'])->default('new');
             $table->enum('status', ['pending', 'approved', 'rejected', 'sold']);
             $table->text('rejection_reason')->nullable();
             $table->boolean('is_featured')->default(0);
-            $table->boolean('is_active')->default(0);
+            $table->boolean('is_active')->default(1);
+            $table->boolean('is_stopped')->default(0);
             $table->timestamps();
         });
     }
