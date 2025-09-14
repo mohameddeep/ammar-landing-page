@@ -31,7 +31,7 @@ class ProductService
     public function favourites()
     {
         $favourites = auth('api')->user()->favourites;
-        $favourites->load('user');
+        $favourites->load('user', 'category');
         return responseSuccess(data: ProductResource::collection($favourites));
     }
 
