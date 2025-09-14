@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -99,6 +100,15 @@ class User extends Authenticatable implements JWTSubject
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
+    }
+
+    public function image() : Attribute
+    {
+        return Attribute::get(function ($value) {
+            if(! $value)
+                return null;
+            return url('storage/' . $value);
+        });
     }
 
 

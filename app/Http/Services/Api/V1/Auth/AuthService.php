@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\Auth\SignInRequest;
 use App\Http\Resources\V1\User\UserResource;
 use App\Http\Services\Api\V1\Auth\Otp\OtpService;
 use App\Http\Services\PlatformService;
+use App\Http\Traits\FileTrait;
 use App\Repository\UserRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ use function App\Http\Helpers\responseSuccess;
 
 abstract class AuthService extends PlatformService
 {
+    use FileTrait ;
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
         private readonly OtpService $otpService,
@@ -26,7 +28,10 @@ abstract class AuthService extends PlatformService
 
         DB::beginTransaction();
         try {
-            $data = $request->validated();
+            $data = $request->except('image');
+            if ($request->hasFile('image')) {
+                $data['image'] = $this->image($request->file('image'), 'users/images');
+            }
             $user = $this->userRepository->create($data);
             $this->otpService->generate($user);
             $this->userRepository->update($user->id, ['is_active' => true]);

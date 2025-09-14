@@ -18,14 +18,13 @@ class ProductService
 
     public function index()
     {
-        $products = $this->productRepository->getProducts();
+        $products = $this->productRepository->getProducts(relations: ['user', 'category']);
         return paginatedJsonResponse(data: ['items' => ProductResource::collection($products)]);
     }
 
     public function favourites()
     {
         $favourites = auth('api')->user()->favourites;
-//        dd($favourites);
         return responseSuccess(data: ProductResource::collection($favourites));
     }
 

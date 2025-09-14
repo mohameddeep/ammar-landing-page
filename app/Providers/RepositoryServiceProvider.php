@@ -17,6 +17,7 @@ use App\Repository\Eloquent\PackageFeatureRepository;
 use App\Repository\Eloquent\PackageRepository;
 use App\Repository\Eloquent\PermissionRepository;
 use App\Repository\Eloquent\ProductRepository;
+use App\Repository\Eloquent\ProductVariantRepository;
 use App\Repository\Eloquent\Repository;
 use App\Repository\Eloquent\RoleRepository;
 use App\Repository\Eloquent\SettingsRepository;
@@ -31,6 +32,7 @@ use App\Repository\PackageFeatureRepositoryInterface;
 use App\Repository\PackageRepositoryInterface;
 use App\Repository\PermissionRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
+use App\Repository\ProductVariantRepositoryInterface;
 use App\Repository\RepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
 use App\Repository\SettingsRepositoryInterface;
@@ -66,6 +68,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(ContactUsRepositoryInterface::class, ContactUsRepository::class);
         $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->singleton(FavouriteRepositoryInterface::class, FavouriteRepository::class);
+        $this->app->singleton(ProductVariantRepositoryInterface::class, ProductVariantRepository::class);
     }
 
     /**

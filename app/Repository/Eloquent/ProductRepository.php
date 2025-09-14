@@ -10,6 +10,8 @@ use App\Models\Product;
 use App\Repository\PackageRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 final class ProductRepository extends Repository implements ProductRepositoryInterface
 {
@@ -24,13 +26,7 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
     {
         $query = $this->model->query();
 
-        $query->when(request()->filled('search'), function ($query) {
-            $searchItem = "%" . request()->search . "%";
-            $columns = ['name_en', 'name_ar', 'slug', 'detail_en', 'detail_ar', 'price'];
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', $searchItem);
-            }
-        });
+        $query->search();
 
         return $query->select($columns)->with($relations)->paginate($perPage);
     }

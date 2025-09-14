@@ -32,6 +32,7 @@ class SignUpRequest extends FormRequest
 //            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
             'fcm_token' => ['nullable', 'string'],
             'type' => ['required', Rule::in(UserTypeEnum::values())],
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
             'brand_name' => ['string', Rule::requiredIf(function () {
                 return $this->type == UserTypeEnum::Provider->value;
             })],
