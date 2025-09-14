@@ -22,6 +22,12 @@ class ProductService
         return paginatedJsonResponse(data: ['items' => ProductResource::collection($products)]);
     }
 
+    public function show($id)
+    {
+        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews']);
+        return responseSuccess(data: new ProductResource($product));
+    }
+
     public function favourites()
     {
         $favourites = auth('api')->user()->favourites;
