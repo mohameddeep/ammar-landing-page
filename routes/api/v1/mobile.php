@@ -82,12 +82,11 @@ Route::group(['middleware' => ['auth:api']], function () {
         'prefix' => 'products',
         'controller' => ProductController::class,
     ], function () {
-        Route::get('/', 'index');
         Route::get('/favourites', 'favourites');
-        Route::get('/{id}', 'show');
         Route::post('/{id}/add-to-favourite', 'addToFavourite');
         Route::post('/{id}/remove-from-favourite', 'removeFromFavourite');
     });
+    Route::apiResource('products', ProductController::class);
 });
 
 Route::get('/home', [HomeController::class, 'index']);

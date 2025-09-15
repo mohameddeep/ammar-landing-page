@@ -24,7 +24,11 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
 
     public function getProducts(int $perPage = 10, array $columns = ['*'], array $relations = [])
     {
-        $query = $this->model->query();
+        $query = $this->model->query()
+                ->where(function ($query) {
+                    $query->where('is_active', true)
+                        ->where('is_stopped', false);
+                });
 
         $query->search();
 
@@ -35,6 +39,8 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
     {
         return $this->model->query()
             ->where('category_id', $categoryId)
+            ->where('is_active', true)
+            ->where('is_stopped', false)
             ->search()
             ->select($columns)
             ->with($relations)

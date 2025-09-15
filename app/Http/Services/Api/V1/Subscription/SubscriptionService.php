@@ -58,10 +58,12 @@ final class SubscriptionService
                 }
                 $data['price'] = (int) $package->price - $coupon->discount;
             }else{
+                $coupon = null;
                 $data['price'] = $package->price;
             }
             $data['end_date'] = $this->repository->calculateSubscriptionEndDate($package);
             $data['user_id'] = auth('api')->id();
+            $data['dress_count'] = $package->product_count;
             $this->repository->create($data);
             if ($coupon){
                 $coupon->decrementCount();

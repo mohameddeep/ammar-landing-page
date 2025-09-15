@@ -13,6 +13,7 @@ class Subscription extends Model
         'start_date',
         'end_date',
         'is_active',
+        'dress_count',
     ];
 
     public function user()

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('start_date')->default(now());
             $table->dateTime('end_date')->nullable();
             $table->boolean('is_active')->default(0);
+            $table->integer('dress_count')->nullable();
             $table->timestamps();
         });
     }

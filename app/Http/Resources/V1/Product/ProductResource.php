@@ -28,6 +28,8 @@ class ProductResource extends JsonResource
             'status' => $this->status,
             'is_fav' => $this->is_fav,
             'rate' => $this->rate(),
+            'is_active' => $this->is_active,
+            'is_stopped' => $this->is_stopped,
             'images' => ProductImageResource::collection($this->whenLoaded('images')),
         ];
     }

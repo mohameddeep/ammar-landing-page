@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Product\ProductRequest;
 use App\Http\Services\Api\V1\Product\ProductService;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,10 @@ class ProductController extends Controller
         return $this->service->index();
     }
 
+    public function store(ProductRequest $request)
+    {
+        return $this->service->store($request);
+    }
     public function show($id)
     {
         return $this->service->show($id);
