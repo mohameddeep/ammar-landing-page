@@ -29,6 +29,7 @@ abstract class AuthService extends PlatformService
         DB::beginTransaction();
         try {
             $data = $request->except('image');
+            $data['name'] = $request->name ?? 'user';
             if ($request->hasFile('image')) {
                 $data['image'] = $this->image($request->file('image'), 'users/images');
             }

@@ -67,6 +67,15 @@ class ProductService
         return responseSuccess(data: new ProductDetailResource($product));
     }
 
+    public function update($request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $data = $request->except('images', 'sizes', 'colors');
+
+        }
+    }
+
 
     public function favourites()
     {

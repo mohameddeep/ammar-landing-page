@@ -27,6 +27,16 @@ class ProductController extends Controller
         return $this->service->show($id);
     }
 
+    public function update(ProductRequest $request, $id)
+    {
+        return $this->service->update($request, $id);
+    }
+
+    public function destroy($id)
+    {
+        return $this->service->destroy($id);
+    }
+
     public function favourites()
     {
         return $this->service->favourites();

@@ -26,7 +26,9 @@ class SignUpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name' => ['string', Rule::requiredIf(function () {
+                return $this->type == UserTypeEnum::Provider->value;
+            })],
             'email' => ['nullable', 'email:rfc,dns', Rule::unique('users', 'email')],
             'phone' => ['required', new Phone, Rule::unique('users', 'phone')->ignore(auth('api')->id())],
 //            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
