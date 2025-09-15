@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Api\V1\Product;
 
+use App\Http\Resources\V1\Product\ProductDetailResource;
 use App\Http\Resources\V1\Product\ProductResource;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
@@ -25,7 +26,7 @@ class ProductService
     public function show($id)
     {
         $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user']);
-        return responseSuccess(data: new ProductResource($product));
+        return responseSuccess(data: new ProductDetailResource($product));
     }
 
     public function favourites()
