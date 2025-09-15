@@ -25,6 +25,7 @@ class ProductDetailResource extends JsonResource
             'status' => $this->status,
             'is_fav' => $this->is_fav,
             'rate' => $this->rate(),
+            'images' => ProductImageResource::collection($this->whenLoaded('images')),
             'reviews' => ProductReviewResource::collection($this->whenLoaded('reviews')),
             'available_colors' => $this->colors(),
             'available_sizes'  => $this->sizes(),

@@ -19,15 +19,16 @@ class ProductService
 
     public function index()
     {
-        $products = $this->productRepository->getProducts(relations: ['user', 'category']);
+        $products = $this->productRepository->getProducts(relations: ['user', 'category', 'images']);
         return paginatedJsonResponse(data: ['items' => ProductResource::collection($products)]);
     }
 
     public function show($id)
     {
-        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants']);
+        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
         return responseSuccess(data: new ProductDetailResource($product));
     }
+
 
     public function favourites()
     {

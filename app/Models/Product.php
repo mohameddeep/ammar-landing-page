@@ -55,6 +55,11 @@ class Product extends Model
         return $this->variants()->where('type', 'size')->pluck('value')->toArray();
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
     public function isFav() : Attribute
     {
         return Attribute::make(get: function () {
