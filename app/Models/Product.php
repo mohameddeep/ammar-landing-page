@@ -40,6 +40,21 @@ class Product extends Model
         return $this->reviews()->avg('rating');
     }
 
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function colors()
+    {
+        return $this->variants()->where('type', 'color')->pluck('value')->toArray();
+    }
+
+    public function sizes()
+    {
+        return $this->variants()->where('type', 'size')->pluck('value')->toArray();
+    }
+
     public function isFav() : Attribute
     {
         return Attribute::make(get: function () {

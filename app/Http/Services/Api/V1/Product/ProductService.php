@@ -25,7 +25,7 @@ class ProductService
 
     public function show($id)
     {
-        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user']);
+        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants']);
         return responseSuccess(data: new ProductDetailResource($product));
     }
 
