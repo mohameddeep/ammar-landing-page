@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\V1\Category;
 
+use App\Http\Resources\V1\Product\ProductResource;
 use App\Http\Traits\LanguageToggle;
+use App\Repository\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +23,8 @@ final class CategoryDetailResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $productRepository = app(ProductRepositoryInterface::class);
+        $products = $productRepository->getCategoryProducts($this->id, relations: ['user', 'category']);
 
         return [
             'id' => $this->id,
@@ -28,7 +32,7 @@ final class CategoryDetailResource extends JsonResource
             'slug' => $this->slug,
             'image' => fileFullPath($this->image),
             'parent' => $this->parent?->t('name') ?? null,
-            'children' => CategoryResource::collection($this->whenLoaded('children')),
+            'products' => ProductResource::collection($products),
         ];
     }
 }

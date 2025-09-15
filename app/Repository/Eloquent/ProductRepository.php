@@ -31,4 +31,14 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
         return $query->select($columns)->with($relations)->paginate($perPage);
     }
 
+    public function getCategoryProducts($categoryId, array $columns = ['*'], array $relations = [])
+    {
+        return $this->model->query()
+            ->where('category_id', $categoryId)
+            ->search()
+            ->select($columns)
+            ->with($relations)
+            ->get();
+    }
+
 }
