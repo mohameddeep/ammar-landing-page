@@ -72,8 +72,37 @@ class ProductService
         DB::beginTransaction();
         try {
             $data = $request->except('images', 'sizes', 'colors');
-
+            $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
+            if ($request->has('images')) {
+                $product->images()->delete();
+                $images = $request->images;
+                foreach ($images as $image) {
+                    $image = $this->image($image, 'product/images');
+                    $product->images()->create([
+                        'image' => $image,
+                    ]);
+                }
+            }
+            $product->variants()->delete();
+            if ($request->has('sizes')) {
+                $this->addVariants($product, $request->sizes, 'size');
+            }
+            if ($request->has('colors')) {
+                $this->addVariants($product, $request->colors, 'color');
+            }
+            $this->productRepository->update($id, $data);
+            DB::commit();
+            return responseSuccess(__('messages.updated_successfully'));
+        }catch (\Exception $e){
+            DB::rollBack();
+            return responseFail(message: __('dashboard.Something went wrong!'));
         }
+    }
+
+    public function destroy($id)
+    {
+        $this->productRepository->delete($id);
+        return responseSuccess(__('messages.deleted_successfully'));
     }
 
 
