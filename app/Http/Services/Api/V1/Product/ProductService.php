@@ -5,6 +5,7 @@ namespace App\Http\Services\Api\V1\Product;
 use App\Http\Resources\V1\Product\ProductDetailResource;
 use App\Http\Resources\V1\Product\ProductResource;
 use App\Http\Traits\FileTrait;
+use App\Models\Product;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,7 @@ class ProductService
 
     public function store($request)
     {
+        $response = Gate::authorize('create', Product::class);
         DB::beginTransaction();
         try {
             $data = $request->except('images', 'sizes', 'colors');
@@ -115,7 +117,7 @@ class ProductService
     public function favourites()
     {
         $favourites = auth('api')->user()->favourites;
-        $favourites->load('user', 'category');
+        $favourites->load('user', 'category', 'images');
         return responseSuccess(data: ProductResource::collection($favourites));
     }
 
@@ -132,6 +134,22 @@ class ProductService
     public function removeFromFavourites(string $id)
     {
         $this->favouriteRepository->removeByProductId($id);
+        return responseSuccess();
+    }
+
+    public function stop($id)
+    {
+        $this->productRepository->update($id, [
+            'is_stopped' => 1
+        ]);
+        return responseSuccess();
+    }
+
+    public function continue($id)
+    {
+        $this->productRepository->update($id, [
+            'is_stopped' => 0
+        ]);
         return responseSuccess();
     }
 
