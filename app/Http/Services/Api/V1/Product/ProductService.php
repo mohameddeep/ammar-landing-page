@@ -8,6 +8,7 @@ use App\Http\Traits\FileTrait;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use function App\Http\Helpers\paginatedJsonResponse;
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
@@ -71,7 +72,7 @@ class ProductService
     {
         DB::beginTransaction();
         try {
-            $data = $request->except('images', 'sizes', 'colors');
+            $data = $request->except('images', 'sizes', 'colors', '_method');
             $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
             if ($request->has('images')) {
                 $product->images()->delete();
@@ -92,7 +93,8 @@ class ProductService
             }
             $this->productRepository->update($id, $data);
             DB::commit();
-            return responseSuccess(__('messages.updated_successfully'));
+            $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants']);
+            return responseSuccess(message: __('messages.updated_successfully'), data: new ProductDetailResource($product));
         }catch (\Exception $e){
             DB::rollBack();
             return responseFail(message: __('dashboard.Something went wrong!'));
@@ -101,8 +103,12 @@ class ProductService
 
     public function destroy($id)
     {
+        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user']);
+        $response = Gate::inspect('delete', $product);
+        if ($response->denied())
+            return responseFail(message: __('messages.unauthorized'));
         $this->productRepository->delete($id);
-        return responseSuccess(__('messages.deleted_successfully'));
+        return responseSuccess(message: __('messages.deleted_successfully'));
     }
 
 
