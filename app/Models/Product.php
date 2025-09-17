@@ -38,7 +38,7 @@ class Product extends Model
 
     public function rate()
     {
-        return $this->reviews()->avg('rating');
+        return $this->reviews()->avg('rating') ?? 0;
     }
 
     public function variants()
