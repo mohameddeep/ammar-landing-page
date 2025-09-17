@@ -8,4 +8,6 @@ interface ProductRepositoryInterface
 
     public function getCategoryProducts($categoryId, array $columns = ['*'], array $relations = []);
 
+    public function getRelated($product, array $columns = ['*'], array $relations = [], $count = 4);
+
 }

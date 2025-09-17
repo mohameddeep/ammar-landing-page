@@ -46,9 +46,6 @@ final class SubscriptionService
         DB::beginTransaction();
         try {
             $data = $request->except(['coupon_code']);
-            if ($this->repository->checkExistingSubscription($request->package_id)) {
-                return responseFail(message: __('messages.you_already_subscribed_to_this_package'));
-            }
             $package = $this->packageRepository->getById($request->package_id);
 
             if ($request->has('coupon_code')) {

@@ -52,4 +52,19 @@ class ProductController extends Controller
     {
         return $this->service->removeFromFavourites($id);
     }
+
+    public function stop(string $id)
+    {
+        return $this->service->stop($id);
+    }
+
+    public function continue(string $id)
+    {
+        return $this->service->continue($id);
+    }
+
+    public function related(string $id)
+    {
+        return $this->service->related($id);
+    }
 }

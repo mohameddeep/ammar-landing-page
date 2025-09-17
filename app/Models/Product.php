@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-//#[UsePolicy(ProductPolicy::class)]
 class Product extends Model
 {
     use Searchable;

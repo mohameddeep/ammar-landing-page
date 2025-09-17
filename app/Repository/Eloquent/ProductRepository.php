@@ -27,7 +27,9 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
         $query = $this->model->query()
                 ->where(function ($query) {
                     $query->where('is_active', true)
-                        ->where('is_stopped', false);
+                        ->where('is_stopped', false)
+                        ->where('status', 'approved');
+
                 });
 
         $query->search();
@@ -41,9 +43,25 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->where('category_id', $categoryId)
             ->where('is_active', true)
             ->where('is_stopped', false)
+            ->where('status', 'approved')
             ->search()
             ->select($columns)
             ->with($relations)
+            ->get();
+    }
+
+    public function getRelated($product, array $columns = ['*'], array $relations = [], $count = 4)
+    {
+        return $this->model->query()
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->where('is_active', true)
+            ->where('is_stopped', false)
+            ->where('status', 'approved')
+            ->select($columns)
+            ->with($relations)
+            ->inRandomOrder()
+            ->limit($count)
             ->get();
     }
 

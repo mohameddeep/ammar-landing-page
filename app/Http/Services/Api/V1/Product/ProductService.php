@@ -52,7 +52,7 @@ class ProductService
             if ($request->has('colors')) {
                 $this->addVariants($product, $request->colors, 'color');
             }
-            $subscription = auth('api')->user()->currentSubscription;
+            $subscription = auth('api')->user()->currentSubscription();
             if ($subscription) {
                 $subscription->decrement('dress_count');
             }
@@ -147,12 +147,19 @@ class ProductService
 
     public function continue($id)
     {
+        Gate::authorize('create', Product::class);
         $this->productRepository->update($id, [
             'is_stopped' => 0
         ]);
         return responseSuccess();
     }
 
+    public function related($id)
+    {
+        $product = $this->productRepository->getById($id);
+        $products = $this->productRepository->getRelated($product, relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
+        return responseSuccess(data: ProductResource::collection($products));
+    }
     private function addVariants($product, $values, $type)
     {
         $product->variants()->createMany(

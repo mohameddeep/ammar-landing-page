@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
+use App\Enums\UserTypeEnum;
 use App\Models\Manager;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
 {
@@ -28,9 +28,16 @@ class ProductPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(Manager $manager): bool
+    public function create(User $user): bool
     {
-        return false;
+        if ($user->type == UserTypeEnum::Provider->value){
+            return $user->activeSubscriptions()->exists();
+        }else{
+            return  $user->products()
+                ->where('is_active', true)
+                ->where('is_stopped', false)
+                ->where('status', 'approved')
+                ->exists();        }
     }
 
     /**
@@ -38,7 +45,7 @@ class ProductPolicy
      */
     public function update(Manager $manager, Product $product): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -46,24 +53,8 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $product->user_id == $user->id ?
-            Response::allow() :
-            Response::deny(__('messages.unauthorized'));
+        return $product->user_id == $user->id;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(Manager $manager, Product $product): bool
-    {
-        return false;
-    }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(Manager $manager, Product $product): bool
-    {
-        return false;
-    }
 }
