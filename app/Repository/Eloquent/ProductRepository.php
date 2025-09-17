@@ -29,12 +29,14 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
                     $query->where('is_active', true)
                         ->where('is_stopped', false)
                         ->where('status', 'approved');
-
                 });
 
         $query->search();
+        $query->withExists(['favourites as is_fav' =>  function ($q) {
+            $q->where('user_id', auth('api')->id());
+        }]);
 
-        return $query->select($columns)->with($relations)->paginate($perPage);
+        return $query->with($relations)->paginate($perPage);
     }
 
     public function getCategoryProducts($categoryId, array $columns = ['*'], array $relations = [])
@@ -45,7 +47,9 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->where('is_stopped', false)
             ->where('status', 'approved')
             ->search()
-            ->select($columns)
+            ->withExists(['favourites as is_fav' =>  function ($q) {
+                $q->where('user_id', auth('api')->id());
+            }])
             ->with($relations)
             ->get();
     }
@@ -58,7 +62,9 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->where('is_active', true)
             ->where('is_stopped', false)
             ->where('status', 'approved')
-            ->select($columns)
+            ->withExists(['favourites as is_fav' =>  function ($q) {
+                $q->where('user_id', auth('api')->id());
+            }])
             ->with($relations)
             ->inRandomOrder()
             ->limit($count)

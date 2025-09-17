@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     use Searchable;
+
+    protected $appends  = ['is_fav'];
     protected $guarded = [];
 
     protected array $searchable = [
@@ -61,12 +63,8 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function isFav() : Attribute
+    public function favourites() : HasMany
     {
-        return Attribute::make(get: function () {
-            return Favourite::where('product_id', $this->id)
-                    ->where('user_id', auth('api')->id())
-                    ->exists();
-        });
+        return $this->hasMany(Favourite::class);
     }
 }
