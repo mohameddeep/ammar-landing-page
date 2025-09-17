@@ -23,7 +23,7 @@ class ProductDetailResource extends JsonResource
             'category' => $this->category?->t('name'),
             'price' => $this->price,
             'status' => $this->status,
-            'is_fav' => $this->is_fav,
+            'is_fav' => $this->is_fav ?? false,
             'rate' => $this->rate(),
             'is_active' => $this->is_active,
             'is_stopped' => $this->is_stopped,
