@@ -32,6 +32,8 @@ final class UserAddressRequest extends FormRequest
             'building_name' => ['nullable', 'string', 'max:255'],
             'landmark' => ['nullable', 'string', 'max:255'],
             'notes' => ['nullable', 'string'],
+            'longitude' => ['nullable', 'string'],
+            'latitude' => ['nullable', 'string'],
             'is_default' => ['nullable', 'boolean'],
         ];
     }

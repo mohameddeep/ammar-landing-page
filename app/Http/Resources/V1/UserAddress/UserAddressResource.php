@@ -19,12 +19,14 @@ final class UserAddressResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'phone' => $this->phone,
+            'phone' => $this->phone ?? auth('api')->user()->phone,
             'street_name' => $this->street_name,
             'city' => $this->city,
             'building_name' => $this->building_name,
             'landmark' => $this->landmark,
             'notes' => $this->notes,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'is_default' => $this->is_default,
         ];
     }

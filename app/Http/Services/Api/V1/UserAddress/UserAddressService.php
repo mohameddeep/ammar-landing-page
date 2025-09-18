@@ -31,19 +31,19 @@ final class UserAddressService
 
     public function store($request): JsonResponse
     {
-        // DB::beginTransaction();
-        // try {
+         DB::beginTransaction();
+         try {
         $data = $request->validated();
 
-        $this->userAddressRepository->create($data);
+        $address = $this->userAddressRepository->create($data);
         DB::commit();
 
-        return responseSuccess(Http::OK, __('messages.created successfully'));
-        // } catch (Exception $e) {
-        //     DB::rollback();
+        return responseSuccess(Http::OK, __('messages.created successfully'), new UserAddressResource($address));
+         } catch (Exception $e) {
+             DB::rollback();
 
-        //     return responseFail(message: __('messages.Something went wrong'));
-        // }
+             return responseFail(message: __('messages.Something went wrong'));
+         }
     }
 
     public function show($id): JsonResponse
