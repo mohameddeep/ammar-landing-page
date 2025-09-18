@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Traits\Searchable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -69,5 +70,16 @@ class Product extends Model
     public function views() : HasMany
     {
         return $this->hasMany(ProductView::class);
+    }
+
+    public function isFav() : Attribute
+    {
+        return Attribute::get(function ($value) {
+            if (!is_null($value)) {
+                return (bool) $value;
+            }
+
+            return $this->favourites()->where('user_id', auth('api')->id())->exists();
+        });
     }
 }
