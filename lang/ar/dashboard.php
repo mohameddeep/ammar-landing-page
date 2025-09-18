@@ -327,4 +327,7 @@ return [
     'end_date' => 'تاريخ الانتهاء',
     'Products_Count' => 'عدد المنتجات',
     'subscriptions' => 'الاشتراكات',
+    'is_stopped' => 'وضع المنتج',
+    'stopped'    => 'متوقف',
+    'running'    => 'يعمل',
 ];

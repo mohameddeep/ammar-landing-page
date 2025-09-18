@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-interface ProductRepositoryInterface
+interface ProductRepositoryInterface extends RepositoryInterface
 {
     public function getProducts(int $perPage = 10, array $columns = ['*'], array $relations = []);
 

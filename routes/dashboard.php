@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
+use App\Http\Controllers\Dashboard\Product\ProductController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
@@ -71,6 +72,15 @@ Route::group([
 
         //subscriptions
         Route::controller(SubscriptionController::class)->prefix('subscriptions')->name('subscriptions.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/toggle/{id}', 'toggle')->name('toggle');
+                Route::delete('/{id}', action: 'destroy')->name('destroy');
+            });
+
+
+        //products
+        Route::controller(ProductController::class)->prefix('dashboard/products')->name('dashboard.products.')
             ->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/toggle/{id}', 'toggle')->name('toggle');

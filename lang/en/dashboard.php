@@ -321,5 +321,8 @@ return [
     'end_date' => 'End Date',
     'Products_Count' => 'Products Count',
     'subscriptions' => 'Subscriptions',
+    'is_stopped' => 'Product Mode',
+    'stopped'    => 'Stopped',
+    'running'    => 'Running',
 
 ];

@@ -70,4 +70,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductView::class);
     }
+
+    public function getIsFavAttribute(): bool
+{
+    return false;
+}
+
 }

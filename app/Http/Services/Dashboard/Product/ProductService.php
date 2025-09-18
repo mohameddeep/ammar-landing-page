@@ -26,70 +26,38 @@ class ProductService
 
     public function index()
     {
-        $products = $this->repository->paginate(10);
+        $products = $this->repository->paginate(relations: ['category', 'images']);
 
         return view('dashboard.site.products.index', compact('products'));
     }
 
-    public function create()
-    {
-        $mainCategories = $this->repository->getAll();
 
-        return view('dashboard.site.categories.create', compact('mainCategories'));
-    }
+    public function destroy($id) 
+{ 
+    DB::beginTransaction(); 
+    try { 
+        $product = $this->repository->getById($id); 
 
-    public function store($request)
-    {
-
-        DB::beginTransaction();
-        try {
-            $data = $request->except('id', 'image', '_token', 'is_active');
-            $data['is_active'] = $request->is_active == 'on' ? 1 : 0;
-
-            $data['slug'] = Str::slug($data['name_ar']);
-
-            if ($request->hasFile('image')) {
-                $data['image'] = $this->image($request->file('image'), 'categories');
-            }
-
-            store_model($this->repository, $data, true);
-
-            DB::commit();
-
-            return redirect()->route('categories.index')->with(['success' => __('messages.created_successfully')]);
-        } catch (Exception $e) {
-            DB::rollBack();
-
-            return back()->with(['error' => __('messages.Something went wrong')]);
+        foreach ($product->images as $image) {
+            $this->deleteFile($image->image);
+            $image->delete();  
         }
-    }
+        $deleted = delete_model($this->repository, $id); 
 
-    public function edit($id)
-    {
-        $mainCategories = $this->repository->getAll();
-        $category = $this->repository->getById($id);
+        DB::commit(); 
 
-        return view('dashboard.site.categories.edit', compact('category', 'mainCategories'));
-    }
+        if ($deleted) { 
+            return responseSuccess(Http::OK, __('messages.deleted_successfully'), true); 
+        } else { 
+            return responseFail(Http::NOT_FOUND, __('messages.Not Found or Already Deleted')); 
+        } 
+    } catch (Exception $e) { 
+        DB::rollBack();
+        return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]); 
+    } 
+}
 
-    public function update($request, $id)
-    {
-        DB::beginTransaction();
-        try {
-            $category = $this->repository->getById($id);
-            $data = $request->except('id', 'image', 'is_active', '_method', '_token');
 
-            update_model($this->repository, $id, $data);
-
-            DB::commit();
-
-            return redirect()->route('categories.index')->with(['success' => __('messages.updated_successfully')]);
-        } catch (Exception $e) {
-            DB::rollBack();
-
-            return back()->with(['error' => __('messages.Something went wrong')]);
-        }
-    }
 
     public function toggle($id)
     {
@@ -98,25 +66,5 @@ class ProductService
         $category->save();
 
         return responseSuccess(Http::OK, __('messages.updated_successfully'), ['success' => true, 'is_active' => $category->is_active]);
-    }
-
-    public function destroy($id)
-    {
-        DB::beginTransaction();
-        try {
-            $category = $this->repository->getById($id);
-            if ($category->image) {
-                $this->deleteFile($category->image);
-            }
-            $deleted = delete_model($this->repository, $id);
-            DB::commit();
-            if ($deleted) {
-                return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);
-            } else {
-                return responseFail(Http::NOT_FOUND, __('messages.Not Found or Already Deleted'));
-            }
-        } catch (Exception $e) {
-            return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
-        }
     }
 }

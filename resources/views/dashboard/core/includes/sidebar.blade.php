@@ -147,6 +147,15 @@
                     </a>
                 </li>
                 {{-- end categories --}}
+                {{-- start products --}}
+                <li class="slide">
+                    <a href="{{ route('dashboard.products.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['dashboard.products.index']) ? 'active' : '' }}">
+                        <i class="bx bx-grid-alt side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.products')</span>
+                    </a>
+                </li>
+                {{-- end products --}}
 
                 <!-- Start::coupons -->
                 <li class="slide">
