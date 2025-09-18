@@ -158,6 +158,17 @@
                 </li>
                 <!-- End::coupons -->
 
+                
+                   {{-- start subscriptions --}}
+                <li class="slide">
+                    <a href="{{ route('subscriptions.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['subscriptions.index']) ? 'active' : '' }}">
+                        <i class="ti ti-package side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.subscriptions')</span>
+                    </a>
+                </li>
+                {{-- end subscriptions --}}
+
                 <!-- Start::sliders -->
                 <li class="slide">
                     <a href="{{ route('sliders.index') }}"

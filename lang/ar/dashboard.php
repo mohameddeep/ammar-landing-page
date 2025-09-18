@@ -320,4 +320,11 @@ return [
     'product_count'=>'عدد المنتجات',
     'Percentage'=>'نسبة مئوية',
     'Fixed'=>'مبلغ ثابت',
+    'package' => 'الباقة',
+    'username' => 'اسم المستخدم',
+    'price' => 'السعر',
+    'start_date' => 'تاريخ البداية',
+    'end_date' => 'تاريخ الانتهاء',
+    'Products_Count' => 'عدد المنتجات',
+    'subscriptions' => 'الاشتراكات',
 ];

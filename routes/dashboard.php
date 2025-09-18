@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\User\UserController;
+use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -66,6 +67,15 @@ Route::group([
         Route::resource('categories', CategoryController::class);
         Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
         Route::resource('coupons', CouponController::class)->except('show');
+
+
+        //subscriptions
+        Route::controller(SubscriptionController::class)->prefix('subscriptions')->name('subscriptions.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/toggle/{id}', 'toggle')->name('toggle');
+                Route::delete('/{id}', action: 'destroy')->name('destroy');
+            });
 
         // start sliders
         Route::resource('sliders', controller: SliderController::class)->except(['show']);

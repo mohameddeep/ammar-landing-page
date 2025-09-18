@@ -314,4 +314,12 @@ return [
     'Percentage'=>'Percentage',
     'Fixed'=>'Fixed',
 
+    'package' => 'Package',
+    'username' => 'Username',
+    'price' => 'Price',
+    'start_date' => 'Start Date',
+    'end_date' => 'End Date',
+    'Products_Count' => 'Products Count',
+    'subscriptions' => 'Subscriptions',
+
 ];
