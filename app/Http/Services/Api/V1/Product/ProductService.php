@@ -124,19 +124,19 @@ class ProductService
         return responseSuccess(data: ProductResource::collection($favourites));
     }
 
-    public function addToFavourite(string $id)
+    public function addToFavourite($request)
     {
         $this->favouriteRepository->create([
-            'product_id' => $id,
+            'product_id' => $request->product_id,
             'user_id' => auth('api')->id()
         ]);
 
         return responseSuccess(message: __('product_added_to_favourite'));
     }
 
-    public function removeFromFavourites(string $id)
+    public function removeFromFavourites($request)
     {
-        $this->favouriteRepository->removeByProductId($id);
+        $this->favouriteRepository->removeByProductId($request->product_id);
         return responseSuccess();
     }
 

@@ -43,14 +43,14 @@ class ProductController extends Controller
         return $this->service->favourites();
     }
 
-    public function addToFavourite(string $id)
+    public function addToFavourite(Request $request)
     {
-        return $this->service->addToFavourite($id);
+        return $this->service->addToFavourite($request);
     }
 
-    public function removeFromFavourite(string $id)
+    public function removeFromFavourite(Request $request)
     {
-        return $this->service->removeFromFavourites($id);
+        return $this->service->removeFromFavourites($request);
     }
 
     public function stop(string $id)

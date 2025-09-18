@@ -83,8 +83,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         'controller' => ProductController::class,
     ], function () {
         Route::get('/favourites', 'favourites');
-        Route::post('/{id}/add-to-favourite', 'addToFavourite');
-        Route::post('/{id}/remove-from-favourite', 'removeFromFavourite');
+        Route::post('/add-to-favourite', 'addToFavourite');
+        Route::post('/remove-from-favourite', 'removeFromFavourite');
         Route::post('/{id}/stop', 'stop');
         Route::post('/{id}/continue-selling', 'continue');
         Route::get('/{id}/related', 'related');
