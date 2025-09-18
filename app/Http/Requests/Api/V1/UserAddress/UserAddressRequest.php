@@ -26,7 +26,7 @@ final class UserAddressRequest extends FormRequest
         return [
 
             'user_id' => ['required', 'exists:users,id'],
-            'phone' => ['required', 'string'],
+            'phone' => ['nullable', 'string'],
             'street_name' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'building_name' => ['nullable', 'string', 'max:255'],
