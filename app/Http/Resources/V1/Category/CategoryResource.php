@@ -28,7 +28,7 @@ final class CategoryResource extends JsonResource
             'name' => $this->t('name'),
             'slug' => $this->slug,
             'image' => fileFullPath($this->image),
-            'products' => $this->whenLoaded('products', fn() => ProductResource::collection($this->products()->with('user', 'category')->latest()->limit(4)->get())),
+            'products' => $this->whenLoaded('products', fn() => ProductResource::collection($this->products()->with('user', 'category', 'images')->latest()->limit(4)->get())),
         ];
     }
 }
