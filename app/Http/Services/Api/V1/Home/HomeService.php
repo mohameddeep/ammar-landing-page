@@ -22,7 +22,7 @@ final class HomeService
 
     public function index(): JsonResponse
     {
-        $categories = $this->categoryRepository->getParentCategories();
+        $categories = $this->categoryRepository->getParentCategories(relations: ['products']);
         $sliders = $this->sliderRepository->getActive();
 
         return responseSuccess(message: __('dashboard_api.show_successfully'), data: [

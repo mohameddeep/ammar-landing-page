@@ -6,5 +6,5 @@ namespace App\Repository;
 
 interface CategoryRepositoryInterface extends RepositoryInterface
 {
-    public function getParentCategories();
+    public function getParentCategories(array $relations = []);
 }

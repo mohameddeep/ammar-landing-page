@@ -17,7 +17,7 @@ final class CategoryRepository extends Repository implements CategoryRepositoryI
         parent::__construct($model);
     }
 
-    public function getParentCategories()
+    public function getParentCategories(array $relations = [])
     {
         $query = $this->model::query();
 
@@ -34,6 +34,7 @@ final class CategoryRepository extends Repository implements CategoryRepositoryI
             ->whereNull('parent_id')
             ->where('is_active', true)
             ->latest()
+            ->with($relations)
             ->paginate(10);
 
     }
