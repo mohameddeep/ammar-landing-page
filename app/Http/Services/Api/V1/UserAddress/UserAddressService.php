@@ -34,6 +34,7 @@ final class UserAddressService
          DB::beginTransaction();
          try {
         $data = $request->validated();
+        $data['user_id'] = auth('api')->id();
 
         $address = $this->userAddressRepository->create($data);
         DB::commit();

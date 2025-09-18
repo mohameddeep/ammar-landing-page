@@ -24,8 +24,6 @@ final class UserAddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-            'user_id' => ['required', 'exists:users,id'],
             'phone' => ['nullable', 'string'],
             'street_name' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
