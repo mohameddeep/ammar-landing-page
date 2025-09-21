@@ -14,6 +14,7 @@ class UserController extends Controller
     {
         return $this->user->index();
     }
+ 
 
     public function show($id)
     {

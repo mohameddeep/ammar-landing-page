@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Product\ChangeProductStatusRequest;
 use App\Http\Services\Dashboard\Product\ProductService;
 
 class ProductController extends Controller
@@ -26,4 +27,15 @@ class ProductController extends Controller
     {
         return $this->service->destroy($id);
     }
+
+     public function changeStatus(ChangeProductStatusRequest $request, $id){
+        return $this->service->changeStatus($request, $id);
+     }
+
+
+     
+     public function show($id){
+        return $this->service->show($id);
+     }
+   
 }

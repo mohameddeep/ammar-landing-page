@@ -12,7 +12,7 @@ interface RepositoryInterface
 
     public function getActive(array $columns = ['*'], array $relations = []): Collection;
 
-    public function getActiveWithPagination(array $columns = ['*'], array $relations = []);
+    public function getActiveWithPagination(array $columns = ['*'], array $relations = [],?string $type = null);
 
     public function getById(
         $modelId,

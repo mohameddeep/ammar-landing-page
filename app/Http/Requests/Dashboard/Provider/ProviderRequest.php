@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests\Api\V1\Profile;
+namespace App\Http\Requests\Dashboard\Provider;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
-final class UserProfileRequest extends FormRequest
+class ProviderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +24,9 @@ final class UserProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'brand_name' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'phone' => ['required', 'string', 'unique:users,phone']
+            'brand_name' => ['required', 'string'],
+            'phone' => ['required', 'string', 'unique:users,phone'],
+            'password' => $this->password ? ['required', Password::min(8), 'confirmed'] : 'nullable',
         ];
     }
 }

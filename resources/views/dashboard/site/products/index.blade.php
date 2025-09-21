@@ -34,6 +34,7 @@
                             <th>@lang('dashboard.category')</th>
                             <th>@lang('dashboard.price')</th>
                             <th>@lang('dashboard.is_stopped')</th>
+                            <th>@lang('dashboard.activation')</th>
                             <th>@lang('dashboard.status')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
@@ -70,10 +71,37 @@
                                         <label for="active_toggle_{{ $product->id }}" class="label-secondary"></label>
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            {{ $product->status == 'approved' ? __('dashboard.accepted') : __('dashboard.rejected') }}
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $product->id }}">
+                                            <li>
+                                                <a class="dropdown-item" href="javascript:void(0)"
+                                                    onclick="changeProductStatus({{ $product->id }}, 'approved')">
+                                                    @lang('dashboard.accepted')
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="javascript:void(0)"
+                                                    onclick="changeProductStatus({{ $product->id }}, 'rejected')">
+                                                    @lang('dashboard.rejection')
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+
 
                                 <td>
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.delete-button :route="route('dashboard.products.destroy', $product->id)" :itemId="$product->id" />
+
+                                            <x-buttons.show-button
+                                            :route="route('dashboard.products.details', $product->id)" :tooltip-title="__('dashboard.product-variants')" />
                                     </div>
                                 </td>
                             </tr>
@@ -128,6 +156,24 @@
                 error: function(xhr, status, error) {
                     alert('An error occurred: ' + (xhr.responseJSON?.message || status));
                     checkbox.checked = !isChecked;
+                }
+            });
+        }
+
+
+        function changeProductStatus(productId, status) {
+            $.ajax({
+                url: `/dashboard/products/${productId}/change-status`,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    status: status
+                },
+                success: function(response) {
+                    $(`#dropdownMenuButton${productId}`).text(response.new_status_text);
+                },
+                error: function(xhr) {
+                    alert('Something went wrong!');
                 }
             });
         }

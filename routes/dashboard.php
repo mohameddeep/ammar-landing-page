@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Product\ProductController;
+use App\Http\Controllers\Dashboard\Provider\ProviderController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use NunoMaduro\Collision\Provider;
 
 Route::get('/calendar/calendar/calendar', function () {
     return view('dashboard.site.calendar');
@@ -36,6 +38,9 @@ Route::group([
 
         // users route
         Route::resource('users', UserController::class);
+
+        //providers route
+        Route::resource('providers', ProviderController::class);
 
         Route::resource('settings', SettingController::class)->only('edit', 'update');
         Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
@@ -85,7 +90,14 @@ Route::group([
                 Route::get('/', 'index')->name('index');
                 Route::post('/toggle/{id}', 'toggle')->name('toggle');
                 Route::delete('/{id}', action: 'destroy')->name('destroy');
+                Route::post('/{id}/change-status', action: 'changeStatus')->name('changeStatus');
+                Route::get('/details/{id}', action: 'show')->name('details');
+
             });
+
+            // routes/web.php أو routes/api.php (لو API)
+
+
 
         // start sliders
         Route::resource('sliders', controller: SliderController::class)->except(['show']);

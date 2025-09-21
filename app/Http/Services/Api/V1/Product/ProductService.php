@@ -32,7 +32,7 @@ class ProductService
 
     public function store($request)
     {
-        $response = Gate::authorize('create', Product::class);
+        // $response = Gate::authorize('create', Product::class);
         DB::beginTransaction();
         try {
             $data = $request->except('images', 'sizes', 'colors');

@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests\Api\V1\Profile;
+namespace App\Http\Requests\Dashboard\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class UserProfileRequest extends FormRequest
+class ChangeProductStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +21,11 @@ final class UserProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $categoryId = $this->route('category');
+
         return [
-            'name' => ['required', 'string'],
-            'brand_name' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'phone' => ['required', 'string', 'unique:users,phone']
+            'status' => ['required', 'string', 'in:approved,rejected'],
         ];
     }
 }
