@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Repository\CartItemRepositoryInterface;
+use App\Repository\CartRepositoryInterface;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\CommissionRepositoryInterface;
 use App\Repository\ContactUsRepositoryInterface;
 use App\Repository\CouponRepositoryInterface;
+use App\Repository\Eloquent\CartItemRepository;
+use App\Repository\Eloquent\CartRepository;
 use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\Eloquent\CommissionRepository;
 use App\Repository\Eloquent\ContactUsRepository;
@@ -69,6 +73,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->singleton(FavouriteRepositoryInterface::class, FavouriteRepository::class);
         $this->app->singleton(ProductVariantRepositoryInterface::class, ProductVariantRepository::class);
+        $this->app->singleton(CartRepositoryInterface::class, CartRepository::class);
+        $this->app->singleton(CartItemRepositoryInterface::class, CartItemRepository::class);
     }
 
     /**

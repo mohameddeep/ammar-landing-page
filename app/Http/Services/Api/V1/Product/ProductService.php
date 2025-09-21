@@ -34,7 +34,7 @@ class ProductService
     {
         $response = Gate::inspect('create', Product::class);
         if ($response->denied())
-            return responseFail(message: __('messages.unauthorized'));
+            return responseFail(message: __('messages.your subscription ended'));
         DB::beginTransaction();
         try {
             $data = $request->except('images', 'sizes', 'colors');

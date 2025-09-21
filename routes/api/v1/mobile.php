@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\Email\ChangeEmailController;
 use App\Http\Controllers\Api\V1\Auth\Otp\OtpController;
 use App\Http\Controllers\Api\V1\Auth\Password\PasswordController;
+use App\Http\Controllers\Api\V1\Cart\CartController;
 use App\Http\Controllers\Api\V1\Category\CategoryController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
@@ -90,6 +91,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/{id}/related', 'related');
     });
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('cart', CartController::class);
 });
 
 Route::get('/home', [HomeController::class, 'index']);
