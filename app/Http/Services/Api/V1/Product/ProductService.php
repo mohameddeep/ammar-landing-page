@@ -32,7 +32,9 @@ class ProductService
 
     public function store($request)
     {
-        $response = Gate::authorize('create', Product::class);
+        $response = Gate::inspect('create', Product::class);
+        if ($response->denied())
+            return responseFail(message: __('messages.unauthorized'));
         DB::beginTransaction();
         try {
             $data = $request->except('images', 'sizes', 'colors');
