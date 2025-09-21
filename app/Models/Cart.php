@@ -20,6 +20,13 @@ class Cart extends Model
         return $this->hasManyThrough(Product::class, CartItem::class, 'cart_id', 'id', 'id', 'product_id');
     }
 
+    public function provider() : Attribute
+    {
+        return Attribute::get(function () {
+            return $this->items()->first()->product?->user;
+        });
+    }
+
     public function totalPrice() : Attribute
     {
         return Attribute::get(fn() => $this->items()->sum('total_price'));

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\Cart\CartController;
 use App\Http\Controllers\Api\V1\Category\CategoryController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
+use App\Http\Controllers\Api\V1\Order\OrderController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
 use App\Http\Controllers\Api\V1\Profile\UserProfileController;
@@ -92,6 +93,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
     Route::apiResource('products', ProductController::class);
     Route::apiResource('cart', CartController::class);
+
+    Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function (){
+        Route::post('/', 'store');
+    });
+
 });
 
 Route::get('/home', [HomeController::class, 'index']);
