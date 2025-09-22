@@ -44,7 +44,7 @@
                             <tr id="row-{{ $product->id }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <img src="@image(optional($product->images->first())->image)" alt="product image" width="60" height="60">
+                                    <img src="{{$product->images->first()->image}}" alt="product image" width="60" height="60">
                                 </td>
 
                                 <td>{{ $product->name }}</td>

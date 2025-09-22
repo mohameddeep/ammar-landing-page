@@ -3,7 +3,7 @@
         <div class="swiper-wrapper">
             @foreach ($images as $productImage)
                 <div class="swiper-slide p-1" id="img-container">
-                    <img class="img-fluid" src="@image($productImage->image)" alt="img">
+                    <img class="img-fluid" src="{{$productImage->image}}" alt="img">
                 </div>
             @endforeach
         </div>
@@ -15,7 +15,7 @@
         <div class="swiper-wrapper">
             @foreach ($images as $productImage)
                 <div class="swiper-slide">
-                    <img class="img-fluid" src="@image($productImage->image)" alt="img">
+                    <img class="img-fluid" src="{{$productImage->image}}" alt="img">
                 </div>
             @endforeach
         </div>

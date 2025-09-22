@@ -14,7 +14,7 @@ class ProductImage extends Model
         return Attribute::get(function ($value) {
             if (! $value)
                 return $value;
-            return url('/storage' . $value);
+            return url('/storage/' . $value);
         });
     }
 }
