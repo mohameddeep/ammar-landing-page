@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Dashboard\User;
+namespace App\Http\Services\Dashboard\Provider;
 
 use App\Http\Helpers\Http;
 use App\Repository\UserRepositoryInterface;
@@ -9,23 +9,22 @@ use Illuminate\Support\Facades\DB;
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
-class UserService
+class ProviderService
 {
-    public function __construct(private readonly UserRepositoryInterface $userRepository) {}
+    public function __construct(private readonly UserRepositoryInterface $providerRepository) {}
 
+  
     public function index()
     {
-        $users = $this->userRepository->paginateWithQuery(function($query) {
-            $query->where('type', 'user');
+        $providers = $this->providerRepository->paginateWithQuery(function($query) {
+            $query->where('type', 'provider');
         }, 10);
-
-        return view('dashboard.site.users.index', compact('users'));
+        return view('dashboard.site.providers.index', compact('providers'));
     }
-   
 
     public function create()
     {
-        return view('dashboard.site.users.create');
+        return view('dashboard.site.providers.create');
     }
 
     public function store($request)
@@ -34,10 +33,10 @@ class UserService
             DB::beginTransaction();
             $data = $request->validated();
 
-            $user = $this->userRepository->create($data);
+            $provider = $this->providerRepository->create($data);
             DB::commit();
 
-            return redirect()->route('users.index', $user->id)->with(['success' => __('messages.created_successfully')]);
+            return redirect()->route('providers.index')->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -47,29 +46,29 @@ class UserService
 
     public function show($id)
     {
-        $user = $this->userRepository->getById($id);
+        $provider = $this->providerRepository->getById($id);
 
-        return view('dashboard.site.users.show', compact('user'));
+        return view('dashboard.site.providers.show', compact('provider'));
     }
 
     public function edit($id)
     {
-        $user = $this->userRepository->getById($id);
+        $provider = $this->providerRepository->getById($id);
 
-        return view('dashboard.site.users.edit', compact('user'));
+        return view('dashboard.site.providers.edit', compact('provider'));
     }
 
     public function update($request, $id)
     {
         try {
-            $user = $this->userRepository->getById($id);
+            $provider = $this->providerRepository->getById($id);
             $data = $request->validated();
             if ($data['password'] == null) {
                 unset($data['password']);
             }
-            $this->userRepository->update($id, $data);
+            $this->providerRepository->update($id, $data);
 
-            return redirect()->route('users.update', $user->id)->with(['success' => __('messages.updated_successfully')]);
+            return redirect()->route('providers.update', $provider->id)->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
@@ -78,7 +77,7 @@ class UserService
     public function destroy($id)
     {
         try {
-            $deleted = $this->userRepository->delete($id);
+            $deleted = $this->providerRepository->delete($id);
             if ($deleted) {
                 return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);
             } else {
@@ -89,13 +88,4 @@ class UserService
         }
     }
 
-    public function showActiveUsers()
-    {
-        $users = $this->userRepository->getActiveUsers();
-
-        // do something with $users
-        // ...
-        // ...
-        // return ...
-    }
 }

@@ -20,12 +20,20 @@ final class PackageService
         private PackageRepositoryInterface $packageRepository
     ) {}
 
-    public function index(): JsonResponse
-    {
-        $package = $this->packageRepository->getActiveWithPagination(relations: ['features']);
+    public function index(): JsonResponse 
+{ 
+    $type = request()->query('type'); // user أو provider
+    $packages = $this->packageRepository->getActiveWithPagination(
+        relations: ['features'],
+        type: $type
+    );
 
-        return paginatedJsonResponse(message: 'success', data: ['items' => PackageResource::collection($package)]);
-    }
+    return paginatedJsonResponse(
+        message: 'success',
+        data: ['items' => PackageResource::collection($packages)]
+    ); 
+}
+
 
     public function show($id): JsonResponse
     {

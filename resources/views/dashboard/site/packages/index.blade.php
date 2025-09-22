@@ -133,8 +133,10 @@
                                             <i class="{{ $package->coming_soon ? 'ri-eye-off-line' : 'ri-eye-line' }}"></i>
                                         </button>
                                         <x-buttons.edit-button :route="route('packages.edit', $package->id)" />
+                                            @if($package->type->value == 'provider')
                                         <x-buttons.delete-button :route="route('packages.destroy', $package->id)" :itemId="$package->id" />
-                                    </div>
+                                         @endif
+                                        </div>
 
                                 </div>
                                 <div class="mb-3">

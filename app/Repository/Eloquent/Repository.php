@@ -31,9 +31,14 @@ abstract class Repository implements RepositoryInterface
         return $this->model->with($relations)->where('is_active', true)->get($columns);
     }
 
-    public function getActiveWithPagination(array $columns = ['*'], array $relations = [])
+    public function getActiveWithPagination(array $columns = ['*'], array $relations = [],?string $type = null)
     {
-        return $this->model->with($relations)->where('is_active', true)->paginate(20);
+
+        $query = $this->model->with($relations)->where('is_active', true);
+         if ($type) {
+        $query->where('type', $type);
+    }
+    return $query->paginate(20, $columns);
     }
 
     public function getById(

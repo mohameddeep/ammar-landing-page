@@ -60,10 +60,10 @@
                         'users.create',
                         'users.edit',
                         'users.show',
-                        'roles.index',
-                        'roles.create',
-                        'roles.edit',
-                        'roles.mangers',
+                        // 'roles.index',
+                        // 'roles.create',
+                        // 'roles.edit',
+                        // 'roles.mangers',
                         'managers.edit',
                         'managers.create',
                     ])
@@ -88,23 +88,18 @@
                             </a>
                         </li>
 
-                        @permission('roles-read')
+                    
                             <li class="slide">
-                                <a href="{{ route('roles.index') }}"
+                                <a href="{{ route('providers.index') }}"
                                     class="side-menu__item {{ in_array(request()->route()->getName(), [
-                                        'roles.index',
-                                        'roles.create',
-                                        'roles.edit',
-                                        'roles.mangers',
-                                        'managers.edit',
-                                        'managers.create',
+                                        'providers.index',
+                                      
                                     ])
                                         ? 'active'
                                         : '' }}">
-                                    @lang('dashboard.roles')
+                                    @lang('dashboard.providers')
                                 </a>
                             </li>
-                        @endpermission
                     </ul>
 
                 </li>
@@ -147,6 +142,15 @@
                     </a>
                 </li>
                 {{-- end categories --}}
+                {{-- start products --}}
+                <li class="slide">
+                    <a href="{{ route('dashboard.products.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['dashboard.products.index']) ? 'active' : '' }}">
+                        <i class="bx bx-grid-alt side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.products')</span>
+                    </a>
+                </li>
+                {{-- end products --}}
 
                 <!-- Start::coupons -->
                 <li class="slide">

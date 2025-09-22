@@ -321,5 +321,23 @@ return [
     'end_date' => 'End Date',
     'Products_Count' => 'Products Count',
     'subscriptions' => 'Subscriptions',
+    'is_stopped' => 'Product Mode',
+    'stopped'    => 'Stopped',
+    'running'    => 'Running',
+    'activation'    => 'Activation',
+    'rejected'    => 'Rejection',
+    'accepted'    => 'Acceptance',
+    'rejection'    => 'Rejection',
+    'approval'    => 'Approval',
+    'product-images'    => 'Product Images',
+    'product-variants' => 'Product Specifications',
+    'value' => 'Value',
+    'Item' => 'Item',
+    'products' => 'Products',
+    'item_type' => 'Type',
+'active' => 'Active',
+    'inactive' => 'Inactive',
+
+
 
 ];
