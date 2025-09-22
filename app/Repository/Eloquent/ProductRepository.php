@@ -71,4 +71,15 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->get();
     }
 
+
+    public function checkProductAddToFavourite($productId)
+    {
+        return $this->model->query()
+            ->where('id', $productId)
+            ->whereHas('favourites', function ($q) {
+                $q->where('user_id', auth()->id());
+            })
+            ->exists();
+    }
+
 }

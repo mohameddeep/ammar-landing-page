@@ -72,6 +72,11 @@ class Product extends Model
         return $this->hasMany(ProductView::class);
     }
 
+    public function firstImage()
+    {
+        return $this->hasOne(ProductImage::class, 'product_id', 'id');
+    }
+
     public function isFav() : Attribute
     {
         return Attribute::get(function ($value) {

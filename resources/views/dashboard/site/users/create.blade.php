@@ -18,19 +18,19 @@
                 <x-input.input-field name="name" label="{{ __('dashboard.Name') }}" placeholder="{{ __('dashboard.Name') }}"
                     class="custom-class" id="nameInput" required="true" />
 
-                <x-input.input-field name="email" type="email" label="{{ __('dashboard.Email') }}"
-                    placeholder="{{ __('dashboard.Email') }}" required="true" />
-
+                <x-input.input-field name="phone" label="{{ __('dashboard.phone') }}"
+                    placeholder="{{ __('dashboard.phone') }}" required="true" />
+{{-- 
                 <x-input.input-field name="password" type="password" label="{{ __('dashboard.password') }}"
                     placeholder="{{ __('dashboard.password') }}" required="true" />
 
                 <x-input.input-field name="password_confirmation" type="password"
                     label="{{ __('dashboard.password_confirmation') }}"
-                    placeholder="{{ __('dashboard.password_confirmation') }}" required="true" />
+                    placeholder="{{ __('dashboard.password_confirmation') }}" required="true" /> --}}
 
 
 
-                    <x-editor.summernote id="myEditor" label="{{ __('dashboard.about_us') }}" name="about_us_content" value="{{ old('about_us_content') }}" />
+                    {{-- <x-editor.summernote id="myEditor" label="{{ __('dashboard.about_us') }}" name="about_us_content" value="{{ old('about_us_content') }}" /> --}}
 
 
             </x-form.form-component>

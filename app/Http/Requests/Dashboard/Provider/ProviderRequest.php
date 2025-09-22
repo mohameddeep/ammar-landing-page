@@ -26,7 +26,7 @@ class ProviderRequest extends FormRequest
             'name' => ['required', 'string'],
             'brand_name' => ['required', 'string'],
             'phone' => ['required', 'string', 'unique:users,phone'],
-            'password' => $this->password ? ['required', Password::min(8), 'confirmed'] : 'nullable',
+            'type' => ['nullable','in:provider'],
         ];
     }
 }

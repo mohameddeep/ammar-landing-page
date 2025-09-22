@@ -29,5 +29,7 @@ return [
     'invalid_coupon' => 'الكوبون غير صالح',
     'subscribed_successfully' => 'تم الاشتراك بنجاح',
     'subscribed_successfully' => 'تم الاشتراك بنجاح',
+     'product_added_to_favourite'   => 'تمت إضافة المنتج إلى المفضلة بنجاح.',
+    'product_already_in_favourite' => 'هذا المنتج موجود بالفعل في المفضلة.',
 
 ];

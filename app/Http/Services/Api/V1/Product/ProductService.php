@@ -128,12 +128,23 @@ class ProductService
 
     public function addToFavourite($request)
     {
+
+
+        $userId = auth('api')->id();
+    $productId = $request->product_id;
+
+    $exists = $this->productRepository->checkProductAddToFavourite($productId);
+
+    if ($exists) {
+        return responseFail(message: __('messages.product_already_in_favourite'));
+    }
+
         $this->favouriteRepository->create([
             'product_id' => $request->product_id,
             'user_id' => auth('api')->id()
         ]);
 
-        return responseSuccess(message: __('product_added_to_favourite'));
+        return responseSuccess(message: __('messages.product_added_to_favourite'));
     }
 
     public function removeFromFavourites($request)

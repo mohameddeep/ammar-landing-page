@@ -12,10 +12,10 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <button class="btn btn-outline-primary btn-wave waves-effect waves-light me-1" data-bs-toggle="modal"
+                        {{-- <button class="btn btn-outline-primary btn-wave waves-effect waves-light me-1" data-bs-toggle="modal"
                             data-bs-target="#c">
                             <i class="ti ti-search"></i>
-                        </button>
+                        </button> --}}
                         <x-buttons.create-button :route="route('users.create')" />
                     </div>
                 </div>
@@ -26,7 +26,6 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>@lang('dashboard.Name')</th>
-                            <th>@lang('dashboard.Email')</th>
                             <th>@lang('dashboard.Phone')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
@@ -36,11 +35,10 @@
                             <tr id="row-{{ $user->id }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>
                                     <div class="hstack gap-2 fs-15">
-                                        <x-buttons.show-button :route="route('users.show', $user->id)" />
+                                        <x-buttons.show-button :route="route('users.products', $user->id)" :tooltip-title="__('dashboard.my-products')"/>
                                         <x-buttons.edit-button :route="route('users.edit', $user->id)" />
                                         <x-buttons.delete-button :route="route('users.destroy', $user->id)" :itemId="$user->id" />
                                     </div>

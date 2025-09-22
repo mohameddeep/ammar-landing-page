@@ -25,9 +25,9 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'phone' => ['phone', 'string', 'unique:users,phone'],
-            // 'email' => ['required', 'email:rfc,dns', Rule::unique('users', 'email')->ignore($this->user)],
-            'password' => $this->password ? ['required', Password::min(8), 'confirmed'] : 'nullable',
+            'phone' => ['required', 'string', 'unique:users,phone'],
+            'type' => ['nullable','in:provider'],
+
         ];
     }
 }

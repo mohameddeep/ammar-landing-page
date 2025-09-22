@@ -22,6 +22,10 @@ class CartService
     public function index()
     {
         $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user']);
+         if (! $cart) {
+        return responseSuccess(data: null, message: __('messages.cart_is_empty'));
+      
+    }
         return responseSuccess(data: new CartResource($cart));
     }
 
@@ -79,6 +83,21 @@ class CartService
         $this->cartItemRepository->delete($id);
         return responseSuccess(message: __('messages.deleted_successfully'));
     }
+
+
+
+    public function empty()
+{
+    $user = auth('api')->user();
+
+    if (! $user->cart) {
+        return responseSuccess(message: __('messages.cart_is_empty'), data: null);
+    }
+
+    $user->cart->items()->delete();
+
+    return responseSuccess(message: __('messages.cart_emptied_successfully'));
+}
 
 
 }

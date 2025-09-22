@@ -50,4 +50,9 @@ class ProviderController extends Controller
 
         return $this->provider->destroy($id);
     }
+    public function products( $id)
+    {
+
+        return $this->provider->products($id);
+    }
 }

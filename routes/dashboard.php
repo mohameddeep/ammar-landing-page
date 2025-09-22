@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\Commissions\CommissionController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
+use App\Http\Controllers\Dashboard\Order\OrderController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Product\ProductController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\Dashboard\Provider\ProviderController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
+use App\Http\Controllers\Dashboard\Structure\AboutUsController;
+use App\Http\Controllers\Dashboard\Structure\TermsAndConditionsController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -38,9 +41,13 @@ Route::group([
 
         // users route
         Route::resource('users', UserController::class);
+                Route::get('users/products/{id}', [UserController::class, 'products'])->name('users.products');
+
 
         //providers route
         Route::resource('providers', ProviderController::class);
+        Route::get('providers/products/{id}', [ProviderController::class, 'products'])->name('providers.products');
+
 
         Route::resource('settings', SettingController::class)->only('edit', 'update');
         Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
@@ -56,6 +63,15 @@ Route::group([
                 Route::get('/{manager}/edit', 'edit')->name('edit');
                 Route::put('/{manager}', 'update')->name('update');
                 Route::delete('/{manager}', action: 'destroy')->name('destroy');
+            });
+
+
+            //orders
+        Route::controller(OrderController::class)->prefix('orders')->name('orders.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/{id}/show', 'show')->name('show');
+                Route::delete('/{id}', action: 'destroy')->name('destroy');
             });
 
         // Commissions Routes
@@ -97,7 +113,11 @@ Route::group([
 
             // routes/web.php أو routes/api.php (لو API)
 
+        Route::group(['prefix' => 'structures'], function () {
+            Route::resource('about', AboutUsController::class)->only('store', 'index');
+            Route::resource('terms_and_conditions', TermsAndConditionsController::class)->only('store', 'index');
 
+        });
 
         // start sliders
         Route::resource('sliders', controller: SliderController::class)->except(['show']);

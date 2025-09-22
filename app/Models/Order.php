@@ -18,4 +18,16 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+    public function provider()
+    {
+        return $this->belongsTo(User::class,'provider_id')->where("type", "provider");
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id')->where("type","user");
+    }
+    public function address()
+    {
+        return $this->belongsTo(UserAddress::class,'address_id');
+    }
 }

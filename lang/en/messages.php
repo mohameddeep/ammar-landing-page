@@ -28,5 +28,7 @@ return [
     'you_already_subscribed_to_this_package' => 'You are already subscribed to this package',
     'invalid_coupon' => 'The coupon is invalid',
     'subscribed_successfully' => 'Subscribed successfully',
+    'product_added_to_favourite'   => 'Product has been added to favourites successfully.',
+    'product_already_in_favourite' => 'This product is already in your favourites.',
 
 ];

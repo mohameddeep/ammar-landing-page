@@ -14,4 +14,9 @@ class OrderRepository extends Repository implements OrderRepositoryInterface
     public function __construct(Order $model){
         parent::__construct($model);
     }
+
+     public function getCountOrders()
+    {
+        return $this->model->count();
+    }
 }

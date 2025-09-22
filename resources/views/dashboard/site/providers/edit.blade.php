@@ -19,18 +19,18 @@
                 <x-input.input-field name="name" label="{{ __('dashboard.Name') }}" placeholder="{{ __('dashboard.Name') }}"
                     value="{{ $provider->name }}" required="true" />
 
-                <x-input.input-field name="brand_name" label="{{ __('dashboard.brand_Name') }}" placeholder="{{ __('dashboard.brand_Name') }}"
+                <x-input.input-field name="brand_name" label="{{ __('dashboard.brand_name') }}" placeholder="{{ __('dashboard.brand_name') }}"
                     value="{{ $provider->brand_name }}" required="true" />
                 <x-input.input-field name="phone" label="{{ __('dashboard.phone') }}" placeholder="{{ __('dashboard.phone') }}"
                     value="{{ $provider->phone }}" required="true" />
 
 
-                <x-input.input-field name="password" type="password" label="{{ __('dashboard.password') }}"
+                {{-- <x-input.input-field name="password" type="password" label="{{ __('dashboard.password') }}"
                     placeholder="{{ __('dashboard.password') }}" />
 
                 <x-input.input-field name="password_confirmation" type="password"
                     label="{{ __('dashboard.password_confirmation') }}"
-                    placeholder="{{ __('dashboard.password_confirmation') }}" />
+                    placeholder="{{ __('dashboard.password_confirmation') }}" /> --}}
             </x-form.form-component>
 
         </x-cards.page-card>

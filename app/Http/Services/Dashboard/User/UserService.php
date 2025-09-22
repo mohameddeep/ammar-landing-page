@@ -33,11 +33,12 @@ class UserService
         try {
             DB::beginTransaction();
             $data = $request->validated();
+            $data['type']='user';
 
             $user = $this->userRepository->create($data);
             DB::commit();
 
-            return redirect()->route('users.index', $user->id)->with(['success' => __('messages.created_successfully')]);
+            return redirect()->route('users.index')->with(['success' => __('messages.created_successfully')]);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -64,12 +65,10 @@ class UserService
         try {
             $user = $this->userRepository->getById($id);
             $data = $request->validated();
-            if ($data['password'] == null) {
-                unset($data['password']);
-            }
+            
             $this->userRepository->update($id, $data);
 
-            return redirect()->route('users.update', $user->id)->with(['success' => __('messages.updated_successfully')]);
+            return redirect()->route('users.index')->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
@@ -89,6 +88,16 @@ class UserService
         }
     }
 
+
+     public function products($id)
+    { 
+     $user = $this->userRepository->getById($id);
+
+    $products = $user->products()
+        ->with(['images', 'category', 'user'])
+        ->paginate(20);  
+        return view("dashboard.site.products.index", compact("products")); 
+    }
     public function showActiveUsers()
     {
         $users = $this->userRepository->getActiveUsers();

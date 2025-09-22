@@ -8,14 +8,11 @@
         <x-cards.page-card>
             <x-slot name="header">
                 <div class="card-title">
-                    @lang('dashboard.provider List')
+                    @lang('dashboard.providers')
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <button class="btn btn-outline-primary btn-wave waves-effect waves-light me-1" data-bs-toggle="modal"
-                            data-bs-target="#c">
-                            <i class="ti ti-search"></i>
-                        </button>
+                
                         <x-buttons.create-button :route="route('providers.create')" />
                     </div>
                 </div>
@@ -40,7 +37,7 @@
                                 <td>{{ $provider->phone }}</td>
                                 <td>
                                     <div class="hstack gap-2 fs-15">
-                                        <x-buttons.show-button :route="route('providers.show', $provider->id)" />
+                                        <x-buttons.show-button :route="route('providers.products', $provider->id)" :tooltip-title="__('dashboard.my-products')"/>
                                         <x-buttons.edit-button :route="route('providers.edit', $provider->id)" />
                                         <x-buttons.delete-button :route="route('providers.destroy', $provider->id)" :itemId="$provider->id" />
                                     </div>

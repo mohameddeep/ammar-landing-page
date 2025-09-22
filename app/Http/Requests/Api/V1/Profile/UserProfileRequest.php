@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Http\Requests\Api\V1\Profile;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -21,13 +22,19 @@ final class UserProfileRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+      public function rules(): array
     {
+        $userId = $this->user()->id; // 👈 جاب id للمستخدم الحالي
+
         return [
-            'name' => ['required', 'string'],
+            'name' => ['nullable', 'string'],
             'brand_name' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'phone' => ['required', 'string', 'unique:users,phone']
+            'phone' => [
+                'nullable',
+                'string',
+                Rule::unique('users', 'phone')->ignore($userId),
+            ],
         ];
     }
 }

@@ -27,6 +27,7 @@ use App\Repository\Eloquent\Repository;
 use App\Repository\Eloquent\RoleRepository;
 use App\Repository\Eloquent\SettingsRepository;
 use App\Repository\Eloquent\SliderRepository;
+use App\Repository\Eloquent\StructureRepository;
 use App\Repository\Eloquent\SubscriptionRepository;
 use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
@@ -43,6 +44,7 @@ use App\Repository\RepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
 use App\Repository\SettingsRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
+use App\Repository\StructureRepositoryInterface;
 use App\Repository\SubscriptionRepositoryInterface;
 use App\Repository\UserAddressRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
@@ -78,6 +80,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(CartRepositoryInterface::class, CartRepository::class);
         $this->app->singleton(CartItemRepositoryInterface::class, CartItemRepository::class);
         $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->singleton(StructureRepositoryInterface::class, StructureRepository::class);
     }
 
     /**

@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\V1\Order\OrderController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
 use App\Http\Controllers\Api\V1\Profile\UserProfileController;
+use App\Http\Controllers\Api\V1\Structure\AboutUsController;
+use App\Http\Controllers\Api\V1\Structure\TermsAndConditionsController;
 use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
 use Illuminate\Support\Facades\Route;
@@ -93,6 +95,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
     Route::apiResource('products', ProductController::class);
     Route::apiResource('cart', CartController::class);
+    Route::delete('user/cart/empty', [CartController::class, 'empty']);
+
 
     Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function (){
         Route::post('/', 'store');
@@ -118,5 +122,12 @@ Route::group([
 ], function () {
     Route::get('/', 'index');
     Route::get('/{id}', 'show');
+});
+
+
+Route::prefix('structures')->group(function () {
+    Route::get('about', AboutUsController::class);
+  
+    Route::get('terms_and_conditions', TermsAndConditionsController::class);
 });
 

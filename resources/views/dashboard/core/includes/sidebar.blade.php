@@ -53,6 +53,20 @@
                 </li>
                 {{-- end one slide dashboard --}}
 
+                {{-- start edit admin profile --}}
+                
+                <li class="slide">
+                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
+                       class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
+                        <i class="ti ti-user-circle side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Profile')</span>
+                    </a>
+                </li>
+
+
+                {{-- end edit admin profile --}}
+
+
                 {{-- nested slide slide users --}}
                 <li
                     class="slide has-sub {{ in_array(request()->route()->getName(), [
@@ -172,6 +186,16 @@
                     </a>
                 </li>
                 {{-- end subscriptions --}}
+                
+                   {{-- start orders --}}
+                <li class="slide">
+                    <a href="{{ route('orders.index') }}"
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['orders.index']) ? 'active' : '' }}">
+                        <i class="ti ti-package side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.orders')</span>
+                    </a>
+                </li>
+                {{-- end orders --}}
 
                 <!-- Start::sliders -->
                 <li class="slide">
@@ -187,23 +211,15 @@
 
 
                 <!-- Start::coupons -->
-                <li class="slide">
+                {{-- <li class="slide">
                     <a href="{{ route('calendar.index') }}" class="side-menu__item ">
                         <i class="ti ti-discount-2 side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.calendar')</span>
                     </a>
                 </li>
-                <!-- End::coupons -->
+                <!-- End::coupons --> --}}
 
-                <li class="slide">
-                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
-                       class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
-                        <i class="ti ti-user-circle side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('dashboard.Profile')</span>
-                    </a>
-                </li>
-
-
+{{-- 
                 <!-- Start::slide -->
                 <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
@@ -241,7 +257,61 @@
                         </li>
                     </ul>
                 </li>
-                <!-- End::slide -->
+                <!-- End::slide --> --}}
+
+
+
+
+  <li
+                    class="slide has-sub {{ in_array(request()->route()->getName(), [
+                        'header.index',
+                        'about.index',
+                        'our_services.index',
+                        'our_advantages.index',
+                        'struct_branches.index',
+                        'customer_reviews.index',
+                        'mobile_section.index',
+                        'footer.index',
+                        'terms_and_conditions.index',
+                        'privacy_policy.index',
+                        'structure_service.index',
+                    ])
+                        ? 'open active'
+                        : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item ">
+                        <i class="bx bx-sitemap side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.Structure')</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                       
+                        <li class="slide">
+                            <a href="{{ route('about.index') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['about.index']) ? 'active' : '' }}">
+                                @lang('dashboard.about')
+                            </a>
+                        </li>
+
+
+                        <li class="slide">
+                            <a href="{{ route('terms_and_conditions.index') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['terms_and_conditions.index']) ? 'active' : '' }}">
+                                @lang('dashboard.terms_and_conditions')
+                            </a>
+                        </li>
+                   
+                    </ul>
+                </li>
+
+
+
+
+
+
+
+
+
+
 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"

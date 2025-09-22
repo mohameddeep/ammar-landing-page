@@ -32,7 +32,7 @@ class ProviderService
         try {
             DB::beginTransaction();
             $data = $request->validated();
-
+            $data['type']="provider";
             $provider = $this->providerRepository->create($data);
             DB::commit();
 
@@ -63,12 +63,9 @@ class ProviderService
         try {
             $provider = $this->providerRepository->getById($id);
             $data = $request->validated();
-            if ($data['password'] == null) {
-                unset($data['password']);
-            }
             $this->providerRepository->update($id, $data);
 
-            return redirect()->route('providers.update', $provider->id)->with(['success' => __('messages.updated_successfully')]);
+            return redirect()->route('providers.index')->with(['success' => __('messages.updated_successfully')]);
         } catch (\Exception $e) {
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
@@ -87,5 +84,18 @@ class ProviderService
             return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
         }
     }
+
+
+    public function products($id)
+    { 
+     $provider = $this->providerRepository->getById($id);
+
+    $products = $provider->products()
+        ->with(['images', 'category', 'user'])
+        ->paginate(20);  
+        return view("dashboard.site.products.index", compact("products")); 
+    }
+ 
+    
 
 }

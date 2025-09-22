@@ -46,4 +46,11 @@ class UserController extends Controller
 
         return $this->user->destroy($id);
     }
+
+
+     public function products( $id)
+    {
+
+        return $this->user->products($id);
+    }
 }
