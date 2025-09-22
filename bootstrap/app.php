@@ -58,6 +58,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
             'auth' => \App\Http\Middleware\Authenticate::class,
             // 'permission' => MiddlewarePermission::class,
+            'type' => \App\Http\Middleware\UserType::class,
 
         ]);
     })

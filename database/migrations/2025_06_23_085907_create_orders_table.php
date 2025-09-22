@@ -15,10 +15,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->integer('order_num')->nullable();
             $table->double('grand_total', 10, 2)->default(0);
-            $table->enum('payment_type', ['cash', 'online']);
             $table->enum('order_status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded'])->default('pending');
-            $table->enum('payment_status', ['paid', 'failed']);
             $table->foreignId(column: 'user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId(column: 'provider_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('address_id')->constrained('user_addresses')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('coupon_code')->nullable();
             $table->text('notes')->nullable();

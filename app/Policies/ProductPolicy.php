@@ -37,7 +37,8 @@ class ProductPolicy
                 ->where('is_active', true)
                 ->where('is_stopped', false)
                 ->where('status', 'approved')
-                ->exists();        }
+                ->count() < 2;
+        }
     }
 
     /**
