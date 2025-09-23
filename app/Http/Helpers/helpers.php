@@ -21,7 +21,7 @@ if (! function_exists('paginatedJsonResponse')) {
         return response()->json([
             'code' => $code,
             'message' => $message ?? 'Data with paginated',
-            'items' => $data[$paginatedDataKey],
+            'data' => $data[$paginatedDataKey],
             'pagination' => [
                 'count' => (int) $data[$paginatedDataKey]->count(),
                 'total' => (int) $data[$paginatedDataKey]->total(),

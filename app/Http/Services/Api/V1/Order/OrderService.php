@@ -12,6 +12,11 @@ class OrderService
 {
     public function __construct(private OrderRepositoryInterface $repository){}
 
+
+    public function index()
+    {
+        //
+    }
     public function store($request)
     {
         DB::beginTransaction();
