@@ -97,6 +97,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('cart', CartController::class);
     Route::delete('user/cart/empty', [CartController::class, 'empty']);
 
+    Route::group(['prefix' => 'orders', 'controller' => OrderController::class], function () {
+        Route::get('/', 'index');
+    });
 
     Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function (){
         Route::post('/', 'store');
@@ -127,7 +130,7 @@ Route::group([
 
 Route::prefix('structures')->group(function () {
     Route::get('about', AboutUsController::class);
-  
+
     Route::get('terms_and_conditions', TermsAndConditionsController::class);
 });
 
