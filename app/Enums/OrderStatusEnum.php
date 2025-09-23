@@ -9,17 +9,21 @@ enum OrderStatusEnum: string
     use Enumable;
 
     case Pending = 'pending';
-    case Prepared = 'prepared';
-    case OutForDelivery = 'out_for_delivery';
+    case Processing = 'processing';
+    case Shipped = 'shipped';
     case Delivered = 'delivered';
+    case Cancelled = 'cancelled';
+    case Refunded = 'refunded';
 
     public function t(): string
     {
         return match ($this) {
             self::Pending => __('Pending'),
-            self::Prepared => __('Prepared'),
-            self::OutForDelivery => __('Out for Delivery'),
+            self::Processing => __('Processing'),
+            self::Shipped => __('Shipped'),
             self::Delivered => __('Delivered'),
+            self::Cancelled => __('Cancelled'),
+            self::Refunded => __('Refunded'),
         };
     }
 
@@ -27,9 +31,11 @@ enum OrderStatusEnum: string
     {
         return match ($this) {
             self::Pending => 'ti ti-clock-hour-4',
-            self::Prepared => 'ti ti-package',
-            self::OutForDelivery => 'ti ti-truck-delivery',
+            self::Processing => 'ti ti-package',
+            self::Shipped => 'ti ti-truck-delivery',
             self::Delivered => 'ti ti-check',
+            self::Cancelled => 'ti ti-x',
+            self::Refunded => 'ti ti-coin-off',
         };
     }
 
@@ -37,9 +43,11 @@ enum OrderStatusEnum: string
     {
         return match ($this) {
             self::Pending => 'bg-secondary',
-            self::Prepared => 'bg-info',
-            self::OutForDelivery => 'bg-warning',
+            self::Processing => 'bg-info',
+            self::Shipped => 'bg-warning',
             self::Delivered => 'bg-success',
+            self::Cancelled => 'bg-danger',
+            self::Refunded => 'bg-dark',
         };
     }
 }

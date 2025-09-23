@@ -94,12 +94,14 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/{id}/related', 'related');
     });
     Route::apiResource('products', ProductController::class);
+    Route::post('products/{id}/update-images', [ProductController::class, 'updateImages']);
     Route::apiResource('cart', CartController::class);
     Route::delete('user/cart/empty', [CartController::class, 'empty']);
 
-
-    Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function (){
-        Route::post('/', 'store');
+    Route::group(['prefix' => 'orders', 'controller' => OrderController::class], function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store')->middleware('type:user');
+        Route::get('/{id}', 'show');
     });
 
 });
@@ -127,7 +129,7 @@ Route::group([
 
 Route::prefix('structures')->group(function () {
     Route::get('about', AboutUsController::class);
-  
+
     Route::get('terms_and_conditions', TermsAndConditionsController::class);
 });
 

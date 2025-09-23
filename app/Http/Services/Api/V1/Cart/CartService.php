@@ -24,7 +24,7 @@ class CartService
         $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user']);
          if (! $cart) {
         return responseSuccess(data: null, message: __('messages.cart_is_empty'));
-      
+
     }
         return responseSuccess(data: new CartResource($cart));
     }
@@ -70,8 +70,9 @@ class CartService
         try {
             $data = $request->validated();
             $this->cartItemRepository->update($id, $data);
+            $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user']);
             DB::commit();
-            return responseSuccess(message: __('messages.updated_successfully'));
+            return responseSuccess(data: new CartResource($cart));
         }catch (\Exception $e){
             DB::rollBack();
             return responseFail(message: __('messages.something_went_wrong'));
@@ -81,6 +82,10 @@ class CartService
     public function destroy($id)
     {
         $this->cartItemRepository->delete($id);
+        $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user']);
+        if (! $cart) {
+            return responseSuccess(data: null, message: __('messages.cart_is_empty'));
+        }
         return responseSuccess(message: __('messages.deleted_successfully'));
     }
 

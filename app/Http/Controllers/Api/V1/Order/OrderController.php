@@ -33,7 +33,7 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->service->show($id);
     }
 
     /**
