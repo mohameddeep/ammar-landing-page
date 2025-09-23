@@ -39,11 +39,12 @@ class OrderService
                     'total_price' => $item->total_price,
                 ]);
             }
+            // TODO payment integration will be implemented
             DB::commit();
             return responseSuccess(message: __('messages.created successfully'));
         }catch (\Exception $e){
             DB::rollBack();
-            dd($e);
+//            dd($e);
             return responseFail(message: $e->getMessage());
         }
     }
