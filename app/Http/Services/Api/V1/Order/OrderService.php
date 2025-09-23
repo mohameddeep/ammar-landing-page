@@ -3,6 +3,7 @@
 namespace App\Http\Services\Api\V1\Order;
 
 use App\Http\Helpers\Http;
+use App\Http\Resources\V1\Order\OrderResource;
 use App\Repository\OrderRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use function App\Http\Helpers\responseFail;
@@ -12,6 +13,18 @@ class OrderService
 {
     public function __construct(private OrderRepositoryInterface $repository){}
 
+
+    public function index()
+    {
+        $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
+        return responseSuccess(data: OrderResource::collection($orders));
+    }
+
+    public function show(string $id)
+    {
+        $order = $this->repository->getById($id, relations: ['items.product.user', 'user', 'provider']);
+        return responseSuccess(data: new OrderResource($order));
+    }
     public function store($request)
     {
         DB::beginTransaction();
@@ -39,11 +52,13 @@ class OrderService
                     'total_price' => $item->total_price,
                 ]);
             }
+            $cart->items()->delete();
+            // TODO payment integration will be implemented
             DB::commit();
             return responseSuccess(message: __('messages.created successfully'));
         }catch (\Exception $e){
             DB::rollBack();
-            dd($e);
+//            dd($e);
             return responseFail(message: $e->getMessage());
         }
     }

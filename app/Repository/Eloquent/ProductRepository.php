@@ -82,6 +82,15 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->exists();
     }
 
+    public function getForUser(int $perPage = 10, array $columns = ['*'], array $relations = [])
+    {
+        return $this->model->query()
+            ->where('user_id', auth('api')->id())
+            ->select($columns)
+            ->with($relations)
+            ->paginate($perPage);
+    }
+
 
     public function getProductsByFilter($request){
                   $query = $this->model->with(['category', 'images']);

@@ -94,13 +94,16 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/{id}/continue-selling', 'continue');
         Route::get('/{id}/related', 'related');
     });
+    Route::get('products/get-for-user', [ProductController::class, 'getForUser']);
     Route::apiResource('products', ProductController::class);
+    Route::post('products/{id}/update-images', [ProductController::class, 'updateImages']);
     Route::apiResource('cart', CartController::class);
     Route::delete('user/cart/empty', [CartController::class, 'empty']);
 
-
-    Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function () {
-        Route::post('/', 'store');
+    Route::group(['prefix' => 'orders', 'controller' => OrderController::class], function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store')->middleware('type:user');
+        Route::get('/{id}', 'show');
     });
 });
 

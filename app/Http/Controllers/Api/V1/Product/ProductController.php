@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Product\ProductRequest;
+use App\Http\Requests\Api\V1\Product\UpdateImagesRequest;
 use App\Http\Services\Api\V1\Product\ProductService;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -66,5 +67,15 @@ class ProductController extends Controller
     public function related(string $id)
     {
         return $this->service->related($id);
+    }
+
+    public function updateImages(UpdateImagesRequest $request, string $id)
+    {
+        return $this->service->updateImages($request, $id);
+    }
+
+    public function getForUser()
+    {
+        return $this->service->getForUser();
     }
 }

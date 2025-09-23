@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatusEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
@@ -29,5 +32,38 @@ class Order extends Model
     public function address()
     {
         return $this->belongsTo(UserAddress::class,'address_id');
+    }
+
+    public function totalPrice() : Attribute
+    {
+        return Attribute::get(fn() => $this->items()->sum("total_price"));
+    }
+
+    public function canAccept() : Attribute
+    {
+        return Attribute::get(function () {
+            return auth('api')->check() &&
+                auth('api')->id() == $this->provider_id &&
+                $this->order_status == OrderStatusEnum::Pending->value;
+        });
+    }
+
+    public function canReturn() : Attribute
+    {
+        return Attribute::get(function () {
+            return auth('api')->check() &&
+                auth('api')->id() == $this->user_id &&
+                ! in_array($this->order_status, [OrderStatusEnum::Cancelled, OrderStatusEnum::Refunded]) &&
+                Carbon::parse($this->created_at)->subDays(14) < Carbon::now();
+        });
+    }
+
+    public function canReview() : Attribute
+    {
+        return Attribute::get(function () {
+            return auth('api')->check() &&
+                auth('api')->id() == $this->user_id &&
+                in_array($this->order_status, [OrderStatusEnum::Delivered, OrderStatusEnum::Refunded]);
+        });
     }
 }
