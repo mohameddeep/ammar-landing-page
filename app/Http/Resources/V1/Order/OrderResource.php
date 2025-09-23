@@ -22,6 +22,8 @@ class OrderResource extends JsonResource
             'can_accept' => $this->can_accept,
             'can_return' => $this->can_return,
             'can_review' => $this->can_review,
+            'order_date' => $this->created_at->format('d M Y'),
+            'arrival_date' => $this->created_at->format('d M Y'),
             'items' => OrderItemResource::collection($this->whenLoaded('items'))
         ];
     }

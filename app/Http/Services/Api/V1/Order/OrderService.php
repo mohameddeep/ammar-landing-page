@@ -19,6 +19,12 @@ class OrderService
         $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
         return responseSuccess(data: OrderResource::collection($orders));
     }
+
+    public function show(string $id)
+    {
+        $order = $this->repository->getById($id, relations: ['items.product.user', 'user', 'provider']);
+        return responseSuccess(data: new OrderResource($order));
+    }
     public function store($request)
     {
         DB::beginTransaction();

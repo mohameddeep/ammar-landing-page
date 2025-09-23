@@ -176,6 +176,27 @@ class ProductService
         $products = $this->productRepository->getRelated($product, relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
         return responseSuccess(data: ProductResource::collection($products));
     }
+
+    public function updateImages($request, $id)
+    {
+        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'images']);
+        if ($request->has('deleted_images')) {
+            foreach ($request->deleted_images as $image) {
+                $product->images()->where('id', $image)->delete();
+            }
+        }
+        if ($request->has('images')) {
+            $images = $request->images;
+            foreach ($images as $image) {
+                $image = $this->image($image, 'product/images');
+                $product->images()->create([
+                    'image' => $image,
+                ]);
+            }
+        }
+        $product->refresh();
+        return responseSuccess(data: new ProductDetailResource($product));
+    }
     private function addVariants($product, $values, $type)
     {
         $product->variants()->createMany(
