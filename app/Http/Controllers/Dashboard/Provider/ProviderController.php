@@ -7,15 +7,16 @@ use App\Http\Requests\Dashboard\Provider\ProviderRequest;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\Provider\ProviderService;
 use App\Http\Services\Dashboard\user\UserService;
+use Illuminate\Http\Request;
 
 class ProviderController extends Controller
 {
     public function __construct(private readonly ProviderService $provider) {}
 
    
-    public function index()
+    public function index(Request $request)
     {
-        return $this->provider->index();
+        return $this->provider->index($request);
     }
 
     public function show($id)

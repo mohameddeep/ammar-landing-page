@@ -5,6 +5,7 @@ use App\Http\Helpers\Http;
 use Exception;
 use App\Http\Services\Mutual\FileManagerService;
 use App\Repository\OrderRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
@@ -15,9 +16,10 @@ class OrderService
     {}
 
 
-    public function index()
+    public function index($request)
     {
-        $orders = $this->repository->paginate(relations:['provider','address','user']);
+        // $orders = $this->repository->paginate(relations:['provider','address','user']);
+        $orders = $this->repository->getOrdersByFilter($request);
         $ordersCount = $this->repository->getCountOrders();
 
         return view('dashboard.site.orders.index', compact('orders','ordersCount'));

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Coupon;
+namespace App\Http\Requests\Api\V1\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CouponRequest extends FormRequest
+class StoreCouponRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,17 @@ class CouponRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'provider_id' => auth()->user()->id,
+            'type' => 'provider',
+        ]);
     }
 
     /**
@@ -28,6 +39,8 @@ class CouponRequest extends FormRequest
                 Rule::unique('coupons')->ignore($this->coupon),
             ],
             'name' => 'nullable',
+            'type' => 'nullable',
+            'provider_id' => 'required|exists:users,id',
             'discount' => 'required|numeric|min:0|max:100',
             'usage_count' => 'required|integer|min:1',
             'expire_at' => 'required|date|after_or_equal:today',

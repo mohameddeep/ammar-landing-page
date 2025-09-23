@@ -13,15 +13,23 @@ class UserService
 {
     public function __construct(private readonly UserRepositoryInterface $userRepository) {}
 
-    public function index()
-    {
-        $users = $this->userRepository->paginateWithQuery(function($query) {
-            $query->where('type', 'user');
-        }, 10);
+    public function index($request) 
+{ 
+    $users = $this->userRepository->paginateWithQuery(function($query) use ($request) { 
+        $query->where('type', 'user');
 
-        return view('dashboard.site.users.index', compact('users'));
-    }
-   
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('phone', 'LIKE', "%{$search}%");
+            });
+        }
+    }, 20); 
+ 
+    return view('dashboard.site.users.index', compact('users')); 
+}
+
 
     public function create()
     {

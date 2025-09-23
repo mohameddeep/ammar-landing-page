@@ -7,11 +7,13 @@ use App\Http\Controllers\Api\V1\Auth\Password\PasswordController;
 use App\Http\Controllers\Api\V1\Cart\CartController;
 use App\Http\Controllers\Api\V1\Category\CategoryController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
+use App\Http\Controllers\Api\V1\Coupon\CouponController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
 use App\Http\Controllers\Api\V1\Order\OrderController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
 use App\Http\Controllers\Api\V1\Profile\UserProfileController;
+use App\Http\Controllers\Api\V1\Setting\SettingController;
 use App\Http\Controllers\Api\V1\Structure\AboutUsController;
 use App\Http\Controllers\Api\V1\Structure\TermsAndConditionsController;
 use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
@@ -55,9 +57,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
 
-    Route::group(['prefix'=>'customer', 'middleware'=>['type:customer']],function(){
-
-    });
+    Route::group(['prefix' => 'customer', 'middleware' => ['type:customer']], function () {});
     // user profile
     Route::group([
         'prefix' => 'user-profile',
@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put('/change-status/{id}', 'changeAddressStatus');
     });
 
+    Route::apiResource('coupons', CouponController::class)->except('show')->middleware('type:provider');
 
     Route::group([
         'prefix' => 'products',
@@ -98,10 +99,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::delete('user/cart/empty', [CartController::class, 'empty']);
 
 
-    Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function (){
+    Route::group(['prefix' => 'orders', 'controller' => OrderController::class, 'middleware' => 'type:user'], function () {
         Route::post('/', 'store');
     });
-
 });
 
 Route::get('/home', [HomeController::class, 'index']);
@@ -124,10 +124,10 @@ Route::group([
     Route::get('/{id}', 'show');
 });
 
+Route::get('setting', [SettingController::class, 'index']);
 
 Route::prefix('structures')->group(function () {
     Route::get('about', AboutUsController::class);
-  
+
     Route::get('terms_and_conditions', TermsAndConditionsController::class);
 });
-

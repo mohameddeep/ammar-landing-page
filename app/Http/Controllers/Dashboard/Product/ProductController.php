@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Dashboard\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Product\ChangeProductStatusRequest;
 use App\Http\Services\Dashboard\Product\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $service) {}
 
-    public function index()
+    public function index(Request $request)
     {
 
-        return $this->service->index();
+        return $this->service->index($request);
     }
 
    

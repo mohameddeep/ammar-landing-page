@@ -53,8 +53,8 @@ class CartController extends Controller
     {
         return $this->cartService->destroy($id);
     }
-    public function empty( $id)
+    public function empty()
     {
-        return $this->cartService->empty($id);
+        return $this->cartService->empty();
     }
 }

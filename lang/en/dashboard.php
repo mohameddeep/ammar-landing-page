@@ -383,7 +383,19 @@ return [
     'description_ar' => 'Description (AR)',
         'Structure' => 'Structure',
             'terms_and_conditions' => 'Terms and Conditions',
+ 'total_orders' => 'Total Orders',
+    'filter_by_order_status' => 'Filter by Order Status',
+    'all_orders' => 'All Orders',
+    'search' => 'Search',
 
+    'statuses' => [
+        'pending'   => 'Pending',
+        'processing'=> 'Processing',
+        'shipped'   => 'Shipped',
+        'delivered' => 'Delivered',
+        'cancelled' => 'Cancelled',
+        'refunded'  => 'Refunded',
+    ],
 
 
 ];

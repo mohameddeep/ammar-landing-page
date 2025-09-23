@@ -35,7 +35,7 @@
             <div class="row p-3">
                 @foreach ($commissions as $commission)
                     <div
-                        class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-12 border-end border-inline-end-dashed pe-0">
+                        class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 border-end border-inline-end-dashed pe-0">
                         <div class="p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="fw-semibold mb-0">{{ $commission->t('name') }}</h6>

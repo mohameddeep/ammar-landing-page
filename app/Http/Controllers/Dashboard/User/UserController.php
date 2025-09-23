@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Dashboard\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\user\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function __construct(private readonly UserService $user) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->user->index();
+        return $this->user->index($request);
     }
  
 

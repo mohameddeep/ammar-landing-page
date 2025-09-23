@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Coupon;
+namespace App\Http\Requests\Api\V1\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CouponRequest extends FormRequest
+class UpdateCouponRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,17 @@ class CouponRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'provider_id' => auth()->id(),
+            'type' => 'provider',
+        ]);
     }
 
     /**
@@ -24,30 +35,26 @@ class CouponRequest extends FormRequest
     {
         return [
             'code' => [
-                'required',
-                Rule::unique('coupons')->ignore($this->coupon),
+                'nullable',
+                Rule::unique('coupons')->ignore($this->coupon), // تجاهل الكوبون الحالي
             ],
-            'name' => 'nullable',
-            'discount' => 'required|numeric|min:0|max:100',
-            'usage_count' => 'required|integer|min:1',
-            'expire_at' => 'required|date|after_or_equal:today',
+            'name' => 'nullable|string',
+            'provider_id' => 'nullable|exists:users,id',
+            'discount' => 'nullable|numeric|min:0|max:100',
+            'usage_count' => 'nullable|integer|min:1',
+            'expire_at' => 'nullable|date|after_or_equal:today',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'code.required' => 'كود الخصم مطلوب.',
             'code.unique' => 'هذا الكود مستخدم من قبل.',
 
-            'name.required' => 'الاسم مطلوب.',
-
-            'discount.required' => 'قيمة الخصم مطلوبة.',
             'discount.numeric' => 'قيمة الخصم يجب أن تكون رقمًا.',
             'discount.min' => 'قيمة الخصم لا يمكن أن تكون أقل من 0.',
             'discount.max' => 'قيمة الخصم لا يمكن أن تتجاوز 100.',
 
-            'usage_count.required' => 'عدد مرات الاستخدام مطلوب.',
             'usage_count.integer' => 'عدد مرات الاستخدام يجب أن يكون عددًا صحيحًا.',
             'usage_count.min' => 'عدد مرات الاستخدام يجب أن يكون 1 على الأقل.',
 

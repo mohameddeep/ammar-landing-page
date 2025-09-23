@@ -8,15 +8,13 @@ enum CommissionTypeEnum: string
 {
     use Enumable;
 
-    case Store = 'store';
-    case Designer = 'designer';
+    case Provider = 'provider';
     case Individual = 'individual';
 
     public function t(): string
     {
         return match ($this) {
-            self::Store => __('Store'),
-            self::Designer => __('Designer'),
+            self::Provider => __('provider'),
             self::Individual => __('Individual'),
         };
     }
@@ -24,8 +22,7 @@ enum CommissionTypeEnum: string
     public function icon(): string
     {
         return match ($this) {
-            self::Store => 'ti ti-building-store',
-            self::Designer => 'ti ti-brush',
+            self::Provider => 'ti ti-building-provider',
             self::Individual => 'ti ti-user-circle',
         };
     }
@@ -33,8 +30,7 @@ enum CommissionTypeEnum: string
     public function color(): string
     {
         return match ($this) {
-            self::Store => 'bg-primary',
-            self::Designer => 'bg-purple',
+            self::Provider => 'bg-primary',
             self::Individual => 'bg-teal',
         };
     }

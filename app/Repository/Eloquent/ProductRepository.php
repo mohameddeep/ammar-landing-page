@@ -82,4 +82,21 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->exists();
     }
 
+
+    public function getProductsByFilter($request){
+                  $query = $this->model->with(['category', 'images']);
+
+    if ($request->filled('search')) {
+        $search = $request->search;
+
+        $query->where(function($q) use ($search) {
+            $q->where('name', 'LIKE', "%{$search}%")
+              ->orWhere('description', 'LIKE', "%{$search}%");
+        });
+    }
+
+    return $query->paginate(20);
+
+    }
+
 }

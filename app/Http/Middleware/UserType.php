@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use function App\Http\Helpers\responseFail;
+
 class UserType
 {
     /**
@@ -18,6 +20,12 @@ class UserType
         $user = $request->user();
 
         if (!$user || $user->type !== $type) {
+            if ($request->expectsJson()) {
+                return responseFail(
+                    message: 'Unauthorized. You must be a ' . $type
+                );
+            }
+
             abort(403, 'Unauthorized.');
         }
         return $next($request);

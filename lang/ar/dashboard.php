@@ -391,6 +391,17 @@ return [
     'Structure' => 'محتوي الموقع',
         'terms_and_conditions' => 'الشروط والأحكام',
 
-
+'total_orders' => 'إجمالي الطلبات',
+    'filter_by_order_status' => 'تصفية حسب حالة الطلب',
+    'all_orders' => 'كل الطلبات',
+    'search' => 'بحث',
+    'statuses' => [
+        'pending'   => 'قيد الانتظار',
+        'processing'=> 'قيد المعالجة',
+        'shipped'   => 'تم الشحن',
+        'delivered' => 'تم التسليم',
+        'cancelled' => 'ملغي',
+        'refunded'  => 'مسترد',
+    ],
 
 ];

@@ -25,10 +25,6 @@
                     placeholder="{{ __('dashboard.name_en') }}" id="name_en" required="true" />
 
 
-                <x-input.input-field type="select" name="parent_id" label="{{ __('dashboard.parent_id') }}"
-                    placeholder="{{ __('dashboard.parent_id') }}" :options="$mainCategories" showName="name_en" required="true" />
-
-
                 <div class="row mt-3">
                     <x-input.input-field class="" type="checkbox" name="is_active" id="is_active"
                         label="{{ __('dashboard.Activate') }}" />

@@ -197,12 +197,21 @@
                 </li>
                 {{-- end orders --}}
 
-                <!-- Start::sliders -->
+                <!-- Start::contacts -->
                 <li class="slide">
                     <a href="{{ route('sliders.index') }}"
                         class="side-menu__item {{ request()->routeIs('sliders.index') ? 'active' : '' }}">
                         <i class="ti ti-photo side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.sliders')</span>
+                    </a>
+                </li>
+                <!-- End::orders -->
+                <!-- Start::sliders -->
+                <li class="slide">
+                    <a href="{{ route('contacts.index') }}"
+                        class="side-menu__item {{ request()->routeIs('contacts.index') ? 'active' : '' }}">
+                        <i class="ti ti-photo side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.contacts')</span>
                     </a>
                 </li>
                 <!-- End::orders -->
@@ -264,17 +273,10 @@
 
   <li
                     class="slide has-sub {{ in_array(request()->route()->getName(), [
-                        'header.index',
+                      
                         'about.index',
-                        'our_services.index',
-                        'our_advantages.index',
-                        'struct_branches.index',
-                        'customer_reviews.index',
-                        'mobile_section.index',
-                        'footer.index',
                         'terms_and_conditions.index',
-                        'privacy_policy.index',
-                        'structure_service.index',
+                      
                     ])
                         ? 'open active'
                         : '' }}">

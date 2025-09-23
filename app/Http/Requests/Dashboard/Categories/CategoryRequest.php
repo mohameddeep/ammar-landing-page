@@ -30,7 +30,6 @@ class CategoryRequest extends FormRequest
             'slug' => ['nullable', 'string', 'max:255', 'unique:categories,slug,'.$categoryId],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_active' => 'in:on,',
-            'parent_id' => ['nullable', 'exists:categories,id'],
-        ];
+                ];
     }
 }

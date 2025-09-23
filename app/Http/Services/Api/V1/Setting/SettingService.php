@@ -2,10 +2,13 @@
 
 namespace App\Http\Services\Api\V1\Setting;
 
+use App\Http\Resources\V1\Setting\SettingResource;
 use App\Http\Services\Mutual\GetService;
 use App\Http\Traits\Responser;
 use App\Repository\SettingRepositoryInterface;
 use Illuminate\Http\JsonResponse;
+
+use function App\Http\Helpers\responseSuccess;
 
 class SettingService
 {
@@ -16,14 +19,24 @@ class SettingService
         private readonly GetService $getService
     ) {}
 
-    public function index(): JsonResponse
+
+
+
+     public function index(): JsonResponse
     {
-        return $this->responseSuccess(200, data: [
-            'version' => $this->SettingRepository->getSettings('version')?->value,
-            'android_url' => $this->SettingRepository->getSettings('android_url')?->value,
-            'ios_url' => $this->SettingRepository->getSettings('ios_url')?->value,
-        ]);
+
+        $setting=$this->SettingRepository->getAllSettings();
+        return responseSuccess(data:SettingResource::collection($setting));
     }
+
+    // public function index(): JsonResponse
+    // {
+    //     return $this->responseSuccess(200, data: [
+    //         'version' => $this->SettingRepository->getSettings('version')?->value,
+    //         'android_url' => $this->SettingRepository->getSettings('android_url')?->value,
+    //         'ios_url' => $this->SettingRepository->getSettings('ios_url')?->value,
+    //     ]);
+    // }
 
     public function settings_production(): JsonResponse
     {

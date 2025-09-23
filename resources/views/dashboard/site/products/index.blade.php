@@ -15,10 +15,16 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <button class="btn btn-outline-primary btn-wave waves-effect waves-light me-1" data-bs-toggle="modal"
-                            data-bs-target="#c">
-                            <i class="ti ti-search"></i>
-                        </button>
+                        <form method="GET" action="{{ route('dashboard.products.index') }}" class="d-flex align-items-center m-1"
+                            role="search">
+                            <input class="form-control" type="search" name="search" value="{{ request('search') }}"
+                                placeholder="@lang('dashboard.search')" aria-label="Search">
+                            <button class="btn btn-light ms-2" type="submit">@lang('dashboard.search')</button>
+                        </form>
+
+                        <a href="{{ route('dashboard.products.index') }}" class="btn btn-secondary ms-2" title="@lang('dashboard.reset')">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -44,7 +50,8 @@
                             <tr id="row-{{ $product->id }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <img src="{{$product->images->first()->image}}" alt="product image" width="60" height="60">
+                                    <img src="{{ optional($product->images->first())->image }}" alt="product image"
+                                        width="60" height="60">
                                 </td>
 
                                 <td>{{ $product->name }}</td>
@@ -64,11 +71,11 @@
                                 {{-- is_active toggle --}}
                                 <td>
                                     <div class="custom-toggle-switch d-flex align-items-center">
-                                        <input id="active_toggle_{{ $product->id }}"
+                                        <input id="toggle_{{ $product->id }}" 
                                             name="active_toggleswitch_{{ $product->id }}" type="checkbox"
                                             {{ $product->is_active == 1 ? 'checked' : '' }}
                                             onclick="toggleproductStatus({{ $product->id }})">
-                                        <label for="active_toggle_{{ $product->id }}" class="label-secondary"></label>
+                                       <label for="toggle_{{ $product->id }}" class="label-secondary"></label>
                                     </div>
                                 </td>
                                 <td>
@@ -100,8 +107,7 @@
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.delete-button :route="route('dashboard.products.destroy', $product->id)" :itemId="$product->id" />
 
-                                            <x-buttons.show-button
-                                            :route="route('dashboard.products.details', $product->id)" :tooltip-title="__('dashboard.product-variants')" />
+                                        <x-buttons.show-button :route="route('dashboard.products.details', $product->id)" :tooltip-title="__('dashboard.product-variants')" />
                                     </div>
                                 </td>
                             </tr>
@@ -161,21 +167,31 @@
         }
 
 
-        function changeProductStatus(productId, status) {
-            $.ajax({
-                url: `/dashboard/products/${productId}/change-status`,
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    status: status
-                },
-                success: function(response) {
-                    $(`#dropdownMenuButton${productId}`).text(response.new_status_text);
-                },
-                error: function(xhr) {
-                    alert('Something went wrong!');
-                }
+       function changeProductStatus(productId, status) { 
+    $.ajax({ 
+        url: `/dashboard/products/${productId}/change-status`, 
+        type: 'POST', 
+        data: { 
+            _token: '{{ csrf_token() }}', 
+            status: status 
+        }, 
+        success: function(response) { 
+            $(`#dropdownMenuButton${productId}`).text(response.new_status_text);
+
+            Swal.fire({
+                icon: 'success',
+    title: '{{ __("messages.updated_successfully") }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
             });
-        }
+        }, 
+        error: function(xhr) { 
+            alert('Something went wrong!'); 
+        } 
+    }); 
+}
+
     </script>
 @endpush

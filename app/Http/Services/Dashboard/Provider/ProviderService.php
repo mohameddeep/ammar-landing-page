@@ -14,13 +14,24 @@ class ProviderService
     public function __construct(private readonly UserRepositoryInterface $providerRepository) {}
 
   
-    public function index()
-    {
-        $providers = $this->providerRepository->paginateWithQuery(function($query) {
-            $query->where('type', 'provider');
-        }, 10);
-        return view('dashboard.site.providers.index', compact('providers'));
-    }
+   public function index($request) 
+{ 
+    $providers = $this->providerRepository->paginateWithQuery(function($query) use ($request) { 
+        $query->where('type', 'provider');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('phone', 'LIKE', "%{$search}%")
+                  ->orWhere('brand_name', 'LIKE', "%{$search}%");
+            });
+        }
+    }, 20); 
+
+    return view('dashboard.site.providers.index', compact('providers')); 
+}
+
 
     public function create()
     {

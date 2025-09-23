@@ -25,9 +25,6 @@
                     placeholder="{{ __('dashboard.Name_en') }}" class="custom-class" id="name_en" :value="$category->name_en" />
 
 
-                <x-input.input-field type="select" name="parent_id" label="{{ __('dashboard.parent_id') }}"
-                    placeholder="{{ __('dashboard.parent_id') }}" :options="$mainCategories" :value="$category->parent_id" showName="name_en" />
-
                 <div class="row mt-3">
                     <x-input.input-field name="image" type="file" label="{{ __('dashboard.Image') }}" id="fileInput" />
 

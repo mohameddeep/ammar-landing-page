@@ -12,7 +12,19 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                
+                <div class="py-2 d-flex justify-content-end align-items-center">
+                        <form method="GET" action="{{ route('providers.index') }}" class="d-flex align-items-center m-1"
+                            role="search">
+                            <input class="form-control" type="search" name="search" value="{{ request('search') }}"
+                                placeholder="@lang('dashboard.search')" aria-label="Search">
+                            <button class="btn btn-light ms-2" type="submit">@lang('dashboard.search')</button>
+                        </form>
+
+                        <a href="{{ route('providers.index') }}" class="btn btn-secondary ms-2" title="@lang('dashboard.reset')">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
+
+                    </div>
                         <x-buttons.create-button :route="route('providers.create')" />
                     </div>
                 </div>

@@ -26,9 +26,9 @@ class ProductService
         private ProductRepositoryInterface $repository,
     ) {}
 
-    public function index()
+    public function index($request)
     {
-        $products = $this->repository->paginate(relations: ['category', 'images']);
+        $products = $this->repository->getProductsByFilter($request);
 
         return view('dashboard.site.products.index', compact('products'));
     }
@@ -70,24 +70,25 @@ class ProductService
         return responseSuccess(Http::OK, __('messages.updated_successfully'), ['success' => true, 'is_active' => $product->is_active]);
     }
 
-    public function changeStatus($request, $id)
-{
-   $request->validated();
+   public function changeStatus($request, $id) 
+{ 
+    $request->validated(); 
 
-    $product = $this->repository->getById($id);
-    $product->status = $request->status;
-    $product->save();
+    $product = $this->repository->getById($id); 
+    $product->status = $request->status; 
+    $product->save(); 
 
-    return response()->json([
-        'success' => true,
-        'new_status' => $product->status,
+    return response()->json([ 
+        'success' => true, 
+        'new_status' => $product->status, 
         'new_status_text' => __(
-            $product->status == 'approved' 
-                ? 'dashboard.approved' 
-                : 'dashboard.rejected'
-        ),
-    ]);
+            $product->status == 'approved'  
+                ? 'dashboard.accepted'  
+                : 'dashboard.rejected' 
+        ), 
+    ]); 
 }
+
 
 
 

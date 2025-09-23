@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
+use App\Http\Controllers\Dashboard\Contact\ContactController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
@@ -118,6 +119,10 @@ Route::group([
             Route::resource('terms_and_conditions', TermsAndConditionsController::class)->only('store', 'index');
 
         });
+
+        //contacts
+                    Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
+
 
         // start sliders
         Route::resource('sliders', controller: SliderController::class)->except(['show']);

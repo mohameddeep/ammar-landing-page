@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {  public function __construct(private readonly OrderService $service) {}
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->service->index();
+        return $this->service->index($request);
     }
 
      public function show($id)
