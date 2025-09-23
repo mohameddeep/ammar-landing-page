@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Cart;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CartRequest extends FormRequest
 {
@@ -21,11 +22,12 @@ class CartRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isPost = $this->method() === 'POST';
         return [
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
-            'size' => 'required|string',
-            'color' => 'required|string',
+            'product_id' => [Rule::requiredIf($isPost), 'exists:products,id'],
+            'quantity'   => ['required', 'integer', 'min:1'],
+            'size'       => [Rule::requiredIf($isPost), 'string'],
+            'color'      => [Rule::requiredIf($isPost), 'string'],
             'can_change' => 'nullable|boolean'
         ];
     }
