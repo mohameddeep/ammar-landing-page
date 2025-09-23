@@ -73,4 +73,9 @@ class ProductController extends Controller
     {
         return $this->service->updateImages($request, $id);
     }
+
+    public function getForUser()
+    {
+        return $this->service->getForUser();
+    }
 }

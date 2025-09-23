@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/{id}/continue-selling', 'continue');
         Route::get('/{id}/related', 'related');
     });
+    Route::get('products/get-for-user', [ProductController::class, 'getForUser']);
     Route::apiResource('products', ProductController::class);
     Route::post('products/{id}/update-images', [ProductController::class, 'updateImages']);
     Route::apiResource('cart', CartController::class);

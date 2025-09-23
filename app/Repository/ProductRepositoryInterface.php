@@ -10,7 +10,9 @@ interface ProductRepositoryInterface extends RepositoryInterface
 
     public function getRelated($product, array $columns = ['*'], array $relations = [], $count = 4);
 
-        public function checkProductAddToFavourite($productId);
+    public function checkProductAddToFavourite($productId);
+
+    public function getForUser(int $perPage = 10, array $columns = ['*'], array $relations = []);
 
 
 }

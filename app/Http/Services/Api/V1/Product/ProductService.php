@@ -197,6 +197,12 @@ class ProductService
         $product->refresh();
         return responseSuccess(data: new ProductDetailResource($product));
     }
+
+    public function getForUser()
+    {
+        $products = $this->productRepository->getForUser(relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
+        return responseSuccess(data: ProductResource::collection($products));
+    }
     private function addVariants($product, $values, $type)
     {
         $product->variants()->createMany(
