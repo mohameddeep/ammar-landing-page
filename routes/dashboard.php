@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AdminProfile\AdminProfileController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Product\ProductController;
 use App\Http\Controllers\Dashboard\Provider\ProviderController;
 use App\Http\Controllers\Dashboard\Roles\RoleController;
+use App\Http\Controllers\Dashboard\Setting\SettingController as SettingSettingController;
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\Structure\AboutUsController;
@@ -23,9 +25,9 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use NunoMaduro\Collision\Provider;
 
-Route::get('/calendar/calendar/calendar', function () {
-    return view('dashboard.site.calendar');
-})->name('calendar.index');
+// Route::get('/calendar/calendar/calendar', function () {
+//     return view('dashboard.site.calendar');
+// })->name('calendar.index');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -50,8 +52,12 @@ Route::group([
         Route::get('providers/products/{id}', [ProviderController::class, 'products'])->name('providers.products');
 
 
-        Route::resource('settings', SettingController::class)->only('edit', 'update');
-        Route::post('update-password', [SettingController::class, 'updatePassword'])->name('update-password');
+        Route::resource('admin-profile', AdminProfileController::class)->only('edit', 'update');
+        Route::post('update-password', [AdminProfileController::class, 'updatePassword'])->name('update-password');
+
+
+        Route::get('edit-setting', [SettingSettingController::class, 'edit'])->name('dashboard.setting.edit');
+        Route::put('update-setting', [SettingSettingController::class, 'update'])->name('dashboard.setting.update');
         // roles
         Route::resource('roles', RoleController::class);
 
@@ -89,7 +95,7 @@ Route::group([
         // categories Routes
         Route::resource('categories', CategoryController::class);
         Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
-        Route::resource('coupons', CouponController::class)->except('show');
+        Route::resource('dashobard/coupons', CouponController::class)->names('dashobard.coupons')->except('show');
 
 
         //subscriptions

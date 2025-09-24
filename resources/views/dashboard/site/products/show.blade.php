@@ -24,7 +24,7 @@
 
                     <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-12 p-3">
                         <p class="fs-18 fw-semibold mb-0">
-                            {{ $product->name }}
+                            {{ $product?->name }}
 
                         </p>
                         <p class="fs-18 mb-4">
@@ -62,7 +62,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                     @if ($product->category)
                                         <span class="btn btn-sm btn-outline-light text-default">
-                                            {{ $product->category->t('name') }}
+                                            {{ $product?->category->t('name') }}
                                         </span>
                                     @endif
                                 </div>

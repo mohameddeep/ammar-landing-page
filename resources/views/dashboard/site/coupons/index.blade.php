@@ -12,7 +12,7 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <x-buttons.create-button :route="route('coupons.create')" />
+                        <x-buttons.create-button :route="route('dashobard.coupons.create')" />
                     </div>
                 </div>
             </x-slot>
@@ -41,8 +41,8 @@
                                 
                                 <td>
                                     <div class="hstack gap-2 fs-15">
-                                        <x-buttons.edit-button :route="route('coupons.edit', $coupon->id)" />
-                                        <x-buttons.delete-button :route="route('coupons.destroy', $coupon->id)" :itemId="$coupon->id" />
+                                        <x-buttons.edit-button :route="route('dashobard.coupons.edit', $coupon->id)" />
+                                        <x-buttons.delete-button :route="route('dashobard.coupons.destroy', $coupon->id)" :itemId="$coupon->id" />
                                     </div>
                                 </td>
                             </tr>

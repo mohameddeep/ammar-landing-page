@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Dashboard\Home;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\Dashboard\Home\HomeService;
 
 class HomeController extends Controller
 {
+
+     public function __construct(
+        private readonly HomeService $service,
+    ) {}
     public function index()
     {
-        return view('dashboard.site.home.index');
+        return $this->service->home();
     }
 }

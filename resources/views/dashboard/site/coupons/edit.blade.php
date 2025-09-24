@@ -4,7 +4,7 @@
 <div class="container-fluid px-5 py-3">
     <!-- Page Header -->
     <x-breadcrumb.breadcrumb title="{{ __('dashboard.coupons') }}" :breadcrumbs="[
-            ['name' => __('dashboard.coupons'), 'route' => 'coupons.index'],
+            ['name' => __('dashboard.coupons'), 'route' => 'dashobard.coupons.index'],
             ['name' => __('dashboard.Edit')],
         ]" />
 
@@ -16,7 +16,7 @@
             </div>
         </x-slot>
 
-        <x-form.form-component :route="route('coupons.update', $coupon->id)" method="PUT">
+        <x-form.form-component :route="route('dashobard.coupons.update', $coupon->id)" method="PUT">
 
             <x-input.input-field name="name" label="{{ __('dashboard.Name') }}" placeholder="{{ __('dashboard.Name_ar') }}" class="custom-class" id="nameInput" :value="$coupon->name"/>
 

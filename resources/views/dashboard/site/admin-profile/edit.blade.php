@@ -14,7 +14,7 @@
                     @lang('dashboard.General_Info')
                 </div>
             </x-slot>
-            <x-form.form-component :route="route('settings.update', $user->id)" method="PUT" enctype="multipart/form-data">
+            <x-form.form-component :route="route('admin-profile.update', $user->id)" method="PUT" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{ $user->id }}">
 
                 <x-input.input-field name="name" type="text" label="{{ __('dashboard.name') }}"
@@ -25,12 +25,12 @@
                 <x-input.input-field name="email" type="text" label="{{ __('dashboard.email') }}"
                     placeholder="{{ __('dashboard.email') }}" value="{{ $user->email }}" />
 
-                <div class="row mt-3">
+                {{-- <div class="row mt-3">
                     <x-input.input-field name="image" type="file" label="{{ __('dashboard.Image') }}" />
                     @if ($user->image)
                         <img src="@image($user->image)" style="width: 250px;" />
                     @endif
-                </div>
+                </div> --}}
 
             </x-form.form-component>
 

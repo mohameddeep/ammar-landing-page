@@ -74,7 +74,7 @@
             <!-- Start::header-element -->
             <div class="header-element header-theme-mode">
                 <!-- Start::header-link|layout-setting -->
-                <a href="javascript:void(0);" class="header-link layout-setting">
+                {{-- <a href="javascript:void(0);" class="header-link layout-setting">
                     <span class="light-layout">
                         <!-- Start::header-link-icon -->
                         <i class="bx bx-moon header-link-icon"></i>
@@ -85,7 +85,7 @@
                         <i class="bx bx-sun header-link-icon"></i>
                         <!-- End::header-link-icon -->
                     </span>
-                </a>
+                </a> --}}
                 <!-- End::header-link|layout-setting -->
             </div>
             <!-- End::header-element -->
@@ -94,12 +94,12 @@
             <!-- Start::header-element -->
             <div class="header-element notifications-dropdown">
                 <!-- Start::header-link|dropdown-toggle -->
-                <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
+                {{-- <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
                     data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
                     <i class="bx bx-bell header-link-icon"></i>
                     <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary"
                         id="notification-icon-badge">5</span>
-                </a>
+                </a> --}}
                 <!-- End::header-link|dropdown-toggle -->
                 <!-- Start::main-header-dropdown -->
                 <div class="main-header-dropdown dropdown-menu dropdown-menu-end" data-popper-placement="none">
@@ -218,19 +218,19 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="p-3 empty-header-item1 border-top">
+                    {{-- <div class="p-3 empty-header-item1 border-top">
                         <div class="d-grid">
                             <a href="notifications.html" class="btn btn-primary">View All</a>
                         </div>
-                    </div>
-                    <div class="p-5 empty-item1 d-none">
+                    </div> --}}
+                    {{-- <div class="p-5 empty-item1 d-none">
                         <div class="text-center">
                             <span class="avatar avatar-xl avatar-rounded bg-secondary-transparent">
                                 <i class="ri-notification-off-line fs-2"></i>
                             </span>
                             <h6 class="fw-semibold mt-3">No New Notifications</h6>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- End::main-header-dropdown -->
             </div>
@@ -243,7 +243,7 @@
                 <a href="#" class="header-link dropdown-toggle" id="mainHeaderProfile"
                     data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <div class="d-flex align-items-center">
-                        <div class="me-sm-2 me-0">
+                        {{-- <div class="me-sm-2 me-0">
                             @if (Auth::user()->image)
                                 <img src="@image(Auth::user()->image)" alt="img" width="32" height="32"
                                     class="rounded-circle">
@@ -251,7 +251,7 @@
                                 <img src="{{ asset('img/user2-160x160.jpg') }}" alt="img" width="32"
                                     height="32" class="rounded-circle">
                             @endif
-                        </div>
+                        </div> --}}
                         <div class="d-sm-block d-none">
                             <p class="fw-semibold mb-0 lh-1">{{ auth()->user()->name }} </p>
                         </div>
@@ -261,7 +261,7 @@
                 <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
                     aria-labelledby="mainHeaderProfile">
                     <li>
-                        <a class="dropdown-item d-flex" href="{{ route('settings.edit', auth()->user()->id) }}">
+                        <a class="dropdown-item d-flex" href="{{ route('admin-profile.edit', auth()->user()->id) }}">
                             <i class="ti ti-user-circle fs-18 me-2 op-7"></i>
                             {{ __('dashboard.Profile') }}
                         </a>

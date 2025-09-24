@@ -21,7 +21,7 @@
 
         <!-- Start::row-1 -->
         <div class="row">
-            <div class="col-xxl-6 col-xl-12">
+            <div class="col-xxl- col-xl-12">
                 <div class="row">
                     <div class="col-lg-6 col-sm-6 col-md-6 col-xl-6">
                         <div class="card custom-card">

@@ -25,6 +25,12 @@ abstract class Repository implements RepositoryInterface
     {
         return $this->model->with($relations)->get($columns);
     }
+    public function count( $query = []) 
+{ 
+    return empty($query) 
+        ? $this->model->count() 
+        : $this->model->where($query)->count(); 
+}
 
     public function getActive(array $columns = ['*'], array $relations = []): Collection
     {

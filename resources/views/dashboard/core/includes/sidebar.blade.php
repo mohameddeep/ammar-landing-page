@@ -56,8 +56,8 @@
                 {{-- start edit admin profile --}}
                 
                 <li class="slide">
-                    <a href="{{ route('settings.edit', auth()->user()->id) }}"
-                       class="side-menu__item {{ request()->routeIs('settings.edit') ? 'active' : '' }}">
+                    <a href="{{ route('admin-profile.edit', auth()->user()->id) }}"
+                       class="side-menu__item {{ request()->routeIs('admin-profile.edit') ? 'active' : '' }}">
                         <i class="ti ti-user-circle side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.Profile')</span>
                     </a>
@@ -168,8 +168,8 @@
 
                 <!-- Start::coupons -->
                 <li class="slide">
-                    <a href="{{ route('coupons.index') }}"
-                        class="side-menu__item {{ request()->routeIs('coupons.index') ? 'active' : '' }}">
+                    <a href="{{ route('dashobard.coupons.index') }}"
+                        class="side-menu__item {{ request()->routeIs('dashboard.coupons.index') ? 'active' : '' }}">
                         <i class="ti ti-discount-2 side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.coupons')</span>
                     </a>
@@ -299,6 +299,12 @@
                             <a href="{{ route('terms_and_conditions.index') }}"
                                 class="side-menu__item {{ in_array(request()->route()->getName(), ['terms_and_conditions.index']) ? 'active' : '' }}">
                                 @lang('dashboard.terms_and_conditions')
+                            </a>
+                        </li>
+                        <li class="slide">
+                            <a href="{{ route('dashboard.setting.edit') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['dashboard.setting.edit']) ? 'active' : '' }}">
+                                @lang('dashboard.website_info')
                             </a>
                         </li>
                    

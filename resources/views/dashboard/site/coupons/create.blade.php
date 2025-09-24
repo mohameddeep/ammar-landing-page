@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- BreadCrumb -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.coupons') }}" :breadcrumbs="[['name' => __('dashboard.coupons'), 'route' => 'coupons.index'], ['name' => __('dashboard.Create')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.coupons') }}" :breadcrumbs="[['name' => __('dashboard.coupons'), 'route' => 'dashobard.coupons.index'], ['name' => __('dashboard.Create')]]" />
         <!-- BreadCrumb -->
 
         <!-- Page Card -->
@@ -13,7 +13,7 @@
                     @lang('dashboard.Create')
                 </div>
             </x-slot>
-            <x-form.form-component :route="route('coupons.store')"  method="POST">
+            <x-form.form-component :route="route('dashobard.coupons.store')"  method="POST">
                 <x-input.input-field name="name" label="{{ __('dashboard.Name') }}" placeholder="{{ __('dashboard.Name') }}"
                     class="custom-class" id="nameInput"/>
 

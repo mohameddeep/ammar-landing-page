@@ -404,4 +404,7 @@ return [
         'refunded'  => 'مسترد',
     ],
 
+
+        'website_info' => 'معلومات الموقع',
+
 ];

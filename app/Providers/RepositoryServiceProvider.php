@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repository\AdminProfileRepositoryInterface;
 use App\Repository\CartItemRepositoryInterface;
 use App\Repository\CartRepositoryInterface;
 use App\Repository\CategoryRepositoryInterface;
@@ -31,6 +32,7 @@ use App\Repository\Eloquent\StructureRepository;
 use App\Repository\Eloquent\SubscriptionRepository;
 use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
+use App\Repository\Eloquent\AminProfileRepository;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
@@ -81,6 +83,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->singleton(StructureRepositoryInterface::class, StructureRepository::class);
         $this->app->singleton(SettingRepositoryInterface::class, SettingRepository::class);
+        $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
     }
 
     /**

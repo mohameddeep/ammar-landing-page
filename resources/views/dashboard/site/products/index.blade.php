@@ -54,10 +54,10 @@
                                         width="60" height="60">
                                 </td>
 
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->type }}</td>
+                                <td>{{ $product?->name }}</td>
+                                <td>{{ $product?->type }}</td>
                                 <td>{{ $product?->category->t('name') }}</td>
-                                <td>{{ $product->price }}</td>
+                                <td>{{ $product?->price }}</td>
 
                                 <td>
                                     @if ($product->is_stopped)

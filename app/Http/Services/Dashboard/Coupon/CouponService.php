@@ -16,11 +16,13 @@ class CouponService
         private readonly CouponRepositoryInterface $couponRepository,
     ) {}
 
-    public function index()
-    {
-        $coupons = $this->couponRepository->paginate();
+    public function index() 
+{ 
+    $coupons = $this->couponRepository->paginateWithQuery(function($query) {  
+        $query->where('type', 'admin'); 
+    }, 20); 
 
-        return view('dashboard.site.coupons.index', compact('coupons'));
+    return view('dashboard.site.coupons.index', compact('coupons')); 
     }
 
     public function create()
@@ -37,7 +39,7 @@ class CouponService
             $this->couponRepository->create($data);
             DB::commit();
 
-            return redirect()->route('coupons.index')->with(['success' => 'تم الاضافه بنجاح']);
+            return redirect()->route('dashobard.coupons.index')->with(['success' => 'تم الاضافه بنجاح']);
         } catch (Exception $exception) {
             DB::rollBack();
 
@@ -61,7 +63,7 @@ class CouponService
 
             DB::commit();
 
-            return redirect()->route('coupons.index')->with(['success' => 'تم التعديل بنجاح']);
+            return redirect()->route('dashobard.coupons.index')->with(['success' => 'تم التعديل بنجاح']);
         } catch (Exception $exception) {
             DB::rollBack();
 

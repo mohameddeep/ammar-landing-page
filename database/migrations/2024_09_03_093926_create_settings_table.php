@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('slug_ar');
-            $table->string('slug_en')->nullable();
+            // $table->string('slug_ar');
+            // $table->string('slug_en')->nullable();
             $table->string('key')->unique();
             $table->string('value');
-            $table->boolean('is_shown')->default(false);
+            // $table->boolean('is_shown')->default(false);
             $table->timestamps();
         });
     }

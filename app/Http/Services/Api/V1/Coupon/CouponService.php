@@ -27,9 +27,14 @@ final class CouponService
    
      public function index()
     {
-         $coupons = $this->couponRepository->paginateWithQuery(function($query)  { 
-        $query->where('type', 'provider');
-    }, 20); 
+
+
+       $id = auth()->user()->id;
+
+       $coupons = $this->couponRepository->paginateWithQuery(function($query) use ($id) { 
+    $query->where('type', 'provider')
+          ->where('provider_id', $id);
+}, 20); 
 
         return paginatedJsonResponse(
         message: 'success',

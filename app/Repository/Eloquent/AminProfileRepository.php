@@ -3,10 +3,10 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Manager;
-use App\Repository\SettingsRepositoryInterface;
+use App\Repository\AdminProfileRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class SettingsRepository extends Repository implements SettingsRepositoryInterface
+class AminProfileRepository extends Repository implements AdminProfileRepositoryInterface
 {
     protected Model $model;
 

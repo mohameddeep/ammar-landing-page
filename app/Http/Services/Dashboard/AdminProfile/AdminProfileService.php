@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Services\Dashboard\Settings;
+namespace App\Http\Services\Dashboard\AdminProfile;
 
-use App\Http\Services\Mutual\FileManagerService;
 use App\Http\Traits\FileTrait;
+use App\Repository\AdminProfileRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
-use App\Repository\SettingsRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 use function App\Http\Helpers\update_model;
 
-class SettingsService
+class AdminProfileService
 {
     use FileTrait;
 
     public function __construct(
-        private readonly SettingsRepositoryInterface $settingsRepository,
+        private readonly AdminProfileRepositoryInterface $adminProfileRepository,
         private ManagerRepositoryInterface $repository,
     ) {}
 
@@ -33,7 +32,7 @@ class SettingsService
 
         //     $data['image'] = $this->fileManagerService->handle('image', 'profiles/members/images');
         // }
-        update_model($this->settingsRepository, $id, $data, '');
+        update_model($this->adminProfileRepository, $id, $data, '');
 
         return redirect()->back()->with(['success' => __('messages.updated_successfully')]);
     }
@@ -42,7 +41,7 @@ class SettingsService
     {
         DB::beginTransaction();
         try {
-            update_model($this->settingsRepository, auth()->id(), ['password' => $request->new_password]);
+            update_model($this->adminProfileRepository, auth()->id(), ['password' => $request->new_password]);
             DB::commit();
 
             return redirect()->back()->with(['success' => __('messages.updated_successfully')]);

@@ -111,8 +111,8 @@
                     <div class="card-body p-0">
                         <div class="d-flex align-items-center border-bottom border-block-end-dashed p-3 flex-wrap">
                             <div class="flex-fill">
-                                <p class="mb-0">{{ $order->user->name }}</p>
-                                <p class="mb-0 text-muted fs-12">{{ $order->user->phone }}</p>
+                                <p class="mb-0">{{ $order?->user?->name }}</p>
+                                <p class="mb-0 text-muted fs-12">{{ $order?->user?->phone }}</p>
                             </div>
                         </div>
                         <div class="p-3 border-bottom border-block-end-dashed">

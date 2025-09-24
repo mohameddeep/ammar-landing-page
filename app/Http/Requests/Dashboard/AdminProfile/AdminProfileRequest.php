@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Settings;
+namespace App\Http\Requests\Dashboard\AdminProfile;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class InfoSettingsRequest extends FormRequest
+class AdminProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

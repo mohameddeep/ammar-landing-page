@@ -396,6 +396,7 @@ return [
         'cancelled' => 'Cancelled',
         'refunded'  => 'Refunded',
     ],
+    'website_info' => 'Website Information',
 
 
 ];

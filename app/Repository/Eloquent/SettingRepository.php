@@ -27,4 +27,9 @@ class SettingRepository extends Repository implements SettingRepositoryInterface
     {
         return $this->model->query()->where('is_shown', 1)->get();
     }
+
+    public function updateByKey(string $key, string $value): void
+{
+    $this->model->where('key', $key)->update(['value' => $value]);
+}
 }
