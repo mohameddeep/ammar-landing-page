@@ -57,7 +57,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
 
-    Route::group(['prefix' => 'customer', 'middleware' => ['type:customer']], function () {});
+    Route::group(['prefix' => 'customer', 'middleware' => ['type:customer']], function () {
+    });
     // user profile
     Route::group([
         'prefix' => 'user-profile',
