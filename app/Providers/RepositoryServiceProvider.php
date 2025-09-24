@@ -18,6 +18,7 @@ use App\Repository\Eloquent\CouponRepository;
 use App\Repository\Eloquent\FavouriteRepository;
 use App\Repository\Eloquent\ManagerRepository;
 use App\Repository\Eloquent\OrderRepository;
+use App\Repository\Eloquent\OrderReturnRepository;
 use App\Repository\Eloquent\OtpRepository;
 use App\Repository\Eloquent\PackageFeatureRepository;
 use App\Repository\Eloquent\PackageRepository;
@@ -36,6 +37,7 @@ use App\Repository\Eloquent\AminProfileRepository;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
+use App\Repository\OrderReturnRepositoryInterface;
 use App\Repository\OtpRepositoryInterface;
 use App\Repository\PackageFeatureRepositoryInterface;
 use App\Repository\PackageRepositoryInterface;
@@ -84,6 +86,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(StructureRepositoryInterface::class, StructureRepository::class);
         $this->app->singleton(SettingRepositoryInterface::class, SettingRepository::class);
         $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
+        $this->app->singleton(OrderReturnRepositoryInterface::class, OrderReturnRepository::class);
     }
 
     /**

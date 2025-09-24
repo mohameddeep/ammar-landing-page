@@ -20,3 +20,4 @@ jobs:
           export PATH=/opt/cpanel/ea-php81/root/bin:$PATH
           rm composer.lock
           git pull origin master
+          php artisan migrate
