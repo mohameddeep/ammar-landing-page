@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\OrderReturn\OrderReturnRequest;
 use App\Http\Services\Api\V1\Order\OrderService;
 use Illuminate\Http\Request;
 
@@ -39,16 +40,18 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function accept(string $id)
     {
-        //
+        return $this->service->accept($id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function cancel(string $id)
     {
-        //
+        return $this->service->cancel($id);
+    }
+
+    public function returnOrder(OrderReturnRequest $request, string $id)
+    {
+        return $this->service->returnOrder($request, $id);
     }
 }

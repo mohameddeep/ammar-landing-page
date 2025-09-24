@@ -104,6 +104,9 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/', 'index');
         Route::post('/', 'store')->middleware('type:user');
         Route::get('/{id}', 'show');
+        Route::get('/{id}/accept', 'accept');
+        Route::get('/{id}/cancel', 'cancel');
+        Route::post('/{id}/return', 'returnOrder');
     });
 });
 

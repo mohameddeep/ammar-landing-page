@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Api\V1\Order;
 
+use App\Enums\OrderStatusEnum;
 use App\Exceptions\EmptyCartException;
 use App\Http\Helpers\Http;
 use App\Http\Resources\V1\Order\OrderResource;
@@ -10,6 +11,7 @@ use App\Pipelines\Order\ClearCart;
 use App\Pipelines\Order\CreateOrder;
 use App\Pipelines\Order\ValidateCart;
 use App\Repository\OrderRepositoryInterface;
+use App\Repository\OrderReturnRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Pipeline;
 use function App\Http\Helpers\responseFail;
@@ -17,7 +19,8 @@ use function App\Http\Helpers\responseSuccess;
 
 class OrderService
 {
-    public function __construct(private OrderRepositoryInterface $repository){}
+    public function __construct(private OrderRepositoryInterface $repository,
+                                private OrderReturnRepositoryInterface $orderReturnRepository){}
 
 
     public function index()
@@ -53,6 +56,33 @@ class OrderService
         catch (\Exception $e){
             return responseFail(message: __('dashboard.Something went wrong!'));
         }
+    }
+
+    public function accept($id)
+    {
+        $order = $this->repository->getById($id, relations: ['items.product.user']);
+        $order->update([
+            'order_status' => OrderStatusEnum::Processing->value
+        ]);
+
+        return responseSuccess(data: new OrderResource($order));
+    }
+
+    public function cancel($id)
+    {
+        $order = $this->repository->getById($id, relations: ['items.product.user']);
+        $order->update(['order_status' => OrderStatusEnum::Cancelled->value]);
+        return responseSuccess(data: new OrderResource($order));
+    }
+
+    public function returnOrder($request, $id)
+    {
+        $data = $request->validated();
+        $order = $this->repository->getById($id, relations: ['items.product.user']);
+        $data['order_id'] = $id;
+        $data['user_id'] = auth('api')->id();
+        $returnOrder = $this->orderReturnRepository->create($data);
+        return responseSuccess(message: __('messages.created successfully'));
     }
 
 }
