@@ -29,7 +29,7 @@ class ProductRequest extends FormRequest
             'price' => ['required', 'numeric'],
             'images' => ['nullable', 'array', 'max:4'],
             'images.*' => ['image', 'mimes:jpeg,jpg,png', 'max:2048'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => ['nullable', 'exists:categories,id'],
             'sizes' => ['required', 'array', Rule::when($user->type == 'user', 'max:1')],
             'colors' => ['required', 'array', Rule::when($user->type == 'user', 'max:1')],
         ];
