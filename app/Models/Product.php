@@ -87,4 +87,34 @@ class Product extends Model
             return $this->favourites()->where('user_id', auth('api')->id())->exists();
         });
     }
+
+    public function inCart() : Attribute
+    {
+        return Attribute::get(function () {
+            $cart = auth('api')->user()->cart;
+            if (is_null($cart)) {
+                return false;
+            }
+            $existsInCart = $cart->items()->where('product_id', $this->id)->exists();
+            return (bool) $existsInCart;
+        });
+    }
+
+    public function cartQuantity() : Attribute
+    {
+        return Attribute::get(function () {
+            $cart = auth('api')->user()->cart;
+            if (is_null($cart)) {
+                return 0;
+            }
+
+            $item = $cart->items()->where('product_id', $this->id)->first();
+            if (is_null($item)) {
+                return 0;
+            }
+            return $item->quantity;
+        });
+    }
+
+
 }

@@ -86,6 +86,9 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
     {
         return $this->model->query()
             ->where('user_id', auth('api')->id())
+            ->when(request()->filled('status'), function ($q) {
+                $q->where('status', request()->input('status'));
+            })
             ->select($columns)
             ->with($relations)
             ->paginate($perPage);

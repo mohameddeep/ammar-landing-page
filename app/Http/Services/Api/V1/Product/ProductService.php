@@ -37,7 +37,7 @@ class ProductService
             return responseFail(message: __('messages.your subscription ended'));
         DB::beginTransaction();
         try {
-            $data = $request->except('images', 'sizes', 'colors');
+            $data = $request->except('images', 'variants');
             $data['user_id'] = auth('api')->id();
             $product = $this->productRepository->create($data);
             if ($request->has('images')) {
@@ -49,12 +49,13 @@ class ProductService
                     ]);
                 }
             }
-            if ($request->has('sizes')) {
-                $this->addVariants($product, $request->sizes, 'size');
-            }
-            if ($request->has('colors')) {
-                $this->addVariants($product, $request->colors, 'color');
-            }
+//            if ($request->has('sizes')) {
+//                $this->addVariants($product, $request->sizes, 'size');
+//            }
+//            if ($request->has('colors')) {
+//                $this->addVariants($product, $request->colors, 'color');
+//            }
+            $this->addVariants($product, $request->variants);
             $subscription = auth('api')->user()->currentSubscription();
             if ($subscription) {
                 $subscription->decrement('dress_count');
@@ -63,6 +64,7 @@ class ProductService
             return responseSuccess(message: __('messages.created successfully'), data: new ProductDetailResource($product));
         }catch (\Exception $e){
             DB::rollBack();
+            dd($e);
             return responseFail(message: __('dashboard.Something went wrong!'));
         }
     }
@@ -79,7 +81,7 @@ class ProductService
     {
         DB::beginTransaction();
         try {
-            $data = $request->except('images', 'sizes', 'colors', '_method');
+            $data = $request->except('images', 'variants', '_method');
             $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
             if ($request->has('images')) {
                 $product->images()->delete();
@@ -203,14 +205,21 @@ class ProductService
         $products = $this->productRepository->getForUser(relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
         return responseSuccess(data: ProductResource::collection($products));
     }
-    private function addVariants($product, $values, $type)
+    private function addVariants($product, $variants)
     {
-        $product->variants()->createMany(
-            collect($values)->map(fn($value) => [
-                'type'  => $type,
-                'value' => $value,
-            ])->toArray()
-        );
+        foreach ($variants as $variant)
+        {
+            $size  = $variant['size'];
+            $colors = $variant['colors'];
+            foreach ($colors as $color)
+            {
+                $product->variants()->create([
+                    'size' => $size,
+                    'color' => $color['color'],
+                    'quantity' => $color['quantity'],
+                ]);
+            }
+        }
     }
 
 }

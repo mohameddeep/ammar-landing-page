@@ -20,24 +20,34 @@ class ProductVariantRepository extends Repository implements ProductVariantRepos
     {
         $available_colors = $this->model->where('product_id', $productId)
             ->where('quantity', '>', 0)
-            ->select('color', 'color_hex')
-            ->distinct()
-            ->get();
+            ->distinct('color')
+            ->pluck('color');
 
         $available_sizes = $this->model->where('product_id', $productId)
             ->where('quantity', '>', 0)
             ->distinct('size')
             ->pluck('size');
 
-        $variants = $this->model->query()
-            ->where('product_id', $productId)
-            ->where('quantity', '>', 0)
-            ->get();
-
         return [
             'available_colors' => $available_colors,
             'available_sizes' => $available_sizes,
-            'variants' => $variants,
         ];
+    }
+
+    public function getVariants($productId, $size)
+    {
+        return $this->model->query()
+            ->where('product_id', $productId)
+            ->where('size', $size)
+            ->get();
+    }
+
+    public function getVariant($productId, $size, $color)
+    {
+        return $this->model->query()
+            ->where('product_id', $productId)
+            ->where('size', $size)
+            ->where('color', $color)
+            ->first();
     }
 }

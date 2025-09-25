@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Order\OrderController;
+use App\Http\Controllers\Dashboard\OrderReturn\OrderReturnController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
 use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
 use App\Http\Controllers\Dashboard\Product\ProductController;
@@ -134,5 +135,6 @@ Route::group([
         Route::resource('sliders', controller: SliderController::class)->except(['show']);
         Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
 
+        Route::resource('order-returns', OrderReturnController::class);
     });
 });
