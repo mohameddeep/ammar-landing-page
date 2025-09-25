@@ -22,6 +22,7 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+//        dd($this->all());
         $user = auth('api')->user();
         return [
             'name' => ['required', 'string', 'max:255'],
@@ -30,8 +31,7 @@ class ProductRequest extends FormRequest
             'images' => ['nullable', 'array', 'max:4'],
             'images.*' => ['image', 'mimes:jpeg,jpg,png', 'max:2048'],
             'category_id' => ['nullable', 'exists:categories,id'],
-            'sizes' => ['required', 'array', Rule::when($user->type == 'user', 'max:1')],
-            'colors' => ['required', 'array', Rule::when($user->type == 'user', 'max:1')],
+            'variants' => ['nullable', 'array'],
         ];
     }
 

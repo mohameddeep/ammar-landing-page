@@ -9,6 +9,7 @@ use App\Http\Resources\V1\Order\OrderResource;
 use App\Pipelines\Order\AttachOrderItems;
 use App\Pipelines\Order\ClearCart;
 use App\Pipelines\Order\CreateOrder;
+use App\Pipelines\Order\UpdateProductsQuantity;
 use App\Pipelines\Order\ValidateCart;
 use App\Repository\OrderRepositoryInterface;
 use App\Repository\OrderReturnRepositoryInterface;
@@ -43,6 +44,7 @@ class OrderService
                         ValidateCart::class,
                         CreateOrder::class,
                         AttachOrderItems::class,
+                        UpdateProductsQuantity::class,
                         ClearCart::class
                         // TODO payment integration will be implemented
                     ])

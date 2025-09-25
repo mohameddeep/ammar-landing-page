@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboard\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Transaction\TransactionRequest;
 use App\Http\Requests\Dashboard\User\UserRequest;
-use App\Http\Services\Dashboard\user\UserService;
+use App\Http\Services\Dashboard\User\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         return $this->user->index($request);
     }
- 
+
 
     public function show($id)
     {

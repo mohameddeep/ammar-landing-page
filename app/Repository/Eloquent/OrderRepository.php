@@ -24,7 +24,7 @@ class OrderRepository extends Repository implements OrderRepositoryInterface
     public function getForUser(array $columns = ['*'], array $relations = [])
     {
         return $this->model->query()
-            ->when(request()->filled('status'), fn($query) => $query->where('status', request()->status))
+            ->when(request()->filled('status'), fn($query) => $query->where('order_status', request()->status))
             ->select($columns)
             ->with($relations)
             ->get();
@@ -36,7 +36,7 @@ class OrderRepository extends Repository implements OrderRepositoryInterface
     {
 
         $query = $this->model->with(['provider', 'address', 'user']);
-        
+
         // Filter by status only
         $currentStatus = null;
         if ($request->filled('status')) {

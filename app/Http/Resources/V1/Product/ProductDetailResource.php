@@ -3,6 +3,7 @@
 namespace App\Http\Resources\V1\Product;
 
 use App\Http\Resources\V1\ProductReview\ProductReviewResource;
+use App\Repository\ProductVariantRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,6 +16,8 @@ class ProductDetailResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $variantRepository = app(ProductVariantRepositoryInterface::class);
+        $variantData = $variantRepository->getProductVariants($this->id);
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -29,9 +32,10 @@ class ProductDetailResource extends JsonResource
             'is_stopped' => $this->is_stopped,
             'images' => ProductImageResource::collection($this->whenLoaded('images')),
             'reviews' => ProductReviewResource::collection($this->whenLoaded('reviews')),
-            'available_colors' => $this->colors(),
-            'available_sizes'  => $this->sizes(),
-
+            'available_colors' => $variantData['available_colors'],
+            'available_sizes' => $variantData['available_sizes'],
+            'in_cart' => $this->in_cart,
+            'cart_quantity' => $this->cart_quantity,
         ];
     }
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\Home\HomeController;
 use App\Http\Controllers\Api\V1\Order\OrderController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
+use App\Http\Controllers\Api\V1\ProductVariant\ProductVariantController;
 use App\Http\Controllers\Api\V1\Profile\UserProfileController;
 use App\Http\Controllers\Api\V1\Setting\SettingController;
 use App\Http\Controllers\Api\V1\Structure\AboutUsController;
@@ -57,7 +58,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
 
-    Route::group(['prefix' => 'customer', 'middleware' => ['type:customer']], function () {});
+    Route::group(['prefix' => 'customer', 'middleware' => ['type:customer']], function () {
+    });
     // user profile
     Route::group([
         'prefix' => 'user-profile',
@@ -95,6 +97,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/{id}/related', 'related');
     });
     Route::get('products/get-for-user', [ProductController::class, 'getForUser']);
+    Route::post('products/variants', [ProductVariantController::class, 'index']);
     Route::apiResource('products', ProductController::class);
     Route::post('products/{id}/update-images', [ProductController::class, 'updateImages']);
     Route::apiResource('cart', CartController::class);
