@@ -34,6 +34,7 @@ use App\Repository\Eloquent\SubscriptionRepository;
 use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\Eloquent\AminProfileRepository;
+use App\Repository\Eloquent\TransactionRepository;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
@@ -50,6 +51,7 @@ use App\Repository\SettingRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
 use App\Repository\StructureRepositoryInterface;
 use App\Repository\SubscriptionRepositoryInterface;
+use App\Repository\TransactionRepositoryInterface;
 use App\Repository\UserAddressRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -87,6 +89,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(SettingRepositoryInterface::class, SettingRepository::class);
         $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
         $this->app->singleton(OrderReturnRepositoryInterface::class, OrderReturnRepository::class);
+        $this->app->singleton(TransactionRepositoryInterface::class, TransactionRepository::class);
     }
 
     /**

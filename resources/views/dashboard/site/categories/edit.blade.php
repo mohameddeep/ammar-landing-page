@@ -1,9 +1,9 @@
 @extends('dashboard.core.app')
-@section('title', __('dashboard.managers'))
+@section('title', __('dashboard.categories'))
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.Manager') }}" :breadcrumbs="[['name' => __('dashboard.Manager')], ['name' => __('dashboard.Edit')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.categories') }}" :breadcrumbs="[['name' => __('dashboard.categories')], ['name' => __('dashboard.Edit')]]" />
 
 
         <x-cards.page-card>
@@ -17,11 +17,11 @@
             <x-form.form-component :route="route('categories.update', $category->id)" method="PUT">
 
 
-                <x-input.input-field name="name_ar" label="{{ __('dashboard.Name_ar') }}"
+                <x-input.input-field name="name_ar" label="{{ __('dashboard.name_ar') }}"
                     placeholder="{{ __('dashboard.Name_ar') }}" class="custom-class" id="name_ar" :value="$category->name_ar" />
 
 
-                <x-input.input-field name="name_en" label="{{ __('dashboard.Name_en') }}"
+                <x-input.input-field name="name_en" label="{{ __('dashboard.name_en') }}"
                     placeholder="{{ __('dashboard.Name_en') }}" class="custom-class" id="name_en" :value="$category->name_en" />
 
 

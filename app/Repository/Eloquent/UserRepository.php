@@ -19,4 +19,12 @@ class UserRepository extends Repository implements UserRepositoryInterface
     {
         return $this->model::query()->where('is_active', true);
     }
+
+     public function transactions($userId)
+{
+    return $this->model->transactions()
+        ->where("user_id", $userId)
+        ->paginate(20);
+}
+
 }

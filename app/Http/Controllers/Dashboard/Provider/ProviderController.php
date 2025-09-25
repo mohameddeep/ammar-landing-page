@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Provider\ProviderRequest;
+use App\Http\Requests\Dashboard\Transaction\TransactionRequest;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\Provider\ProviderService;
 use App\Http\Services\Dashboard\user\UserService;
@@ -55,5 +56,20 @@ class ProviderController extends Controller
     {
 
         return $this->provider->products($id);
+    }
+    public function transactions( $id)
+    {
+
+        return $this->provider->transactions($id);
+    }
+    public function addTransaction( $id,TransactionRequest $request)
+    {
+
+        return $this->provider->addTransaction($id,$request);
+    }
+    public function deleteTransaction( $transactionId)
+    {
+
+        return $this->provider->deleteTransaction($transactionId);
     }
 }

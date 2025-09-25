@@ -386,25 +386,49 @@ return [
     'ordered_time' => 'وقت الطلب',
     'payment_type' => 'طريقة الدفع',
 
-     'description_en' => 'الوصف (بالإنجليزية)',
+    'description_en' => 'الوصف (بالإنجليزية)',
     'description_ar' => 'الوصف (بالعربية)',
     'Structure' => 'محتوي الموقع',
-        'terms_and_conditions' => 'الشروط والأحكام',
+    'terms_and_conditions' => 'الشروط والأحكام',
 
-'total_orders' => 'إجمالي الطلبات',
+    'total_orders' => 'إجمالي الطلبات',
     'filter_by_order_status' => 'تصفية حسب حالة الطلب',
     'all_orders' => 'كل الطلبات',
     'search' => 'بحث',
     'statuses' => [
         'pending'   => 'قيد الانتظار',
-        'processing'=> 'قيد المعالجة',
+        'processing' => 'قيد المعالجة',
         'shipped'   => 'تم الشحن',
         'delivered' => 'تم التسليم',
         'cancelled' => 'ملغي',
         'refunded'  => 'مسترد',
     ],
 
+    'name_en' => 'الاسم بالإنجليزية',
+    'name_ar' => 'الاسم بالعربية',
+    'website_info' => 'معلومات الموقع',
 
-        'website_info' => 'معلومات الموقع',
+    'latest_orders' => 'أحدث الطلبات',
+    'actions' => 'الإجراءات',
+     "feature_ar"=> "الميزة بالعربية",
+    "feature_en"=> "الميزة بالإنجليزية",
+    'wallet_balance' => 'رصيد المحفظة',
+
+     'transactions'      => 'المعاملات',
+    'transaction List'  => 'قائمة المعاملات',
+    'add'               => 'إضافة',
+    'type'              => 'النوع',
+    'value'             => 'القيمة',
+    'reason'            => 'السبب',
+    'Operations'        => 'العمليات',
+    'increase'          => 'إيداع',
+    'decrease'          => 'سحب',
+    'search'            => 'بحث',
+    'close'             => 'إغلاق',
+    'save'              => 'حفظ',
+    'delete'            => 'حذف',
+    'select_transaction_type' => 'اختر نوع المعاملة',
+
+
 
 ];

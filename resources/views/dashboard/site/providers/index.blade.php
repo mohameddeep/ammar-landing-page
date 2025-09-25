@@ -37,6 +37,7 @@
                             <th>@lang('dashboard.Name')</th>
                             <th>@lang('dashboard.brand_name')</th>
                             <th>@lang('dashboard.Phone')</th>
+                            <th>@lang('dashboard.wallet_balance')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
                     </thead>
@@ -47,11 +48,14 @@
                                 <td>{{ $provider->name }}</td>
                                 <td>{{ $provider->brand_name }}</td>
                                 <td>{{ $provider->phone }}</td>
+                                <td>{{ $provider->wallet_balance }}</td>
                                 <td>
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.show-button :route="route('providers.products', $provider->id)" :tooltip-title="__('dashboard.my-products')"/>
                                         <x-buttons.edit-button :route="route('providers.edit', $provider->id)" />
                                         <x-buttons.delete-button :route="route('providers.destroy', $provider->id)" :itemId="$provider->id" />
+                                        <x-buttons.show-button :route="route('providers.transactions', $provider->id)" :tooltip-title="__('dashboard.transactions')"/>
+
                                     </div>
                                 </td>
                             </tr>

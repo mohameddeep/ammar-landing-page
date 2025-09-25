@@ -1,12 +1,12 @@
 @extends('dashboard.core.app')
-@section('title', __('dashboard.managers'))
+@section('title', __('dashboard.categories'))
 @section('css_addons')
 
 @endsection
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.Manager') }}" :breadcrumbs="[['name' => __('dashboard.Manager')], ['name' => __('dashboard.Edit')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.categories') }}" :breadcrumbs="[['name' => __('dashboard.categories')], ['name' => __('dashboard.Edit')]]" />
 
 
 
