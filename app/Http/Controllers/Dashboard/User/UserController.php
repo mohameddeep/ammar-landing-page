@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Transaction\TransactionRequest;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\User\UserService;
 use Illuminate\Http\Request;
@@ -53,5 +54,21 @@ class UserController extends Controller
     {
 
         return $this->user->products($id);
+    }
+
+     public function transactions( $id)
+    {
+
+        return $this->user->transactions($id);
+    }
+    public function addTransaction( $id,TransactionRequest $request)
+    {
+
+        return $this->user->addTransaction($id,$request);
+    }
+    public function deleteTransaction( $transactionId)
+    {
+
+        return $this->user->deleteTransaction($transactionId);
     }
 }

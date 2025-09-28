@@ -22,12 +22,21 @@ class SettingService
 
 
 
-     public function index(): JsonResponse
-    {
+    public function index(): JsonResponse
+{
+    $settings = $this->SettingRepository->getAllSettings();
 
-        $setting=$this->SettingRepository->getAllSettings();
-        return responseSuccess(data:SettingResource::collection($setting));
+    $data = [
+        'id' => $settings->first()->id ?? null,
+    ];
+
+    foreach ($settings as $setting) {
+        $data[$setting->key] = $setting->value;
     }
+
+    return responseSuccess(data: [$data]);
+}
+
 
     // public function index(): JsonResponse
     // {

@@ -15,10 +15,10 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <button class="btn btn-outline-primary btn-wave waves-effect waves-light me-1" data-bs-toggle="modal"
+                        {{-- <button class="btn btn-outline-primary btn-wave waves-effect waves-light me-1" data-bs-toggle="modal"
                             data-bs-target="#c">
                             <i class="ti ti-search"></i>
-                        </button>
+                        </button> --}}
                         <x-buttons.create-button :route="route('categories.create')" />
 
                     </div>
@@ -29,7 +29,7 @@
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th>@lang('dashboard.images')</th>
+                            <th>@lang('dashboard.image')</th>
                             <th>@lang('dashboard.Name')</th>
                             <th>@lang('dashboard.Products_Count')</th>
                             <th>@lang('dashboard.Activate')</th>

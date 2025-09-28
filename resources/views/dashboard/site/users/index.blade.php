@@ -36,6 +36,7 @@
                             <th style="width: 10px">#</th>
                             <th>@lang('dashboard.Name')</th>
                             <th>@lang('dashboard.Phone')</th>
+                            <th>@lang('dashboard.wallet_balance')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
                     </thead>
@@ -45,12 +46,16 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->phone }}</td>
+                                <td>{{ $user->wallet_balance }}</td>
                                 <td>
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.show-button :route="route('users.products', $user->id)" :tooltip-title="__('dashboard.my-products')"/>
                                         <x-buttons.edit-button :route="route('users.edit', $user->id)" />
                                         <x-buttons.delete-button :route="route('users.destroy', $user->id)" :itemId="$user->id" />
-                                    </div>
+                                        <x-buttons.show-button :route="route('users.transactions', $user->id)" :tooltip-title="__('dashboard.transactions')"/>
+
+                                   
+                                        </div>
                                 </td>
                             </tr>
                         @empty

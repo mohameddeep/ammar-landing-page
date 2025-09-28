@@ -76,7 +76,7 @@
             </x-slot>
             <div class="row py-3 px-2">
                 @foreach ($packages as $package)
-                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-4" id="row-{{ $package->id }}">
                         <div class="card h-100 d-flex flex-column card-container-css">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">

@@ -2,111 +2,22 @@
 
 namespace App\Http\Services\Dashboard\Provider;
 
-use App\Http\Helpers\Http;
+use App\Http\Services\Dashboard\BaseService;
+use App\Repository\TransactionRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 
-use function App\Http\Helpers\responseFail;
-use function App\Http\Helpers\responseSuccess;
-
-class ProviderService
+class ProviderService extends BaseService
 {
-    public function __construct(private readonly UserRepositoryInterface $providerRepository) {}
-
-  
-   public function index($request) 
-{ 
-    $providers = $this->providerRepository->paginateWithQuery(function($query) use ($request) { 
-        $query->where('type', 'provider');
-
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('phone', 'LIKE', "%{$search}%")
-                  ->orWhere('brand_name', 'LIKE', "%{$search}%");
-            });
-        }
-    }, 20); 
-
-    return view('dashboard.site.providers.index', compact('providers')); 
-}
-
-
-    public function create()
+    public function __construct(UserRepositoryInterface $providerRepository,TransactionRepositoryInterface $transactionRepository)
     {
-        return view('dashboard.site.providers.create');
+        parent::__construct($providerRepository,$transactionRepository, 'provider', 'dashboard.site.providers');
     }
-
-    public function store($request)
-    {
-        try {
-            DB::beginTransaction();
-            $data = $request->validated();
-            $data['type']="provider";
-            $provider = $this->providerRepository->create($data);
-            DB::commit();
-
-            return redirect()->route('providers.index')->with(['success' => __('messages.created_successfully')]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return back()->with(['error' => __('messages.Something went wrong')]);
-        }
-    }
-
-    public function show($id)
-    {
-        $provider = $this->providerRepository->getById($id);
-
-        return view('dashboard.site.providers.show', compact('provider'));
-    }
-
-    public function edit($id)
-    {
-        $provider = $this->providerRepository->getById($id);
-
-        return view('dashboard.site.providers.edit', compact('provider'));
-    }
-
-    public function update($request, $id)
-    {
-        try {
-            $provider = $this->providerRepository->getById($id);
-            $data = $request->validated();
-            $this->providerRepository->update($id, $data);
-
-            return redirect()->route('providers.index')->with(['success' => __('messages.updated_successfully')]);
-        } catch (\Exception $e) {
-            return back()->with(['error' => __('messages.Something went wrong')]);
-        }
-    }
-
-    public function destroy($id)
-    {
-        try {
-            $deleted = $this->providerRepository->delete($id);
-            if ($deleted) {
-                return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);
-            } else {
-                return responseFail(Http::NOT_FOUND, __('messages.Not Found or Already Deleted'));
-            }
-        } catch (\Exception $e) {
-            return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
-        }
-    }
-
 
     public function products($id)
-    { 
-     $provider = $this->providerRepository->getById($id);
+    {
+        $provider = $this->repository->getById($id);
+        $products = $provider->products()->with(['images', 'category', 'user'])->paginate(20);
 
-    $products = $provider->products()
-        ->with(['images', 'category', 'user'])
-        ->paginate(20);  
-        return view("dashboard.site.products.index", compact("products")); 
+        return view("dashboard.site.products.index", compact("products"));
     }
- 
-    
-
 }

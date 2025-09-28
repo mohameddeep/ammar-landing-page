@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container-fluid px-5 py-3">
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.Edit') }}" :breadcrumbs="[['name' => __('dashboard.Packages')], ['name' => __('dashboard.Edit')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.packages') }}" :breadcrumbs="[['name' => __('dashboard.packages')], ['name' => __('dashboard.packages')]]" />
 
         <x-cards.page-card>
             <x-slot name="header">
@@ -37,8 +37,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>@lang('feature_ar')</th>
-                                <th>@lang('feature_en')</th>
+                                <th>@lang('dashboard.feature_ar')</th>
+                                <th>@lang('dashboard.feature_en')</th>
                                 <th>@lang('dashboard.status')</th>
                                 <th>@lang('dashboard.actions')</th>
                             </tr>

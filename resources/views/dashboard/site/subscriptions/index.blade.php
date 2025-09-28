@@ -40,7 +40,7 @@
                                 </td>
                                 <td>{{ $subscription->price }}</td>
                                 <td>{{ $subscription->start_date }}</td>
-                                <td>{{ $subscription->end_date }}</td>22
+                                <td>{{ $subscription->end_date }}</td>
                                 <td>{{ $subscription->dress_count }}</td>
                                 <td>
                                     <div class="custom-toggle-switch d-flex align-items-center">

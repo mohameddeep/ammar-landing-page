@@ -1,12 +1,12 @@
 @extends('dashboard.core.app')
-@section('title', __('dashboard.managers'))
+@section('title', __('dashboard.packages'))
 @section('css_addons')
 
 @endsection
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.Manager') }}" :breadcrumbs="[['name' => __('dashboard.Manager')], ['name' => __('dashboard.Edit')]]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.packages') }}" :breadcrumbs="[['name' => __('dashboard.packages')], ['name' => __('dashboard.Edit')]]" />
 
 
         <x-cards.page-card>
@@ -48,8 +48,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>@lang('feature_ar')</th>
-                                <th>@lang('feature_en')</th>
+                                <th>@lang('dashboard.feature_ar')</th>
+                                <th>@lang('dashboard.feature_en')</th>
                                 <th>@lang('dashboard.status')</th>
                                 <th>@lang('dashboard.actions')</th>
                             </tr>

@@ -46,11 +46,17 @@ Route::group([
         // users route
         Route::resource('users', UserController::class);
                 Route::get('users/products/{id}', [UserController::class, 'products'])->name('users.products');
+             Route::get('users/transactions/{id}', [ProviderController::class, 'transactions'])->name('users.transactions');
+        Route::post('users/transactions/{id}', [ProviderController::class, 'addTransaction'])->name('users.addTransaction');
+        Route::delete('users/transactions/{transactionId}', [ProviderController::class, 'deleteTransaction'])->name('users.deleteTransaction');
 
 
         //providers route
         Route::resource('providers', ProviderController::class);
         Route::get('providers/products/{id}', [ProviderController::class, 'products'])->name('providers.products');
+        Route::get('providers/transactions/{id}', [ProviderController::class, 'transactions'])->name('providers.transactions');
+        Route::post('providers/transactions/{id}', [ProviderController::class, 'addTransaction'])->name('providers.addTransaction');
+        Route::delete('providers/transactions/{transactionId}', [ProviderController::class, 'deleteTransaction'])->name('providers.deleteTransaction');
 
 
         Route::resource('admin-profile', AdminProfileController::class)->only('edit', 'update');
