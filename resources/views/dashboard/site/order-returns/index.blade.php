@@ -1,14 +1,14 @@
 @extends('dashboard.core.app')
-@section('title', __('dashboard.subscriptions'))
+@section('title', __('dashboard.order_returns'))
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
-        <x-breadcrumb.breadcrumb title="{{ __('dashboard.subscriptions') }}" :breadcrumbs="[['name' => __('dashboard.subscriptions'), 'route' => 'subscriptions.index']]" />
+        <x-breadcrumb.breadcrumb title="{{ __('dashboard.order_returns') }}" :breadcrumbs="[['name' => __('dashboard.order_returns'), 'route' => 'order_returns.index']]" />
         <!-- Page Header Close -->
         <x-cards.page-card>
             <x-slot name="header">
                 <div class="card-title">
-                    @lang('dashboard.subscriptions')
+                    @lang('dashboard.order_returns')
                 </div>
 
             </x-slot>
@@ -35,13 +35,12 @@
                                 <td>
                                     {{ $order->user?->name }}
                                 </td>
-                                <td>{{ $order->status }}</td>
-                                <td>{{ substr($order->reason, 0, 100) }} ...</td>
+                                <td><span class="{{ $order->status->color() }}">{{ $order->status }}</span></td>
+                                <td>{{ substr($order->reason, 0, 100) }}</td>
                                 <td>
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.show-button :route="route('order-returns.show', $order->id)"/>
 {{--                                        <x-buttons.delete-button :route="route('return_orders.destroy', $order->id)" :itemId="$order->id" />--}}
-
                                     </div>
                                 </td>
                             </tr>
@@ -60,45 +59,3 @@
         </x-cards.page-card>
     </div>
 @endsection
-
-
-@push('scripts')
-    <script>
-        function toggleSubscriptionStatus(subscriptionId) {
-            let checkbox = document.getElementById(`toggle_${subscriptionId}`);
-            let isChecked = checkbox.checked ? 1 : 0;
-
-            let routeUrl = `{{ route('subscriptions.toggle', ['id' => '__id__']) }}`.replace('__id__', subscriptionId);
-
-            $.ajax({
-                url: routeUrl,
-                type: 'POST',
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    is_active: isChecked
-                },
-                success: function(response) {
-                    console.log(response.message);
-
-                    if (response.data && response.data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.message,
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 5000,
-                            timerProgressBar: true,
-                        });
-
-                    }
-                },
-
-                error: function(xhr, status, error) {
-                    alert('An error occurred: ' + (xhr.responseJSON?.message || status));
-                    checkbox.checked = !isChecked;
-                }
-            });
-        }
-    </script>
-@endpush

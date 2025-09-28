@@ -128,7 +128,7 @@ Route::group([
         });
 
         //contacts
-                    Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
+        Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
 
 
         // start sliders

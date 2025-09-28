@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderReturnStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -9,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class OrderReturn extends Model
 {
     protected $guarded = [];
+
+    protected $casts = [
+        'status' => OrderReturnStatusEnum::class,
+    ];
 
     public function user() : BelongsTo
     {
