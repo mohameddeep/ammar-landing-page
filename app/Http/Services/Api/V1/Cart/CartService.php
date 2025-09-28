@@ -8,6 +8,7 @@ use App\Http\Resources\V1\Cart\CartResource;
 use App\Models\Product;
 use App\Repository\CartItemRepositoryInterface;
 use App\Repository\CartRepositoryInterface;
+use App\Repository\CouponRepositoryInterface;
 use App\Repository\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use function App\Http\Helpers\responseFail;
@@ -17,14 +18,15 @@ class CartService
 {
     public function __construct(private CartRepositoryInterface $repository,
                                 private CartItemRepositoryInterface $cartItemRepository,
-                                private ProductRepositoryInterface $productRepository,){}
+                                private ProductRepositoryInterface $productRepository,
+                                private couponRepositoryInterface $couponRepository,){}
 
     public function index()
     {
-        $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user']);
+        $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user', 'items.product.firstImage']);
          if (! $cart) {
         return responseSuccess( message: __('messages.cart_is_empty'));
-      
+
     }
         return responseSuccess(data: new CartResource($cart));
     }
@@ -56,6 +58,7 @@ class CartService
                 'unit_price' => $product->price,
                 'total_price' => $product->price * $data['quantity'],
             ]);
+            $this->updatePrice($cart);
             DB::commit();
             return responseSuccess(message: __('messages.added_successfully'));
         }catch(\Exception $e){
@@ -70,7 +73,7 @@ class CartService
         try {
             $data = $request->validated();
             $this->cartItemRepository->update($id, $data);
-            $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user']);
+            $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user', 'items.product.firstImage']);
             DB::commit();
             return responseSuccess(data: new CartResource($cart));
         }catch (\Exception $e){
@@ -104,5 +107,26 @@ class CartService
     return responseSuccess(message: __('messages.cart_emptied_successfully'));
 }
 
+public function applyCoupon($request)
+{
+    $data = $request->validated();
+    $cart = auth('api')->user()->cart;
+    if (! $cart) {
+        return responseFail(message: __('messages.cart_is_empty'));
+    }
+    $coupon = $this->couponRepository->findByCode($data['coupon_code']);
+    if ($coupon->provider_id == $cart->provider->id && ! $coupon->isValid()) {
+        return responseFail(message: __('messages.invalid_coupon'));
+    }
+    $cart->update(['coupon_code' => $data['coupon_code'], 'final_price' => $cart->total_price - $coupon->discount]);
+    $cart->load('items.product.user', 'items.product.firstImage');
+    return responseSuccess(data: new CartResource($cart));
+}
 
+private function updatePrice($cart)
+{
+    $cart->total_price = $cart->items->sum('total_price');
+    $cart->final_price = $cart->total_price;
+    $cart->save();
+}
 }

@@ -6,6 +6,7 @@ use App\Enums\OrderStatusEnum;
 use App\Exceptions\EmptyCartException;
 use App\Http\Helpers\Http;
 use App\Http\Resources\V1\Order\OrderResource;
+use App\Pipelines\Order\AddTransactionToProviderWallet;
 use App\Pipelines\Order\AttachOrderItems;
 use App\Pipelines\Order\ClearCart;
 use App\Pipelines\Order\CreateOrder;
@@ -45,7 +46,8 @@ class OrderService
                         CreateOrder::class,
                         AttachOrderItems::class,
                         UpdateProductsQuantity::class,
-                        ClearCart::class
+                        ClearCart::class,
+                        AddTransactionToProviderWallet::class,
                         // TODO payment integration will be implemented
                     ])
                     ->then(function ($request) {

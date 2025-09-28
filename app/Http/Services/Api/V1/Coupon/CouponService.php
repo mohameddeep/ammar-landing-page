@@ -24,36 +24,34 @@ final class CouponService
         private CouponRepositoryInterface $couponRepository
     ) {}
 
-   
+
      public function index()
     {
 
 
        $id = auth()->user()->id;
 
-       $coupons = $this->couponRepository->paginateWithQuery(function($query) use ($id) { 
+       $coupons = $this->couponRepository->paginateWithQuery(function($query) use ($id) {
     $query->where('type', 'provider')
           ->where('provider_id', $id);
-}, 20); 
+}, 20);
 
         return paginatedJsonResponse(
         message: 'success',
         data: ['items' => CouponResource::collection($coupons)]
-    ); 
+    );
     }
 
 
     public function store($request)
     {
-       
+
         try {
             $data = $request->validated();
             $this->couponRepository->create($data);
-
-
              return responseSuccess(Http::OK, __('messages.created successfully'));
          } catch (Exception $e) {
-          
+
 
              return responseFail(message: __('messages.Something went wrong'));
          }
@@ -81,5 +79,14 @@ final class CouponService
         } catch (Exception $e) {
             return responseFail(message: __('messages.Something went wrong'));
         }
+    }
+
+    public function toggle($id)
+    {
+//        dd($request->coupon_id);
+        $coupon = $this->couponRepository->getById($id);
+        $this->couponRepository->update($id, ['is_active' => ! $coupon->is_active]);
+        $coupon->refresh();
+        return responseSuccess(message: __('messages.updated successfully'), data: new CouponResource($coupon));
     }
 }

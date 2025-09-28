@@ -83,7 +83,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put('/change-status/{id}', 'changeAddressStatus');
     });
 
-    Route::apiResource('coupons', CouponController::class)->except('show')->middleware('type:provider');
+    Route::apiResource('coupons', CouponController::class)->except('show');
+    Route::get('coupons/{id}/toggle', [CouponController::class, 'toggle']);
 
     Route::group([
         'prefix' => 'products',
@@ -101,6 +102,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('products', ProductController::class);
     Route::post('products/{id}/update-images', [ProductController::class, 'updateImages']);
     Route::apiResource('cart', CartController::class);
+    Route::post('cart/apply-coupon', [CartController::class, 'applyCoupon']);
     Route::delete('user/cart/empty', [CartController::class, 'empty']);
 
     Route::group(['prefix' => 'orders', 'controller' => OrderController::class], function () {

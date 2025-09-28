@@ -420,6 +420,11 @@ return [
     'save'              => 'Save',
     'delete'            => 'Delete',
     'select_transaction_type' => 'Select Transaction Type',
-
+    'order_returns'  => 'Order Returns',
+    'order_number'   => 'Order Number',
+    'return_reason'  => 'Return Reason',
+    'accept'         => 'Accept',
+    'reject'         => 'Reject',
+    'view'           => 'View Details',
 
 ];

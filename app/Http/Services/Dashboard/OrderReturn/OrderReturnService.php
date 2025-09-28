@@ -3,7 +3,6 @@
 namespace App\Http\Services\Dashboard\OrderReturn;
 
 use App\Enums\OrderReturnStatusEnum;
-use App\Http\Services\Mutual\FileManagerService;
 use App\Repository\OrderReturnRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +11,7 @@ class OrderReturnService
 {
     public function __construct(private readonly OrderReturnRepositoryInterface $Repository,
                                 private readonly TransactionRepositoryInterface $TransactionRepository,
-                                private readonly FileManagerService $fileManagerService)
+                                )
     {}
 
     public function index()
@@ -45,6 +44,12 @@ class OrderReturnService
             ]);
             $returnOrder->user?->increment('wallet_balance', $total_price);
             $provider = $returnOrder->order->provider;
+            $this->TransactionRepository->create([
+                'user_id' => $provider->id,
+                'amount' => $total_price,
+                'type' => 'increase',
+                'reason' => 'return order'
+            ]);
             $provider->decrement('wallet_balance', $total_price);
             DB::commit();
             return redirect()->back()->with('success', __('messages.updated_successfully'));

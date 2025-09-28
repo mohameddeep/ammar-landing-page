@@ -29,6 +29,7 @@ final class CouponResource extends JsonResource
             'discount' => $this->discount,
             'usage_count' => $this->usage_count,
             'expire_at' => $this->expire_at,
+            'is_active' => $this->is_active,
         ];
     }
 }

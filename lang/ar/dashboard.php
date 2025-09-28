@@ -428,7 +428,12 @@ return [
     'save'              => 'حفظ',
     'delete'            => 'حذف',
     'select_transaction_type' => 'اختر نوع المعاملة',
-
+    'order_returns'  => 'طلبات الاسترجاع',
+    'order_number'   => 'رقم الطلب',
+    'return_reason'  => 'سبب الاسترجاع',
+    'accept'         => 'قبول',
+    'reject'         => 'رفض',
+    'view'           => 'عرض التفاصيل',
 
 
 ];

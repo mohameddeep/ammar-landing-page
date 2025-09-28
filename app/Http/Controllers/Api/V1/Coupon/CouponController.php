@@ -9,6 +9,7 @@ use App\Http\Requests\Api\V1\Coupon\StoreCouponRequest;
 use App\Http\Requests\Api\V1\Coupon\UpdateCouponRequest;
 use App\Http\Services\Api\V1\Coupon\CouponService;
 use App\Http\Services\Api\V1\Package\PackageService;
+use Illuminate\Http\Request;
 
 final class CouponController extends Controller
 {
@@ -21,7 +22,7 @@ final class CouponController extends Controller
         return $this->couponService->index();
     }
 
-    
+
 
     public function store(StoreCouponRequest $request)
     {
@@ -35,5 +36,10 @@ final class CouponController extends Controller
     public function destroy($id)
     {
         return $this->couponService->destroy($id);
+    }
+
+    public function toggle(string $id)
+    {
+        return $this->couponService->toggle($id);
     }
 }

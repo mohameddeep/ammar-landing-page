@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Cart\CartRequest;
+use App\Http\Requests\Api\V1\Coupon\CheckCouponRequest;
 use App\Http\Services\Api\V1\Cart\CartService;
 use Illuminate\Http\Request;
 
@@ -56,5 +57,10 @@ class CartController extends Controller
     public function empty()
     {
         return $this->cartService->empty();
+    }
+
+    public function applyCoupon(CheckCouponRequest $request)
+    {
+        return $this->cartService->applyCoupon($request);
     }
 }
