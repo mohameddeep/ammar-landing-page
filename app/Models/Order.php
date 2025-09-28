@@ -23,7 +23,8 @@ class Order extends Model
     }
     public function provider()
     {
-        return $this->belongsTo(User::class,'provider_id')->where("type", "provider");
+//        return $this->belongsTo(User::class,'provider_id')->where("type", "provider");
+        return $this->belongsTo(User::class,'provider_id');
     }
     public function user()
     {

@@ -142,5 +142,9 @@ Route::group([
         Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
 
         Route::resource('order-returns', OrderReturnController::class);
+        Route::group(['prefix' => 'order-returns', 'controller' => OrderReturnController::class], function () {
+            Route::get('/{id}/accept', 'accept')->name('order-returns.accept');
+            Route::get('/{id}/reject', 'reject')->name('order-returns.reject');
+        });
     });
 });
