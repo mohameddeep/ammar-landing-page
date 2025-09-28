@@ -64,8 +64,8 @@ class ProductService
             return responseSuccess(message: __('messages.created successfully'), data: new ProductDetailResource($product));
         }catch (\Exception $e){
             DB::rollBack();
-            dd($e);
-            return responseFail(message: __('dashboard.Something went wrong!'));
+//            dd($e);
+            return responseFail(message: $e->getMessage());
         }
     }
 
