@@ -205,6 +205,18 @@ class ProductService
         $products = $this->productRepository->getForUser(relations: ['user', 'category', 'reviews.user', 'variants', 'images']);
         return responseSuccess(data: ProductResource::collection($products));
     }
+
+    public function review($request, $id)
+    {
+        $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user']);
+        $product->reviews()->create([
+            'user_id' => auth('api')->id(),
+            'rating' => $request->rating,
+            'comment' => $request->comment ?? null,
+        ]);
+        return responseSuccess(message: __('messages.created successfully'));
+    }
+
     private function addVariants($product, $variants)
     {
         foreach ($variants as $variant)

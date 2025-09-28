@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/{id}/stop', 'stop');
         Route::post('/{id}/continue-selling', 'continue');
         Route::get('/{id}/related', 'related');
+        Route::post('/{id}/review', 'review');
     });
     Route::get('products/get-for-user', [ProductController::class, 'getForUser']);
     Route::post('products/variants', [ProductVariantController::class, 'index']);

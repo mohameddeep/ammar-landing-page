@@ -78,4 +78,9 @@ class ProductController extends Controller
     {
         return $this->service->getForUser();
     }
+
+    public function review(Request $request, string $id)
+    {
+        return $this->service->review($request, $id);
+    }
 }
