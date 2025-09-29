@@ -100,6 +100,21 @@ class Product extends Model
         });
     }
 
+    public function cartItemId() : Attribute
+    {
+        return Attribute::get(function () {
+            $cart = auth('api')->user()->cart;
+            if (is_null($cart)) {
+                return null;
+            }
+            $cartItem = $cart->items()->where('product_id', $this->id)->first();
+            if (is_null($cartItem)) {
+                return null;
+            }
+            return $cartItem->id;
+        });
+    }
+
     public function cartQuantity() : Attribute
     {
         return Attribute::get(function () {

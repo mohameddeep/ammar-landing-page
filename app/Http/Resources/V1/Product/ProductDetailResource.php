@@ -35,6 +35,7 @@ class ProductDetailResource extends JsonResource
             'available_colors' => $variantData['available_colors'],
             'available_sizes' => $variantData['available_sizes'],
             'in_cart' => $this->in_cart,
+            'cart_item_id' => $this->cart_item_id,
             'cart_quantity' => $this->cart_quantity,
         ];
     }
