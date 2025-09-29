@@ -49,12 +49,6 @@ class ProductService
                     ]);
                 }
             }
-//            if ($request->has('sizes')) {
-//                $this->addVariants($product, $request->sizes, 'size');
-//            }
-//            if ($request->has('colors')) {
-//                $this->addVariants($product, $request->colors, 'color');
-//            }
             $this->addVariants($product, $request->variants);
             $subscription = auth('api')->user()->currentSubscription();
             if ($subscription) {
@@ -94,12 +88,7 @@ class ProductService
                 }
             }
             $product->variants()->delete();
-            if ($request->has('sizes')) {
-                $this->addVariants($product, $request->sizes, 'size');
-            }
-            if ($request->has('colors')) {
-                $this->addVariants($product, $request->colors, 'color');
-            }
+            $this->addVariants($product, $request->variants);
             $this->productRepository->update($id, $data);
             DB::commit();
             $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants']);
