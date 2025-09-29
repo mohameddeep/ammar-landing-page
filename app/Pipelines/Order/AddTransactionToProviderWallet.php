@@ -13,6 +13,8 @@ class AddTransactionToProviderWallet
     public function handle($request, \Closure $next)
     {
         $order = $request->order;
+
+        $order->provider->increment('wallet_balance', $order->grand_total);
         $this->repository->create([
             'user_id' => $order->provider->id,
             'amount' => $order->grand_total,

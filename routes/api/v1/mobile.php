@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\V1\Structure\AboutUsController;
 use App\Http\Controllers\Api\V1\Structure\TermsAndConditionsController;
 use App\Http\Controllers\Api\V1\Subscription\SubscriptionController;
 use App\Http\Controllers\Api\V1\UserAddress\UserAddressController;
+use App\Http\Controllers\Api\V1\Wallet\WalletController;
 use Illuminate\Support\Facades\Route;
 
 // user routes
@@ -118,6 +119,8 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('/{id}/cancel', 'cancel');
         Route::post('/{id}/return', 'returnOrder');
     });
+
+    Route::get('wallet', WalletController::class);
 });
 
 Route::get('/home', [HomeController::class, 'index']);
