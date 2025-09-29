@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     ], function () {
         Route::post('/', 'subscribe');
         Route::post('/apply-coupon', 'applyCoupon');
+        Route::get('/details', 'details');
     });
 
 

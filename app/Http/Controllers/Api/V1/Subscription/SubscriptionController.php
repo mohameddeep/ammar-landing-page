@@ -22,4 +22,10 @@ class SubscriptionController extends Controller
     {
         return $this->service->applyCoupon($request);
     }
+
+    public function details()
+    {
+        return $this->service->details();
+    }
+
 }

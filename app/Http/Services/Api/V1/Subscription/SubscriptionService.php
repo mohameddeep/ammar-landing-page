@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Services\Api\V1\Subscription;
 
+use App\Http\Resources\V1\Subscription\SubscriptionResource;
 use App\Repository\CouponRepositoryInterface;
 use App\Repository\PackageRepositoryInterface;
 use App\Repository\SubscriptionRepositoryInterface;
@@ -71,5 +72,12 @@ final class SubscriptionService
             DB::rollBack();
             return responseFail(message: $e->getMessage());
         }
+    }
+
+    public function details()
+    {
+        $user = auth('api')->user();
+        $subscriptions = $user->activeSubscriptions()->with('package.features')->get();
+        return responseSuccess(data: SubscriptionResource::collection($subscriptions));
     }
 }
