@@ -9,4 +9,8 @@ interface OrderRepositoryInterface extends RepositoryInterface
 
        public function getForUser(array $columns = ['*'], array $relations = []);
 
+       public function getForProvider($limit = null, array $columns = ['*'], array $relations = []);
+
+       public function getSalesForProvider();
+
 }

@@ -15,4 +15,9 @@ final class HomeController extends Controller
     {
         return $this->homeService->index();
     }
+
+    public function HomeForProvider()
+    {
+        return $this->homeService->HomeForProvider();
+    }
 }

@@ -48,6 +48,9 @@ Route::group(['prefix' => 'password'], function () {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::get('/home-for-provider', [HomeController::class, 'homeForProvider'])->middleware('type:provider');
+
     // subscriptions
     Route::group([
         'prefix' => 'subscription',

@@ -3,6 +3,7 @@
 namespace App\Http\Services\Api\V1\Order;
 
 use App\Enums\OrderStatusEnum;
+use App\Enums\UserTypeEnum;
 use App\Exceptions\EmptyCartException;
 use App\Http\Helpers\Http;
 use App\Http\Resources\V1\Order\OrderResource;
@@ -27,7 +28,12 @@ class OrderService
 
     public function index()
     {
-        $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
+        $type = auth('api')->user()->type;
+        if ($type == UserTypeEnum::User->value) {
+            $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
+        }elseif ($type == UserTypeEnum::Provider->value) {
+            $orders = $this->repository->getForProvider(relations: ['items.product.user', 'user', 'provider']);
+        }
         return responseSuccess(data: OrderResource::collection($orders));
     }
 

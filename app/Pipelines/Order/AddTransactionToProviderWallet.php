@@ -19,6 +19,8 @@ class AddTransactionToProviderWallet
             'type' => 'increase',
             'reason' => 'new order',
         ]);
+
+        return $next($request);
     }
 
 }
