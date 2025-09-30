@@ -28,12 +28,13 @@ class OrderService
 
     public function index()
     {
-        $type = auth('api')->user()->type;
-        if ($type == UserTypeEnum::User->value) {
-            $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
-        }elseif ($type == UserTypeEnum::Provider->value) {
-            $orders = $this->repository->getForProvider(relations: ['items.product.user', 'user', 'provider']);
-        }
+        $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
+        return responseSuccess(data: OrderResource::collection($orders));
+    }
+
+    public function getForProvider()
+    {
+        $orders = $this->repository->getForProvider(relations: ['items.product.user', 'user', 'provider']);
         return responseSuccess(data: OrderResource::collection($orders));
     }
 

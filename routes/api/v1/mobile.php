@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::group(['prefix' => 'orders', 'controller' => OrderController::class], function () {
         Route::get('/', 'index');
+        Route::get('/get-for-provider', 'getForProvider');
         Route::post('/', 'store')->middleware('type:user');
         Route::get('/{id}', 'show');
         Route::get('/{id}/accept', 'accept');

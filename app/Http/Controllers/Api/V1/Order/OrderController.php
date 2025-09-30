@@ -21,6 +21,11 @@ class OrderController extends Controller
         return $this->service->index();
     }
 
+    public function getForProvider()
+    {
+        return $this->service->getForProvider();
+    }
+
     /**
      * Store a newly created resource in storage.
      */
