@@ -24,6 +24,7 @@ class OrderReturnRequest extends FormRequest
         return [
             'address_id' => 'required|exists:user_addresses,id',
             'reason' => ['required', 'string'],
+            'comment' => ['nullable', 'string'],
         ];
     }
 }
