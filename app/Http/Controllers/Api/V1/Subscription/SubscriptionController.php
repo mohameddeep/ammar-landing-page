@@ -28,4 +28,9 @@ class SubscriptionController extends Controller
         return $this->service->details();
     }
 
+    public function getStatus()
+    {
+        return $this->service->getStatus();
+    }
+
 }

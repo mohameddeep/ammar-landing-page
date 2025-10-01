@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/', 'subscribe');
         Route::post('/apply-coupon', 'applyCoupon');
         Route::get('/details', 'details');
+        Route::get('/status', 'getStatus');
     });
 
 

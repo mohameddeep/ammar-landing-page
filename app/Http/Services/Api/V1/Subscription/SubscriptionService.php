@@ -80,4 +80,13 @@ final class SubscriptionService
         $subscriptions = $user->activeSubscriptions()->with('package.features')->get();
         return responseSuccess(data: SubscriptionResource::collection($subscriptions));
     }
+
+    public function getStatus()
+    {
+        $user = auth('api')->user();
+        $exists = $user->activeSubscriptions()->exists();
+        return responseSuccess(data: [
+            'is_active' => $exists ? true : false,
+        ]);
+    }
 }
