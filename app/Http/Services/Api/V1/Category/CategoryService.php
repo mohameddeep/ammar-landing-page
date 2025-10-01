@@ -33,7 +33,7 @@ final class CategoryService
     {
 
         try {
-            $category = $this->categoryRepository->getById($id, relations: ['parent']);
+            $category = $this->categoryRepository->getById($id);
 
             return responseSuccess(message: __('dashboard_api.show_successfully'), data: new CategoryDetailResource($category));
 
