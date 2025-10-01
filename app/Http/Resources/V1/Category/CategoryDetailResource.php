@@ -31,7 +31,6 @@ final class CategoryDetailResource extends JsonResource
             'name' => $this->t('name'),
             'slug' => $this->slug,
             'image' => fileFullPath($this->image),
-            'parent' => $this->parent?->t('name') ?? null,
             'products' => ProductResource::collection($products),
         ];
     }
