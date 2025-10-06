@@ -169,7 +169,7 @@
 
        function changeProductStatus(productId, status) { 
     $.ajax({ 
-        url: `/dashboard/products/${productId}/change-status`, 
+            url: "{{ route('dashboard.products.changeStatus', ':id') }}".replace(':id', productId),
         type: 'POST', 
         data: { 
             _token: '{{ csrf_token() }}', 
