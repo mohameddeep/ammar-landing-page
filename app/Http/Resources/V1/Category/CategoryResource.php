@@ -22,12 +22,21 @@ final class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $sort = $request->query('sort');
+
+        $productsQuery = $this->products()
+            ->with(['user', 'category', 'images'])
+            ->filterBySort($sort)
+            ->limit(4);
+
         return [
             'id' => $this->id,
             'name' => $this->t('name'),
             'slug' => $this->slug,
             'image' => fileFullPath($this->image),
-            'products' => $this->whenLoaded('products', fn() => ProductResource::collection($this->products()->with('user', 'category', 'images')->latest()->limit(4)->get())),
+            'products' => $this->whenLoaded('products', fn() =>
+                ProductResource::collection($productsQuery->get())
+            ),
         ];
     }
 }

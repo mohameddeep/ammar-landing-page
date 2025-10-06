@@ -88,6 +88,12 @@ class Product extends Model
         });
     }
 
+    public function orderItems()
+{
+    return $this->hasMany(OrderItem::class, 'product_id');
+}
+
+
     public function inCart() : Attribute
     {
         return Attribute::get(function () {
@@ -130,6 +136,49 @@ class Product extends Model
             return $item->quantity;
         });
     }
+
+
+
+public function scopeFilterBySort($query, ?string $sort)
+{
+    if (!$sort) {
+        return $query->latest();
+    }
+
+    // نقسم القيم لو كانت comma separated
+    $sortOptions = explode(',', $sort);
+
+    foreach ($sortOptions as $option) {
+        $option = trim($option);
+
+        switch ($option) {
+            case 'price':
+                $query->orderBy('price', 'asc');
+                break;
+
+            case 'rating':
+                $query->withAvg('reviews', 'rating')
+                      ->orderBy('reviews_avg_rating', 'desc');
+                break;
+
+            case 'orders':
+                $query->withCount('orderItems')
+                      ->orderBy('order_items_count', 'desc');
+                break;
+
+            default:
+                $query->latest();
+                break;
+        }
+    }
+
+    return $query;
+}
+
+
+
+
+
 
 
 }

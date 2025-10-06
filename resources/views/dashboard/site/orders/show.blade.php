@@ -98,7 +98,7 @@
             </div>
 
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-4">
 
 
             <div class="col-xl-12">
@@ -164,7 +164,7 @@
 
         </div>
 
-        <div class="col-xl-3">
+        {{-- <div class="col-xl-3">
 
 
             <div class="col-xl-12">
@@ -317,7 +317,7 @@
                 </x-cards.page-card>
             </div>
 
-        </div>
+        </div> --}}
     </div>
 
 </div>

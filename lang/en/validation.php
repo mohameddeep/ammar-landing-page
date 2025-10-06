@@ -124,6 +124,9 @@ return [
         'symbols' => 'The :attribute field must contain at least one symbol.',
         'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.',
     ],
+
+    'digits_between' => 'The :attribute must contain between :min and :max digits (e.g. 9–12 digits for a Saudi phone number).',
+
     'present' => 'The :attribute field must be present.',
     'present_if' => 'The :attribute field must be present when :other is :value.',
     'present_unless' => 'The :attribute field must be present unless :other is :value.',

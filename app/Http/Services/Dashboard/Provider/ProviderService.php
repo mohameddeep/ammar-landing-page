@@ -16,8 +16,8 @@ class ProviderService extends BaseService
     public function products($id)
     {
         $provider = $this->repository->getById($id);
-        $products = $provider->products()->with(['images', 'category', 'user'])->paginate(20);
+        $products = $provider->products()->with(['images', 'category', 'user'])->search()->paginate(20);
 
-        return view("dashboard.site.products.index", compact("products"));
+        return view("dashboard.site.providers.products", compact("products","provider"));
     }
 }

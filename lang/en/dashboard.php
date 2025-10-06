@@ -401,12 +401,12 @@ return [
     'name_en' => 'Name (English)',
     'name_ar' => 'Name (Arabic)',
     'actions' => 'Actions',
-     "feature_ar"=> "Feature (Arabic)",
+        "feature_ar"=> "Feature (Arabic)",
     "feature_en"=> "Feature (English)",
         'wallet_balance' => 'Wallet Balance',
 
 
-  'transactions'      => 'Transactions',
+    'transactions'      => 'Transactions',
     'transaction List'  => 'Transaction List',
     'add'               => 'Add',
     'type'              => 'Type',
@@ -426,5 +426,8 @@ return [
     'accept'         => 'Accept',
     'reject'         => 'Reject',
     'view'           => 'View Details',
+    'size' => 'Size',
+    'reset' => 'Reset',
+
 
 ];

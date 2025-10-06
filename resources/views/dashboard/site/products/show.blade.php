@@ -136,12 +136,16 @@
                                                             <table class="table table-borderless align-middle mb-0">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th class="text-muted"> @lang('dashboard.item_type')</th>
-                                                                        <td>{{ $item->type }}</td>
+                                                                        <th class="text-muted"> @lang('dashboard.size')</th>
+                                                                        <td>{{ $item->size }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th class="text-muted">@lang('dashboard.value')</th>
-                                                                        <td>{{ $item->value }}</td>
+                                                                        <th class="text-muted">@lang('dashboard.color')</th>
+                                                                        <td>{{ $item->color }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="text-muted">@lang('dashboard.quantity')</th>
+                                                                        <td>{{ $item->quantity }}</td>
                                                                     </tr>
                                                         
                                                                    

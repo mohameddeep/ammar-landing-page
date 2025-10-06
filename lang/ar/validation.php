@@ -57,6 +57,8 @@ return [
         'string' => 'يجب أن يحتوي :attribute على الأقل على :min أحرف.',
     ],
     'numeric' => 'يجب أن يكون :attribute رقمًا.',
+    'digits_between' => ':attribute يجب أن يحتوي على عدد أرقام بين :min و :max (مثل رقم جوال سعودي مكون من 9 إلى 12 رقم).',
+
     'password' => [
         'letters' => 'يجب أن يحتوي :attribute على حرف واحد على الأقل.',
         'mixed' => 'يجب أن يحتوي :attribute على حرف كبير وحرف صغير على الأقل.',

@@ -22,16 +22,23 @@ final class CategoryDetailResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-    {
-        $productRepository = app(ProductRepositoryInterface::class);
-        $products = $productRepository->getCategoryProducts($this->id, relations: ['user', 'category']);
+{
+    $sort = $request->get('sort'); // 🔥 مثال: ?sort=price أو rating أو orders
 
-        return [
-            'id' => $this->id,
-            'name' => $this->t('name'),
-            'slug' => $this->slug,
-            'image' => fileFullPath($this->image),
-            'products' => ProductResource::collection($products),
-        ];
-    }
+    $productRepository = app(ProductRepositoryInterface::class);
+    $products = $productRepository->getCategoryProducts(
+        $this->id,
+        sort: $sort,
+        relations: ['user', 'category']
+    );
+
+    return [
+        'id' => $this->id,
+        'name' => $this->t('name'),
+        'slug' => $this->slug,
+        'image' => fileFullPath($this->image),
+        'products' => ProductResource::collection($products),
+    ];
+}
+
 }

@@ -52,10 +52,9 @@
                                 <td>
                                     <div class="hstack gap-2 fs-15">
                                         <x-buttons.show-button :route="route('providers.products', $provider->id)" :tooltip-title="__('dashboard.my-products')"/>
+                                        <x-buttons.show-button :route="route('providers.transactions', $provider->id)" :tooltip-title="__('dashboard.transactions')"/>
                                         <x-buttons.edit-button :route="route('providers.edit', $provider->id)" />
                                         <x-buttons.delete-button :route="route('providers.destroy', $provider->id)" :itemId="$provider->id" />
-                                        <x-buttons.show-button :route="route('providers.transactions', $provider->id)" :tooltip-title="__('dashboard.transactions')"/>
-
                                     </div>
                                 </td>
                             </tr>

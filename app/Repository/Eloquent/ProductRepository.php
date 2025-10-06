@@ -39,7 +39,7 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
         return $query->with($relations)->paginate($perPage);
     }
 
-    public function getCategoryProducts($categoryId, array $columns = ['*'], array $relations = [])
+    public function getCategoryProducts($categoryId,?string $sort = null, array $columns = ['*'], array $relations = [])
     {
         return $this->model->query()
             ->where('category_id', $categoryId)
@@ -51,6 +51,7 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
                 $q->where('user_id', auth('api')->id());
             }])
             ->with($relations)
+            ->filterBySort($sort)
             ->get();
     }
 

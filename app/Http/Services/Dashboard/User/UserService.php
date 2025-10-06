@@ -16,9 +16,9 @@ class UserService extends BaseService
     public function products($id)
     {
         $user = $this->repository->getById($id);
-        $products = $user->products()->with(['images', 'category', 'user'])->paginate(20);
+        $products = $user->products()->with(['images', 'category', 'user'])->search()->paginate(20);
 
-        return view("dashboard.site.products.index", compact("products"));
+        return view("dashboard.site.users.products", compact("products","user"));
     }
 
 }
