@@ -15,14 +15,15 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <form method="GET" action="{{ route('dashboard.products.index') }}" class="d-flex align-items-center m-1"
-                            role="search">
+                        <form method="GET" action="{{ route('dashboard.products.index') }}"
+                            class="d-flex align-items-center m-1" role="search">
                             <input class="form-control" type="search" name="search" value="{{ request('search') }}"
                                 placeholder="@lang('dashboard.search')" aria-label="Search">
                             <button class="btn btn-light ms-2" type="submit">@lang('dashboard.search')</button>
                         </form>
 
-                        <a href="{{ route('dashboard.products.index') }}" class="btn btn-secondary ms-2" title="@lang('dashboard.reset')">
+                        <a href="{{ route('dashboard.products.index') }}" class="btn btn-secondary ms-2"
+                            title="@lang('dashboard.reset')">
                             <i class="bi bi-arrow-repeat"></i>
                         </a>
 
@@ -71,11 +72,11 @@
                                 {{-- is_active toggle --}}
                                 <td>
                                     <div class="custom-toggle-switch d-flex align-items-center">
-                                        <input id="toggle_{{ $product->id }}" 
+                                        <input id="toggle_{{ $product->id }}"
                                             name="active_toggleswitch_{{ $product->id }}" type="checkbox"
                                             {{ $product->is_active == 1 ? 'checked' : '' }}
                                             onclick="toggleproductStatus({{ $product->id }})">
-                                       <label for="toggle_{{ $product->id }}" class="label-secondary"></label>
+                                        <label for="toggle_{{ $product->id }}" class="label-secondary"></label>
                                     </div>
                                 </td>
                                 <td>
@@ -167,31 +168,30 @@
         }
 
 
-       function changeProductStatus(productId, status) { 
-    $.ajax({ 
-            url: "{{ route('dashboard.products.changeStatus', ':id') }}".replace(':id', productId),
-        type: 'POST', 
-        data: { 
-            _token: '{{ csrf_token() }}', 
-            status: status 
-        }, 
-        success: function(response) { 
-            $(`#dropdownMenuButton${productId}`).text(response.new_status_text);
+        function changeProductStatus(productId, status) {
+            $.ajax({
+                url: "{{ route('dashboard.products.changeStatus', ':id') }}".replace(':id', productId),
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    status: status
+                },
+                success: function(response) {
+                    $(`#dropdownMenuButton${productId}`).text(response.new_status_text);
 
-            Swal.fire({
-                icon: 'success',
-    title: '{{ __("messages.updated_successfully") }}',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
+                    Swal.fire({
+                        icon: 'success',
+                        title: '{{ __('messages.updated_successfully') }}',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                },
+                error: function(xhr) {
+                    alert('Something went wrong!');
+                }
             });
-        }, 
-        error: function(xhr) { 
-            alert('Something went wrong!'); 
-        } 
-    }); 
-}
-
+        }
     </script>
 @endpush

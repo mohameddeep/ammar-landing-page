@@ -119,9 +119,9 @@ Route::group([
             ->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/toggle/{id}', 'toggle')->name('toggle');
-                Route::delete('/{id}', action: 'destroy')->name('destroy');
-                Route::post('/{id}/change-status', action: 'changeStatus')->name('changeStatus');
-                Route::get('/details/{id}', action: 'show')->name('details');
+                Route::delete('/{id}',  'destroy')->name('destroy');
+                Route::post('/change-status/{id}',  'changeStatus')->name('changeStatus');
+                Route::get('/details/{id}', 'show')->name('details');
 
             });
 
