@@ -14,6 +14,8 @@ interface ProductRepositoryInterface extends RepositoryInterface
             public function getProductsByFilter($request);
 
     public function getForUser(int $perPage = 10, array $columns = ['*'], array $relations = []);
+           public function getActiveProducts();
+
 
 
 }

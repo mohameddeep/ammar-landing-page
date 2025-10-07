@@ -115,4 +115,14 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
 
     }
 
+
+       public function getActiveProducts()
+    {
+        return $this->model->query()
+            ->where('is_active', true)
+            ->where('is_stopped', false)
+            ->where('status', 'approved')
+            ->get();
+    }
+
 }

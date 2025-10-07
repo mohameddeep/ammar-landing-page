@@ -6,6 +6,8 @@ namespace App\Http\Services\Dashboard\Slider;
 
 use App\Http\Helpers\Http;
 use App\Http\Traits\FileTrait;
+use App\Models\Product;
+use App\Repository\ProductRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -22,19 +24,21 @@ final class SliderService
 
     public function __construct(
         private readonly SliderRepositoryInterface $repository,
+        private readonly ProductRepositoryInterface $productRepository,
     ) {}
 
     public function index()
     {
-        $sliders = $this->repository->paginate(10);
+        $sliders = $this->repository->paginate(10,relations:['product']);
 
         return view('dashboard.site.sliders.index', compact('sliders'));
     }
 
     public function create()
     {
+        $products=$this->productRepository->getActiveProducts();
 
-        return view('dashboard.site.sliders.create');
+        return view('dashboard.site.sliders.create',compact("products"));
     }
 
     public function store($request)
@@ -63,8 +67,10 @@ final class SliderService
     public function edit($id)
     {
         $slider = $this->repository->getById($id);
+        
+        $products=$this->productRepository->getActiveProducts();
 
-        return view('dashboard.site.sliders.edit', compact('slider'));
+        return view('dashboard.site.sliders.edit', compact('slider','products'));
     }
 
     public function update($request, $id)

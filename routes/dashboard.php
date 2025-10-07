@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\AdminProfile\AdminProfileController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Categories\CategoryController;
 use App\Http\Controllers\Dashboard\Commissions\CommissionController;
+use App\Http\Controllers\Dashboard\Complaint\ComplaintController;
 use App\Http\Controllers\Dashboard\Contact\ContactController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
@@ -135,6 +136,8 @@ Route::group([
 
         //contacts
         Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
+        //complaints
+        Route::resource('dashboard/complaints', ComplaintController::class)->only('destroy', 'index');
 
 
         // start sliders

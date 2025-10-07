@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests\Dashboard\Slider;
+namespace App\Http\Requests\Api\V1\Complaint;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class UpdateSliderRequest extends FormRequest
+class ComplaintUsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +22,9 @@ final class UpdateSliderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_ar' => 'nullable|string|max:255',
-            'title_en' => 'nullable|string|max:255',
-            'content_ar' => 'nullable|string',
-            'content_en' => 'nullable|string',
-            'product_id' => ['nullable', 'exists:products,id'],
-
-            'image' => 'nullable|mimes:jpeg,png,jpg',
+            'name' => 'required|string|max:255',
+            'phone' => 'required',
+            'complaint' => 'required',
         ];
     }
 }

@@ -223,6 +223,15 @@
                     </a>
                 </li>
                 <!-- End::orders -->
+                <!-- Start::complaints -->
+                <li class="slide">
+                    <a href="{{ route('complaints.index') }}"
+                        class="side-menu__item {{ request()->routeIs('complaints.index') ? 'active' : '' }}">
+                        <i class="ti ti-photo side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.complaints')</span>
+                    </a>
+                </li>
+                <!-- End::complaints -->
 
 
 

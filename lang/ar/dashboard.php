@@ -436,6 +436,9 @@ return [
     'view'           => 'عرض التفاصيل',
     'size' => 'المقاس',
     'reset' => 'إعادة تعيين',
+    'complaints' => 'الشكاوي',
+    'complaint' => 'الشكوة',
+    'select option' => 'اختر خيارًا',
 
 
 

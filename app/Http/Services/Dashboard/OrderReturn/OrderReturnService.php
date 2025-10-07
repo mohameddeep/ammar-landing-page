@@ -25,7 +25,7 @@ class OrderReturnService
 
     public function show($id)
     {
-        $returnOrder = $this->Repository->getById($id);
+        $returnOrder = $this->Repository->getById($id,relations:['order.items.product.firstImage']);
         return view('dashboard.site.order-returns.show', compact('returnOrder'));
     }
 

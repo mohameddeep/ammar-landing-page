@@ -26,6 +26,7 @@ final class SliderResource extends JsonResource
             'id' => $this->id,
             'title' => $this->t('title'),
             'content' => $this->t('content'),
+            'product_id' => $this->product_id,
             'image' => fileFullPath($this->image),
         ];
     }

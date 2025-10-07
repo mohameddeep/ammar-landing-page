@@ -7,6 +7,7 @@ use App\Repository\CartItemRepositoryInterface;
 use App\Repository\CartRepositoryInterface;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\CommissionRepositoryInterface;
+use App\Repository\ComplaintRepositoryInterface;
 use App\Repository\ContactUsRepositoryInterface;
 use App\Repository\CouponRepositoryInterface;
 use App\Repository\Eloquent\CartItemRepository;
@@ -34,6 +35,7 @@ use App\Repository\Eloquent\SubscriptionRepository;
 use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\Eloquent\AminProfileRepository;
+use App\Repository\Eloquent\ComplaintRepository;
 use App\Repository\Eloquent\TransactionRepository;
 use App\Repository\FavouriteRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
@@ -90,6 +92,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
         $this->app->singleton(OrderReturnRepositoryInterface::class, OrderReturnRepository::class);
         $this->app->singleton(TransactionRepositoryInterface::class, TransactionRepository::class);
+        $this->app->singleton(ComplaintRepositoryInterface::class, ComplaintRepository::class);
     }
 
     /**

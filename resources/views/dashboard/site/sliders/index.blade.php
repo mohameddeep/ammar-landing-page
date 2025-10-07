@@ -29,6 +29,7 @@
                             <th>@lang('dashboard.image')</th>
                             <th>@lang('dashboard.title')</th>
                             <th>@lang('dashboard.content')</th>
+                            <th>@lang('dashboard.product_name')</th>
                             <th>@lang('dashboard.Activate')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
@@ -44,6 +45,7 @@
 
                                 <td>{{ $slider->t('title') }}</td>
                                 <td>{{ $slider->t('content') }}</td>
+                                <td>{{ $slider?->product?->name }}</td>
                                 <td>
                                     <div class="custom-toggle-switch d-flex align-items-center">
                                         <input id="toggle_{{ $slider->id }}" name="toggleswitch_{{ $slider->id }}"

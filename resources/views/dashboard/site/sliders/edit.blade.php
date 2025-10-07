@@ -31,10 +31,21 @@
 
                 <x-input.input-field name="content_en" label="{{ __('dashboard.content_en') }}" placeholder="{{ __('dashboard.content_en') }}"
                     class="custom-class" id="nameInput"  :value="$slider->content_en"/>
-            <div class="row mt-3">
+
+                     
+                                <x-input.input-field 
+                                type="select" 
+                                name="product_id" 
+                                label="{{ __('dashboard.products') }}" 
+                                :options="$products" 
+                                showName="name" 
+                                id="product_id" 
+                                :value="$slider->product_id ?? null"
+                            />
+           
                     <x-input.input-field name="image" type="file" label="{{ __('dashboard.Image') }}"
                     id="fileInput" />
-                </div>
+                
             </x-form.form-component>
 
         </x-cards.page-card>

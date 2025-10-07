@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\Auth\Otp\OtpController;
 use App\Http\Controllers\Api\V1\Auth\Password\PasswordController;
 use App\Http\Controllers\Api\V1\Cart\CartController;
 use App\Http\Controllers\Api\V1\Category\CategoryController;
+use App\Http\Controllers\Api\V1\Complaint\ComplaintController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Coupon\CouponController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
@@ -127,6 +128,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::get('/home', [HomeController::class, 'index']);
 Route::post('/contact-us', ContactUsController::class);
+Route::post('/complaint', ComplaintController::class);
 // categories
 Route::group([
     'prefix' => 'categories',

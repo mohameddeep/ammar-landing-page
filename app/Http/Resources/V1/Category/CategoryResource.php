@@ -33,7 +33,7 @@ final class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->t('name'),
             'slug' => $this->slug,
-            'image' => fileFullPath($this->image),
+            'image' => fileFullPath((string) $this->image),
             'products' => $this->whenLoaded('products', fn() =>
                 ProductResource::collection($productsQuery->get())
             ),

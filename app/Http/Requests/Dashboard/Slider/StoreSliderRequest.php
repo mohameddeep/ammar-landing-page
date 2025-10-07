@@ -27,6 +27,8 @@ final class StoreSliderRequest extends FormRequest
 
             'title_ar' => 'nullable|string|max:255',
             'title_en' => 'nullable|string|max:255',
+            'product_id' => ['nullable', 'exists:products,id'],
+
             'content_ar' => 'nullable|string',
             'content_en' => 'nullable|string',
             'image' => 'required|mimes:jpeg,png,jpg',

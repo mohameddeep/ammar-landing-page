@@ -30,12 +30,22 @@
                 <x-input.input-field name="content_en" label="{{ __('dashboard.content_en') }}"
                     placeholder="{{ __('dashboard.content_en') }}" id="content_en" required="true" />
 
+                                <x-input.input-field 
+                                type="select" 
+                                name="product_id" 
+                                label="{{ __('dashboard.products') }}" 
+                                :options="$products" 
+                                showName="name" 
+                                id="product_id" 
+                                :value="$slider->product_id ?? null"
+                            />
 
 
-                <div class="row mt-3">
+
+               
                     <x-input.input-field class="" type="checkbox" name="is_active" id="is_active"
                         label="{{ __('dashboard.Activate') }}" />
-                </div>
+            
 
                 <x-input.input-field name="image" type="file" label="{{ __('dashboard.Image') }}" />
 

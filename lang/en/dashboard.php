@@ -428,6 +428,10 @@ return [
     'view'           => 'View Details',
     'size' => 'Size',
     'reset' => 'Reset',
+        'complaints' => 'Complaints',
+        'complaint' => 'Complaint',
+        'select option' => 'Select option',
+
 
 
 ];
