@@ -431,6 +431,7 @@ return [
         'complaints' => 'Complaints',
         'complaint' => 'Complaint',
         'select option' => 'Select option',
+'product_name' => 'Product Name',
 
 
 

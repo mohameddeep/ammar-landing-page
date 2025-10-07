@@ -439,6 +439,7 @@ return [
     'complaints' => 'الشكاوي',
     'complaint' => 'الشكوة',
     'select option' => 'اختر خيارًا',
+'product_name' => 'اسم المنتج',
 
 
 
