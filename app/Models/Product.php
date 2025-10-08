@@ -94,6 +94,28 @@ class Product extends Model
 }
 
 
+public function canAddToCart(): bool
+{
+    $user = auth('api')->user();
+    if (!$user) {
+        return false;
+    }
+
+    $cart = $user->cart()->with('items.product.user')->first();
+    if (!$cart || $cart->items->isEmpty()) {
+        // السلة فاضية → ممكن يضيف المنتج
+        return true;
+    }
+
+    // هات أول تاجر في السلة
+    $cartProviderId = $cart->items->first()->product->user_id;
+
+    // المنتج الحالي نفس التاجر؟ ✅
+    return $cartProviderId === $this->user_id;
+}
+
+
+
     public function inCart() : Attribute
     {
         return Attribute::get(function () {

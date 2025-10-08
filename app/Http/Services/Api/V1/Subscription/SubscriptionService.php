@@ -31,10 +31,13 @@ final class SubscriptionService
             }
             $package = $this->packageRepository->getById($request->package_id);
 
+            $discountAmount = ($package->price * $coupon->discount) / 100;
+            $priceAfterDiscount = $package->price - $discountAmount;
+
             return responseSuccess(200, message: 'تم الخصم بنجاح', data: [
                 'discount' => (int) $coupon->discount,
                 'price' => $package->price,
-                'priceAfterDiscount' => (int) $package->price - $coupon->discount,
+                'priceAfterDiscount' => (int) $priceAfterDiscount,
 
             ]);
         } catch (Exception $e) {

@@ -436,6 +436,8 @@ return [
 'value_type' => 'Value Type',
 'percentage' => 'Percentage',
 'fixed' => 'Fixed',
+'total_discount' => 'Total Discount',
+
 
 
 ];

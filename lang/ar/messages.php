@@ -37,6 +37,9 @@ return [
     'Successfully authenticated' => 'تم تسجيل الدخول بنجاح',
         'Validation error' => 'خطأ في التحقق من البيانات',
 
+'variant_not_found' => 'المنتج المطلوب غير موجود باللون أو المقاس المحدد.',
+'quantity_not_available' => 'الكمية المطلوبة غير متوفرة.',
+    'added_successfully' => 'تمت الإضافة بنجاح',
 
 
 ];

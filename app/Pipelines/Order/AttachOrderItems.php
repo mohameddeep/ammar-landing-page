@@ -16,7 +16,7 @@ class AttachOrderItems
                 'size' => $item->size,
                 'color' => $item->color,
                 'unit_price' => $item->unit_price,
-                'total_price' => $item->total_price,
+                'total_price' => $item->quantity * $item->unit_price,
             ]);
         }
 

@@ -66,8 +66,11 @@ class ProductService
     public function show($id)
     {
         $product = $this->productRepository->getById($id, relations: ['user', 'category', 'reviews.user', 'variants', 'images', 'views']);
+        if( auth('api')->user()){
         $viewer = auth('api')->user();
         dispatch(new CheckForNewViewerForProduct($product, $viewer));
+        }
+
         return responseSuccess(data: new ProductDetailResource($product));
     }
 

@@ -443,6 +443,7 @@ return [
 'value_type' => 'نوع القيمة',
 'percentage' => 'نسبة مئوية',
 'fixed' => 'قيمة ثابتة',
+'total_discount' => 'إجمالي الخصم',
 
 
 

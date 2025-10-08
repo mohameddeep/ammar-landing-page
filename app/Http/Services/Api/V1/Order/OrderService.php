@@ -55,7 +55,6 @@ class OrderService
                         UpdateProductsQuantity::class,
                         ClearCart::class,
                         AddTransactionToProviderWallet::class,
-                        // TODO payment integration will be implemented
                     ])
                     ->then(function ($request) {
                         return responseSuccess(message: __('messages.created successfully'));

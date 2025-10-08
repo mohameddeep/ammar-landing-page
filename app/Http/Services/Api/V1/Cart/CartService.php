@@ -16,40 +16,86 @@ use function App\Http\Helpers\responseSuccess;
 
 class CartService
 {
-    public function __construct(private CartRepositoryInterface $repository,
-                                private CartItemRepositoryInterface $cartItemRepository,
-                                private ProductRepositoryInterface $productRepository,
-                                private couponRepositoryInterface $couponRepository,){}
+    public function __construct(
+        private CartRepositoryInterface $repository,
+        private CartItemRepositoryInterface $cartItemRepository,
+        private ProductRepositoryInterface $productRepository,
+        private couponRepositoryInterface $couponRepository,
+    ) {}
 
     public function index()
     {
         $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user', 'items.product.firstImage']);
-         if (! $cart) {
-        return responseSuccess( message: __('messages.cart_is_empty'));
-
-    }
+        if (! $cart) {
+            return responseSuccess(message: __('messages.cart_is_empty'));
+        }
         return responseSuccess(data: new CartResource($cart));
     }
 
-    public function store($request)
-    {
-        DB::beginTransaction();
-        try {
-            $data = $request->validated();
-            $user = auth('api')->user();
-            if (! $user->cart()->exists()) {
-                $user->cart()->create();
+   public function store($request)
+{
+    DB::beginTransaction();
+    try {
+        $data = $request->validated();
+        $user = auth('api')->user();
+
+        if (! $user->cart()->exists()) {
+            $user->cart()->create();
+        }
+
+        $cart = $user->cart;
+        $product = $this->productRepository->getById($data['product_id']);
+
+        $variant = $product->variants()
+            ->where('color', $data['color'] ?? null)
+            ->where('size', $data['size'] ?? null)
+            ->first();
+
+        if (! $variant) {
+            return responseFail(404, message: __('messages.variant_not_found'));
+        }
+
+        // تحقق من توفر الكمية المطلوبة
+        if ($variant->quantity < $data['quantity']) {
+            return responseFail(400, message: __('messages.quantity_not_available'), data: [
+                'available_quantity' => $variant->quantity
+            ]);
+        }
+
+        // تحقق من وجود منتجات من تاجر مختلف
+        $checkForAnotherProvider = $cart->products()->where('user_id', '!=', $product->user_id)->exists();
+        if ($checkForAnotherProvider) {
+            if ($request->get('can_change')) {
+                $cart->items()->delete();
+            } else {
+                return responseFail(Http::FORBIDDEN, data: ['need_agree' => true]);
             }
-            $cart = $user->cart;
-            $product = $this->productRepository->getById($data['product_id']);
-            $checkForAnotherProvider = $cart->products()->where('user_id', '!=', $product->user_id)->exists();
-            if ($checkForAnotherProvider) {
-                if ($request->get('can_change')){
-                    $cart->items()->delete();
-                }else{
-                    return responseFail(Http::FORBIDDEN, data: ['need_agree' => true]);
-                }
+        }
+
+        // تحقق إن المنتج بنفس الـvariant موجود بالفعل في الكارت
+        $existingItem = $cart->items()
+            ->where('product_id', $data['product_id'])
+            ->where('color', $data['color'])
+            ->where('size', $data['size'])
+            ->first();
+
+        if ($existingItem) {
+            // لو موجود، نزود الكمية فقط
+            $newQuantity = $existingItem->quantity + $data['quantity'];
+
+            // تحقق من الكمية المتوفرة
+            if ($variant->quantity < $newQuantity) {
+                return responseFail(400, message: __('messages.quantity_not_available'), data: [
+                    'available_quantity' => $variant->quantity
+                ]);
             }
+
+            $existingItem->update([
+                'quantity' => $newQuantity,
+                'total_price' => $product->price * $newQuantity,
+            ]);
+        } else {
+            // لو مش موجود، أضفه جديد
             $cart->items()->create([
                 'product_id' => $data['product_id'],
                 'quantity' => $data['quantity'],
@@ -58,14 +104,18 @@ class CartService
                 'unit_price' => $product->price,
                 'total_price' => $product->price * $data['quantity'],
             ]);
-            $this->updatePrice($cart);
-            DB::commit();
-            return responseSuccess(message: __('messages.added_successfully'));
-        }catch(\Exception $e){
-            DB::rollBack();
-            return responseFail(__('dashboard.Something went wrong!'));
         }
+
+        $this->updatePrice($cart);
+        DB::commit();
+
+        return responseSuccess(message: __('messages.added_successfully'));
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return responseFail(__('dashboard.Something went wrong!'));
     }
+}
+
 
     public function update($request, $id)
     {
@@ -76,7 +126,7 @@ class CartService
             $cart = $this->repository->first('user_id', auth('api')->id(), relations: ['items.product.user', 'items.product.firstImage']);
             DB::commit();
             return responseSuccess(data: new CartResource($cart));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             return responseFail(message: __('messages.something_went_wrong'));
         }
@@ -95,38 +145,55 @@ class CartService
 
 
     public function empty()
-{
-    $user = auth('api')->user();
+    {
+        $user = auth('api')->user();
 
-    if (! $user->cart) {
-        return responseSuccess(message: __('messages.cart_is_empty'), data: null);
+        if (! $user->cart) {
+            return responseSuccess(message: __('messages.cart_is_empty'), data: null);
+        }
+
+        $user->cart->items()->delete();
+
+        return responseSuccess(message: __('messages.cart_emptied_successfully'));
     }
 
-    $user->cart->items()->delete();
+    public function applyCoupon($request)
+    {
+        $data = $request->validated();
+        $cart = auth('api')->user()->cart;
 
-    return responseSuccess(message: __('messages.cart_emptied_successfully'));
-}
+        if (! $cart) {
+            return responseFail(message: __('messages.cart_is_empty'));
+        }
 
-public function applyCoupon($request)
-{
-    $data = $request->validated();
-    $cart = auth('api')->user()->cart;
-    if (! $cart) {
-        return responseFail(message: __('messages.cart_is_empty'));
+        $coupon = $this->couponRepository->findByCode($data['coupon_code']);
+
+        // تحقق من صلاحية الكوبون
+        if ($coupon->provider_id != $cart->provider->id || ! $coupon->isValid()) {
+            return responseFail(message: __('messages.invalid_coupon'));
+        }
+
+        // احسب الخصم كنسبة مئوية
+        $discountValue = ($cart->total_price * $coupon->discount) / 100;
+
+        // احسب السعر بعد الخصم
+        $finalPrice = $cart->total_price - $discountValue;
+
+        // تحديث السلة
+        $cart->update([
+            'coupon_code' => $data['coupon_code'],
+            'final_price' => $finalPrice,
+        ]);
+
+        $cart->load('items.product.user', 'items.product.firstImage');
+
+        return responseSuccess(data: new CartResource($cart));
     }
-    $coupon = $this->couponRepository->findByCode($data['coupon_code']);
-    if ($coupon->provider_id == $cart->provider->id && ! $coupon->isValid()) {
-        return responseFail(message: __('messages.invalid_coupon'));
-    }
-    $cart->update(['coupon_code' => $data['coupon_code'], 'final_price' => $cart->total_price - $coupon->discount]);
-    $cart->load('items.product.user', 'items.product.firstImage');
-    return responseSuccess(data: new CartResource($cart));
-}
 
-private function updatePrice($cart)
-{
-    $cart->total_price = $cart->items->sum('total_price');
-    $cart->final_price = $cart->total_price;
-    $cart->save();
-}
+    private function updatePrice($cart)
+    {
+        $cart->total_price = $cart->items->sum('total_price');
+        $cart->final_price = $cart->total_price;
+        $cart->save();
+    }
 }

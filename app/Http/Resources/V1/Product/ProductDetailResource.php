@@ -18,6 +18,10 @@ class ProductDetailResource extends JsonResource
     {
         $variantRepository = app(ProductVariantRepositoryInterface::class);
         $variantData = $variantRepository->getProductVariants($this->id);
+
+        // تحقق إذا المستخدم عامل تسجيل دخول
+        $isLoggedIn = auth('api')->check();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -26,7 +30,6 @@ class ProductDetailResource extends JsonResource
             'category' => $this->category?->t('name'),
             'price' => $this->price,
             'status' => $this->status,
-            'is_fav' => $this->is_fav ?? false,
             'rate' => $this->rate(),
             'is_active' => $this->is_active,
             'is_stopped' => $this->is_stopped,
@@ -34,9 +37,13 @@ class ProductDetailResource extends JsonResource
             'reviews' => ProductReviewResource::collection($this->whenLoaded('reviews')),
             'available_colors' => $variantData['available_colors'],
             'available_sizes' => $variantData['available_sizes'],
-            'in_cart' => $this->in_cart,
-            'cart_item_id' => $this->cart_item_id,
-            'cart_quantity' => $this->cart_quantity,
+            'can_add_to_cart' => $this->canAddToCart(),
+
+            // فقط لو المستخدم عامل تسجيل دخول
+            'is_fav' => $isLoggedIn ? ($this->is_fav ?? false) : false,
+            'in_cart' => $isLoggedIn ? ($this->in_cart ?? false) : false,
+            'cart_item_id' => $isLoggedIn ? ($this->cart_item_id ?? null) : null,
+            'cart_quantity' => $isLoggedIn ? ($this->cart_quantity ?? 0) : 0,
         ];
     }
 }

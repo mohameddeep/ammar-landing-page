@@ -4,6 +4,8 @@ namespace App\Http\Services\Dashboard\Order;
 use App\Http\Helpers\Http;
 use Exception;
 use App\Http\Services\Mutual\FileManagerService;
+use App\Models\Coupon;
+use App\Repository\CouponRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +14,10 @@ use function App\Http\Helpers\responseSuccess;
 
 class OrderService
 {
-    public function __construct(private readonly OrderRepositoryInterface $repository)
+    public function __construct(
+        private readonly OrderRepositoryInterface $repository,
+        private readonly CouponRepositoryInterface $couponRepository,
+    )
     {}
 
 
@@ -29,8 +34,9 @@ class OrderService
     public function show($id)
     {
         $order = $this->repository->getById($id, relations: ['items.product.firstImage','user','provider','address']);
+        $coupon = Coupon::where('code', $order->coupon_code)->value('discount') ?? 0;
 
-        return view('dashboard.site.orders.show', compact('order'));
+        return view('dashboard.site.orders.show', compact('order','coupon'));
     }
 
     public function destroy($id)

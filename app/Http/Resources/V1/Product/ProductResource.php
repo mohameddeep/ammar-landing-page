@@ -30,6 +30,8 @@ class ProductResource extends JsonResource
             'rate' => $this->rate(),
             'is_active' => $this->is_active,
             'is_stopped' => $this->is_stopped,
+            'can_add_to_cart' => $this->canAddToCart(),
+
             'images' => ProductImageResource::collection($this->whenLoaded('images')),
         ];
     }

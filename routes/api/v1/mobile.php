@@ -107,7 +107,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
     Route::get('products/get-for-user', [ProductController::class, 'getForUser']);
     Route::post('products/variants', [ProductVariantController::class, 'index']);
-    Route::apiResource('products', ProductController::class);
+    Route::apiResource('products', ProductController::class)->except('show');
     Route::post('products/{id}/update-images', [ProductController::class, 'updateImages']);
     Route::apiResource('cart', CartController::class);
     Route::post('cart/apply-coupon', [CartController::class, 'applyCoupon']);
@@ -137,6 +137,7 @@ Route::group([
     Route::get('/', 'index');
     Route::get('/{id}', 'show');
 });
+Route::get('products/{id}', [ProductController::class, 'show']);
 
 // packages
 Route::group([

@@ -35,7 +35,9 @@ return [
     'Something went wrong' => 'Something went wrong',
         'Successfully authenticated' => 'Successfully authenticated',
     'Validation error' => 'Validation error',
-
+'variant_not_found' => 'Product variant not found.',
+'quantity_not_available' => 'Requested quantity is not available.',
+'added_successfully' => 'Added successfully',
 
 
 ];
