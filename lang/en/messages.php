@@ -30,5 +30,12 @@ return [
     'subscribed_successfully' => 'Subscribed successfully',
     'product_added_to_favourite'   => 'Product has been added to favourites successfully.',
     'product_already_in_favourite' => 'This product is already in your favourites.',
+        'incorrect_phone' => 'The phone number is incorrect',
+        'created successfully' => 'Created successfully',
+    'Something went wrong' => 'Something went wrong',
+        'Successfully authenticated' => 'Successfully authenticated',
+    'Validation error' => 'Validation error',
+
+
 
 ];

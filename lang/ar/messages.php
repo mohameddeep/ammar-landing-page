@@ -31,5 +31,12 @@ return [
     'subscribed_successfully' => 'تم الاشتراك بنجاح',
      'product_added_to_favourite'   => 'تمت إضافة المنتج إلى المفضلة بنجاح.',
     'product_already_in_favourite' => 'هذا المنتج موجود بالفعل في المفضلة.',
+    'incorrect_phone' => 'رقم الهاتف غير صحيح',
+    'created successfully' => 'تم الإنشاء بنجاح',
+    'Something went wrong' => 'حدث خطأ ما',
+    'Successfully authenticated' => 'تم تسجيل الدخول بنجاح',
+        'Validation error' => 'خطأ في التحقق من البيانات',
+
+
 
 ];

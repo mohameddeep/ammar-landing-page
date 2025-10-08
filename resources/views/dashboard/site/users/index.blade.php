@@ -12,19 +12,19 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                      <div class="py-2 d-flex justify-content-end align-items-center">
-                        <form method="GET" action="{{ route('users.index') }}" class="d-flex align-items-center m-1"
-                            role="search">
-                            <input class="form-control" type="search" name="search" value="{{ request('search') }}"
-                                placeholder="@lang('dashboard.search')" aria-label="Search">
-                            <button class="btn btn-light ms-2" type="submit">@lang('dashboard.search')</button>
-                        </form>
+                        <div class="py-2 d-flex justify-content-end align-items-center">
+                            <form method="GET" action="{{ route('users.index') }}" class="d-flex align-items-center m-1"
+                                role="search">
+                                <input class="form-control" type="search" name="search" value="{{ request('search') }}"
+                                    placeholder="@lang('dashboard.search')" aria-label="Search">
+                                <button class="btn btn-light ms-2" type="submit">@lang('dashboard.search')</button>
+                            </form>
 
-                        <a href="{{ route('users.index') }}" class="btn btn-secondary ms-2" title="@lang('dashboard.reset')">
-                            <i class="bi bi-arrow-repeat"></i>
-                        </a>
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary ms-2" title="@lang('dashboard.reset')">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </a>
 
-                    </div>
+                        </div>
                         <x-buttons.create-button :route="route('users.create')" />
                     </div>
                 </div>
@@ -49,11 +49,11 @@
                                 <td>{{ $user->wallet_balance }}</td>
                                 <td>
                                     <div class="hstack gap-2 fs-15">
-                                        <x-buttons.show-button :route="route('users.products', $user->id)" :tooltip-title="__('dashboard.my-products')"/>
-                                        <x-buttons.show-button :route="route('users.transactions', $user->id)" :tooltip-title="__('dashboard.transactions')"/>
+                                        <x-buttons.show-button :route="route('users.products', $user->id)" :tooltip-title="__('dashboard.my-products')" />
+                                        <x-buttons.show-button :route="route('users.transactions', $user->id)" :tooltip-title="__('dashboard.transactions')" />
                                         <x-buttons.edit-button :route="route('users.edit', $user->id)" />
                                         <x-buttons.delete-button :route="route('users.destroy', $user->id)" :itemId="$user->id" />
-                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

@@ -33,7 +33,14 @@ final class UserProfileRequest extends FormRequest
             'phone' => [
                 'nullable',
                 'string',
+                'regex:/^(\+9665|9665|05)[0-9]{8}$/',
                 Rule::unique('users', 'phone')->ignore($userId),
+            ],
+            'email' => [
+                'nullable',
+                'email:rfc,dns',
+                'string',
+                Rule::unique('users', 'email')->ignore($userId),
             ],
         ];
     }

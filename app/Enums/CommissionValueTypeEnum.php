@@ -14,8 +14,8 @@ enum CommissionValueTypeEnum: string
     public function t(): string
     {
         return match ($this) {
-            self::Percentage => __('Percentage'),
-            self::Fixed => __('Fixed'),
+            self::Percentage => __('dashboard.percentage'),
+            self::Fixed => __('dashboard.fixed'),
         };
     }
 

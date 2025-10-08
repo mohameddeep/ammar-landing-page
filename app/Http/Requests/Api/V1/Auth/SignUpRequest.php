@@ -30,8 +30,13 @@ class SignUpRequest extends FormRequest
                 return $this->type == UserTypeEnum::Provider->value;
             })],
             'email' => ['nullable', 'email:rfc,dns', Rule::unique('users', 'email')],
-            'phone' => ['required',    'digits_between:9,12', new Phone, Rule::unique('users', 'phone')->ignore(auth('api')->id())],
-//            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
+            'phone' => [
+                'required',
+                'regex:/^(\+9665|9665|05)[0-9]{8}$/',
+                new Phone,
+                Rule::unique('users', 'phone')->ignore(auth('api')->id())
+            ],
+            //            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
             'fcm_token' => ['nullable', 'string'],
             'type' => ['required', Rule::in(UserTypeEnum::values())],
             'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],

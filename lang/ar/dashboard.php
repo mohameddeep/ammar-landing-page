@@ -388,7 +388,7 @@ return [
 
     'description_en' => 'الوصف (بالإنجليزية)',
     'description_ar' => 'الوصف (بالعربية)',
-    'Structure' => 'محتوي الموقع',
+    'Structure' => 'محتوي التطبيق',
     'terms_and_conditions' => 'الشروط والأحكام',
 
     'total_orders' => 'إجمالي الطلبات',
@@ -406,7 +406,7 @@ return [
 
     'name_en' => 'الاسم بالإنجليزية',
     'name_ar' => 'الاسم بالعربية',
-    'website_info' => 'معلومات الموقع',
+    'website_info' => 'معلومات التطبيق',
 
     'latest_orders' => 'أحدث الطلبات',
     'actions' => 'الإجراءات',
@@ -440,6 +440,11 @@ return [
     'complaint' => 'الشكوة',
     'select option' => 'اختر خيارًا',
 'product_name' => 'اسم المنتج',
+'value_type' => 'نوع القيمة',
+'percentage' => 'نسبة مئوية',
+'fixed' => 'قيمة ثابتة',
+
+
 
 
 

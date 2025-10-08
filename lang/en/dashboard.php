@@ -433,6 +433,9 @@ return [
         'select option' => 'Select option',
 'product_name' => 'Product Name',
 
+'value_type' => 'Value Type',
+'percentage' => 'Percentage',
+'fixed' => 'Fixed',
 
 
 ];

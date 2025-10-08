@@ -79,7 +79,9 @@ final class SliderService
         try {
             $slider = $this->repository->getById($id);
             $data = $request->except('id', 'image', 'is_active', '_method', '_token');
-
+            if ($request->hasFile('image')) {
+                $data['image'] = $this->image($request->file('image'), 'sliders');
+            }
             update_model($this->repository, $id, $data);
 
             DB::commit();

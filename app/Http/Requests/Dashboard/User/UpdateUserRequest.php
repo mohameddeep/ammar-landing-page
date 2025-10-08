@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class UserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +21,16 @@ class UserRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            'name' => ['required', 'string'],
-            'phone' => ['required', 'string', 'unique:users,phone',    'regex:/^(\+9665|9665|05)[0-9]{8}$/',
-],
-            'type' => ['nullable','in:provider'],
 
-        ];
-    }
+
+   public function rules(): array
+{
+    
+    return [
+       'name' => ['nullable', 'string'],
+        'phone' => ['nullable'],
+        'type' => ['nullable','in:provider'],
+    ];
+}
+
 }

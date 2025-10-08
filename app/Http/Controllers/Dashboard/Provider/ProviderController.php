@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Provider\ProviderRequest;
+use App\Http\Requests\Dashboard\Provider\UpdateProviderRequest;
 use App\Http\Requests\Dashboard\Transaction\TransactionRequest;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\Provider\ProviderService;
@@ -41,7 +42,7 @@ class ProviderController extends Controller
         return $this->provider->edit($id);
     }
 
-    public function update(ProviderRequest $request, string $id)
+    public function update(UpdateProviderRequest $request, string $id)
     {
 
         return $this->provider->update($request, $id);

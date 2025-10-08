@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Transaction\TransactionRequest;
+use App\Http\Requests\Dashboard\User\UpdateUserRequest;
 use App\Http\Requests\Dashboard\User\UserRequest;
 use App\Http\Services\Dashboard\User\UserService;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class UserController extends Controller
         return $this->user->edit($id);
     }
 
-    public function update(UserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
         return $this->user->update($request, $id);
     }

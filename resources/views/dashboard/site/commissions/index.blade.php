@@ -58,7 +58,7 @@
                                 <button
                                     class="btn {{ $commission->is_active ? 'btn-primary-light' : 'btn-secondary' }} btn-wave toggle-commission-btn"
                                     data-id="{{ $commission->id }}" data-active="{{ $commission->is_active }}">
-                                    {{ $commission->is_active ? __('Deactivate') : __('Activate') }}
+                                    {{ $commission->is_active ? __('dashboard.Deactivate') : __('dashboard.Activate') }}
                                 </button>
                             </div>
                         </div>

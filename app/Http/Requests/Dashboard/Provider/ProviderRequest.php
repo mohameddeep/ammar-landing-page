@@ -25,7 +25,8 @@ class ProviderRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'brand_name' => ['required', 'string'],
-            'phone' => ['required', 'string', 'unique:users,phone'],
+            'phone' => ['required', 'string', 'unique:users,phone',    'regex:/^(\+9665|9665|05)[0-9]{8}$/',
+],
             'type' => ['nullable','in:provider'],
         ];
     }

@@ -80,12 +80,13 @@
                                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                      <p class="fs-15 fw-semibold mb-1">@lang('dashboard.is_stopped') :</p>
                             <p class="text-muted mb-0">
-<button 
-    class="btn {{ $product->is_stopped ? 'btn-danger' : 'btn-success' }}" 
-    {{ $product->is_stopped ? 'disabled' : '' }}
->
-    {{ $product->is_stopped ? __('dashboard.stopped') : __('dashboard.running') }}
-</button>
+                                <button 
+                                    class="btn {{ $product->is_stopped ? 'btn-danger' : 'btn-success' }}" 
+                                    {{ $product->is_stopped ? 'disabled' : '' }} style="pointer-events: none; cursor: not-allowed;"
+
+                                >
+                                    {{ $product->is_stopped ? __('dashboard.stopped') : __('dashboard.running') }}
+                                </button>
                             </p>
                                    
                                 </div>
@@ -93,11 +94,12 @@
                                      <p class="fs-15 fw-semibold mb-1">@lang('dashboard.activation') :</p>
                             <p class="text-muted mb-0">
                                 <button 
-    class="btn {{ $product->is_active ? 'btn-success' : 'btn-danger' }}" 
-    {{ $product->is_active ? '' : 'disabled' }}
->
-    {{ $product->is_active ? __('dashboard.active') : __('dashboard.inactive') }}
-</button>
+                                    class="btn {{ $product->is_active ? 'btn-success' : 'btn-danger' }}" 
+                                    {{ $product->is_active ? '' : 'disabled' }} style="pointer-events: none; cursor: not-allowed;"
+
+                                >
+                                    {{ $product->is_active ? __('dashboard.active') : __('dashboard.inactive') }}
+                                </button>
                             </p>
                                 </div>
                             </div>

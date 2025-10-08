@@ -134,7 +134,7 @@ abstract class BaseService
         }
 
         DB::commit();
-        return redirect()->back()->with( __('messages.created_successfully'));
+        return redirect()->back()->with(['success' => __('messages.created_successfully')]);
     } catch (\Exception $e) {
         DB::rollBack();
         return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage()]);
