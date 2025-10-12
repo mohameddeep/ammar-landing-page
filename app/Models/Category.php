@@ -23,10 +23,13 @@ class Category extends Model
         return $this->hasMany(self::class, 'parent_id');
     }
 
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class, 'category_id', 'id');
-    }
+     public function products(): HasMany
+{
+    return $this->hasMany(Product::class, 'category_id', 'id')
+                ->whereHas('variants', function ($query) {
+                    $query->where('quantity', '>', 0);
+                });
+}
 
     public function productsCount(): Attribute
     {

@@ -46,6 +46,7 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->where('is_active', true)
             ->where('is_stopped', false)
             ->where('status', 'approved')
+            ->whereHas('variants', fn($q) => $q->where('quantity', '>', 0)) // ✅ فقط المنتجات الموجودة في المخزون
             ->search()
             ->withExists(['favourites as is_fav' =>  function ($q) {
                 $q->where('user_id', auth('api')->id());
@@ -63,6 +64,7 @@ final class ProductRepository extends Repository implements ProductRepositoryInt
             ->where('is_active', true)
             ->where('is_stopped', false)
             ->where('status', 'approved')
+            ->whereHas('variants', fn($q) => $q->where('quantity', '>', 0)) // ✅ فقط المنتجات الموجودة في المخزون
             ->withExists(['favourites as is_fav' =>  function ($q) {
                 $q->where('user_id', auth('api')->id());
             }])
