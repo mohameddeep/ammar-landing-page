@@ -28,7 +28,7 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
 
         return $user->otp()?->create([
             'otp' => 1111,
-//            'otp' => rand(1234, 9999),
+           // 'otp' => rand(1234, 9999),
             'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
             'email' => $user?->email ?? null,
@@ -44,7 +44,8 @@ class OtpRepository extends Repository implements OtpRepositoryInterface
 
         return $user->otp()?->create([
             'email' => $email,
-            'otp' => rand(1234, 9999),
+             'otp' => 1111,
+            // 'otp' => rand(1234, 9999),
             'expire_at' => Carbon::now()->addMinutes(5),
             'token' => Str::random(30),
         ]);
