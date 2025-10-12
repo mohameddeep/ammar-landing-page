@@ -29,7 +29,7 @@ final class CategoryDetailResource extends JsonResource
     $products = $productRepository->getCategoryProducts(
         $this->id,
         sort: $sort,
-        relations: ['user', 'category']
+        relations: ['user', 'category', 'images']
     );
 
     return [
