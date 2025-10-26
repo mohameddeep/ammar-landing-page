@@ -25,7 +25,6 @@ class OrderResource extends JsonResource
             'order_date' => $this->created_at->format('d M Y'),
             'arrival_date' => $this->created_at->format('d M Y'),
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
-            'auth_user_type' => auth('api')?->user()?->type ?? null,
         ];
     }
 }
