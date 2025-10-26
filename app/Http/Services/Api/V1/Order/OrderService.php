@@ -58,7 +58,7 @@ class OrderService
                         // TODO payment integration will be implemented
                     ])
                     ->then(function ($request) {
-                        return responseSuccess(message: __('messages.created successfully'));
+                        return responseSuccess(message: __('messages.created successfully'),data: new OrderResource($request->order));
                     });
             });
         }catch (EmptyCartException $e){
