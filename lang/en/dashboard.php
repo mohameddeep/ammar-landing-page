@@ -437,7 +437,22 @@ return [
 'percentage' => 'Percentage',
 'fixed' => 'Fixed',
 'total_discount' => 'Total Discount',
+'showrooms' => 'Showrooms',
+'search' => 'Search',
+'reset' => 'Reset',
+    'email' => 'Email',
+    'Phone' => 'Phone',
+    'commercial_register' => 'Commercial Register',
 
-
-
+'order_tracking' => 'Order Tracking',
+    'update_status' => 'Update Status',
+    'status' => 'Status',
+    'update_order_status' => 'Update Order Status',
+    'select_status' => 'Select Status',
+    'pending' => 'Pending',
+    'processing' => 'Processing',
+    'completed' => 'Completed',
+    'cancelled' => 'Cancelled',
+    'close' => 'Close',
+    'save_changes' => 'Save Changes',
 ];

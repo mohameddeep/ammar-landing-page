@@ -86,6 +86,7 @@ Route::group([
             ->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/{id}/show', 'show')->name('show');
+                Route::put('/{id}/update-status', 'updateStatus')->name('updateStatus');
                 Route::delete('/{id}', action: 'destroy')->name('destroy');
             });
 

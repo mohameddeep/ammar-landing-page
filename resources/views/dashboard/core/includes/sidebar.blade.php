@@ -57,7 +57,7 @@
 
                 <li class="slide">
                     <a href="{{ route('admin-profile.edit', auth()->user()->id) }}"
-                       class="side-menu__item {{ request()->routeIs('admin-profile.edit') ? 'active' : '' }}">
+                        class="side-menu__item {{ request()->routeIs('admin-profile.edit') ? 'active' : '' }}">
                         <i class="ti ti-user-circle side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.Profile')</span>
                     </a>
@@ -103,17 +103,12 @@
                         </li>
 
 
-                            <li class="slide">
-                                <a href="{{ route('providers.index') }}"
-                                    class="side-menu__item {{ in_array(request()->route()->getName(), [
-                                        'providers.index',
-
-                                    ])
-                                        ? 'active'
-                                        : '' }}">
-                                    @lang('dashboard.providers')
-                                </a>
-                            </li>
+                        <li class="slide">
+                            <a href="{{ route('providers.index') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['providers.index']) ? 'active' : '' }}">
+                                @lang('dashboard.providers')
+                            </a>
+                        </li>
                     </ul>
 
                 </li>
@@ -177,7 +172,7 @@
                 <!-- End::coupons -->
 
 
-                   {{-- start subscriptions --}}
+                {{-- start subscriptions --}}
                 <li class="slide">
                     <a href="{{ route('subscriptions.index') }}"
                         class="side-menu__item {{ in_array(request()->route()->getName(), ['subscriptions.index']) ? 'active' : '' }}">
@@ -187,7 +182,7 @@
                 </li>
                 {{-- end subscriptions --}}
 
-                   {{-- start orders --}}
+                {{-- start orders --}}
                 <li class="slide">
                     <a href="{{ route('orders.index') }}"
                         class="side-menu__item {{ in_array(request()->route()->getName(), ['orders.index']) ? 'active' : '' }}">
@@ -199,7 +194,7 @@
 
                 <li class="slide">
                     <a href="{{ route('order-returns.index', ['status' => 'pending']) }}"
-                       class="side-menu__item {{ in_array(request()->route()->getName(), ['order-returns.index']) ? 'active' : '' }}">
+                        class="side-menu__item {{ in_array(request()->route()->getName(), ['order-returns.index']) ? 'active' : '' }}">
                         <i class="ti ti-package side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.order_returns')</span>
                     </a>
@@ -245,7 +240,7 @@
                 </li>
                 <!-- End::coupons --> --}}
 
-{{--
+                {{--
                 <!-- Start::slide -->
                 <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
@@ -288,15 +283,8 @@
 
 
 
-  <li
-                    class="slide has-sub {{ in_array(request()->route()->getName(), [
-
-                        'about.index',
-                        'terms_and_conditions.index',
-
-                    ])
-                        ? 'open active'
-                        : '' }}">
+                <li
+                    class="slide has-sub {{ in_array(request()->route()->getName(), ['about.index', 'terms_and_conditions.index']) ? 'open active' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item ">
                         <i class="bx bx-sitemap side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.Structure')</span>

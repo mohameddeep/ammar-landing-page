@@ -446,7 +446,17 @@ return [
 'total_discount' => 'إجمالي الخصم',
 
 
-
+'order_tracking' => 'تتبع الطلب',
+    'update_status' => 'تحديث الحالة',
+    'status' => 'الحالة',
+    'update_order_status' => 'تحديث حالة الطلب',
+    'select_status' => 'اختر الحالة',
+    'pending' => 'قيد الانتظار',
+    'processing' => 'قيد المعالجة',
+    'completed' => 'مكتمل',
+    'cancelled' => 'ملغي',
+    'close' => 'إغلاق',
+    'save_changes' => 'حفظ التغييرات',
 
 
 

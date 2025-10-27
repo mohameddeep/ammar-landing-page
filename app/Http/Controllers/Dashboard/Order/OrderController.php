@@ -20,10 +20,15 @@ class OrderController extends Controller
     }
 
  
+ 
 
     public function destroy(string $id)
     {
 
         return $this->service->destroy($id);
     }
+        public function updateStatus(Request $request, $id){
+                return $this->service->updateStatus($request,$id);
+        }
+
 }

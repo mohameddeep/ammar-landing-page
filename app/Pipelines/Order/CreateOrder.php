@@ -17,6 +17,7 @@ class CreateOrder
     public function handle($request, \Closure $next)
     {
         $cart = $request->cart;
+        
 
         $data = [
             'user_id' => auth('api')->id(),

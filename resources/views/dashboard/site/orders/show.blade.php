@@ -114,7 +114,7 @@
                 </div>
 
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-3">
 
 
                 <div class="col-xl-12">
@@ -185,160 +185,87 @@
 
             </div>
 
-            {{-- <div class="col-xl-3">
+            <div class="col-xl-3">
 
 
-            <div class="col-xl-12">
-                <x-cards.page-card>
+                <div class="col-xl-12">
+                    <x-cards.page-card>
 
-                    <div class="card-header">
-                        <div class="card-title">
-                            Order Tracking
+                        <div class="card-header">
+                            <div class="card-title">
+{{ __('dashboard.order_tracking') }}                            </div>
+
                         </div>
-                        <div class="ms-auto text-success">#SPK1218153635</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="order-track">
-                            <div class="accordion" id="basicAccordion">
-                                <div class="accordion-item border-0 bg-transparent">
-                                    <div class="accordion-header" id="headingOne">
-                                        <a class="px-0 pt-0" href="javascript:void(0)" role="button" data-bs-toggle="collapse" data-bs-target="#basicOne" aria-expanded="true" aria-controls="basicOne">
-                                            <div class="d-flex mb-0">
-                                                <div class="me-2">
-                                                    <span class="avatar avatar-md avatar-rounded">
-                                                        <img src="../assets/images/ecommerce/png/32.png" alt="">
-                                                    </span>
-                                                </div>
-                                                <div class="flex-fill">
-                                                    <p class="fw-semibold mb-0 fs-14">Order Placed</p>
-                                                    <span class="fs-11 text-success">Nov 03, 2022</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="basicOne" class="accordion-collapse collapse show border-top-0" aria-labelledby="headingOne" data-bs-parent="#basicAccordion">
-                                        <div class="accordion-body pt-0 ps-5">
-                                            <div class="fs-11">
-                                                <p class="mb-0">Order placed successfully by <a href="javascript:void(0);" class="font-weight-semibold text-primary">Sansa Taylor</a></p>
-                                                <span class="text-muted op-5">Nov 03, 2022, 15:36</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion" id="basicAccordion1">
-                                <div class="accordion-item border-0 bg-transparent">
-                                    <div class="accordion-header" id="headingTwo">
-                                        <a class="px-0 pt-0" href="javascript:void(0)" role="button" data-bs-toggle="collapse" data-bs-target="#basicTwo" aria-expanded="true" aria-controls="basicTwo">
-                                            <div class="d-flex mb-0">
-                                                <div class="me-2">
-                                                    <span class="avatar avatar-md avatar-rounded">
-                                                        <img src="../assets/images/ecommerce/png/33.png" alt="">
-                                                    </span>
-                                                </div>
-                                                <div class="flex-fill">
-                                                    <p class="fw-semibold mb-0 fs-14">Picked</p>
-                                                    <span class="fs-12">Nov 03, 15:10</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="basicTwo" class="accordion-collapse show collapse border-top-0" aria-labelledby="headingTwo" data-bs-parent="#basicAccordion1">
-                                        <div class="accordion-body pt-0 ps-5">
-                                            <div class="fs-11">
-                                                <p class="mb-0">Your order has been picked up by <span class="font-weight-semibold">Smart Good Services</span></p>
-                                                <span class="text-muted op-5">Nov 03, 2022, 15:36</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion" id="basicAccordion2">
-                                <div class="accordion-item border-0 bg-transparent">
-                                    <div class="accordion-header" id="headingThree">
-                                        <a class="px-0 pt-0" href="javascript:void(0)" role="button" data-bs-toggle="collapse" data-bs-target="#basicThree" aria-expanded="true" aria-controls="basicThree">
-                                            <div class="d-flex mb-0">
-                                                <div class="me-2">
-                                                    <span class="avatar avatar-md avatar-rounded">
-                                                        <img src="../assets/images/ecommerce/png/34.png" alt="">
-                                                    </span>
-                                                </div>
-                                                <div class="flex-fill">
-                                                    <p class="fw-semibold mb-0 fs-14">Shipping</p>
-                                                    <span class="fs-12">Nov 03, 15:10</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="basicThree" class="accordion-collapse show collapse border-top-0" aria-labelledby="headingThree" data-bs-parent="#basicAccordion2">
-                                        <div class="accordion-body pt-0 ps-5">
-                                            <div class="fs-11 mb-3">
-                                                <p class="mb-0">Arrived USA <span class="font-weight-semibold">SGS
-                                                        Warehouse</span></p>
-                                                <span class="text-muted op-5">Nov 03, 2022, 15:36</span>
-                                            </div>
-                                            <div class="fs-11 mb-3">
-                                                <p class="mb-0">picked up by <span class="font-weight-semibold">SGS
-                                                        Agent</span> and on the way to Hyderabad</p>
-                                                <span class="text-muted op-5">Nov 03, 2022, 15:36</span>
-                                            </div>
-                                            <div class="fs-11">
-                                                <p class="mb-0">Arrived in Hyderabad and expected Delivery is <span class="font-weight-semibold">Apr 16, 2022</span> </p>
-                                                <span class="text-muted op-5">Nov 03, 2022, 15:36</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion" id="basicAccordion3">
-                                <div class="accordion-item border-0 bg-transparent next-step">
-                                    <div class="accordion-header" id="headingFour">
-                                        <a class="collapsed px-0 pt-0" href="javascript:void(0)" role="button" data-bs-toggle="collapse" data-bs-target="#basicFour" aria-expanded="true" aria-controls="basicFour">
-                                            <div class="d-flex mb-2">
-                                                <div class="me-2">
-                                                    <span class="avatar avatar-md avatar-rounded bg-primary-transparent text-primary border"><i class="fe fe-package fs-12"></i></span>
-                                                </div>
-                                                <div class="flex-fill">
-                                                    <p class="fw-semibold mb-0 fs-14">Out For Delivery</p>
-                                                    <span class="text-muted fs-12">Nov 03, 15:10 (expected)</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="basicFour" class="accordion-collapse collapse border-top-0" aria-labelledby="headingFour" data-bs-parent="#basicAccordion3">
-                                        <div class="accordion-body pt-0 ps-5">
-                                            <div class="fs-11">
-                                                <p class="mb-0">Your order is out for devlivery</p>
-                                                <span class="text-muted op-5">Nov 03, 2022, 15:36 (expected)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion" id="basicAccordion4">
-                                <div class="accordion-item border-0 bg-transparent next-step">
-                                    <div class="accordion-header" id="headingFive">
-                                        <a class="collapsed px-0 pt-0" href="javascript:void(0)" role="button" data-bs-toggle="collapse" aria-expanded="true">
-                                            <div class="d-flex mb-2">
-                                                <div class="me-2">
-                                                    <span class="avatar avatar-md avatar-rounded bg-primary-transparent text-primary border"><i class="fe fe-package fs-12"></i></span>
-                                                </div>
-                                                <div class="flex-fill">
-                                                    <p class="fw-semibold mb-0 fs-14">Delivered</p>
-                                                    <span class="fs-12 text-muted">Nov 03, 18:42</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+       
+        <button class="btn btn-outline-primary btn-sm d-flex align-items-center"
+                data-bs-toggle="modal"
+                data-bs-target="#updateStatusModal{{ $order->id }}">
+            <i class="fe fe-edit me-1"></i>
+            {{ __('dashboard.update_status') }}
+        </button>
+    </div>
 
-                </x-cards.page-card>
+    <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-semibold text-secondary fs-6">
+                {{ __('dashboard.status') }}:
+            </span>
+            <span class="badge bg-{{ $order->order_status == 'completed' ? 'success' : ($order->order_status == 'cancelled' ? 'danger' : 'warning') }} fs-6 text-capitalize">
+                {{ __('dashboard.statuses.' . $order->order_status) }}
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="updateStatusModal{{ $order->id }}" tabindex="-1" aria-labelledby="updateStatusLabel{{ $order->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">{{ __('dashboard.update_order_status') }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
 
-        </div> --}}
+            <form action="{{route('orders.updateStatus',$order->id)}}" method="POST">
+    @csrf
+    @method('PUT')
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="statusSelect{{ $order->id }}" class="form-label fw-semibold">
+                {{ __('dashboard.select_status') }}
+            </label>
+            <select class="form-select" id="statusSelect{{ $order->id }}" name="order_status" required>
+                @foreach (['processing', 'shipped', 'delivered', 'cancelled'] as $status)
+                    <option value="{{ $status }}" {{ $order->order_status == $status ? 'selected' : '' }}>
+                        {{ __('dashboard.statuses.' . $status) }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+            {{ __('dashboard.close') }}
+        </button>
+        <button type="submit" class="btn btn-primary">
+            {{ __('dashboard.save_changes') }}
+        </button>
+    </div>
+</form>
+
+        </div>
+    </div>
+</div>
+
+
+                    </x-cards.page-card>
+                </div>
+
+            </div>
         </div>
 
     </div>

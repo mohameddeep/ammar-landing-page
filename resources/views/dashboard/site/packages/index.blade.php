@@ -2,58 +2,64 @@
 @section('title', __('dashboard.packages'))
 @section('css_addons')
     <style>
-        .card-container-css {
-            position: relative;
-        }
+    .card-container-css {
+        position: relative;
+    }
 
-        .card-actions-sidebar {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            border-radius: 1rem;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            opacity: 0;
-            transform: translateY(-10px);
-            z-index: 10;
-        }
+    .card-actions-sidebar {
+        position: absolute;
+        top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        transform: translateY(-10px);
+        z-index: 20; /* علشان ما تغطيش النص */
+    }
 
-        .card-container-css:hover .card-actions-sidebar {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .card-container-css:hover .card-actions-sidebar {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-        .card-actions-sidebar .btn-icon {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            border-radius: 50%;
-        }
+    .card-actions-sidebar .btn-icon {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        border-radius: 50%;
+    }
 
-        .tooltip-primary,
-        .tooltip-secondary,
-        .tooltip-warning,
-        .tooltip-success {
-            font-size: 12px;
-            padding: 4px 8px;
-        }
+    /* Tooltips */
+    .tooltip-primary,
+    .tooltip-secondary,
+    .tooltip-warning,
+    .tooltip-success {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
 
-        /* RTL Support */
-        [dir="rtl"] .card-actions-sidebar {
-            right: auto;
-            left: 1rem;
-        }
-    </style>
+    /* اتجاه LTR (الإنجليزية) → على اليمين */
+    [dir="ltr"] .card-actions-sidebar {
+        right: 1rem;
+        left: auto;
+    }
+
+    /* اتجاه RTL (العربية) → على الشمال */
+    [dir="rtl"] .card-actions-sidebar {
+        right: auto;
+        left: 1rem;
+    }
+</style>
 
 
 
