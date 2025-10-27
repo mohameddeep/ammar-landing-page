@@ -37,7 +37,7 @@
                                     </li>
 
                                     {{-- الحالات --}}
-                                    @foreach (['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded'] as $status)
+                                    @foreach (['pending', 'processing', 'shipped', 'delivered', 'cancelled'] as $status)
                                         <li>
                                             <a class="dropdown-item"
                                                 href="{{ route('orders.index', ['status' => $status]) }}">

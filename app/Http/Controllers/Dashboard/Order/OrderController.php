@@ -26,4 +26,8 @@ class OrderController extends Controller
 
         return $this->service->destroy($id);
     }
+    
+     public function updateStatus(Request $request, $id){
+                return $this->service->updateStatus($request,$id);
+        }
 }

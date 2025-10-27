@@ -53,6 +53,17 @@ class OrderService
                 responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
         }
     }
+    
+      public function updateStatus($request, $id)
+{
+    $order = $this->repository->getById($id);
+
+    $order->order_status = $request->input('order_status');
+    $order->save();
+
+    return redirect()->back()->with(['success' => __('messages.updated_successfully')]);
+
+}
 
 
 }
