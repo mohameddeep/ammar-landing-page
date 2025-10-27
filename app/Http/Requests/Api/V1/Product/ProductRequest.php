@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
         $user = auth('api')->user();
         return [
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
             'images' => ['nullable', 'array', 'max:4'],
             'images.*' => ['image', 'mimes:jpeg,jpg,png', 'max:2048'],
