@@ -43,7 +43,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="me-3">
                                                             <span class="avatar avatar-xxl bg-light">
-                                                                <img src="@image($item?->product?->firstImage?->image)" alt="">
+<img src="{{ asset($item?->product?->firstImage?->image) }}" alt="">
                                                             </span>
                                                         </div>
                                                         <div>
