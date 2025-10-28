@@ -13,6 +13,7 @@
         "google/apiclient": "^2.18",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
+        "laravel/telescope": "*",
         "laravel/tinker": "^2.10.1",
         "mcamara/laravel-localization": "^2.3",
         "santigarcor/laratrust": "^8.4",
@@ -25,7 +26,6 @@
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.41",
-        "laravel/telescope": "^5.9",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
         "phpunit/phpunit": "^11.5.3"
