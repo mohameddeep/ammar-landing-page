@@ -2,6 +2,11 @@
 
 namespace App\Http\Services\Dashboard\Notification;
 
+use function App\Http\Helpers\responseFail;
+use function App\Http\Helpers\responseSuccess;
+use App\Http\Helpers\Http;
+use Exception;
+
 class NotificationService
 {
     public function index()
@@ -24,8 +29,18 @@ class NotificationService
 
     public function destroy($id)
     {
-        auth()->user()->notifications()->where('id', $id)->delete();
-        return back()->with('success', __('messages.deleted_successfully'));
+
+        try {
+           $deleted= auth()->user()->notifications()->where('id', $id)->delete();
+            if ($deleted) {
+                return responseSuccess(Http::OK, __('messages.deleted_successfully'), true);
+            }
+
+            return responseFail(Http::NOT_FOUND, __('messages.Not Found or Already Deleted'));
+
+        } catch (Exception $e) {
+            return responseFail(Http::BAD_REQUEST, ['error' => $e->getMessage(), __('messages.Something went wrong')]);
+        }
     }
 }
 
