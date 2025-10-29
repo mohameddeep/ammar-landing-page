@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\Contact\ContactController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
+use App\Http\Controllers\Dashboard\Notification\NotificationController;
 use App\Http\Controllers\Dashboard\Order\OrderController;
 use App\Http\Controllers\Dashboard\OrderReturn\OrderReturnController;
 use App\Http\Controllers\Dashboard\Packages\PackageController;
@@ -139,6 +140,7 @@ Route::group([
         Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
         //complaints
         Route::resource('dashboard/complaints', ComplaintController::class)->only('destroy', 'index');
+        Route::put('dashboard/complaints/{id}', [ComplaintController::class, 'respond'])->name('complaints.respond');
 
 
         // start sliders
@@ -150,5 +152,11 @@ Route::group([
             Route::get('/{id}/accept', 'accept')->name('order-returns.accept');
             Route::get('/{id}/reject', 'reject')->name('order-returns.reject');
         });
+
+
+       Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+
     });
 });

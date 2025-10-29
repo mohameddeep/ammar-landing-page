@@ -455,4 +455,18 @@ return [
     'cancelled' => 'Cancelled',
     'close' => 'Close',
     'save_changes' => 'Save Changes',
+
+    'respond' => 'Respond',
+'response' => 'Response',
+'respond_to_complaint' => 'Respond to Complaint',
+'show_more' => 'Show More',
+
+'notifications' => 'Notifications',
+    'unread' => 'Unread',
+    'new_notification' => 'New Notification',
+    'no_description' => 'No description available',
+    'no_new_notifications' => 'No new notifications',
+        'view_all' => 'View All',
+
+
 ];

@@ -38,6 +38,9 @@ return [
 'variant_not_found' => 'Product variant not found.',
 'quantity_not_available' => 'Requested quantity is not available.',
 'added_successfully' => 'Added successfully',
-
-
+ 'all_notifications_marked_as_read' => 'All notifications have been marked as read.',
+    'notification_marked_as_read' => 'The notification has been marked as read.',
+    'notification_not_found' => 'Notification not found.',
+  'new_complaint_title' => 'New Complaint Received',
+    'new_complaint_body' => 'A new complaint was submitted by :name',
 ];

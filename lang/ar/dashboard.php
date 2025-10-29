@@ -457,7 +457,19 @@ return [
     'cancelled' => 'ملغي',
     'close' => 'إغلاق',
     'save_changes' => 'حفظ التغييرات',
+'respond' => 'الرد',
+'response' => 'الرد على الشكوى',
+'respond_to_complaint' => 'الرد على الشكوى',
+
+'show_more' => 'عرض المزيد',
 
 
+ 'notifications' => 'الإشعارات',
+    'unread' => 'غير مقروءة',
+    'new_notification' => 'إشعار جديد',
+    'no_description' => 'لا يوجد وصف',
+    'no_new_notifications' => 'لا توجد إشعارات جديدة',
+
+    'view_all' => 'عرض الكل',
 
 ];

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "allure-app-4ebf8",
+  "private_key_id": "ffc09644db1496dd8945f793e3ac92a6cdcb0417",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDDw0B7fpSoxSjc\n96MF+hzKp/2+GYO+GfzZUNPXrvy8rakXtTBaE2DrBVMdbfhBXxLR3spUb9d+rZl9\nZHcIGiyVRXn/5crVZRsCye9A/gt5A0yuhKjW+OsGmEUkkk16eZSZWv+wCUZ8QFi2\nivGeiN7nyuRomPM5tU0mXkh1PhI6iT5K2I3oMINTg19H/N5UM1Baph/MO1oiAmXc\nSAEF65yi0TfRH73GSCJnaWj6jUE/WfD9j0oVFBHF7BVagvUuNzjKpB3aLdKRpyaX\nXWu6ppgyoJ0LtsDh6g+GjjQLam+H41geqm8cij298W0ddxin1iYdQfWeMjibfi/g\nlMMxmT5jAgMBAAECggEALwJAhkc/uIVbyjAXMDS+3DVZ+9/RoIFKE/9SV504KLDF\nBaHnYgH8SIOHUW5aaoxDjy0iRgNzaoKSdKd+4+2xHglIghgyzGqSgWlvcBpxM9aE\nf/XwO2sbuQIwvFb7jvkKI4dUFfgsOmMTSoZz/f9dE6lHjwyHf6iXRarnWGwW4YIu\nuMrfe/zmt5aUFekD/s6cTISXp1JfCxM77eS55B+AZVlhzII0RWSAOL/HWQN1WGc0\n5gqMF2dxsDy52LXwS47YYmtdwXB5dqRLMDBJ03oFUfQHJueMkwipSZjJtHnil9Qu\nHq3u2KnvQEbbr8GBUxKde7T5gANioYdZOre8VAntDQKBgQDvI4deJcLEKFtr0yu2\nb1p8MDBUh2v6RMpqSXDMCdcjuUeVTl4KVjMevS9+2CCmwrZFfM/cDF7WaS52zm++\nUZ8NRrpaHSqqS8Cj44bKJqY0GV+eTKLy9lVUU/IM821EM7sATSmd1NPDGBmMMQL3\n8sO4RBSCxaOp+DchVDOVCZUzXwKBgQDRkMgqiC3KSYNsyoiflJOL4cPliou27vgv\nFra1kZUcSG8gIi4deM4KQdE4KXRlyND34UjRVgHv1Qs2AlSjvGh591So2B4KN9Vi\nYWgITJWT7ow0C8GTXcMzUwt+nQScN6dQo4pPDda82b/FjYJFP+T+qsj7I16/GSXP\nrxXnkeJ3fQKBgA1n9nzGrSaGBKoEypyNnYr8wJjchqcfGCHhQBuQKaltB6BNJmR5\n9J+yh2kbAKmYnNNEbfquDtsCRoKOjCElPj9mSagnnm6xlHkblkDa7dJZ4cxkC3aH\nbL0vf5BOTT/XjpIzwTOB7OUxAq2jScFQsLwxxNyX69bpfV229LVUNjMNAoGAUwId\nNzOfp5u80g/bVBJ+6w5vEPHy62/2oHhHwN28iWprkffX+laKjmeJnsxUzahglX8H\n39tIgx4JBcigjAap/32nbAXGyFdbT0+z7G2hZeo8YLUzZNLj6eWADRPW6qXkwT02\nIKAjqcQ6gN7PdeycIP+3Ajr9YYZtgrkgXQxc/uUCgYEAsnSEr3B0XxgxTb9uWJHF\nzrMvTpa+VYG7zq1SDb1TNHQ6mrpNeZfqaIhQBmgfqCWQVNZMRJlVgzbDKfF0YsFC\nUGSgbKd/AP+LEzqQnUyvp13pxISVN+hzuzWr3rlj1EghGBf2owmMr6Cc/oNLrpY0\nb3rKzTU8skVX3hD6SGYiaBQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@allure-app-4ebf8.iam.gserviceaccount.com",
+  "client_id": "105878214124549891540",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40allure-app-4ebf8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

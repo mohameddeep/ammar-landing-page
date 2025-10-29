@@ -14,4 +14,6 @@ class ComplaintRepository extends Repository implements ComplaintRepositoryInter
     {
         parent::__construct($model);
     }
+
+    
 }

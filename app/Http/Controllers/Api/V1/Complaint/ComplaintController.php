@@ -12,8 +12,12 @@ class ComplaintController extends Controller
         private readonly ComplaintService $service,
     ) {}
 
-    public function __invoke(ComplaintUsRequest $request)
+    public function index()
     {
-        return $this->service->complaint($request);
+        return $this->service->index();
+    }
+    public function store(ComplaintUsRequest $request)
+    {
+        return $this->service->store($request);
     }
 }

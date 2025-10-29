@@ -25,6 +25,7 @@ class FireBaseJob implements ShouldQueue
      */
     public function __construct($data, $fcms)
     {
+        
         $this->data = $data;
         $this->fcms = $fcms;
     }
@@ -39,9 +40,8 @@ class FireBaseJob implements ShouldQueue
 
     private function sendFireBaseNotification()
     {
-
-        //        $credentialsFilePath = base_path('public\json\fixil-f452d-7d522c190ec9.json');
-        $credentialsFilePath = Http::get(asset('json/fixil-f452d-7d522c190ec9.json'));
+               $credentialsFilePath = base_path('public/json/allure.json');
+        // $credentialsFilePath = Http::get(asset('public/json/allure.json'));
         $client = new GoogleClient;
         try {
             $client->setAuthConfig($credentialsFilePath);
@@ -60,7 +60,7 @@ class FireBaseJob implements ShouldQueue
         ];
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/v1/projects/fixil-f452d/messages:send');
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/v1/projects/allure-app-4ebf8/messages:send');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -68,6 +68,7 @@ class FireBaseJob implements ShouldQueue
         curl_setopt($ch, CURLOPT_VERBOSE, false); // Enable verbose output for debugging
         $results = [];
         foreach ($this->fcms as $fcm) {
+
             $data = [
                 'message' => [
                     'token' => $fcm,

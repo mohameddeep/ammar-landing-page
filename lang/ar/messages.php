@@ -41,5 +41,10 @@ return [
 'quantity_not_available' => 'الكمية المطلوبة غير متوفرة.',
     'added_successfully' => 'تمت الإضافة بنجاح',
 
+    'all_notifications_marked_as_read' => 'تم وضع علامة مقروء على جميع الإشعارات.',
+    'notification_marked_as_read' => 'تم وضع علامة مقروء على الإشعار.',
+    'notification_not_found' => 'الإشعار غير موجود.',
 
+'new_complaint_title' => 'تم استلام شكوى جديدة',
+    'new_complaint_body' => 'تم إرسال شكوى جديدة بواسطة :name',
 ];

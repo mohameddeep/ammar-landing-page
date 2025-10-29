@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\Complaint\ComplaintController;
 use App\Http\Controllers\Api\V1\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\V1\Coupon\CouponController;
 use App\Http\Controllers\Api\V1\Home\HomeController;
+use App\Http\Controllers\Api\V1\Notification\NotificationController;
 use App\Http\Controllers\Api\V1\Order\OrderController;
 use App\Http\Controllers\Api\V1\Package\PackageController;
 use App\Http\Controllers\Api\V1\Product\ProductController;
@@ -90,6 +91,20 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::put('/change-status/{id}', 'changeAddressStatus');
     });
 
+    //complaints
+    Route::apiResource('/complaint', ComplaintController::class)->only("index","store");
+
+
+    // notifications
+    Route::prefix('notifications')->group(function () {
+        Route::get('/', [NotificationController::class, 'index']);
+        Route::get('/unread', [NotificationController::class, 'unread']);
+        Route::post('/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+        Route::post('/{id}/mark-read', [NotificationController::class, 'markAsRead']);
+    });
+
+
+
     Route::apiResource('coupons', CouponController::class)->except('show');
     Route::get('coupons/{id}/toggle', [CouponController::class, 'toggle']);
 
@@ -128,7 +143,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 Route::get('/home', [HomeController::class, 'index']);
 Route::post('/contact-us', ContactUsController::class);
-Route::post('/complaint', ComplaintController::class);
 // categories
 Route::group([
     'prefix' => 'categories',
