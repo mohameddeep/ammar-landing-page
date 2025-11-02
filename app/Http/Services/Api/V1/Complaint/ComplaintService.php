@@ -44,6 +44,7 @@ class ComplaintService
             data: [
                     'complaint_id' => $complaint->id,
                     'user_id' => $complaint->user_id,
+                    'type' => "complaint_response",
                     ]
 );
 

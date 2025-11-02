@@ -28,19 +28,19 @@ class OrderService
 
     public function index()
     {
-        $orders = $this->repository->getForUser(relations: ['items.product.user', 'user', 'provider']);
+        $orders = $this->repository->getForUser(relations: ['items.product.user','items.product.images', 'user', 'provider']);
         return responseSuccess(data: OrderResource::collection($orders));
     }
 
     public function getForProvider()
     {
-        $orders = $this->repository->getForProvider(relations: ['items.product.user', 'user', 'provider']);
+        $orders = $this->repository->getForProvider(relations: ['items.product.user', 'user','items.product.images', 'provider']);
         return responseSuccess(data: OrderResource::collection($orders));
     }
 
     public function show(string $id)
     {
-        $order = $this->repository->getById($id, relations: ['items.product.user', 'user', 'provider']);
+        $order = $this->repository->getById($id, relations: ['items.product.user','items.product.images', 'user', 'provider']);
         return responseSuccess(data: new OrderResource($order));
     }
     public function store($request)

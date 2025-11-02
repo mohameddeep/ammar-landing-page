@@ -29,11 +29,14 @@ class NewComplaintResponseNotification extends Notification
                 'title' => 'تم الرد على الشكوى الخاصة بك',
                 'body' => $this->complaint->response,
                 'complaint_id' => $this->complaint->id,
+                'type' => "complaint_response",
             ],
             'en' => [
                 'title' => 'Your complaint has been responded to',
                 'body' => $this->complaint->response,
                 'complaint_id' => $this->complaint->id,
+                'type' => "complaint_response",
+
             ],
         ];
     }
