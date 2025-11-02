@@ -91,92 +91,91 @@
             <!-- End::header-element -->
 
 
-           <!-- Start::header-element -->
-<div class="header-element notifications-dropdown">
-    <!-- Start::header-link|dropdown-toggle -->
-    @php
-        $user = auth()->user();
-    $unReadNotifications = $user?->unreadNotifications;
-        $unreadCount = $user?->unreadNotifications()->count() ?? 0;
-    @endphp
-
-    <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
-        data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
-        <i class="bx bx-bell header-link-icon"></i>
-        @if($unreadCount > 0)
-            <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary"
-                id="notification-icon-badge">{{ $unreadCount }}</span>
-        @endif
-    </a>
-    <!-- End::header-link|dropdown-toggle -->
-
-    <!-- Start::main-header-dropdown -->
-    <div class="main-header-dropdown dropdown-menu dropdown-menu-end">
-        <div class="p-3">
-            <div class="d-flex align-items-center justify-content-between">
-                <p class="mb-0 fs-17 fw-semibold">{{ __('dashboard.notifications') }}</p>
-                <span class="badge bg-secondary-transparent" id="notification-data">
-                    {{ $unreadCount }} {{ __('dashboard.unread') }}
-                </span>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
-
-        <ul class="list-unstyled mb-0" id="header-notification-scroll">
-            @forelse($unReadNotifications as $notification)
+            <!-- Start::header-element -->
+            <div class="header-element notifications-dropdown">
+                <!-- Start::header-link|dropdown-toggle -->
                 @php
-                    $data = $notification->data ?? [];
+                    $user = auth()->user();
+                    $unReadNotifications = $user?->unreadNotifications;
+                    $unreadCount = $user?->unreadNotifications()->count() ?? 0;
                 @endphp
-                <li class="dropdown-item {{ $notification->read_at ? '' : 'bg-light' }}">
-    <a href="javascript:void(0);" 
-       class="d-flex align-items-start notification-item" 
-       data-id="{{ $notification->id }}" 
-       data-url="{{ route('complaints.index') }}">
-        <div class="pe-2">
-            <span class="avatar avatar-md bg-success-transparent avatar-rounded">
-                <i class="ti ti-bell fs-18"></i>
-            </span>
-        </div>
-        <div class="flex-grow-1 d-flex align-items-center justify-content-between">
-            <div>
-                <p class="mb-0 fw-semibold">
-                    {{ $data['title'] ?? __('dashboard.notification') }}
-                </p>
-                <span class="text-muted fw-normal fs-12 header-notification-text">
-                    {{ $data['body'] ?? '' }}
-                </span>
-                <small class="text-muted d-block mt-1">
-                    {{ $notification->created_at->diffForHumans() }}
-                </small>
+
+                <a href="javascript:void(0);" class="header-link dropdown-toggle" data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside" id="messageDropdown" aria-expanded="false">
+                    <i class="bx bx-bell header-link-icon"></i>
+                    @if ($unreadCount > 0)
+                        <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary"
+                            id="notification-icon-badge">{{ $unreadCount }}</span>
+                    @endif
+                </a>
+                <!-- End::header-link|dropdown-toggle -->
+
+                <!-- Start::main-header-dropdown -->
+                <div class="main-header-dropdown dropdown-menu dropdown-menu-end">
+                    <div class="p-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="mb-0 fs-17 fw-semibold">{{ __('dashboard.notifications') }}</p>
+                            <span class="badge bg-secondary-transparent" id="notification-data">
+                                {{ $unreadCount }} {{ __('dashboard.unread') }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+
+                    <ul class="list-unstyled mb-0" id="header-notification-scroll">
+                        @forelse($unReadNotifications as $notification)
+                            @php
+                                $data = $notification->data ?? [];
+                            @endphp
+                            <li class="dropdown-item {{ $notification->read_at ? '' : 'bg-light' }}">
+                                <a href="javascript:void(0);" class="d-flex align-items-start notification-item"
+                                    data-id="{{ $notification->id }}" data-url="{{ route('complaints.index') }}">
+                                    <div class="pe-2">
+                                        <span class="avatar avatar-md bg-success-transparent avatar-rounded">
+                                            <i class="ti ti-bell fs-18"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <p class="mb-0 fw-semibold">
+                                                {{ $data['title'] ?? __('dashboard.notification') }}
+                                            </p>
+                                            <span class="text-muted fw-normal fs-12 header-notification-text">
+                                                {{ $data['body'] ?? '' }}
+                                            </span>
+                                            <small class="text-muted d-block mt-1">
+                                                {{ $notification->created_at->diffForHumans() }}
+                                            </small>
+                                        </div>
+                                        @if (!$notification->read_at)
+                                            <span
+                                                class="badge bg-secondary-transparent ms-2">{{ __('dashboard.unread') }}</span>
+                                        @endif
+                                    </div>
+                                </a>
+                            </li>
+
+                        @empty
+                            <li class="text-center text-muted p-3">{{ __('dashboard.no_new_notifications') }}</li>
+                        @endforelse
+                    </ul>
+
+                    <div class="p-3 border-top text-center">
+                        <a href="{{ route('notifications.index') }}" class="btn btn-sm btn-primary">
+                            {{ __('dashboard.view_all') }}
+                        </a>
+                    </div>
+                </div>
+                <!-- End::main-header-dropdown -->
             </div>
-            @if(!$notification->read_at)
-                <span class="badge bg-secondary-transparent ms-2">{{ __('dashboard.unread') }}</span>
-            @endif
-        </div>
-    </a>
-</li>
-
-            @empty
-                <li class="text-center text-muted p-3">{{ __('dashboard.no_new_notifications') }}</li>
-            @endforelse
-        </ul>
-
-        <div class="p-3 border-top text-center">
-            <a href="{{route('notifications.index')}}" class="btn btn-sm btn-primary">
-                {{ __('dashboard.view_all') }}
-            </a>
-        </div>
-    </div>
-    <!-- End::main-header-dropdown -->
-</div>
-<!-- End::header-element -->
+            <!-- End::header-element -->
 
 
             <!-- Start::header-element -->
             <div class="header-element  me-3">
                 <!-- Start::header-link|dropdown-toggle -->
-                <a href="#" class="header-link dropdown-toggle" id="mainHeaderProfile"
-                    data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <a href="#" class="header-link dropdown-toggle" id="mainHeaderProfile" data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside" aria-expanded="false">
                     <div class="d-flex align-items-center">
                         {{-- <div class="me-sm-2 me-0">
                             @if (Auth::user()->image)

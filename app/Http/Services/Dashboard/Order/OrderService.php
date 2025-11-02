@@ -54,16 +54,7 @@ class OrderService
         }
     }
     
-      public function updateStatus($request, $id)
-{
-    $order = $this->repository->getById($id);
 
-    $order->order_status = $request->input('order_status');
-    $order->save();
-
-    return redirect()->back()->with(['success' => __('messages.updated_successfully')]);
-
-}
 
 
     public function updateStatus($request, $id)
