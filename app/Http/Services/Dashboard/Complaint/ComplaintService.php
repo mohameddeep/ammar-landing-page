@@ -78,7 +78,7 @@ class ComplaintService
                     [$fcmToken],
                     $firebaseData['title'] ?? __('messages.New Notification'),
                     $firebaseData['body'] ?? $complaint->response,
-                    $firebaseData['data'] ?? []
+                    $firebaseData ?? []
                 );
 
                 Log::info('Firebase notification results: ', $results);

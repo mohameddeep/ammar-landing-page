@@ -51,15 +51,14 @@ class NewComplaintResponseNotification extends Notification
 {
     return [
         'type' => $this->databaseType(),
+        'complaint_id' => $this->complaint->id,
         'ar' => [
             'title' => 'تم الرد على الشكوى الخاصة بك',
             'body' => $this->complaint->response,
-            'complaint_id' => $this->complaint->id,
         ],
         'en' => [
             'title' => 'Your complaint has been responded to',
             'body' => $this->complaint->response,
-            'complaint_id' => $this->complaint->id,
         ],
     ];
 }
