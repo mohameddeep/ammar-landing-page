@@ -22,21 +22,19 @@ class NewComplaintResponseNotification extends Notification
         return ['database'];
     }
 
+
     public function toDatabase(object $notifiable): array
     {
         return [
             'ar' => [
                 'title' => 'تم الرد على الشكوى الخاصة بك',
                 'body' => $this->complaint->response,
-                'complaint_id' => $this->complaint->id,
-                'type' => "complaint_response",
-            ],
+                'complaint_id' => $this->complaint->id
+                        ],
             'en' => [
                 'title' => 'Your complaint has been responded to',
                 'body' => $this->complaint->response,
-                'complaint_id' => $this->complaint->id,
-                'type' => "complaint_response",
-
+                'complaint_id' => $this->complaint->id
             ],
         ];
     }
