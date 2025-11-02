@@ -22,7 +22,7 @@ class OrderItemResource extends JsonResource
                 'name' => $this->product?->name,
                 'price' => $this->product->price,
                 'user' => $this->product?->user?->brand_name ?? $this->product?->user?->name,
-                'images' => ProductImageResource::collection($this->whenLoaded('product.images')),
+            'images' => ProductImageResource::collection($this->product?->images ?? collect()),
 
             ],
             'color' => $this->color,
