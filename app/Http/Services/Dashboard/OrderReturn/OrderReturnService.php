@@ -3,12 +3,17 @@
 namespace App\Http\Services\Dashboard\OrderReturn;
 
 use App\Enums\OrderReturnStatusEnum;
+use App\Http\Traits\SendNotification;
+use App\Notifications\NewOrderReturnStatusNotification;
 use App\Repository\OrderReturnRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderReturnService
 {
+
+    use SendNotification;
     public function __construct(private readonly OrderReturnRepositoryInterface $Repository,
                                 private readonly TransactionRepositoryInterface $TransactionRepository,
                                 )
@@ -29,42 +34,86 @@ class OrderReturnService
         return view('dashboard.site.order-returns.show', compact('returnOrder'));
     }
 
-    public  function accept($id)
-    {
-        DB::beginTransaction();
-        try {
-            $returnOrder = $this->Repository->getById($id);
-            $this->Repository->update($id, ['status' => OrderReturnStatusEnum::ACCEPTED]);
-            $total_price = $returnOrder->order->total_price;
-            $this->TransactionRepository->create([
-                'user_id' => $returnOrder->user_id,
-                'amount' => $total_price,
-                'type' => 'increase',
-                'reason' => 'return order'
-            ]);
-            $returnOrder->user?->increment('wallet_balance', $total_price);
-            $provider = $returnOrder->order->provider;
-            $this->TransactionRepository->create([
-                'user_id' => $provider->id,
-                'amount' => $total_price,
-                'type' => 'increase',
-                'reason' => 'return order'
-            ]);
-            $provider->decrement('wallet_balance', $total_price);
-            DB::commit();
-            return redirect()->back()->with('success', __('messages.updated_successfully'));
-        }catch (\Exception $exception){
-            DB::rollBack();
-            return redirect()->back()->with('error', __('dashboard.Something went wrong!'));
+  public function accept($id)
+{
+    DB::beginTransaction();
+    try {
+        $returnOrder = $this->Repository->getById($id);
+        $this->Repository->update($id, ['status' => OrderReturnStatusEnum::ACCEPTED]);
+
+        $total_price = $returnOrder->order->total_price;
+        $this->TransactionRepository->create([
+            'user_id' => $returnOrder->user_id,
+            'amount' => $total_price,
+            'type' => 'increase',
+            'reason' => 'return order'
+        ]);
+        $returnOrder->user?->increment('wallet_balance', $total_price);
+        $provider = $returnOrder->order->provider;
+        $this->TransactionRepository->create([
+            'user_id' => $provider->id,
+            'amount' => $total_price,
+            'type' => 'increase',
+            'reason' => 'return order'
+        ]);
+        $provider->decrement('wallet_balance', $total_price);
+        $returnOrder->refresh();
+
+
+            try {
+            $returnOrder->user?->notify(new NewOrderReturnStatusNotification($returnOrder));
+
+            $fcmToken = $returnOrder->user?->fcm_token;
+            if (!empty($fcmToken)) {
+                $notification = new NewOrderReturnStatusNotification($returnOrder);
+                $firebaseData = $notification->firebaseData();
+
+                $this->sendFirebaseNotification(
+                    [$fcmToken],
+                    $firebaseData['en']['title'],
+                    $firebaseData['en']['body'],
+                    $firebaseData
+                );
+            }
+        } catch (\Exception $e) {
+            Log::error('❌ Failed to send order return notification: ' . $e->getMessage());
         }
+        DB::commit();
+        return redirect()->back()->with('success', __('messages.updated_successfully'));
+    } catch (\Exception $exception) {
+        DB::rollBack();
+        return redirect()->back()->with('error', __('dashboard.Something went wrong!'));
+    }
+}
+
+public function reject($id)
+{
+    $returnOrder = $this->Repository->getById($id);
+    $this->Repository->update($id, ['status' => OrderReturnStatusEnum::REJECTED]);
+        $returnOrder->refresh();
+
+    // ✅ إرسال إشعار بعد الرفض
+    try {
+        $returnOrder->user?->notify(new NewOrderReturnStatusNotification($returnOrder));
+
+        $fcmToken = $returnOrder->user?->fcm_token;
+        if (!empty($fcmToken)) {
+            $notification = new NewOrderReturnStatusNotification($returnOrder);
+            $firebaseData = $notification->firebaseData();
+
+            $this->sendFirebaseNotification(
+                [$fcmToken],
+                $firebaseData['en']['title'],
+                $firebaseData['en']['body'],
+                $firebaseData
+            );
+        }
+    } catch (\Exception $e) {
+        Log::error('❌ Failed to send order return notification: ' . $e->getMessage());
     }
 
-    public function reject($id)
-    {
-        $returnOrder = $this->Repository->getById($id);
-        $this->Repository->update($id, ['status' => OrderReturnStatusEnum::REJECTED]);
-        return redirect()->back()->with('success', __('messages.updated_successfully'));
-    }
+    return redirect()->back()->with('success', __('messages.updated_successfully'));
+}
 
 
 }

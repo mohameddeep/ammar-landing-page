@@ -24,6 +24,7 @@ class NotificationResource extends JsonResource
             'body' => $localized['body'] ?? '',
             'type' => $this->type,
             'complaint_id' => $localized['complaint_id'] ?? ($data['complaint_id'] ?? null),
+            'order_return_id' => $localized['order_return_id'] ?? ($data['order_return_id'] ?? null),
             'read_at' => $this->read_at,
             'created_at' => $this->created_at?->format('Y-m-d H:i'),
         ];
