@@ -272,7 +272,7 @@
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
                         <div class="card-title">
-                           @lang('latest_orders')
+                           @lang('dashboard.latest_orders')
                         </div>
                         {{-- <div class="d-flex">
                             <div class="me-3">
