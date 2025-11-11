@@ -319,6 +319,28 @@
 
 
 
+                  <li
+                    class="slide has-sub {{ in_array(request()->route()->getName(), ['landingPage.header']) ? 'open active' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item ">
+                        <i class="bx bx-sitemap side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.landingPage')</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+
+                        <li class="slide">
+                            <a href="{{ route('landingPage.header') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.header']) ? 'active' : '' }}">
+                                @lang('dashboard.about')
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+
+
 
 
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\Complaint\ComplaintController;
 use App\Http\Controllers\Dashboard\Contact\ContactController;
 use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
+use App\Http\Controllers\Dashboard\LandingPage\LandingPageController;
 use App\Http\Controllers\Dashboard\Mangers\MangerController;
 use App\Http\Controllers\Dashboard\Notification\NotificationController;
 use App\Http\Controllers\Dashboard\Order\OrderController;
@@ -133,6 +134,11 @@ Route::group([
         Route::group(['prefix' => 'structures'], function () {
             Route::resource('about', AboutUsController::class)->only('store', 'index');
             Route::resource('terms_and_conditions', TermsAndConditionsController::class)->only('store', 'index');
+
+        });
+        Route::group(['prefix' => 'landing-page'], function () {
+        Route::get('header', [LandingPageController::class, 'header'])->name('landingPage.header');
+        Route::put('/update/{id}', [LandingPageController::class, 'update'])->name('landingPage.update');
 
         });
 

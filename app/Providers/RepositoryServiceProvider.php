@@ -36,8 +36,10 @@ use App\Repository\Eloquent\UserAddressRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\Eloquent\AminProfileRepository;
 use App\Repository\Eloquent\ComplaintRepository;
+use App\Repository\Eloquent\LandingPageRepository;
 use App\Repository\Eloquent\TransactionRepository;
 use App\Repository\FavouriteRepositoryInterface;
+use App\Repository\LandingPageRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
 use App\Repository\OrderReturnRepositoryInterface;
@@ -93,6 +95,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(OrderReturnRepositoryInterface::class, OrderReturnRepository::class);
         $this->app->singleton(TransactionRepositoryInterface::class, TransactionRepository::class);
         $this->app->singleton(ComplaintRepositoryInterface::class, ComplaintRepository::class);
+        $this->app->singleton(LandingPageRepositoryInterface::class, LandingPageRepository::class);
     }
 
     /**

@@ -36,7 +36,7 @@ class SignUpRequest extends FormRequest
                 new Phone,
                 Rule::unique('users', 'phone')->ignore(auth('api')->id())
             ],
-            //            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
+            //'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
             'fcm_token' => ['nullable', 'string'],
             'type' => ['required', Rule::in(UserTypeEnum::values())],
             'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
