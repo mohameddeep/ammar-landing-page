@@ -472,4 +472,39 @@ return [
 
     'view_all' => 'عرض الكل',
 
+
+    'landingPage' => 'محتوي الموقع',
+    'landingPage_header' => 'الهيدر',
+    'landingPage_chooseContent' => 'اختيار المحتوى',
+    'landingPage_features' => 'المميزات',
+    'landingPage_expirenceContent' => 'محتوى التجربة',
+    'landingPage_discover' => 'اكتشف',
+
+    'footer' => 'تذييل الصفحة',
+    'email' => 'البريد الإلكتروني',
+    'phone' => 'رقم الهاتف',
+    'whatsapp' => 'واتساب',
+    'facebook_link' => 'رابط فيسبوك',
+    'instagram_link' => 'رابط إنستغرام',
+    'twitter_link' => 'رابط تويتر',
+    'linkedin_link' => 'رابط لينكدإن',
+    'Image' => 'الصورة',
+    'content_ar' => 'المحتوى بالعربية',
+    'content_en' => 'المحتوى بالإنجليزية',
+    'copyright_ar' => 'حقوق النشر بالعربية',
+    'copyright_en' => 'حقوق النشر بالإنجليزية',
+
+
+    'download_section' => 'محتوى التحميل',
+    'discover' => 'اكتشف',
+    'image' => 'الصورة',
+    'title' => 'العنوان',
+    'content' => 'المحتوى',
+    'Operations' => 'العمليات',
+    'edit' => 'تعديل',
+    'no_entries' => 'لا توجد بيانات',
+    'android_link' => 'رابط تطبيق الأندرويد',
+    'ios_link' => 'رابط تطبيق الآيفون',
+
+
 ];

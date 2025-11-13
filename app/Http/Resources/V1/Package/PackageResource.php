@@ -27,6 +27,7 @@ final class PackageResource extends JsonResource
             'duration' => $this->duration,
             'price' => $this->price,
             'product_count' => $this->product_count,
+            'free_product_count' => $this->free_product_count,
             'is_active' => $this->is_active,
             'type' => $this->type,
             'features' => PackageFeatureResource::collection($this->whenLoaded('features')),

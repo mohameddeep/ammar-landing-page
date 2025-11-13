@@ -32,10 +32,37 @@ class StructureSeeder extends Seeder
             [
                 'content' => json_encode([
                     'en' => [['content' => 'term condition ']],
-                    'ar' => [ ['content' => 'الشروط واالاحكام']],
+                    'ar' => [['content' => 'الشروط واالاحكام']],
                 ]),
             ]
         );
 
-}
+
+
+
+        // Footer
+        Structure::query()->updateOrCreate(
+            ['key' => 'footer'],
+            [
+                'content' => json_encode([
+                    'email' => 'info@example.com',
+                    'phone' => '+123456789',
+                    'whatsapp' => '+123456789',
+                    'facebook_link' => 'https://facebook.com/example',
+                    'instagram_link' => 'https://instagram.com/example',
+                    'twitter_link' => 'https://instagram.com/example',
+                    'linkedin_link' => 'https://instagram.com/example',
+                    'image' => null,
+                    'content' => [
+                        'en' => 'Footer content in English',
+                        'ar' => 'محتوى الفوتر بالعربية',
+                    ],
+                    'copyright' => [
+                        'en' => ' © 2024 مجموعة ألور. جميع الحقوق محفوظة. ',
+                        'ar' => ' © 2024 مجموعة ألور. جميع الحقوق محفوظة. ',
+                    ],
+                ]),
+            ]
+        );
+    }
 }

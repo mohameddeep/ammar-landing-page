@@ -43,4 +43,6 @@ return [
     'notification_not_found' => 'Notification not found.',
   'new_complaint_title' => 'New Complaint Received',
     'new_complaint_body' => 'A new complaint was submitted by :name',
+        'your_subscription_ended' => 'Your subscription ended',
+
 ];

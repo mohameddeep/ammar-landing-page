@@ -467,6 +467,38 @@ return [
     'no_description' => 'No description available',
     'no_new_notifications' => 'No new notifications',
         'view_all' => 'View All',
+'landingPage' => 'Landing Page',
+    'landingPage_header' => 'Header',
+    'landingPage_chooseContent' => 'Choose Content',
+    'landingPage_features' => 'Features',
+    'landingPage_expirenceContent' => 'Experience Content',
+    'landingPage_discover' => 'Discover',
 
+
+     'footer' => 'Footer',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'whatsapp' => 'WhatsApp',
+    'facebook_link' => 'Facebook Link',
+    'instagram_link' => 'Instagram Link',
+    'twitter_link' => 'Twitter Link',
+    'linkedin_link' => 'LinkedIn Link',
+    'Image' => 'Image',
+    'content_ar' => 'Content (Arabic)',
+    'content_en' => 'Content (English)',
+    'copyright_ar' => 'Copyright (Arabic)',
+    'copyright_en' => 'Copyright (English)',
+     'download_section' => 'Download Section',
+
+      'discover' => 'Discover',
+    'image' => 'Image',
+    'title' => 'Title',
+    'content' => 'Content',
+    'Operations' => 'Operations',
+    'edit' => 'Edit',
+    'no_entries' => 'No records found',
+    
+    'android_link' => 'Android Application Link',
+'ios_link' => 'iOS Application Link',
 
 ];

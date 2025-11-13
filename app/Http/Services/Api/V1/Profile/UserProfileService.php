@@ -7,12 +7,15 @@ use App\Http\Resources\V1\User\UserProfileResource;
 use App\Repository\OtpRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use App\Http\Traits\FileTrait;
 
 use function App\Http\Helpers\responseFail;
 use function App\Http\Helpers\responseSuccess;
 
 class UserProfileService
 {
+        use FileTrait ;
+
     public function __construct(
         private readonly OtpRepositoryInterface $otpRepository,
     ) {}
@@ -29,6 +32,9 @@ class UserProfileService
         try {
             $data = $request->validated();
             $user = auth('api')->user();
+            if ($request->hasFile('image')) {
+                $data['image'] = $this->image($request->file('image'), 'users/images');
+            }
             $user->update($data);
             DB::commit();
 

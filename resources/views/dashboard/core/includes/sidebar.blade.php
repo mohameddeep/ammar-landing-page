@@ -320,7 +320,8 @@
 
 
                   <li
-                    class="slide has-sub {{ in_array(request()->route()->getName(), ['landingPage.header']) ? 'open active' : '' }}">
+                    class="slide has-sub {{ in_array(request()->route()->getName(), ['landingPage.header','landingPage.chooseContent',
+                    'landingPage.features','landingPage.expirenceContent','landingPage.discover','landingPage.downloadSection','footer.index']) ? 'open active' : '' }}">
                     <a href="javascript:void(0);" class="side-menu__item ">
                         <i class="bx bx-sitemap side-menu__icon"></i>
                         <span class="side-menu__label">@lang('dashboard.landingPage')</span>
@@ -331,10 +332,46 @@
                         <li class="slide">
                             <a href="{{ route('landingPage.header') }}"
                                 class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.header']) ? 'active' : '' }}">
-                                @lang('dashboard.about')
+                                @lang('dashboard.landingPage_header')
+                            </a>
+                        </li>
+                        <li class="slide">
+                            <a href="{{ route('landingPage.chooseContent') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.chooseContent']) ? 'active' : '' }}">
+                                @lang('dashboard.landingPage_chooseContent')
+                            </a>
+                        </li>
+                        <li class="slide">
+                            <a href="{{ route('landingPage.features') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.features']) ? 'active' : '' }}">
+                                @lang('dashboard.landingPage_features')
+                            </a>
+                        </li>
+                        <li class="slide">
+                            <a href="{{ route('landingPage.expirenceContent') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.expirenceContent']) ? 'active' : '' }}">
+                                @lang('dashboard.landingPage_expirenceContent')
                             </a>
                         </li>
 
+                          <li class="slide">
+                            <a href="{{ route('landingPage.discover') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.discover']) ? 'active' : '' }}">
+                                @lang('dashboard.landingPage_discover')
+                            </a>
+                        </li>
+                          <li class="slide">
+                            <a href="{{ route('landingPage.downloadSection') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['landingPage.downloadSection']) ? 'active' : '' }}">
+                                @lang('dashboard.download_section')
+                            </a>
+                        </li>
+ <li class="slide">
+                            <a href="{{ route('footer.index') }}"
+                                class="side-menu__item {{ in_array(request()->route()->getName(), ['footer.index']) ? 'active' : '' }}">
+                                @lang('dashboard.footer')
+                            </a>
+                        </li>
 
                     </ul>
                 </li>

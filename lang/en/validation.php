@@ -196,4 +196,30 @@ return [
 
     'attributes' => [],
 
+
+
+    'phone_regex' => 'The phone number is invalid. It must start with +9665, 9665, or 05 and contain 9 more digits.',
+    'name_required' => 'The name field is required.',
+    'name_string' => 'The name must be a string.',
+
+    'email_email' => 'The email must be a valid email address.',
+    'email_unique' => 'This email has already been taken.',
+
+    'phone_required' => 'The phone number is required.',
+    'phone_unique' => 'This phone number has already been taken.',
+
+    'type_required' => 'The user type is required.',
+    'type_in' => 'The selected type is invalid.',
+
+    'image_required' => 'The image field is required.',
+    'image_image' => 'The uploaded file must be an image.',
+    'image_mimes' => 'The image must be a file of type: jpeg, jpg, png.',
+    'image_max' => 'The image size must not exceed 2 MB.',
+
+    'brand_name_required' => 'The brand name is required.',
+    'brand_name_string' => 'The brand name must be a string.',
+
+    'fcm_token_string' => 'The FCM token must be a string.',
+
+
 ];

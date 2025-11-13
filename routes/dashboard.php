@@ -22,6 +22,7 @@ use App\Http\Controllers\Dashboard\Setting\SettingController as SettingSettingCo
 use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\Structure\AboutUsController;
+use App\Http\Controllers\Dashboard\Structure\LandingPageFooterController;
 use App\Http\Controllers\Dashboard\Structure\TermsAndConditionsController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
@@ -48,8 +49,8 @@ Route::group([
 
         // users route
         Route::resource('users', UserController::class);
-                Route::get('users/products/{id}', [UserController::class, 'products'])->name('users.products');
-             Route::get('users/transactions/{id}', [ProviderController::class, 'transactions'])->name('users.transactions');
+        Route::get('users/products/{id}', [UserController::class, 'products'])->name('users.products');
+        Route::get('users/transactions/{id}', [ProviderController::class, 'transactions'])->name('users.transactions');
         Route::post('users/transactions/{id}', [ProviderController::class, 'addTransaction'])->name('users.addTransaction');
         Route::delete('users/transactions/{transactionId}', [ProviderController::class, 'deleteTransaction'])->name('users.deleteTransaction');
 
@@ -83,7 +84,7 @@ Route::group([
             });
 
 
-            //orders
+        //orders
         Route::controller(OrderController::class)->prefix('orders')->name('orders.')
             ->group(function () {
                 Route::get('/', 'index')->name('index');
@@ -126,20 +127,24 @@ Route::group([
                 Route::delete('/{id}',  'destroy')->name('destroy');
                 Route::post('/change-status/{id}',  'changeStatus')->name('changeStatus');
                 Route::get('/details/{id}', 'show')->name('details');
-
             });
 
-            // routes/web.php أو routes/api.php (لو API)
+        // routes/web.php أو routes/api.php (لو API)
 
         Route::group(['prefix' => 'structures'], function () {
             Route::resource('about', AboutUsController::class)->only('store', 'index');
             Route::resource('terms_and_conditions', TermsAndConditionsController::class)->only('store', 'index');
-
+            Route::resource('footer', LandingPageFooterController::class)->only('store', 'index');
         });
         Route::group(['prefix' => 'landing-page'], function () {
-        Route::get('header', [LandingPageController::class, 'header'])->name('landingPage.header');
-        Route::put('/update/{id}', [LandingPageController::class, 'update'])->name('landingPage.update');
-
+            Route::get('header-content', [LandingPageController::class, 'header'])->name('landingPage.header');
+            Route::get('choose-content', [LandingPageController::class, 'chooseContent'])->name('landingPage.chooseContent');
+            Route::get('features-content', [LandingPageController::class, 'features'])->name('landingPage.features');
+            Route::get('expirenc-content', [LandingPageController::class, 'expirenceContent'])->name('landingPage.expirenceContent');
+            Route::get('discover-content', [LandingPageController::class, 'discover'])->name('landingPage.discover');
+            Route::get('download-content', [LandingPageController::class, 'downloadSection'])->name('landingPage.downloadSection');
+            Route::get('/edit/{id}', [LandingPageController::class, 'edit'])->name('landingPage.edit');
+            Route::put('/update/{id}', [LandingPageController::class, 'update'])->name('landingPage.update');
         });
 
         //contacts
@@ -160,9 +165,8 @@ Route::group([
         });
 
 
-       Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+        Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
     });
 });

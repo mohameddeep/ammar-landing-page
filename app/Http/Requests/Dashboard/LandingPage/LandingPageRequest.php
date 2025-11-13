@@ -27,11 +27,11 @@ class LandingPageRequest extends FormRequest
         return [
             'title_ar' => ['nullable', 'string', 'max:255'],
             'title_en' => ['nullable', 'string', 'max:255'],
-            'content_ar' => ['nullable', 'string', 'max:255'],
-            'content_en' => ['nullable', 'string', 'max:255'],
+            'content_ar' => ['nullable', 'string'],
+            'content_en' => ['nullable', 'string'],
             'ios_link' => ['nullable', 'string', 'max:255'],
             'android_link' => ['nullable', 'string', 'max:255'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048']
+            'image' => ['nullable',  'max:2048']
             ];
     }
 }

@@ -47,4 +47,6 @@ return [
 
 'new_complaint_title' => 'تم استلام شكوى جديدة',
     'new_complaint_body' => 'تم إرسال شكوى جديدة بواسطة :name',
+        'your_subscription_ended' => 'انتهى اشتراكك',
+
 ];

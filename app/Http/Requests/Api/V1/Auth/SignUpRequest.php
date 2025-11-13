@@ -45,4 +45,33 @@ class SignUpRequest extends FormRequest
             })],
         ];
     }
+
+
+       public function messages(): array
+    {
+        return [
+            'name.required' => __('validation.name_required'),
+            'name.string' => __('validation.name_string'),
+
+            'email.email' => __('validation.email_email'),
+            'email.unique' => __('validation.email_unique'),
+
+            'phone.required' => __('validation.phone_required'),
+            'phone.regex' => __('validation.phone_regex'),
+            'phone.unique' => __('validation.phone_unique'),
+
+            'type.required' => __('validation.type_required'),
+            'type.in' => __('validation.type_in'),
+
+            'image.required' => __('validation.image_required'),
+            'image.image' => __('validation.image_image'),
+            'image.mimes' => __('validation.image_mimes'),
+            'image.max' => __('validation.image_max'),
+
+            'brand_name.required' => __('validation.brand_name_required'),
+            'brand_name.string' => __('validation.brand_name_string'),
+
+            'fcm_token.string' => __('validation.fcm_token_string'),
+        ];
+    }
 }

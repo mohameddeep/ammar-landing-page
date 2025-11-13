@@ -17,26 +17,41 @@ class LandingPageController extends Controller
 
         return $this->service->header();
     }
+    public function chooseContent()
+    {
 
-   
+        return $this->service->chooseContent();
+    }
+    public function features()
+    {
+
+        return $this->service->features();
+    }
+    public function expirenceContent()
+    {
+
+        return $this->service->expirenceContent();
+    }
+
+    public function discover()
+    {
+
+        return $this->service->discover();
+    }
+    public function downloadSection()
+    {
+
+        return $this->service->downloadSection();
+    }
 
     public function edit(string $id)
     {
         return $this->service->edit($id);
     }
 
-    public function update(LandingPageRequest $request, string $id)
+    public function update(LandingPageRequest $request,$id)
     {
         return $this->service->update($request, $id);
     }
 
-    public function toggle($id)
-    {
-        return $this->service->toggle($id);
-    }
-
-    public function destroy($id)
-    {
-        return $this->service->destroy($id);
-    }
 }

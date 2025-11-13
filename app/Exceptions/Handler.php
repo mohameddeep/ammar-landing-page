@@ -80,7 +80,7 @@ class Handler extends ExceptionHandler
             return $request->ajax() ? response()->json($errors, Http::UNPROCESSABLE_ENTITY) : redirect()->back()->withInput()->withErrors($errors);
         }
 
-        return responseFail(Http::BAD_REQUEST, $errors[0]);
+        return responseFail(Http::BAD_REQUEST, $errors[0],$errors);
     }
 
     private function isFrontend($request)

@@ -53,50 +53,67 @@ abstract class StructureController extends Controller
         return redirect()->back()->with('success', __('messages.created successfully'));
     }
 
-    private function build($request)
-    {
-        $data = $this->file($request);
+ private function build($request)
+{
+    $data = $this->file($request);
 
-        $result = [];
-        foreach ($data as $locale => $content) {
+    if ($this->contentKey === 'footer') {
+        // لا نحذف الملف بعد الآن، نستخدم $data كما هو بعد معالجة الصور
+        // نزيل فقط _token
+        unset($data['_token']);
 
-            if (in_array($locale, $this->locales)) {
-                $result[$locale] = $content;
-                if (isset($data['all'])) {
-                    $result[$locale] = array_merge_recursive_distinct($result[$locale], $data['all']);
+        return json_encode($this->helper->safeJson($data));
+    }
+
+    // باقي المفاتيح كما هي
+    $result = [];
+    foreach ($data as $locale => $content) {
+        if (in_array($locale, $this->locales)) {
+            $result[$locale] = $content;
+            if (isset($data['all'])) {
+                $result[$locale] = array_merge_recursive_distinct($result[$locale], $data['all']);
+            }
+        }
+    }
+
+    $safe_array = $this->helper->safeArray($result);
+    $safe_json = $this->helper->safeJson($safe_array);
+
+    return json_encode($safe_json);
+}
+
+
+private function file($request)
+{
+    $data = $request->all();
+
+    if ($this->contentKey === 'footer' && $request->hasFile('image')) {
+        $file = $request->file('image');
+
+        $filePath = $file->store('content/footer', 'public');
+
+        $data['image'] = url('storage/' . $filePath);
+    }
+
+    if (isset($data['old_file'])) {
+        if (is_array($data['old_file'])) {
+            foreach ($data['old_file'] as $i => $oldFile) {
+                $oldFilePath = str_replace(url('/'), '', $oldFile);
+                if (is_array($request->file('file')) && isset($request->file('file')[$i])) {
+                    $this->fileManager->deleteFile($oldFilePath);
+                    $filePath = $this->fileManager->upload('file.'.$i, 'content/'.$this->contentKey);
+                    $this->assignFilesUrls($data, 'file_'.$i, url($filePath));
+                } else {
+                    $this->assignFilesUrls($data, 'file_'.$i, url($oldFilePath));
                 }
             }
         }
-
-        $safe_array = $this->helper->safeArray($result);
-
-        $safe_json = $this->helper->safeJson($safe_array);
-
-        return json_encode($safe_json);
     }
 
-    private function file($request)
-    {
-        $data = $request->all();
-        if (isset($data['old_file'])) {
-            if (is_array($data['old_file'])) {
-                foreach ($data['old_file'] as $i => $oldFile) {
-                    $oldFilePath = str_replace(url('/'), '', $oldFile);
-                    if (is_array($request->file('file')) && isset($request->file('file')[$i])) {
-                        $this->fileManager->deleteFile($oldFilePath);
+    return $data;
+}
 
-                        $filePath = $this->fileManager->upload('file.'.$i, 'content/'.$this->contentKey);
 
-                        $this->assignFilesUrls($data, 'file_'.$i, url($filePath));
-                    } else {
-                        $this->assignFilesUrls($data, 'file_'.$i, url($oldFilePath));
-                    }
-                }
-            }
-        }
-
-        return $data;
-    }
 
     private function assignFilesUrls(&$data, $search, $replace)
     {

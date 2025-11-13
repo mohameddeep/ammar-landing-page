@@ -24,6 +24,7 @@ class UserProfileResource extends JsonResource
             'brand_name' => $this->brand_name,
             'phone' => $this->phone,
             'email' => $this->email,
+            'image' => $this->image,
 
         ];
     }

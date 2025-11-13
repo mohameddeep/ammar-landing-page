@@ -23,11 +23,44 @@ class LandingPageService
 
         return view('dashboard.site.landing-page.edit', compact('content'));
     }
+    public function chooseContent()
+    {
+        $content = $this->repository->getFirstByKey("content_one");
 
+        return view('dashboard.site.landing-page.edit', compact('content'));
+    }
+
+
+
+    public function features()
+    {
+        $features = $this->repository->getByKey("feature");
+
+        return view('dashboard.site.landing-page.features', compact('features'));
+    }
+    public function expirenceContent()
+    {
+        $content = $this->repository->getFirstByKey("content_two");
+
+        return view('dashboard.site.landing-page.edit', compact('content'));
+    }
+
+     public function discover()
+    {
+        $discovers = $this->repository->getByKey("discover");
+
+        return view('dashboard.site.landing-page.discover', compact('discovers'));
+    }
+    public function downloadSection()
+    {
+        $content = $this->repository->getFirstByKey("ready_to_transform");
+
+        return view('dashboard.site.landing-page.edit', compact('content'));
+    }
 
     public function edit($id)
     {
-         $content = $this->repository->getFirstByKey("slider");
+        $content = $this->repository->getById($id);
 
         return view('dashboard.site.landing-page.edit', compact('content'));
     }
@@ -36,9 +69,9 @@ class LandingPageService
     {
         DB::beginTransaction();
         try {
-            $category = $this->repository->getById($id);
+            $content = $this->repository->getById($id);
             $data = $request->except('id', 'image', '_method', '_token');
-         if ($request->hasFile('image')) {
+            if ($request->hasFile('image')) {
                 $data['image'] = $this->image($request->file('image'), 'landing-pages');
             }
 
@@ -46,13 +79,11 @@ class LandingPageService
 
             DB::commit();
 
-            return redirect()->route('categories.index')->with(['success' => __('messages.updated_successfully')]);
+            return redirect()->back()->with(['success' => __('messages.updated_successfully')]);
         } catch (Exception $e) {
             DB::rollBack();
 
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
     }
-
-  
 }
