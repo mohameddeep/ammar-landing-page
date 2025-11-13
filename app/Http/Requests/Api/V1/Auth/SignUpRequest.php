@@ -45,9 +45,9 @@ class SignUpRequest extends FormRequest
             })],
         ];
     }
-
-
-       public function messages(): array
+    
+    
+     public function messages(): array
     {
         return [
             'name.required' => __('validation.name_required'),

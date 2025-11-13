@@ -84,10 +84,9 @@ return [
     'unique' => 'تم استخدام :attribute بالفعل.',
     'url' => 'يجب أن يكون :attribute رابطًا صالحًا.',
     'uuid' => 'يجب أن يكون :attribute معرف UUID صالحًا.',
-
-
-
-     'name_required' => 'حقل الاسم مطلوب.',
+    
+    
+    'name_required' => 'حقل الاسم مطلوب.',
     'name_string' => 'الاسم يجب أن يكون نصاً.',
 
     'email_email' => 'يجب أن يكون البريد الإلكتروني صالحاً.',
