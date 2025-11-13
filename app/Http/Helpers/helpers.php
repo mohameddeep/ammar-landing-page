@@ -29,7 +29,7 @@ if (! function_exists('paginatedJsonResponse')) {
                 'per_page' => (int) $data[$paginatedDataKey]->perPage(),
                 'current_page' => (int) $data[$paginatedDataKey]->currentPage(),
                 'get_options' => $data[$paginatedDataKey]->getOptions(),
-                'next_page_url' => $data[$paginatedDataKey]->nextPageUrl(),
+'next_page_url' => (string)($data[$paginatedDataKey]->nextPageUrl() ?? 'no data'),
             ],
         ], $code);
     }
