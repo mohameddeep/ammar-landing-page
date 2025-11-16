@@ -55,13 +55,13 @@ abstract class StructureController extends Controller
 
  private function build($request)
 {
-    $data = $this->file($request);
+
+        $oldContent = $this->structureRepository->structure($this->contentKey)?->content;
+
+     $data = $this->file($request, $oldContent);
 
     if ($this->contentKey === 'footer') {
-        // لا نحذف الملف بعد الآن، نستخدم $data كما هو بعد معالجة الصور
-        // نزيل فقط _token
         unset($data['_token']);
-
         return json_encode($this->helper->safeJson($data));
     }
 
@@ -83,16 +83,24 @@ abstract class StructureController extends Controller
 }
 
 
-private function file($request)
+private function file($request,$oldContent=null)
 {
     $data = $request->all();
 
-    if ($this->contentKey === 'footer' && $request->hasFile('image')) {
-        $file = $request->file('image');
-
-        $filePath = $file->store('content/footer', 'public');
-
-        $data['image'] = url('storage/' . $filePath);
+   if ($this->contentKey === 'footer') {
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('content/footer', 'public');
+            $data['image'] = url('storage/' . $filePath);
+        } else {
+            // No new image uploaded: keep old image from DB if exists
+            if ($oldContent) {
+                $oldData = json_decode($oldContent, true);
+                if (isset($oldData['image'])) {
+                    $data['image'] = $oldData['image'];
+                }
+            }
+        }
     }
 
     if (isset($data['old_file'])) {

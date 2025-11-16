@@ -44,7 +44,7 @@ trait SendNotification
                 throw new Exception('No access token retrieved from Google Client.');
             }
 
-            // 🔹 Flatten data (convert to simple key-value)
+            // ðŸ”¹ Flatten data (convert to simple key-value)
             $flattenedData = $this->flattenData($data);
 
             foreach ($fcms as $fcm) {
@@ -57,7 +57,7 @@ trait SendNotification
                     ],
                 ];
 
-                // 🔸 Add data only if not empty
+                // ðŸ”¸ Add data only if not empty
                 if (!empty($flattenedData)) {
                     $message['data'] = $flattenedData;
                 }
@@ -106,7 +106,7 @@ trait SendNotification
             if (is_array($value)) {
                 $result = array_merge($result, $this->flattenData($value, $newKey));
             } else {
-                $result[$newKey] = (string) $value; // ✅ Firebase requires strings
+                $result[$newKey] = (string) $value; // âœ… Firebase requires strings
             }
         }
 
