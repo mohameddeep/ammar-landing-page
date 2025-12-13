@@ -1,34 +1,21 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AboutUs\AboutUsChildrenController;
+use App\Http\Controllers\Dashboard\AboutUs\AboutUsController;
 use App\Http\Controllers\Dashboard\AdminProfile\AdminProfileController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
-use App\Http\Controllers\Dashboard\Categories\CategoryController;
-use App\Http\Controllers\Dashboard\Commissions\CommissionController;
-use App\Http\Controllers\Dashboard\Complaint\ComplaintController;
 use App\Http\Controllers\Dashboard\Contact\ContactController;
-use App\Http\Controllers\Dashboard\Coupon\CouponController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
-use App\Http\Controllers\Dashboard\LandingPage\LandingPageController;
-use App\Http\Controllers\Dashboard\Mangers\MangerController;
-use App\Http\Controllers\Dashboard\Notification\NotificationController;
-use App\Http\Controllers\Dashboard\Order\OrderController;
-use App\Http\Controllers\Dashboard\OrderReturn\OrderReturnController;
-use App\Http\Controllers\Dashboard\Packages\PackageController;
-use App\Http\Controllers\Dashboard\Packages\PackageFeatureController;
-use App\Http\Controllers\Dashboard\Product\ProductController;
-use App\Http\Controllers\Dashboard\Provider\ProviderController;
-use App\Http\Controllers\Dashboard\Roles\RoleController;
 use App\Http\Controllers\Dashboard\Setting\SettingController as SettingSettingController;
-use App\Http\Controllers\Dashboard\Settings\SettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
-use App\Http\Controllers\Dashboard\Structure\AboutUsController;
+use App\Http\Controllers\Dashboard\Service\ServiceController;
+use App\Http\Controllers\Dashboard\Structure\AboutUsController as StructureAboutUsController;
 use App\Http\Controllers\Dashboard\Structure\LandingPageFooterController;
 use App\Http\Controllers\Dashboard\Structure\TermsAndConditionsController;
-use App\Http\Controllers\Dashboard\User\UserController;
-use App\Http\Controllers\Dashboard\Subscription\SubscriptionController;
+use App\Http\Controllers\Dashboard\Structure\ServiceStructureController;
+use App\Http\Controllers\Dashboard\Structure\PolicyController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use NunoMaduro\Collision\Provider;
 
 // Route::get('/calendar/calendar/calendar', function () {
 //     return view('dashboard.site.calendar');
@@ -38,135 +25,56 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
 ], function () {
-    Route::group(['prefix' => 'auth', 'as' => 'auth.'], function (): void {
-        Route::get('login', [AuthController::class, '_login'])->name('_login');
-        Route::post('login', [AuthController::class, 'login'])->name('login');
-        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    });
+    Route::group(['prefix' => 'admin'], function () {
+        Route::group(['prefix' => 'auth', 'as' => 'auth.'], function (): void {
+            Route::get('login', [AuthController::class, '_login'])->name('_login');
+            Route::post('login', [AuthController::class, 'login'])->name('login');
+            Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+        });
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('/', [HomeController::class, 'index'])->name('/');
-
-        // users route
-        Route::resource('users', UserController::class);
-        Route::get('users/products/{id}', [UserController::class, 'products'])->name('users.products');
-        Route::get('users/transactions/{id}', [ProviderController::class, 'transactions'])->name('users.transactions');
-        Route::post('users/transactions/{id}', [ProviderController::class, 'addTransaction'])->name('users.addTransaction');
-        Route::delete('users/transactions/{transactionId}', [ProviderController::class, 'deleteTransaction'])->name('users.deleteTransaction');
+        Route::group(['middleware' => 'auth'], function () {
+            Route::get('/', [HomeController::class, 'index'])->name('/');
 
 
-        //providers route
-        Route::resource('providers', ProviderController::class);
-        Route::get('providers/products/{id}', [ProviderController::class, 'products'])->name('providers.products');
-        Route::get('providers/transactions/{id}', [ProviderController::class, 'transactions'])->name('providers.transactions');
-        Route::post('providers/transactions/{id}', [ProviderController::class, 'addTransaction'])->name('providers.addTransaction');
-        Route::delete('providers/transactions/{transactionId}', [ProviderController::class, 'deleteTransaction'])->name('providers.deleteTransaction');
+
+            Route::resource('admin-profile', AdminProfileController::class)->only('edit', 'update');
+            Route::post('update-password', [AdminProfileController::class, 'updatePassword'])->name('update-password');
 
 
-        Route::resource('admin-profile', AdminProfileController::class)->only('edit', 'update');
-        Route::post('update-password', [AdminProfileController::class, 'updatePassword'])->name('update-password');
 
 
-        Route::get('edit-setting', [SettingSettingController::class, 'edit'])->name('dashboard.setting.edit');
-        Route::put('update-setting', [SettingSettingController::class, 'update'])->name('dashboard.setting.update');
-        // roles
-        Route::resource('roles', RoleController::class);
 
-        Route::get('role/{id}/managers', [RoleController::class, 'mangers'])->name('roles.mangers');
-        Route::controller(MangerController::class)->prefix('managers')->name('managers.')
-            ->group(function () {
-                Route::get('/{role}/create', 'create')->name('create');
-                Route::post('/', 'store')->name('store');
-                Route::post('/toggle/{id}', 'toggle')->name('toggle');
-                Route::get('/{manager}/edit', 'edit')->name('edit');
-                Route::put('/{manager}', 'update')->name('update');
-                Route::delete('/{manager}', action: 'destroy')->name('destroy');
+            //contacts
+            Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
+
+            // start sliders
+            Route::resource('sliders', controller: SliderController::class)->except(['show']);
+            Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
+            // start sliders
+            Route::resource('abouts', controller: AboutUsController::class)->except(['show']);
+            Route::post('abouts/toggle/{id}', [AboutUsController::class, 'toggle'])->name('abouts.toggle');
+
+            // Services
+            Route::resource('services', controller: ServiceController::class)->except(['show']);
+            Route::post('services/toggle/{id}', [ServiceController::class, 'toggle'])->name('services.toggle');
+
+            // About Us Children
+            Route::controller(AboutUsChildrenController::class)->group(function () {
+                 Route::get('abouts/{id}/children', 'index')->name('abouts.children.index');
+                 Route::get('abouts/{id}/children/create', 'create')->name('abouts.children.create');
+                 Route::post('abouts/{id}/children', 'store')->name('abouts.children.store');
+                 Route::get('abouts-children/{id}/edit', 'edit')->name('abouts.children.edit');
+                 Route::put('abouts-children/{id}', 'update')->name('abouts.children.update');
             });
 
 
-        //orders
-        Route::controller(OrderController::class)->prefix('orders')->name('orders.')
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::get('/{id}/show', 'show')->name('show');
-                Route::put('/{id}/update-status', 'updateStatus')->name('updateStatus');
-                Route::delete('/{id}', action: 'destroy')->name('destroy');
-            });
-
-        // Commissions Routes
-        Route::resource('commissions', CommissionController::class)->except('show', 'create', 'store', 'destroy');
-        Route::post('/commissions/toggle/{id}', [CommissionController::class, 'toggle'])->name('commissions.toggle');
-
-        // package Routes
-        Route::resource('packages', PackageController::class);
-        Route::post('/packages/toggle/{id}', [PackageController::class, 'toggle'])->name('packages.toggle');
-        Route::post('/packages/toggle_hidden/{id}', [PackageController::class, 'toggleHidden'])->name('packages.toggle_hidden');
-        Route::post('/packages/feature/toggle/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.toggle.details');
-        Route::get('/packages/feature/show/{id}', [PackageFeatureController::class, 'toggle'])->name('packages.show.details');
-
-        // categories Routes
-        Route::resource('categories', CategoryController::class);
-        Route::post('categories/toggle/{id}', [CategoryController::class, 'toggle'])->name('categories.toggle');
-        Route::resource('dashobard/coupons', CouponController::class)->names('dashobard.coupons')->except('show');
-
-
-        //subscriptions
-        Route::controller(SubscriptionController::class)->prefix('subscriptions')->name('subscriptions.')
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::post('/toggle/{id}', 'toggle')->name('toggle');
-                Route::delete('/{id}', action: 'destroy')->name('destroy');
-            });
-
-
-        //products
-        Route::controller(ProductController::class)->prefix('dashboard/products')->name('dashboard.products.')
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::post('/toggle/{id}', 'toggle')->name('toggle');
-                Route::delete('/{id}',  'destroy')->name('destroy');
-                Route::post('/change-status/{id}',  'changeStatus')->name('changeStatus');
-                Route::get('/details/{id}', 'show')->name('details');
-            });
-
-        // routes/web.php أو routes/api.php (لو API)
-
-        Route::group(['prefix' => 'structures'], function () {
-            Route::resource('about', AboutUsController::class)->only('store', 'index');
+              Route::group(['prefix' => 'structures'], function () {
+            Route::resource('about', StructureAboutUsController::class)->only('store', 'index');
             Route::resource('terms_and_conditions', TermsAndConditionsController::class)->only('store', 'index');
             Route::resource('footer', LandingPageFooterController::class)->only('store', 'index');
+            Route::resource('service_structure', ServiceStructureController::class)->only('store', 'index');
+            Route::resource('policy', PolicyController::class)->only('store', 'index');
         });
-        Route::group(['prefix' => 'landing-page'], function () {
-            Route::get('header-content', [LandingPageController::class, 'header'])->name('landingPage.header');
-            Route::get('choose-content', [LandingPageController::class, 'chooseContent'])->name('landingPage.chooseContent');
-            Route::get('features-content', [LandingPageController::class, 'features'])->name('landingPage.features');
-            Route::get('expirenc-content', [LandingPageController::class, 'expirenceContent'])->name('landingPage.expirenceContent');
-            Route::get('discover-content', [LandingPageController::class, 'discover'])->name('landingPage.discover');
-            Route::get('download-content', [LandingPageController::class, 'downloadSection'])->name('landingPage.downloadSection');
-            Route::get('/edit/{id}', [LandingPageController::class, 'edit'])->name('landingPage.edit');
-            Route::put('/update/{id}', [LandingPageController::class, 'update'])->name('landingPage.update');
         });
-
-        //contacts
-        Route::resource('dashboard/contacts', ContactController::class)->only('destroy', 'index');
-        //complaints
-        Route::resource('dashboard/complaints', ComplaintController::class)->only('destroy', 'index');
-        Route::put('dashboard/complaints/{id}', [ComplaintController::class, 'respond'])->name('complaints.respond');
-
-
-        // start sliders
-        Route::resource('sliders', controller: SliderController::class)->except(['show']);
-        Route::post('sliders/toggle/{id}', [SliderController::class, 'toggle'])->name('sliders.toggle');
-
-        Route::resource('order-returns', OrderReturnController::class);
-        Route::group(['prefix' => 'order-returns', 'controller' => OrderReturnController::class], function () {
-            Route::get('/{id}/accept', 'accept')->name('order-returns.accept');
-            Route::get('/{id}/reject', 'reject')->name('order-returns.reject');
-        });
-
-
-        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-        Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-        Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
     });
 });

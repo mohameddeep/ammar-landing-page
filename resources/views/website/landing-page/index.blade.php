@@ -1,340 +1,666 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مجموعة ألور - أزياء فاخرة للمرأة العربية العصرية</title>
+@extends('website.layouts.app')
+@section('title', __('dashboard.users'))
+@section('content')
+    <!-- Hero Slider Section -->
+    <section class=" pb-20 px-6 relative overflow-hidden hero-slider min-h-[90vh] flex items-center">
+      <!-- Background Effects -->
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"></div>
+      <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rufina:wght@400;700&family=Roboto+Flex:opsz,wght@8..144,100;8..144,400;8..144,500;8..144,600;8..144,700&display=swap"
-        rel="stylesheet" />
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/landingpage/styles.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/landingpage/responsive.css') }}" />
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="{{ asset('assets/landingpage/manifest.json') }}" />
-    <meta name="theme-color" content="#1F4D42" />
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">
-                    <img src="{{ $footer['image'] }}" alt="" />
-                </div>
-
-                <div class="nav-menu" id="navMenu">
-                    <a href="#home" class="nav-link active">{{ __('landingpage.home') }}</a>
-                    <a href="#features" class="nav-link">{{ __('landingpage.features') }}</a>
-                    <a href="#discover" class="nav-link">{{ __('landingpage.discover') }}</a>
-                </div>
-
-
-                <div class="nav-actions">
-                    <button class="btn btn-primary">     {{ __('landingpage.download_app') }}</button>
-                    <a href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL(app()->getLocale() == 'ar' ? 'en' : 'ar') }}"
-                        class="lang-toggle" id="langToggle"
-                        title="{{ app()->getLocale() == 'ar' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية' }}">
-
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 18.3334C14.6024 18.3334 18.3334 14.6024 18.3334 10C18.3334 5.39765 14.6024 1.66669 10 1.66669C5.39765 1.66669 1.66669 5.39765 1.66669 10C1.66669 14.6024 5.39765 18.3334 10 18.3334Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M1.66669 10H18.3334" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M10 1.66669C12.0844 3.94865 13.269 6.91003 13.3334 10C13.269 13.09 12.0844 16.0514 10 18.3334C7.91562 16.0514 6.73104 13.09 6.66669 10C6.73104 6.91003 7.91562 3.94865 10 1.66669V1.66669Z"
-                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-
-                        <span class="lang-text">
-                            {{ app()->getLocale() == 'ar' ? 'EN' : 'AR' }}
-                        </span>
-                    </a>
-
-                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+      <div class="max-w-7xl mx-auto relative w-full">
+        <!-- Slide 1 -->
+        <div class="slide active slide-bg-1">
+          <div class="slide-image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+              alt="Modern Construction Building" 
+              class="slide-image"
+              loading="eager"
+            />
+            <div class="slide-overlay"></div>
+          </div>
+          <div class="text-center slide-content py-20 relative z-10">
+            <div class="mb-6 inline-block">
+              <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm" data-i18n="slide1Badge">
+                🏗️ خبرة 15+ سنة
+              </span>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg">
-            <img src="@image($header->image)" alt="Luxury Fashion" />
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="container">
-                <h1 class="hero-title">{{ $header->t('title') }}</h1>
-                <p class="hero-subtitle">
-                    {{ $header->t('content') }}
-                </p>
-                <div class="hero-buttons">
-                    <a href="{{ $header->ios_link }}" class="btn btn-outline-light">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M16.0763 2.33331H15.9238C13.0029 2.3333 10.7086 2.33328 8.91741 2.5741C7.08186 2.82089 5.62552 3.33693 4.48126 4.4812C3.33699 5.62546 2.82095 7.0818 2.57417 8.91734C2.33334 10.7086 2.33336 13.0028 2.33337 15.9237V16.0762C2.33336 18.9972 2.33334 21.2914 2.57417 23.0826C2.82095 24.9182 3.33699 26.3745 4.48126 27.5188C5.62552 28.663 7.08186 29.1791 8.91741 29.4259C10.7086 29.6667 13.0028 29.6667 15.9238 29.6666H16.0763C18.9972 29.6667 21.2915 29.6667 23.0827 29.4259C24.9182 29.1791 26.3746 28.663 27.5188 27.5188C28.6631 26.3745 29.1791 24.9182 29.4259 23.0826C29.6667 21.2914 29.6667 18.9972 29.6667 16.0762V15.9238C29.6667 13.0028 29.6667 10.7086 29.4259 8.91734C29.1791 7.0818 28.6631 5.62546 27.5188 4.4812C26.3746 3.33693 24.9182 2.82089 23.0827 2.5741C21.2915 2.33328 18.9972 2.3333 16.0763 2.33331ZM15.5242 8.81897C15.2401 8.34539 14.6258 8.19182 14.1522 8.47597C13.6786 8.76012 13.5251 9.37438 13.8092 9.84796L14.8338 11.5557L11.1672 17.6668H8.66671C8.11442 17.6668 7.66671 18.1145 7.66671 18.6668C7.66671 19.2191 8.11442 19.6668 8.66671 19.6668H9.96718L8.47588 22.1523C8.19173 22.6259 8.3453 23.2401 8.81888 23.5243C9.29246 23.8084 9.90672 23.6549 10.1909 23.1813L12.2996 19.6668H16.6667C17.219 19.6668 17.6667 19.2191 17.6667 18.6668C17.6667 18.1145 17.219 17.6668 16.6667 17.6668H13.4996L16.8469 12.0879C16.8539 12.0767 16.8607 12.0654 16.8673 12.0539L18.1909 9.84796C18.475 9.37438 18.3214 8.76012 17.8479 8.47597C17.3743 8.19182 16.76 8.34539 16.4759 8.81897L16 9.61204L15.5242 8.81897ZM18.7242 14.1523C18.4401 13.6787 17.8258 13.5252 17.3522 13.8093C16.8786 14.0935 16.7251 14.7077 17.0092 15.1813L21.8092 23.1813C22.0934 23.6549 22.7076 23.8084 23.1812 23.5243C23.6548 23.2401 23.8083 22.6259 23.5242 22.1523L22.0329 19.6668H23.3334C23.8857 19.6668 24.3334 19.2191 24.3334 18.6668C24.3334 18.1145 23.8857 17.6668 23.3334 17.6668H20.8329L18.7242 14.1523Z"
-                                fill="white" />
-                        </svg>
-                        @lang('landingpage.download_ios')
-                    </a>
-                    <a href="{{ $header->android_link }}" class="btn btn-outline-light">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16.0765 29.6667C18.9972 29.6667 21.2912 29.6663 23.0823 29.4255C24.9178 29.1787 26.3746 28.6634 27.5189 27.5192C28.6631 26.375 29.1793 24.9182 29.4261 23.0827C29.6669 21.2915 29.6663 18.9968 29.6663 16.0759V15.9235C29.6663 13.0029 29.6669 10.7088 29.4261 8.91766C29.1793 7.08212 28.6631 5.6254 27.5189 4.48114C26.3746 3.33688 24.9179 2.8207 23.0823 2.57391C21.2912 2.33314 18.9971 2.33366 16.0765 2.33368H15.9241C13.0032 2.33366 10.7085 2.33309 8.9173 2.57391C7.08177 2.8207 5.62503 3.33688 4.48077 4.48114C3.33664 5.62538 2.82129 7.08222 2.57452 8.91766C2.33374 10.7088 2.3333 13.0028 2.33331 15.9235V16.0759C2.3333 18.9968 2.3337 21.2915 2.57452 23.0827C2.82131 24.9182 3.33654 26.375 4.48077 27.5192C5.62501 28.6635 7.08181 29.1787 8.9173 29.4255C10.7085 29.6663 13.0032 29.6667 15.9241 29.6667H16.0765ZM18.4398 14.444C18.2312 14.444 18.0594 14.2854 17.7161 13.9684L11.4329 8.16766C11.2712 8.01832 11.3244 7.75278 11.5374 7.69696C12.5868 7.422 13.6534 7.67604 14.7982 8.15009C15.9316 8.61946 17.3212 9.38423 19.0726 10.3493L19.1878 10.4128C19.5845 10.6313 19.9612 10.8392 20.3177 11.0378C20.8868 11.3549 21.172 11.5138 21.2044 11.7839C21.2366 12.0541 20.9945 12.2779 20.511 12.7243L19.1634 13.9684C18.8202 14.2853 18.6482 14.4439 18.4398 14.444ZM9.41339 22.6628C9.1435 22.6053 9.05742 22.4062 8.88605 22.0075C8.6793 21.5265 8.55853 20.9896 8.48273 20.4196C8.33306 19.2938 8.33329 17.8202 8.33331 15.9929V15.8405C8.33329 14.0132 8.33306 12.5395 8.48273 11.4138C8.55077 10.9021 8.6554 10.417 8.8255 9.97528C8.98768 9.55408 9.06898 9.34307 9.34406 9.27899C9.61901 9.21516 9.81764 9.39826 10.2142 9.76434L16.1165 15.2136C16.5139 15.5804 16.7122 15.7643 16.7122 15.9977C16.7121 16.2311 16.5136 16.4144 16.1165 16.7809L10.2601 22.1882C9.87568 22.543 9.68323 22.7201 9.41339 22.6628ZM23.2396 18.8708C23.028 18.8729 22.8674 18.724 22.5462 18.4274L20.763 16.7809C20.3658 16.4143 20.1665 16.2311 20.1663 15.9977C20.1663 15.7643 20.3657 15.5804 20.763 15.2136L22.6331 13.487C22.9592 13.1859 23.1225 13.0347 23.3382 13.0397C23.5539 13.0448 23.6925 13.1862 23.97 13.4675C24.4116 13.915 24.7439 14.4188 24.8919 15.0231C25.036 15.6113 25.036 16.222 24.8919 16.8102C24.7335 17.4569 24.3648 17.9891 23.8763 18.4597C23.5934 18.7322 23.4514 18.8685 23.2396 18.8708ZM14.7982 23.6843C13.6535 24.1583 12.5868 24.4114 11.5374 24.1364C11.3862 24.0968 11.3454 23.9075 11.4603 23.8015L17.7161 18.0261C18.0593 17.7093 18.2313 17.5515 18.4398 17.5515C18.6482 17.5516 18.8202 17.7092 19.1634 18.0261L20.3997 19.1686C20.8848 19.6164 21.1274 19.8406 21.095 20.111C21.0624 20.3812 20.7769 20.5404 20.2054 20.8581C19.8823 21.0377 19.543 21.2249 19.1878 21.4206L19.0726 21.4841C17.3211 22.4492 15.9316 23.2149 14.7982 23.6843Z"
-                                fill="white" />
-                        </svg>
-                        @lang('landingpage.download_android')
-                    </a>
-                </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+              <span data-i18n="slide1Title1">شريكك الموثوق في</span>
+              <span class="block gradient-text mt-2 animate-float" data-i18n="slide1Title2">البناء والتراخيص</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10" data-i18n="slide1Desc">
+              نقدم خدمات متكاملة في إصدار التراخيص والإشراف على المشاريع والمقاولات بأعلى معايير الجودة والاحترافية
+            </p>
+            <div class="flex gap-4 justify-center flex-wrap">
+              <button class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full font-semibold shadow-lg shadow-emerald-500/50 transition-all hover:scale-105 hover:shadow-xl" data-i18n="slide1Btn1">
+                ابدأ مشروعك الآن
+              </button>
+              <button class="px-8 py-4 bg-slate-800/80 backdrop-blur-sm hover:bg-slate-700/80 text-white rounded-full font-semibold border border-slate-700 transition-all hover:scale-105" data-i18n="slide1Btn2">
+                استشارة مجانية
+              </button>
             </div>
+          </div>
         </div>
+
+        <!-- Slide 2 -->
+        <div class="slide slide-bg-2">
+          <div class="slide-image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2053&q=80" 
+              alt="Construction Site" 
+              class="slide-image"
+              loading="lazy"
+            />
+            <div class="slide-overlay"></div>
+          </div>
+          <div class="text-center slide-content py-20 relative z-10">
+            <div class="mb-6 inline-block">
+              <span class="px-6 py-2 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-semibold backdrop-blur-sm" data-i18n="slide2Badge">
+                ✅ +500 مشروع مكتمل
+              </span>
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+              <span data-i18n="slide2Title1">رخص البناء</span>
+              <span class="block gradient-text mt-2" data-i18n="slide2Title2">بسرعة وكفاءة عالية</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10" data-i18n="slide2Desc">
+              نحن نضمن لك الحصول على جميع التراخيص المطلوبة في أسرع وقت ممكن مع الالتزام الكامل بجميع المعايير والمواصفات
+            </p>
+            <div class="flex gap-4 justify-center flex-wrap">
+              <button class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full font-semibold shadow-lg shadow-blue-500/50 transition-all hover:scale-105 hover:shadow-xl" data-i18n="slide2Btn1">
+                احصل على رخصة الآن
+              </button>
+              <button class="px-8 py-4 bg-slate-800/80 backdrop-blur-sm hover:bg-slate-700/80 text-white rounded-full font-semibold border border-slate-700 transition-all hover:scale-105" data-i18n="slide2Btn2">
+                تعرف على الخدمات
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide slide-bg-3">
+          <div class="slide-image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2092&q=80" 
+              alt="Architectural Building" 
+              class="slide-image"
+              loading="lazy"
+            />
+            <div class="slide-overlay"></div>
+          </div>
+          <div class="text-center slide-content py-20 relative z-10">
+            <div class="mb-6 inline-block">
+              <span class="px-6 py-2 bg-rose-500/20 border border-rose-500/30 rounded-full text-rose-400 text-sm font-semibold backdrop-blur-sm" data-i18n="slide3Badge">
+                🛡️ الأمن والسلامة أولاً
+              </span>
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+              <span data-i18n="slide3Title1">إشراف احترافي</span>
+              <span class="block gradient-text mt-2" data-i18n="slide3Title2">على مشاريعك</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10" data-i18n="slide3Desc">
+              فريقنا المتخصص يضمن تنفيذ مشروعك بأعلى معايير الجودة والأمان مع متابعة مستمرة في كل مرحلة
+            </p>
+            <div class="flex gap-4 justify-center flex-wrap">
+              <button class="px-8 py-4 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white rounded-full font-semibold shadow-lg shadow-rose-500/50 transition-all hover:scale-105 hover:shadow-xl" data-i18n="slide3Btn1">
+                ابدأ مشروعك الآن
+              </button>
+              <button class="px-8 py-4 bg-slate-800/80 backdrop-blur-sm hover:bg-slate-700/80 text-white rounded-full font-semibold border border-slate-700 transition-all hover:scale-105" data-i18n="slide3Btn2">
+                تواصل معنا
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button id="prevBtn" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 slider-nav-btn w-14 h-14 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-500 transition-all">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button id="nextBtn" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 slider-nav-btn w-14 h-14 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-500 transition-all">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <!-- Slider Dots -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-3">
+          <button class="slider-dot w-3 h-3 rounded-full bg-slate-600 hover:bg-emerald-500 transition-all active"></button>
+          <button class="slider-dot w-3 h-3 rounded-full bg-slate-600 hover:bg-emerald-500 transition-all"></button>
+          <button class="slider-dot w-3 h-3 rounded-full bg-slate-600 hover:bg-emerald-500 transition-all"></button>
+        </div>
+      </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">{{ $chooseContent->t('title') }}</h2>
-                <p class="section-subtitle">
-                    {!! $chooseContent->t('content') !!}
-                </p>
-            </div>
-
-            <div class="features-grid">
-
-                @foreach ($features as $feature)
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <img src="@image($feature->image)" alt="">
-                        </div>
-                        <h3 class="feature-title">{{ $feature->t('title') }}</h3>
-                        <p class="feature-description">
-                            {!! $feature->t('content') !!}
-                        </p>
-                    </div>
-                @endforeach
-
-            </div>
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-slate-900/50 relative overflow-hidden">
+      <!-- Background Effects -->
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      </div>
+      
+      <div class="relative max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+          <div class="inline-block mb-4">
+            <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm" data-i18n="aboutBadge">
+              <img src="/assets/images/icons/sex.svg" alt="عن الشركة" class="inline w-6 h-6 object-contain align-middle" /> عن الشركة
+            </span>
+          </div>
+          <h2 class="text-5xl md:text-6xl font-bold mb-6">
+            <span data-i18n="aboutTitle">من نحن</span>
+          </h2>
+          <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed" data-i18n="aboutDesc">
+            شركة متخصصة في خدمات البناء والتراخيص مع خبرة تمتد لأكثر من 15 عاماً في السوق السعودي
+          </p>
         </div>
+
+        <!-- Tab System -->
+        <div class="mt-16">
+          <!-- Tab Navigation -->
+          <div class="flex flex-wrap justify-center gap-3 mb-8 border-b border-slate-800/50 pb-4">
+            <button class="about-tab active px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="overview">
+              <span data-i18n="aboutTabOverview">نظرة عامة</span>
+            </button>
+            <button class="about-tab px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="stats">
+              <span data-i18n="aboutTabStats">الإحصائيات</span>
+            </button>
+            <button class="about-tab px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="mission">
+              <span data-i18n="aboutTabMission">الرؤية والمهمة</span>
+            </button>
+            <button class="about-tab px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="features">
+              <span data-i18n="aboutTabFeatures">المميزات</span>
+            </button>
+          </div>
+
+          <!-- Tab Content -->
+          <div class="tab-content-wrapper">
+            <!-- Overview Tab -->
+            <div class="tab-content active" data-content="overview">
+              <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                  <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-blue-500/20 flex items-center justify-center">
+                      <div class="text-center p-8">
+                        <div class="w-32 h-32 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-emerald-500/50">
+                          <img src="/assets/images/icons/sex.svg" alt="البناء المتقدم" class="w-20 h-20 object-contain" />
+                        </div>
+                        <h3 class="text-3xl font-bold mb-4 gradient-text" data-i18n="companyName">البناء المتقدم</h3>
+                        <p class="text-slate-300 text-lg" data-i18n="aboutYears">15+ سنة من الخبرة</p>
+                      </div>
+                    </div>
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-emerald-500/30 rounded-full blur-2xl"></div>
+                    <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-cyan-500/30 rounded-full blur-2xl"></div>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text-3xl font-bold mb-6 text-white" data-i18n="aboutOverviewTitle">شركة رائدة في مجال البناء</h3>
+                  <p class="text-slate-400 text-lg leading-relaxed mb-6" data-i18n="aboutOverviewDesc">
+                    نحن شركة متخصصة في تقديم خدمات البناء والتراخيص في المملكة العربية السعودية. مع أكثر من 15 عاماً من الخبرة المتراكمة، نقدم حلولاً شاملة ومبتكرة لعملائنا.
+                  </p>
+                  <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                      <img src="/assets/images/icons/one.svg" alt="فريق محترف" class="w-5 h-5 object-contain" />
+                      <span class="text-slate-300" data-i18n="aboutOverviewPoint1">فريق محترف ومتخصص</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <img src="/assets/images/icons/two.svg" alt="خدمات متكاملة" class="w-5 h-5 object-contain" />
+                      <span class="text-slate-300" data-i18n="aboutOverviewPoint2">خدمات متكاملة وشاملة</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <img src="/assets/images/icons/three.svg" alt="التزام الجودة" class="w-5 h-5 object-contain" />
+                      <span class="text-slate-300" data-i18n="aboutOverviewPoint3">التزام بأعلى معايير الجودة</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Tab -->
+            <div class="tab-content" data-content="stats">
+              <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-emerald-500/50 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/30 text-center group relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div class="relative z-10">
+                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-emerald-500/30">
+                      <img src="/assets/images/icons/four.svg" alt="مشروع مكتمل" class="w-12 h-12 object-contain" />
+                    </div>
+                    <h3 class="text-5xl font-bold mb-3 bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">+500</h3>
+                    <p class="text-slate-400 text-lg font-medium" data-i18n="statsProjects">مشروع مكتمل</p>
+                  </div>
+                </div>
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-cyan-500/50 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30 text-center group relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div class="relative z-10">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-cyan-500/30">
+                      <img src="/assets/images/icons/five.svg" alt="التزام بالمعايير" class="w-12 h-12 object-contain" />
+                    </div>
+                    <h3 class="text-5xl font-bold mb-3 bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent">100%</h3>
+                    <p class="text-slate-400 text-lg font-medium" data-i18n="statsCompliance">التزام بالمعايير</p>
+                  </div>
+                </div>
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-blue-500/50 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 text-center group relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div class="relative z-10">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg shadow-blue-500/30">
+                      <img src="/assets/images/icons/six.svg" alt="سنة خبرة" class="w-12 h-12 object-contain" />
+                    </div>
+                    <h3 class="text-5xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">15+</h3>
+                    <p class="text-slate-400 text-lg font-medium" data-i18n="statsExperience">سنة خبرة</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mission/Vision Tab -->
+            <div class="tab-content" data-content="mission">
+              <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-emerald-500/50 transition-all hover:shadow-xl hover:shadow-emerald-500/20">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                      <img src="/assets/images/icons/seven.svg" alt="رؤيتنا" class="w-10 h-10 object-contain" />
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white" data-i18n="aboutMissionTitle">رؤيتنا</h3>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="aboutMission">أن نكون الرائدين في مجال خدمات البناء والتراخيص في المملكة العربية السعودية من خلال تقديم حلول مبتكرة وخدمات عالية الجودة</p>
+                  </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-cyan-500/50 transition-all hover:shadow-xl hover:shadow-cyan-500/20">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
+                      <img src="/assets/images/icons/eight.svg" alt="مهمتنا" class="w-10 h-10 object-contain" />
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white" data-i18n="aboutVisionTitle">مهمتنا</h3>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="aboutVision">تقديم خدمات متكاملة وشاملة في مجال البناء والتراخيص مع الالتزام بأعلى معايير الجودة والاحترافية لضمان رضا عملائنا</p>
+                  </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-all hover:shadow-xl hover:shadow-blue-500/20">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                      <img src="/assets/images/icons/nine.svg" alt="قيمنا" class="w-10 h-10 object-contain" />
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white" data-i18n="aboutValuesTitle">قيمنا</h3>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="aboutValues">الجودة، الاحترافية، الشفافية، والالتزام بمواعيد التسليم هي القيم الأساسية التي نؤمن بها ونطبقها في كل مشروع</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features Tab -->
+            <div class="tab-content" data-content="features">
+              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-emerald-500/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/20 text-center group">
+                  <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <img src="/assets/images/icons/ten.svg" alt="خبرة واسعة" class="w-10 h-10 object-contain" />
+                  </div>
+                  <h4 class="text-xl font-bold mb-2 text-white" data-i18n="aboutFeature1Title">خبرة واسعة</h4>
+                  <p class="text-slate-400 text-sm" data-i18n="aboutFeature1">أكثر من 15 عاماً من الخبرة المتراكمة</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-cyan-500/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/20 text-center group">
+                  <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <img src="/assets/images/icons/eleven.svg" alt="جودة عالية" class="w-10 h-10 object-contain" />
+                  </div>
+                  <h4 class="text-xl font-bold mb-2 text-white" data-i18n="aboutFeature2Title">جودة عالية</h4>
+                  <p class="text-slate-400 text-sm" data-i18n="aboutFeature2">التزام بأعلى معايير الجودة</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 text-center group">
+                  <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <img src="/assets/images/icons/twelve.svg" alt="سرعة الإنجاز" class="w-10 h-10 object-contain" />
+                  </div>
+                  <h4 class="text-xl font-bold mb-2 text-white" data-i18n="aboutFeature3Title">سرعة الإنجاز</h4>
+                  <p class="text-slate-400 text-sm" data-i18n="aboutFeature3">إنجاز المشاريع في الوقت المحدد</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-rose-500/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-rose-500/20 text-center group">
+                  <div class="w-16 h-16 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <img src="/assets/images/icons/thirteen.svg" alt="خدمة عملاء" class="w-10 h-10 object-contain" />
+                  </div>
+                  <h4 class="text-xl font-bold mb-2 text-white" data-i18n="aboutFeature4Title">خدمة عملاء</h4>
+                  <p class="text-slate-400 text-sm" data-i18n="aboutFeature4">دعم مستمر ومتابعة دقيقة</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- App Showcase Section -->
-    <section class="app-showcase" id="discover">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">{{ $expirenceContent->t('title') }}</h2>
-                <p class="section-subtitle">
-                    {!! $expirenceContent->t('content') !!}
-                </p>
-            </div>
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-6 bg-slate-900/50 relative overflow-hidden">
+      <!-- Background Effects -->
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-10 right-10 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-10 left-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+      </div>
 
-            <div class="showcase-grid">
-
-
-                @foreach ($discovers as $discover)
-                    <div class="showcase-item">
-                        <div class="phone-mockup">
-                            <img src="@image($discover->image)" alt="تفاصيل المنتج" />
-                        </div>
-                        <h3 class="showcase-title"> {{ $discover->t('title') }}</h3>
-                        <p class="showcase-description">
-                            {!! $discover->t('content') !!}
-                        </p>
-                    </div>
-                @endforeach
-
-
-
-            </div>
+      <div class="relative max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+          <div class="inline-block mb-4">
+            <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm" data-i18n="servicesBadge">✨ خدماتنا</span>
+          </div>
+          <h2 class="text-5xl md:text-6xl font-bold mb-6">
+            <span class="gradient-text" data-i18n="servicesTitle">خدماتنا المتميزة</span>
+          </h2>
+          <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed" data-i18n="servicesSubtitle">
+            حلول شاملة لجميع احتياجاتك في البناء والتراخيص
+          </p>
         </div>
+
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service 1 -->
+          <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/30 overflow-hidden">
+            <!-- Decorative Background -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10">
+              <!-- Service Number Badge -->
+              <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-emerald-500/50">01</div>
+              
+              <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg shadow-emerald-500/30">
+                <img src="/assets/images/icons/one.svg" alt="رخص البناء" class="w-12 h-12 object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-emerald-400 transition-colors" data-i18n="service1Title">رخص البناء</h3>
+              <p class="text-slate-400 leading-relaxed" data-i18n="service1Desc">إصدار رخص البناء بكفاءة عالية وسرعة في الإنجاز مع ضمان استيفاء جميع المتطلبات القانونية</p>
+
+              <button type="button" class="service-toggle mt-6 px-4 py-2 bg-slate-800/80 hover:bg-emerald-500/20 rounded-lg border border-slate-700 text-sm font-semibold transition-all" aria-expanded="false">
+                <span data-i18n="serviceLearnMore">اعرف المزيد</span>
+              </button>
+
+              <div class="service-details hidden mt-4 text-slate-300 text-sm" data-i18n="service1Desc">إصدار رخص البناء بكفاءة عالية وسرعة في الإنجاز مع ضمان استيفاء جميع المتطلبات القانونية</div>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/30 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10">
+              <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-cyan-500/50">02</div>
+              
+              <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg shadow-cyan-500/30">
+                <img src="/assets/images/icons/two.svg" alt="رخص الهدم والترميم" class="w-12 h-12 object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors" data-i18n="service2Title">رخص الهدم والترميم</h3>
+              <p class="text-slate-400 leading-relaxed" data-i18n="service2Desc">استخراج تراخيص الهدم والترميم وفقاً للمواصفات والإجراءات المعتمدة</p>
+
+              <button type="button" class="service-toggle mt-6 px-4 py-2 bg-slate-800/80 hover:bg-cyan-500/20 rounded-lg border border-slate-700 text-sm font-semibold transition-all" aria-expanded="false">
+                <span data-i18n="serviceLearnMore">اعرف المزيد</span>
+              </button>
+
+              <div class="service-details hidden mt-4 text-slate-300 text-sm" data-i18n="service2Desc">استخراج تراخيص الهدم والترميم وفقاً للمواصفات والإجراءات المعتمدة</div>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-blue-500/5 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10">
+              <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/50">03</div>
+              
+              <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg shadow-blue-500/30">
+                <img src="/assets/images/icons/three.svg" alt="شهادات إتمام البناء" class="w-12 h-12 object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-blue-400 transition-colors" data-i18n="service3Title">شهادات إتمام البناء</h3>
+              <p class="text-slate-400 leading-relaxed" data-i18n="service3Desc">إصدار شهادات إتمام البناء بعد التأكد من مطابقة المشروع للمخططات المعتمدة</p>
+
+              <button type="button" class="service-toggle mt-6 px-4 py-2 bg-slate-800/80 hover:bg-blue-500/20 rounded-lg border border-slate-700 text-sm font-semibold transition-all" aria-expanded="false">
+                <span data-i18n="serviceLearnMore">اعرف المزيد</span>
+              </button>
+
+              <div class="service-details hidden mt-4 text-slate-300 text-sm" data-i18n="service3Desc">إصدار شهادات إتمام البناء بعد التأكد من مطابقة المشروع للمخططات المعتمدة</div>
+            </div>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-violet-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-violet-500/30 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-violet-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-violet-500/5 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10">
+              <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-violet-500 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-violet-500/50">04</div>
+              
+              <div class="w-20 h-20 bg-gradient-to-br from-violet-500 to-violet-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg shadow-violet-500/30">
+                <img src="/assets/images/icons/four.svg" alt="تصحيح أوضاع المباني" class="w-12 h-12 object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-violet-400 transition-colors" data-i18n="service4Title">تصحيح أوضاع المباني</h3>
+              <p class="text-slate-400 leading-relaxed" data-i18n="service4Desc">إصدار رخص تصحيح وضع المباني القائمة وتوفيق أوضاعها القانونية</p>
+
+              <button type="button" class="service-toggle mt-6 px-4 py-2 bg-slate-800/80 hover:bg-violet-500/20 rounded-lg border border-slate-700 text-sm font-semibold transition-all" aria-expanded="false">
+                <span data-i18n="serviceLearnMore">اعرف المزيد</span>
+              </button>
+
+              <div class="service-details hidden mt-4 text-slate-300 text-sm" data-i18n="service4Desc">إصدار رخص تصحيح وضع المباني القائمة وتوفيق أوضاعها القانونية</div>
+            </div>
+          </div>
+
+          <!-- Service 5 -->
+          <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-rose-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-rose-500/30 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-rose-500/5 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10">
+              <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-rose-500 to-rose-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-rose-500/50">05</div>
+              
+              <div class="w-20 h-20 bg-gradient-to-br from-rose-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg shadow-rose-500/30">
+                <img src="/assets/images/icons/five.svg" alt="الأمن والسلامة" class="w-12 h-12 object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-rose-400 transition-colors" data-i18n="service5Title">الأمن والسلامة</h3>
+              <p class="text-slate-400 leading-relaxed" data-i18n="service5Desc">إعداد مخططات الأمن والسلامة وتقارير السلامة الإنشائية المعتمدة</p>
+
+              <button type="button" class="service-toggle mt-6 px-4 py-2 bg-slate-800/80 hover:bg-rose-500/20 rounded-lg border border-slate-700 text-sm font-semibold transition-all" aria-expanded="false">
+                <span data-i18n="serviceLearnMore">اعرف المزيد</span>
+              </button>
+
+              <div class="service-details hidden mt-4 text-slate-300 text-sm" data-i18n="service5Desc">إعداد مخططات الأمن والسلامة وتقارير السلامة الإنشائية المعتمدة</div>
+            </div>
+          </div>
+
+          <!-- Service 6 -->
+          <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-orange-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/30 overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-orange-500/5 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10">
+              <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-orange-500/50">06</div>
+              
+              <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg shadow-orange-500/30">
+                <img src="/assets/images/icons/sex.svg" alt="المقاولات والإشراف" class="w-12 h-12 object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-orange-400 transition-colors" data-i18n="service6Title">المقاولات والإشراف</h3>
+              <p class="text-slate-400 leading-relaxed" data-i18n="service6Desc">تنفيذ أعمال المقاولات والترميم مع الإشراف الكامل على تنفيذ المشاريع</p>
+
+              <button type="button" class="service-toggle mt-6 px-4 py-2 bg-slate-800/80 hover:bg-orange-500/20 rounded-lg border border-slate-700 text-sm font-semibold transition-all" aria-expanded="false">
+                <span data-i18n="serviceLearnMore">اعرف المزيد</span>
+              </button>
+
+              <div class="service-details hidden mt-4 text-slate-300 text-sm" data-i18n="service6Desc">تنفيذ أعمال المقاولات والترميم مع الإشراف الكامل على تنفيذ المشاريع</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta">
-        <!-- <div class="cta-bg"></div> -->
-        <div class="container">
-            <div class="cta-content">
-                <div class="cta-text">
-                    <h2 class="cta-title">{{ $transform->t('title') }} </h2>
-                    <p class="cta-subtitle">
-                        {!! $transform->t('content') !!}
-                    </p>
-                    <div class="cta-buttons">
-                        <a href="{{ $transform->ios_link }} " class="btn btn-outline-light">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M16.0763 2.33331H15.9238C13.0029 2.3333 10.7086 2.33328 8.91741 2.5741C7.08186 2.82089 5.62552 3.33693 4.48126 4.4812C3.33699 5.62546 2.82095 7.0818 2.57417 8.91734C2.33334 10.7086 2.33336 13.0028 2.33337 15.9237V16.0762C2.33336 18.9972 2.33334 21.2914 2.57417 23.0826C2.82095 24.9182 3.33699 26.3745 4.48126 27.5188C5.62552 28.663 7.08186 29.1791 8.91741 29.4259C10.7086 29.6667 13.0028 29.6667 15.9238 29.6666H16.0763C18.9972 29.6667 21.2915 29.6667 23.0827 29.4259C24.9182 29.1791 26.3746 28.663 27.5188 27.5188C28.6631 26.3745 29.1791 24.9182 29.4259 23.0826C29.6667 21.2914 29.6667 18.9972 29.6667 16.0762V15.9238C29.6667 13.0028 29.6667 10.7086 29.4259 8.91734C29.1791 7.0818 28.6631 5.62546 27.5188 4.4812C26.3746 3.33693 24.9182 2.82089 23.0827 2.5741C21.2915 2.33328 18.9972 2.3333 16.0763 2.33331ZM15.5242 8.81897C15.2401 8.34539 14.6258 8.19182 14.1522 8.47597C13.6786 8.76012 13.5251 9.37438 13.8092 9.84796L14.8338 11.5557L11.1672 17.6668H8.66671C8.11442 17.6668 7.66671 18.1145 7.66671 18.6668C7.66671 19.2191 8.11442 19.6668 8.66671 19.6668H9.96718L8.47588 22.1523C8.19173 22.6259 8.3453 23.2401 8.81888 23.5243C9.29246 23.8084 9.90672 23.6549 10.1909 23.1813L12.2996 19.6668H16.6667C17.219 19.6668 17.6667 19.2191 17.6667 18.6668C17.6667 18.1145 17.219 17.6668 16.6667 17.6668H13.4996L16.8469 12.0879C16.8539 12.0767 16.8607 12.0654 16.8673 12.0539L18.1909 9.84796C18.475 9.37438 18.3214 8.76012 17.8479 8.47597C17.3743 8.19182 16.76 8.34539 16.4759 8.81897L16 9.61204L15.5242 8.81897ZM18.7242 14.1523C18.4401 13.6787 17.8258 13.5252 17.3522 13.8093C16.8786 14.0935 16.7251 14.7077 17.0092 15.1813L21.8092 23.1813C22.0934 23.6549 22.7076 23.8084 23.1812 23.5243C23.6548 23.2401 23.8083 22.6259 23.5242 22.1523L22.0329 19.6668H23.3334C23.8857 19.6668 24.3334 19.2191 24.3334 18.6668C24.3334 18.1145 23.8857 17.6668 23.3334 17.6668H20.8329L18.7242 14.1523Z"
-                                    fill="white" />
-                            </svg>
-                            @lang('landingpage.download_ios')
-                        </a>
-                        <a href="{{ $transform->android_link }} " class="btn btn-outline-light">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M16.0765 29.6667C18.9972 29.6667 21.2912 29.6663 23.0823 29.4255C24.9178 29.1787 26.3746 28.6634 27.5189 27.5192C28.6631 26.375 29.1793 24.9182 29.4261 23.0827C29.6669 21.2915 29.6663 18.9968 29.6663 16.0759V15.9235C29.6663 13.0029 29.6669 10.7088 29.4261 8.91766C29.1793 7.08212 28.6631 5.6254 27.5189 4.48114C26.3746 3.33688 24.9179 2.8207 23.0823 2.57391C21.2912 2.33314 18.9971 2.33366 16.0765 2.33368H15.9241C13.0032 2.33366 10.7085 2.33309 8.9173 2.57391C7.08177 2.8207 5.62503 3.33688 4.48077 4.48114C3.33664 5.62538 2.82129 7.08222 2.57452 8.91766C2.33374 10.7088 2.3333 13.0028 2.33331 15.9235V16.0759C2.3333 18.9968 2.3337 21.2915 2.57452 23.0827C2.82131 24.9182 3.33654 26.375 4.48077 27.5192C5.62501 28.6635 7.08181 29.1787 8.9173 29.4255C10.7085 29.6663 13.0032 29.6667 15.9241 29.6667H16.0765ZM18.4398 14.444C18.2312 14.444 18.0594 14.2854 17.7161 13.9684L11.4329 8.16766C11.2712 8.01832 11.3244 7.75278 11.5374 7.69696C12.5868 7.422 13.6534 7.67604 14.7982 8.15009C15.9316 8.61946 17.3212 9.38423 19.0726 10.3493L19.1878 10.4128C19.5845 10.6313 19.9612 10.8392 20.3177 11.0378C20.8868 11.3549 21.172 11.5138 21.2044 11.7839C21.2366 12.0541 20.9945 12.2779 20.511 12.7243L19.1634 13.9684C18.8202 14.2853 18.6482 14.4439 18.4398 14.444ZM9.41339 22.6628C9.1435 22.6053 9.05742 22.4062 8.88605 22.0075C8.6793 21.5265 8.55853 20.9896 8.48273 20.4196C8.33306 19.2938 8.33329 17.8202 8.33331 15.9929V15.8405C8.33329 14.0132 8.33306 12.5395 8.48273 11.4138C8.55077 10.9021 8.6554 10.417 8.8255 9.97528C8.98768 9.55408 9.06898 9.34307 9.34406 9.27899C9.61901 9.21516 9.81764 9.39826 10.2142 9.76434L16.1165 15.2136C16.5139 15.5804 16.7122 15.7643 16.7122 15.9977C16.7121 16.2311 16.5136 16.4144 16.1165 16.7809L10.2601 22.1882C9.87568 22.543 9.68323 22.7201 9.41339 22.6628ZM23.2396 18.8708C23.028 18.8729 22.8674 18.724 22.5462 18.4274L20.763 16.7809C20.3658 16.4143 20.1665 16.2311 20.1663 15.9977C20.1663 15.7643 20.3657 15.5804 20.763 15.2136L22.6331 13.487C22.9592 13.1859 23.1225 13.0347 23.3382 13.0397C23.5539 13.0448 23.6925 13.1862 23.97 13.4675C24.4116 13.915 24.7439 14.4188 24.8919 15.0231C25.036 15.6113 25.036 16.222 24.8919 16.8102C24.7335 17.4569 24.3648 17.9891 23.8763 18.4597C23.5934 18.7322 23.4514 18.8685 23.2396 18.8708ZM14.7982 23.6843C13.6535 24.1583 12.5868 24.4114 11.5374 24.1364C11.3862 24.0968 11.3454 23.9075 11.4603 23.8015L17.7161 18.0261C18.0593 17.7093 18.2313 17.5515 18.4398 17.5515C18.6482 17.5516 18.8202 17.7092 19.1634 18.0261L20.3997 19.1686C20.8848 19.6164 21.1274 19.8406 21.095 20.111C21.0624 20.3812 20.7769 20.5404 20.2054 20.8581C19.8823 21.0377 19.543 21.2249 19.1878 21.4206L19.0726 21.4841C17.3211 22.4492 15.9316 23.2149 14.7982 23.6843Z"
-                                    fill="white" />
-                            </svg>
-                            @lang('landingpage.download_android')
 
-                        </a>
-                    </div>
-                </div>
-                <div class="cta-image">
-                    <div class="phone-mockup-large">
-                        <img src="@image($transform->image)" alt="App Preview" />
-                    </div>
-                </div>
-            </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-slate-900/50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-5xl font-bold mb-4" data-i18n="contactTitle">تواصل معنا</h2>
+          <p class="text-xl text-slate-400" data-i18n="contactSubtitle">نحن هنا للإجابة على جميع استفساراتك</p>
         </div>
+
+        <!-- Contact Info Cards -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <!-- Phone -->
+          <a href="tel:+966XXXXXXXXX" class="contact-card bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700 text-center hover:border-emerald-500 transition-all hover:scale-105 cursor-pointer block group">
+            <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+              ☎
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white" data-i18n="contactPhone">الهاتف</h3>
+            <p class="text-slate-400 group-hover:text-emerald-400 transition-colors font-medium" dir="ltr">+966 XX XXX XXXX</p>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:info@construction.com" class="contact-card bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700 text-center hover:border-cyan-500 transition-all hover:scale-105 cursor-pointer block group">
+            <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+              ✉
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white" data-i18n="contactEmail">البريد الإلكتروني</h3>
+            <p class="text-slate-400 group-hover:text-cyan-400 transition-colors font-medium break-all">info@construction.com</p>
+          </a>
+
+          <!-- Location -->
+          <a href="https://www.google.com/maps/search/?api=1&query=Riyadh+Saudi+Arabia" target="_blank" rel="noopener noreferrer" class="contact-card bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700 text-center hover:border-blue-500 transition-all hover:scale-105 cursor-pointer block group">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+              📍
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white" data-i18n="contactLocation">الموقع</h3>
+            <p class="text-slate-400 group-hover:text-blue-400 transition-colors font-medium" data-i18n="contactLocationText">المملكة العربية السعودية</p>
+          </a>
+        </div>
+
+        <!-- Contact Form and Map -->
+        <div class="grid lg:grid-cols-2 gap-8">
+          <!-- Contact Form -->
+          <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700">
+            <h3 class="text-3xl font-bold mb-6" data-i18n="contactFormTitle">أرسل لنا رسالة</h3>
+            <form id="contactForm" class="space-y-6">
+              <div>
+                <label for="name" class="block text-sm font-semibold mb-2 text-slate-300" data-i18n="contactName">الاسم الكامل</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  required
+                  minlength="2"
+                  maxlength="100"
+                  class="form-input w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                  data-i18n="contactNamePlaceholder"
+                  placeholder="أدخل اسمك الكامل"
+                />
+                <span class="error-message hidden text-red-400 text-sm mt-1 block"></span>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-semibold mb-2 text-slate-300" data-i18n="contactEmailLabel">البريد الإلكتروني</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required
+                    maxlength="255"
+                    class="form-input w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                    placeholder="example@email.com"
+                    dir="ltr"
+                  />
+                  <span class="error-message hidden text-red-400 text-sm mt-1 block"></span>
+                </div>
+
+                <div>
+                  <label for="phone" class="block text-sm font-semibold mb-2 text-slate-300" data-i18n="contactPhoneLabel">رقم الهاتف</label>
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    required
+                    pattern="[+]?[0-9\s\-\(\)]{8,20}"
+                    maxlength="20"
+                    class="form-input w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                    placeholder="+966 XX XXX XXXX"
+                    dir="ltr"
+                  />
+                  <span class="error-message hidden text-red-400 text-sm mt-1 block"></span>
+                </div>
+              </div>
+
+              <div>
+                <label for="subject" class="block text-sm font-semibold mb-2 text-slate-300" data-i18n="contactSubject">الموضوع</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  required
+                  minlength="3"
+                  maxlength="200"
+                  class="form-input w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
+                  data-i18n="contactSubjectPlaceholder"
+                  placeholder="موضوع الرسالة"
+                />
+                <span class="error-message hidden text-red-400 text-sm mt-1 block"></span>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-semibold mb-2 text-slate-300" data-i18n="contactMessage">الرسالة</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="5" 
+                  required
+                  minlength="10"
+                  maxlength="1000"
+                  class="form-input w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all resize-none"
+                  data-i18n="contactMessagePlaceholder"
+                  placeholder="اكتب رسالتك هنا..."
+                ></textarea>
+                <span class="error-message hidden text-red-400 text-sm mt-1 block"></span>
+              </div>
+
+              <button 
+                type="submit"
+                class="w-full px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/50 transition-all hover:scale-105 hover:shadow-xl"
+                data-i18n="contactSubmit"
+              >
+                إرسال الرسالة
+              </button>
+
+              <div id="formMessage" class="hidden mt-4 p-4 rounded-xl text-center font-semibold"></div>
+            </form>
+          </div>
+
+          <!-- Map -->
+          <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-3xl border border-slate-700">
+            <h3 class="text-3xl font-bold mb-6" data-i18n="contactMapTitle">موقعنا</h3>
+            <div class="rounded-2xl overflow-hidden border border-slate-600 shadow-2xl">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.2385099999997!2d46.67527731500001!3d24.713554984123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1699123456789!5m2!1sen!2sus"
+                width="100%" 
+                height="500" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                class="w-full"
+                data-i18n-title="contactMapTitle"
+                title="موقع الشركة على الخريطة"
+              ></iframe>
+            </div>
+            <div class="mt-6 p-4 bg-slate-700/30 rounded-xl">
+              <p class="text-slate-300 text-center">
+                <span class="font-semibold" data-i18n="contactAddress">العنوان:</span> <span data-i18n="contactAddressText">المملكة العربية السعودية، الرياض</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-main">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-brand">
-                        <div class="footer-logo">
-                            <img src="{{ $footer['image'] }}" alt="" />
-                        </div>
-                        <p class="footer-description">
-                            {!! $footer['content'][app()->getLocale()] ?? '' !!} </p>
-                        <div class="social-links">
-                            <a href="{{ $footer['all']['facebook_link'] }}" class="social-link">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.9993 0.833496C12.2755 0.833496 12.5003 1.05735 12.5003 1.3335V3.6665C12.5003 3.94254 12.2763 4.16633 12.0003 4.1665H10.0003C9.39609 4.1665 9.27601 4.3141 9.24837 4.35498C9.22372 4.39158 9.19808 4.45361 9.18294 4.56787C9.16724 4.68634 9.16634 4.82158 9.16634 5.00049V5.8335L12.0003 5.8335C12.1541 5.8336 12.2992 5.90464 12.3939 6.02588C12.4886 6.14722 12.522 6.30524 12.4847 6.45459L11.8187 9.12158C11.763 9.34412 11.5627 9.50049 11.3333 9.50049H9.16634L9.16634 14.6665C9.16634 14.9426 8.94248 15.1665 8.66634 15.1665L6.00032 15.1665C5.72418 15.1665 5.50032 14.9426 5.50032 14.6665L5.50032 9.50049H3.33333C3.05729 9.50049 2.8335 9.27648 2.83333 9.00049L2.83333 6.3335C2.83333 6.05735 3.05719 5.8335 3.33333 5.8335L5.50032 5.8335L5.50032 4.46729C5.50032 3.34433 5.85822 2.42087 6.52083 1.77979C7.18044 1.14165 8.08924 0.833554 9.09505 0.833496L11.9993 0.833496Z"
-                                        fill="#DBF0DD" />
-                                </svg>
-                            </a>
-                            <a href="{{ $footer['all']['linkedin_link'] }}" class="social-link">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M4.33301 14.667H1.33301L1.33301 6.33301L4.33301 6.33301L4.33301 14.667ZM9.33301 6.33301V7.44922C9.85074 6.76864 10.6434 6.33301 11.5313 6.33301C13.0908 6.33305 14.6667 7.6764 14.667 9.33301L14.666 14.667L11.667 14.667L11.667 10.5C11.6669 9.85574 11.1443 9.33301 10.5 9.33301C9.85573 9.33301 9.33308 9.85575 9.33301 10.5L9.33301 14.667H6.33301L6.33301 6.33301L9.33301 6.33301ZM2.83301 1.33301C3.66133 1.33301 4.33283 2.00473 4.33301 2.83301C4.33301 3.66143 3.66143 4.33301 2.83301 4.33301C2.00473 4.33283 1.33301 3.66133 1.33301 2.83301C1.33318 2.00484 2.00484 1.33318 2.83301 1.33301Z"
-                                        fill="#DBF0DD" />
-                                </svg>
-                            </a>
-                            <a href="{{ $footer['all']['instagram_link'] }}" class="social-link">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.03809 14.833C9.4984 14.833 10.6454 14.8333 11.541 14.7129C12.4588 14.5895 13.1876 14.3319 13.7598 13.7598C14.3319 13.1876 14.5895 12.4588 14.7129 11.541C14.8333 10.6454 14.833 9.4984 14.833 8.03809V7.96191C14.833 6.5016 14.8333 5.35455 14.7129 4.45898C14.5895 3.54121 14.3319 2.81237 13.7598 2.24023C13.1876 1.6681 12.4588 1.4105 11.541 1.28711C10.6454 1.16674 9.4984 1.16698 8.03809 1.16699H7.96191C6.5016 1.16698 5.35455 1.16674 4.45898 1.28711C3.54121 1.4105 2.81237 1.6681 2.24023 2.24023C1.6681 2.81237 1.4105 3.54121 1.28711 4.45898C1.16674 5.35455 1.16698 6.5016 1.16699 7.96191V8.03809C1.16698 9.4984 1.16674 10.6454 1.28711 11.541C1.4105 12.4588 1.6681 13.1876 2.24023 13.7598C2.81237 14.3319 3.54121 14.5895 4.45898 14.7129C5.35455 14.8333 6.5016 14.833 7.96191 14.833H8.03809ZM8 13.833C6.49308 13.833 5.41306 13.8321 4.5918 13.7217C3.78501 13.6132 3.30261 13.4081 2.94727 13.0527C2.59193 12.6974 2.38681 12.215 2.27832 11.4082C2.1679 10.5869 2.16699 9.50692 2.16699 8C2.16699 6.49308 2.1679 5.41306 2.27832 4.5918C2.38681 3.78501 2.59193 3.30261 2.94727 2.94727C3.30261 2.59193 3.78501 2.38681 4.5918 2.27832C5.41306 2.1679 6.49308 2.16699 8 2.16699C9.50692 2.16699 10.5869 2.1679 11.4082 2.27832C12.215 2.38681 12.6974 2.59192 13.0527 2.94727C13.4081 3.30261 13.6132 3.78501 13.7217 4.5918C13.8321 5.41306 13.833 6.49308 13.833 8C13.833 9.50692 13.8321 10.5869 13.7217 11.4082C13.6132 12.215 13.4081 12.6974 13.0527 13.0527C12.6974 13.4081 12.215 13.6132 11.4082 13.7217C10.5869 13.8321 9.50692 13.833 8 13.833ZM11.6719 5C12.0401 5 12.3389 4.7012 12.3389 4.33301C12.3387 3.96497 12.04 3.66699 11.6719 3.66699H11.666C11.2979 3.66699 10.9992 3.96497 10.999 4.33301C10.999 4.7012 11.2978 5 11.666 5H11.6719ZM8 11.5C9.933 11.5 11.5 9.933 11.5 8C11.5 6.067 9.933 4.5 8 4.5C6.067 4.5 4.5 6.067 4.5 8C4.5 9.933 6.067 11.5 8 11.5ZM8 10.5C6.61929 10.5 5.5 9.38071 5.5 8C5.5 6.61929 6.61929 5.5 8 5.5C9.38071 5.5 10.5 6.61929 10.5 8C10.5 9.38071 9.38071 10.5 8 10.5Z"
-                                        fill="#DBF0DD" />
-                                </svg>
-                            </a>
-                            <a href="{{ $footer['all']['twitter_link'] }}" class="social-link">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.79492 6.13965L13.0303 1.5H14.833L9.5918 7.24219L14.833 14.5H10.5557L7.2041 9.85938L2.96973 14.5H1.16699L6.40723 8.75684L1.16699 1.5H5.44434L8.79492 6.13965Z"
-                                        fill="#DBF0DD" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="footer-contact">
-                        <h4 class="footer-title">اتصلي بنا</h4>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12.0557 1.25C13.6583 1.24998 14.9373 1.2499 15.9404 1.38477C16.9767 1.52409 17.8298 1.81998 18.5049 2.49512C19.18 3.17025 19.4759 4.02332 19.6152 5.05957C19.7501 6.06266 19.75 7.34174 19.75 8.94434V15.0557C19.75 16.6583 19.7501 17.9373 19.6152 18.9404C19.4759 19.9767 19.18 20.8298 18.5049 21.5049C17.8298 22.18 16.9767 22.4759 15.9404 22.6152C14.9373 22.7501 13.6583 22.75 12.0557 22.75H11.9443C10.3417 22.75 9.06266 22.7501 8.05957 22.6152C7.02332 22.4759 6.17025 22.18 5.49512 21.5049C4.81999 20.8298 4.52409 19.9767 4.38477 18.9404C4.2499 17.9373 4.24998 16.6583 4.25 15.0557V8.94434C4.24998 7.34174 4.2499 6.06266 4.38477 5.05957C4.52409 4.02332 4.81998 3.17025 5.49512 2.49512C6.17025 1.81998 7.02332 1.52409 8.05957 1.38477C9.06266 1.2499 10.3417 1.24998 11.9443 1.25H12.0557ZM15.6172 2.85645C15.5374 3.33254 15.465 3.75 15.3652 4.08984C15.2461 4.49551 15.0673 4.87674 14.7236 5.18164C14.3682 5.49683 13.959 5.62981 13.5205 5.69043C13.107 5.74758 12.5966 5.74805 12.002 5.74805C11.4072 5.74805 10.896 5.74759 10.4824 5.69043C10.044 5.6298 9.63473 5.49685 9.2793 5.18164C8.93564 4.87674 8.7568 4.49552 8.6377 4.08984C8.53794 3.74996 8.46452 3.33261 8.38477 2.85645C8.34253 2.86147 8.30077 2.86558 8.25977 2.87109C7.38983 2.98805 6.90565 3.20568 6.55566 3.55566C6.20568 3.90565 5.98805 4.38983 5.87109 5.25977C5.75128 6.15123 5.75 7.32908 5.75 9V15C5.75 16.6709 5.75128 17.8488 5.87109 18.7402C5.98805 19.6102 6.20568 20.0944 6.55566 20.4443C6.90565 20.7943 7.38983 21.0119 8.25977 21.1289C9.15123 21.2487 10.3291 21.25 12 21.25C13.6709 21.25 14.8488 21.2487 15.7402 21.1289C16.6102 21.0119 17.0943 20.7943 17.4443 20.4443C17.7943 20.0944 18.0119 19.6102 18.1289 18.7402C18.2487 17.8488 18.25 16.6709 18.25 15V9C18.25 7.32908 18.2487 6.15123 18.1289 5.25977C18.0119 4.38983 17.7943 3.90565 17.4443 3.55566C17.0943 3.20568 16.6102 2.98805 15.7402 2.87109C15.6999 2.86567 15.6588 2.8614 15.6172 2.85645ZM13 18.25C13.4142 18.25 13.75 18.5858 13.75 19C13.75 19.4142 13.4142 19.75 13 19.75H11C10.5858 19.75 10.25 19.4142 10.25 19C10.25 18.5858 10.5858 18.25 11 18.25H13ZM12 2.75C11.1889 2.75 10.494 2.75056 9.8916 2.76465C9.95992 3.16482 10.0127 3.4473 10.0771 3.66699C10.1537 3.9278 10.2213 4.01247 10.2744 4.05957C10.3328 4.11137 10.4244 4.1676 10.6885 4.2041C10.9778 4.24405 11.3732 4.24805 12.002 4.24805C12.6304 4.24804 13.0252 4.24402 13.3145 4.2041C13.5785 4.16761 13.6701 4.11136 13.7285 4.05957C13.7816 4.01247 13.8492 3.92778 13.9258 3.66699C13.9902 3.44733 14.042 3.16472 14.1104 2.76465C13.5075 2.75051 12.812 2.75 12 2.75Z"
-                                        fill="#8AB599" />
-                                </svg>
-                                <span>{{ $footer['all']['phone'] }}</span>
-                            </div>
-                            <div class="contact-item">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M12.0001 22.7499C17.9371 22.7499 22.7501 17.937 22.7501 11.9999C22.7501 6.06285 17.9371 1.24991 12.0001 1.24991C6.06303 1.24992 1.25009 6.06285 1.25009 11.9999C1.25009 13.4808 1.54982 14.8938 2.09286 16.1796C2.23529 16.5168 2.33146 16.7447 2.3956 16.9198C2.46094 17.0983 2.4706 17.1629 2.47177 17.1796C2.47827 17.2735 2.45423 17.4017 2.29208 18.0077L1.27548 21.8056C1.20625 22.0643 1.28042 22.3408 1.46981 22.5302C1.65921 22.7196 1.93567 22.7938 2.19442 22.7245L5.99228 21.7079C6.59831 21.5458 6.7265 21.5217 6.8204 21.5282C6.8371 21.5294 6.90169 21.539 7.08017 21.6044C7.25529 21.6685 7.48319 21.7647 7.8204 21.9071C9.10617 22.4502 10.5192 22.7499 12.0001 22.7499ZM12.0001 21.2499C10.7233 21.2499 9.50877 20.9917 8.40438 20.5253L8.38681 20.5175C8.07147 20.3843 7.80933 20.2744 7.59579 20.1962C7.38185 20.1179 7.15678 20.0483 6.92392 20.0321C6.5457 20.006 6.15299 20.1111 5.70224 20.2323C5.67009 20.241 5.63734 20.2499 5.60458 20.2587L3.05966 20.9403L3.7413 18.3954C3.75006 18.3627 3.75902 18.3299 3.76767 18.2978C3.88892 17.847 3.99403 17.4543 3.96786 17.0761C3.95174 16.8432 3.88214 16.6181 3.8038 16.4042C3.72559 16.1907 3.6157 15.9285 3.48251 15.6132L3.4747 15.5956C3.00829 14.4912 2.75009 13.2767 2.75009 11.9999C2.75009 6.89128 6.89146 2.74992 12.0001 2.74991C17.1087 2.74991 21.2501 6.89128 21.2501 11.9999C21.2501 17.1085 17.1087 21.2499 12.0001 21.2499ZM12.8829 17.2499C14.5086 17.2497 15.7501 15.8631 15.7501 14.2499C15.7501 13.3696 15.3804 12.5568 14.7804 11.9999C15.3804 11.443 15.7501 10.6302 15.7501 9.74991C15.7501 8.13669 14.5086 6.75016 12.8829 6.74991H10.3722C10.0739 6.74985 9.78108 6.75024 9.53915 6.78214C9.26649 6.81811 8.94811 6.90575 8.68173 7.1669C8.41322 7.43025 8.3209 7.74897 8.28329 8.02335C8.25039 8.26357 8.25002 8.55339 8.25009 8.84464L8.25009 15.1552C8.25002 15.4464 8.25039 15.7363 8.28329 15.9765C8.3209 16.2509 8.41322 16.5696 8.68173 16.8329C8.94811 17.0941 9.26648 17.1817 9.53915 17.2177C9.78109 17.2496 10.0739 17.25 10.3722 17.2499H12.8829ZM9.75009 11.2499V8.88468C9.75009 8.57081 9.75182 8.3902 9.76474 8.26554C9.89546 8.25145 10.084 8.24991 10.4122 8.24991H12.8829C13.5959 8.25017 14.2501 8.87819 14.2501 9.74991C14.2501 10.6216 13.5959 11.2496 12.8829 11.2499H9.75009ZM10.4122 15.7499C10.084 15.7499 9.89546 15.7484 9.76474 15.7343C9.75182 15.6096 9.75009 15.429 9.75009 15.1151V12.7499H12.8829C13.5959 12.7502 14.2501 13.3782 14.2501 14.2499C14.2501 15.1216 13.5959 15.7496 12.8829 15.7499L10.4122 15.7499Z"
-                                        fill="#8AB599" />
-                                </svg>
-                                <span>{{ $footer['all']['whatsapp'] }}</span>
-                            </div>
-                            <div class="contact-item">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9.07886 2.7876C11.0438 2.7376 12.9538 2.7376 14.9187 2.7876C18.1566 2.8696 19.9409 2.91543 21.2839 4.25635C22.6289 5.61131 22.6662 7.34864 22.7332 10.5015C22.7542 11.5084 22.7542 12.4867 22.7332 13.4937C22.6662 16.6466 22.6289 18.3828 21.2869 19.7358C19.9419 21.0798 18.1577 21.1245 14.9197 21.2065C13.9377 21.2315 12.9687 21.2446 11.9998 21.2446C11.0308 21.2446 10.0618 21.2315 9.07983 21.2065C5.84183 21.1245 4.0576 21.0788 2.7146 19.7378C1.36968 18.3828 1.33238 16.6456 1.26538 13.4927C1.24438 12.4857 1.24438 11.5075 1.26538 10.5005C1.33238 7.34766 1.36971 5.61126 2.71167 4.2583C4.05665 2.9145 5.84102 2.86959 9.07886 2.7876ZM14.8806 4.28564C12.9418 4.23565 11.0568 4.23565 9.11694 4.28564C6.07911 4.36264 4.69317 4.39805 3.77417 5.31689C2.85617 6.24289 2.8264 7.58674 2.7644 10.5317C2.74341 11.5166 2.74341 12.4746 2.7644 13.4604C2.8264 16.4054 2.85618 17.7502 3.7771 18.6772C4.6941 19.5932 6.07992 19.6295 9.11792 19.7065C11.0568 19.7565 12.9417 19.7565 14.8816 19.7065C17.9196 19.6295 19.3054 19.5943 20.2244 18.6753C21.1423 17.7493 21.1721 16.4054 21.2341 13.4604C21.2551 12.4756 21.2551 11.5176 21.2341 10.5317C21.1721 7.58674 21.1424 6.24194 20.2214 5.31494C19.3044 4.39902 17.9185 4.36264 14.8806 4.28564ZM6.35425 8.11084C6.56525 7.75484 7.02559 7.63617 7.38159 7.84717L10.323 9.5874C11.7949 10.4544 12.2036 10.4543 13.6775 9.5874L16.6189 7.84814C16.9758 7.63734 17.4352 7.75503 17.6453 8.11182C17.8563 8.46882 17.7386 8.92916 17.3816 9.13916L14.4392 10.8794C13.4585 11.4572 12.7296 11.7445 11.9998 11.7446C11.2708 11.7446 10.5413 11.4564 9.56128 10.8794L6.6189 9.13818C6.26291 8.92719 6.14328 8.46683 6.35425 8.11084Z"
-                                        fill="#8AB599" />
-                                </svg>
-                                <span>{{ $footer['all']['email'] }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="footer-bottom-content">
-                    <p class="copyright">
-                        {!! $footer['copyright'][app()->getLocale()] ?? '' !!} </p>
-                    </p>
-                    <p class="credits">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.8919 0H0V24H23.8919V0Z" fill="#F24C4C" />
-                            <mask id="mask0_2567_8109" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="0"
-                                y="0" width="24" height="24">
-                                <path d="M23.8919 0H0V24H23.8919V0Z" fill="white" />
-                            </mask>
-                            <g mask="url(#mask0_2567_8109)">
-                                <path
-                                    d="M12.946 26.197L6.56611 14.0049L7.77195 12.831L3.01465 3.46143L15.1851 5.61401L17.2295 3.62459L18.9772 6.69482L25.0862 19.2274L24.4323 21.5816L24.6124 21.9221V25.6143H23.3122L22.231 29.5067L12.946 26.197Z"
-                                    fill="url(#paint0_linear_2567_8109)" />
-                            </g>
-                            <path
-                                d="M11.2602 14.3044L9.00068 16.6468L6.66371 13.9647L14.468 6.4552H4.72422L2.87988 3.32324H17.0885L18.9997 6.45638H18.8314L13.6841 11.7916L20.1575 19.4847L17.0987 21.0467L11.2602 14.3044Z"
-                                fill="white" />
-                            <defs>
-                                <linearGradient id="paint0_linear_2567_8109" x1="14.0504" y1="29.5067"
-                                    x2="14.0504" y2="3.46143" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#F24C4C" />
-                                    <stop offset="0.99" stop-color="#E43636" />
-                                    <stop offset="1" stop-color="#E43636" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-
-                        تصميم وتطوير شركة الرياض
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="{{ asset('assets/landingpage/script.js') }}"></script>
-</body>
-
-</html>
+    @endsection

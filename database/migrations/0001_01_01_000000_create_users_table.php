@@ -17,14 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable()->unique();
             $table->string('phone')->unique();
-            $table->string('password')->nullable();
-            $table->enum('type', UserTypeEnum::values())
-                ->default(UserTypeEnum::User->value);
-            $table->string('brand_name')->nullable();
             $table->string('image')->nullable();
-            $table->text('fcm_token')->nullable();
-            $table->boolean('is_featured')->default(0);
-            $table->boolean('is_active')->default(1);
+          
             $table->boolean('otp_verified')->default(0);
             $table->timestamps();
         });

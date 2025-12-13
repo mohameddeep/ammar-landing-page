@@ -14,15 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LaratrustSeeder::class,
             ManagerSeeder::class,
-            UserSeeder::class,
-            CommissionSeeder::class,
-            PackageSeeder::class,
-            PackageFeatureSeeder::class,
-            CategorySeeder::class,
-            SubscriptionSeeder::class,
-            CouponSeeder::class,
-            SliderSeeder::class,
             StructureSeeder::class,
+            AboutUsSeeder::class,
+            ServiceSeeder::class,
+            SliderSeeder::class,
 
         ]);
     }

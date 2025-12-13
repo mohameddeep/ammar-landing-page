@@ -499,6 +499,26 @@ return [
     'no_entries' => 'No records found',
     
     'android_link' => 'Android Application Link',
-'ios_link' => 'iOS Application Link',
+    'ios_link' => 'iOS Application Link',
 
+    'title_one_ar' => 'Title One (Arabic)',
+    'title_one_en' => 'Title One (English)',
+    'title_two_ar' => 'Title Two (Arabic)',
+    'title_two_en' => 'Title Two (English)',
+    'title_three_ar' => 'Title Three (Arabic)',
+    'title_three_en' => 'Title Three (English)',
+
+    'title_one' => 'Title One',
+    'title_two' => 'Title Two',
+    'title_three' => 'Title Three',
+
+    'about_us' => 'About Us',
+    'parent' => 'Main Section',
+    'about_content' => 'About Content',
+    'subject' => 'Subject',
+    'services' => 'Services',
+    'website_name_ar' => 'Website Name (Arabic)',
+    'website_name_en' => 'Website Name (English)',
+    'website_logo' => 'Website Logo',
+    'privacy_policy' => 'Privacy Policy',
 ];

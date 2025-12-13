@@ -1,5 +1,5 @@
 @section('css_addons')
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/libs/summernote/summernote-bs5.css') }}" rel="stylesheet">
 @endsection
 
 @push('scripts')

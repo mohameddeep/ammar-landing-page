@@ -47,29 +47,6 @@
     @endif
 
 
-<script>
-    $(document).on('click', '.notification-item', function (e) {
-        e.preventDefault();
-
-        let id = $(this).data('id');
-        let url = "{{ route('notifications.markAsRead', ':id') }}".replace(':id', id);
-        let redirectUrl = $(this).data('url');
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: { _token: '{{ csrf_token() }}' },
-            success: function () {
-                window.location.href = redirectUrl;
-            },
-            error: function () {
-                alert("{{ __('dashboard.error_marking_notification') }}");
-            }
-        });
-    });
-</script>
-
-
 
 </body>
 

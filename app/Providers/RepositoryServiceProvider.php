@@ -2,62 +2,26 @@
 
 namespace App\Providers;
 
+use App\Repository\AboutUsRepositoryInterface;
 use App\Repository\AdminProfileRepositoryInterface;
-use App\Repository\CartItemRepositoryInterface;
-use App\Repository\CartRepositoryInterface;
-use App\Repository\CategoryRepositoryInterface;
-use App\Repository\CommissionRepositoryInterface;
-use App\Repository\ComplaintRepositoryInterface;
 use App\Repository\ContactUsRepositoryInterface;
-use App\Repository\CouponRepositoryInterface;
-use App\Repository\Eloquent\CartItemRepository;
-use App\Repository\Eloquent\CartRepository;
-use App\Repository\Eloquent\CategoryRepository;
-use App\Repository\Eloquent\CommissionRepository;
+use App\Repository\Eloquent\AboutUsRepository;
 use App\Repository\Eloquent\ContactUsRepository;
-use App\Repository\Eloquent\CouponRepository;
-use App\Repository\Eloquent\FavouriteRepository;
 use App\Repository\Eloquent\ManagerRepository;
-use App\Repository\Eloquent\OrderRepository;
-use App\Repository\Eloquent\OrderReturnRepository;
-use App\Repository\Eloquent\OtpRepository;
-use App\Repository\Eloquent\PackageFeatureRepository;
-use App\Repository\Eloquent\PackageRepository;
 use App\Repository\Eloquent\PermissionRepository;
-use App\Repository\Eloquent\ProductRepository;
-use App\Repository\Eloquent\ProductVariantRepository;
 use App\Repository\Eloquent\Repository;
 use App\Repository\Eloquent\RoleRepository;
-use App\Repository\Eloquent\SettingRepository;
 use App\Repository\Eloquent\SliderRepository;
 use App\Repository\Eloquent\StructureRepository;
-use App\Repository\Eloquent\SubscriptionRepository;
-use App\Repository\Eloquent\UserAddressRepository;
-use App\Repository\Eloquent\UserRepository;
 use App\Repository\Eloquent\AminProfileRepository;
-use App\Repository\Eloquent\ComplaintRepository;
-use App\Repository\Eloquent\LandingPageRepository;
-use App\Repository\Eloquent\TransactionRepository;
-use App\Repository\FavouriteRepositoryInterface;
-use App\Repository\LandingPageRepositoryInterface;
 use App\Repository\ManagerRepositoryInterface;
-use App\Repository\OrderRepositoryInterface;
-use App\Repository\OrderReturnRepositoryInterface;
-use App\Repository\OtpRepositoryInterface;
-use App\Repository\PackageFeatureRepositoryInterface;
-use App\Repository\PackageRepositoryInterface;
 use App\Repository\PermissionRepositoryInterface;
-use App\Repository\ProductRepositoryInterface;
-use App\Repository\ProductVariantRepositoryInterface;
 use App\Repository\RepositoryInterface;
 use App\Repository\RoleRepositoryInterface;
-use App\Repository\SettingRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
 use App\Repository\StructureRepositoryInterface;
-use App\Repository\SubscriptionRepositoryInterface;
-use App\Repository\TransactionRepositoryInterface;
-use App\Repository\UserAddressRepositoryInterface;
-use App\Repository\UserRepositoryInterface;
+use App\Repository\ServiceRepositoryInterface;
+use App\Repository\Eloquent\ServiceRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -68,34 +32,15 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(RepositoryInterface::class, Repository::class);
-        $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
         $this->app->singleton(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->singleton(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->singleton(ManagerRepositoryInterface::class, ManagerRepository::class);
-        $this->app->singleton(OtpRepositoryInterface::class, OtpRepository::class);
-        $this->app->singleton(UserAddressRepositoryInterface::class, UserAddressRepository::class);
         $this->app->singleton(SliderRepositoryInterface::class, SliderRepository::class);
-        $this->app->singleton(CategoryRepositoryInterface::class, CategoryRepository::class);
-        $this->app->singleton(PackageRepositoryInterface::class, PackageRepository::class);
-        $this->app->singleton(PackageFeatureRepositoryInterface::class, PackageFeatureRepository::class);
-        $this->app->singleton(CommissionRepositoryInterface::class, CommissionRepository::class);
-        $this->app->singleton(PackageRepositoryInterface::class, PackageRepository::class);
-        $this->app->singleton(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
-        $this->app->singleton(CouponRepositoryInterface::class, CouponRepository::class);
         $this->app->singleton(ContactUsRepositoryInterface::class, ContactUsRepository::class);
-        $this->app->singleton(ProductRepositoryInterface::class, ProductRepository::class);
-        $this->app->singleton(FavouriteRepositoryInterface::class, FavouriteRepository::class);
-        $this->app->singleton(ProductVariantRepositoryInterface::class, ProductVariantRepository::class);
-        $this->app->singleton(CartRepositoryInterface::class, CartRepository::class);
-        $this->app->singleton(CartItemRepositoryInterface::class, CartItemRepository::class);
-        $this->app->singleton(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->singleton(StructureRepositoryInterface::class, StructureRepository::class);
-        $this->app->singleton(SettingRepositoryInterface::class, SettingRepository::class);
-        $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
-        $this->app->singleton(OrderReturnRepositoryInterface::class, OrderReturnRepository::class);
-        $this->app->singleton(TransactionRepositoryInterface::class, TransactionRepository::class);
-        $this->app->singleton(ComplaintRepositoryInterface::class, ComplaintRepository::class);
-        $this->app->singleton(LandingPageRepositoryInterface::class, LandingPageRepository::class);
+       $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
+        $this->app->singleton(AboutUsRepositoryInterface::class, AboutUsRepository::class);
+        $this->app->singleton(ServiceRepositoryInterface::class, ServiceRepository::class);
     }
 
     /**

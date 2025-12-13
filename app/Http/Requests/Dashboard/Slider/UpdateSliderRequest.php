@@ -24,11 +24,14 @@ final class UpdateSliderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_ar' => 'nullable|string|max:255',
-            'title_en' => 'nullable|string|max:255',
+           'title_one_ar' => 'nullable|string|max:255',
+            'title_one_en' => 'nullable|string|max:255',
+            'title_two_ar' => 'nullable|string|max:255',
+            'title_two_en' => 'nullable|string|max:255',
+            'title_three_ar' => 'nullable|string|max:255',
+            'title_three_en' => 'nullable|string|max:255',
             'content_ar' => 'nullable|string',
             'content_en' => 'nullable|string',
-            'product_id' => ['nullable', 'exists:products,id'],
 
             'image' => 'nullable|mimes:jpeg,png,jpg',
         ];

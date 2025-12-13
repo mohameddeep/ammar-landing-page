@@ -1,8 +1,6 @@
 @extends('dashboard.core.app')
 @section('title', __('dashboard.sliders'))
-@section('css_addons')
 
-@endsection
 @section('content')
     <div class="container-fluid px-5 py-3">
         <!-- Page Header -->
@@ -15,7 +13,7 @@
                 </div>
                 <div class="d-flex">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                       
+
                         <x-buttons.create-button :route="route('sliders.create')" />
 
                     </div>
@@ -27,9 +25,10 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>@lang('dashboard.image')</th>
-                            <th>@lang('dashboard.title')</th>
+                            <th>@lang('dashboard.title_one')</th>
+                            <th>@lang('dashboard.title_two')</th>
+                            <th>@lang('dashboard.title_three')</th>
                             <th>@lang('dashboard.content')</th>
-                            <th>@lang('dashboard.product_name')</th>
                             <th>@lang('dashboard.Activate')</th>
                             <th>@lang('dashboard.Operations')</th>
                         </tr>
@@ -43,9 +42,10 @@
                                 </td>
 
 
-                                <td>{{ $slider->t('title') }}</td>
+                                <td>{{ $slider->t('title_one') }}</td>
+                                <td>{{ $slider->t('title_two') }}</td>
+                                <td>{{ $slider->t('title_three') }}</td>
                                 <td>{{ $slider->t('content') }}</td>
-                                <td>{{ $slider?->product?->name }}</td>
                                 <td>
                                     <div class="custom-toggle-switch d-flex align-items-center">
                                         <input id="toggle_{{ $slider->id }}" name="toggleswitch_{{ $slider->id }}"

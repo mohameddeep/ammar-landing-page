@@ -1,8 +1,0 @@
-<?php
-
-namespace App\Repository;
-
-interface PaymentRepositoryInterface extends RepositoryInterface
-{
-    // Interface methods
-}

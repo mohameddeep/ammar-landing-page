@@ -10,8 +10,4 @@ class Slider extends Model
     use LanguageToggle;
 
     protected $guarded = [];
-
-    public function product(){
-        return $this->belongsTo(Product::class);
-    }
 }
