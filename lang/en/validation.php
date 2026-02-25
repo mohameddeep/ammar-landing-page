@@ -244,5 +244,25 @@ return [
 
     'fcm_token_string' => 'The FCM token must be a string.',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Attributes
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap our attribute placeholder
+    | with something more reader friendly such as "E-Mail Address" instead
+    | of "email". This simply helps us make our message more expressive.
+    |
+    */
+
+    'attributes' => [
+        'name' => 'Full Name',
+        'email' => 'Email',
+        'phone' => 'Phone Number',
+        'subject' => 'Subject',
+        'message' => 'Message',
+    ],
+
+    'phone_regex' => 'The :attribute must be in a valid format (e.g., +966501234567 or 0501234567).',
 
 ];

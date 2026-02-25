@@ -43,6 +43,18 @@
                             placeholder="{{ __('dashboard.linkedin_link') }}" :value="$content['all']['linkedin_link'] ?? ''" />
                     </div>
                     <div class="col-md-6">
+                        <x-input.input-field name="all[location]" label="{{ __('dashboard.location_ar') }}"
+                            placeholder="{{ __('dashboard.location_ar') }}" :value="$content['all']['location'] ?? ''" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-input.input-field name="all[location_en]" label="{{ __('dashboard.location_en') }}"
+                            placeholder="{{ __('dashboard.location_en') }}" :value="$content['all']['location_en'] ?? ''" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-input.input-field name="all[google_map_link]" label="{{ __('dashboard.google_map_link') }}"
+                            placeholder="{{ __('dashboard.google_map_link') }}" :value="$content['all']['google_map_link'] ?? ''" />
+                    </div>
+                    <div class="col-md-6">
                         <x-input.input-field name="website_name[ar]" label="{{ __('dashboard.website_name_ar') }}"
                             placeholder="{{ __('dashboard.website_name_ar') }}" :value="$content['website_name']['ar'] ?? ''" />
                     </div>

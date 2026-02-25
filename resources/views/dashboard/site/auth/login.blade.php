@@ -103,11 +103,27 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <!-- Logo -->
+                        @php
+                            use App\Repository\StructureRepositoryInterface;
+                            $footerStructure = app(StructureRepositoryInterface::class)->structure('footer');
+                            $loginLogo = null;
+                            $loginWebsiteName = 'البناء المتقدم';
+                            if ($footerStructure && $footerStructure->content) {
+                                $footerContent = json_decode($footerStructure->content, true);
+                                $loginLogo = $footerContent['image'] ?? null;
+                                $currentLocale = app()->getLocale() ?? 'ar';
+                                $loginWebsiteName = $footerContent['website_name'][$currentLocale] ?? ($footerContent['website_name']['ar'] ?? 'البناء المتقدم');
+                            }
+                        @endphp
                         <div class="text-center mb-4">
-                            <a href="" class="app-brand-link">
-                                <img class="m-0" src="{{ asset('icons/logo.png') }}" alt="Logo"
-                                    style="width: 100px; height: auto;">
-                                
+                            <a href="{{ url('/admin') }}" class="app-brand-link">
+                                @if($loginLogo)
+                                    <img class="m-0" src="{{ asset($loginLogo) }}" alt="{{ $loginWebsiteName }}"
+                                        style="max-width: 150px; max-height: 100px; width: auto; height: auto;">
+                                @else
+                                    <img class="m-0" src="{{ asset('icons/logo.png') }}" alt="Logo"
+                                        style="width: 100px; height: auto;">
+                                @endif
                             </a>
                         </div>
 

@@ -13,12 +13,12 @@ class ManagerSeeder extends Seeder
     public function run(): void
     {
         $manager = Manager::query()->updateOrCreate([
-            'email' => 'admin@Elryad.com',
+            'email' => 'admin@admin.com',
         ], [
             'name' => 'Admin',
-            'email' => 'admin@Elryad.com',
+            'email' => 'admin@admin.com',
             'phone' => '+96650000000',
-            'password' => 'elryad1256!@',
+            'password' => '123123123',
         ]);
         $manager->syncRoles([1]);
     }

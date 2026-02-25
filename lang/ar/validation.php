@@ -93,7 +93,7 @@ return [
     'email_unique' => 'هذا البريد الإلكتروني مستخدم بالفعل.',
 
     'phone_required' => 'حقل رقم الهاتف مطلوب.',
-    'phone_regex' => 'رقم الهاتف غير صحيح. يجب أن يبدأ بـ +9665 أو 9665 أو 05 ويحتوي على 9 أرقام بعد ذلك.',
+    'phone_regex' => ':attribute غير صحيح. يجب أن يكون بصيغة صحيحة (مثال: +966501234567 أو 0501234567).',
     'phone_unique' => 'رقم الهاتف مستخدم بالفعل.',
 
     'type_required' => 'حقل نوع المستخدم مطلوب.',
@@ -108,5 +108,24 @@ return [
     'brand_name_string' => 'اسم العلامة التجارية يجب أن يكون نصاً.',
 
     'fcm_token_string' => 'حقل FCM token يجب أن يكون نصاً.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Attributes
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap our attribute placeholder
+    | with something more reader friendly such as "E-Mail Address" instead
+    | of "email". This simply helps us make our message more expressive.
+    |
+    */
+
+    'attributes' => [
+        'name' => 'الاسم الكامل',
+        'email' => 'البريد الإلكتروني',
+        'phone' => 'رقم الهاتف',
+        'subject' => 'الموضوع',
+        'message' => 'الرسالة',
+    ],
 
 ];

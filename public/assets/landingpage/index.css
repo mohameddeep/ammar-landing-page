@@ -9,6 +9,8 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
+  position: relative;
 }
 
 .glow-emerald {
@@ -583,11 +585,15 @@ html[dir="rtl"] #mobileMenu {
   }
 }
 
-/* Logo hover effect */
-#logoLink:hover .gradient-text {
-  background: linear-gradient(to right, #10b981, #06b6d4, #3b82f6, #10b981);
-  background-size: 200% auto;
-  animation: gradient-shift 3s ease infinite;
+/* Logo text - clickable only, no hover effect */
+.logo-text.gradient-text {
+  background: linear-gradient(to right, #10b981, #06b6d4, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
 }
 
 @keyframes gradient-shift {

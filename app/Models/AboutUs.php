@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Http\Traits\LanguageToggle;
 use Illuminate\Database\Eloquent\Model;
 
 class AboutUs extends Model
 {
+    use LanguageToggle;
+
     protected $fillable = [
         'title_ar',
         'title_en',
@@ -23,6 +26,11 @@ class AboutUs extends Model
 
     public function children()
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id')->where('is_active', true);
+    }
+    
+    public function activeChildren()
+    {
+        return $this->hasMany(self::class, 'parent_id')->where('is_active', true)->orderBy('id');
     }
 }

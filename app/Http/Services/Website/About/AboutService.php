@@ -1,45 +1,24 @@
 <?php
 
-namespace App\Http\Services\Website\LandingPage;
+namespace App\Http\Services\Website\About;
 
-use App\Repository\LandingPageRepositoryInterface;
-use App\Repository\StructureRepositoryInterface;
-use App\Repository\SliderRepositoryInterface;
-use App\Repository\ServiceRepositoryInterface;
 use App\Repository\AboutUsRepositoryInterface;
+use App\Repository\StructureRepositoryInterface;
 
-class LandingPageService
+class AboutService
 {
-    
-
     public function __construct(
-        private LandingPageRepositoryInterface $repository,
-        private StructureRepositoryInterface $structureRepository,
-        private SliderRepositoryInterface $sliderRepository,
-        private ServiceRepositoryInterface $serviceRepository,
-        private AboutUsRepositoryInterface $aboutUsRepository,
+        private readonly AboutUsRepositoryInterface $aboutUsRepository,
+        private readonly StructureRepositoryInterface $structureRepository,
     ) {}
 
     public function index()
     {
-        // Fetch active sliders
-        $sliders = $this->sliderRepository->getActive();
-        
-        // Fetch active services
-        $services = $this->serviceRepository->getActive();
-
         // Fetch About structure content
         $aboutStructure = $this->structureRepository->structure('about');
         $aboutContent = null;
         if ($aboutStructure && $aboutStructure->content) {
             $aboutContent = json_decode($aboutStructure->content, true);
-        }
-
-        // Fetch Service structure content
-        $serviceStructure = $this->structureRepository->structure('service');
-        $serviceContent = null;
-        if ($serviceStructure && $serviceStructure->content) {
-            $serviceContent = json_decode($serviceStructure->content, true);
         }
 
         // Fetch Footer structure content
@@ -48,7 +27,6 @@ class LandingPageService
         if ($footerStructure && $footerStructure->content) {
             $footerContent = json_decode($footerStructure->content, true);
         }
-        
 
         // Fetch AboutUs tabs (parents with null parent_id) with children relationship loaded
         $aboutTabs = $this->aboutUsRepository->getActive(['*'], ['children'])
@@ -66,8 +44,7 @@ class LandingPageService
                 ];
             });
 
-        return view('website.landing-page.index', compact('sliders', 'services', 'aboutContent', 'aboutTabs', 'serviceContent', 'footerContent'));
+        return view('website.about', compact('aboutContent', 'aboutTabs', 'footerContent'));
     }
-
-    
 }
+

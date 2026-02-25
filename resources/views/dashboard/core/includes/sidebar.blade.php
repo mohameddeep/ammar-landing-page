@@ -14,12 +14,14 @@
     </div> --}}
     <div class="main-sidebar-header">
         <a href="{{ url('/admin') }}" class="header-logo">
-            {{-- <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-logo" style="width: 80px; height: auto;">
-            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="toggle-logo"
-                style="width: 80px; height: auto;"> --}}
-            <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
-            {{-- <img src="{{ asset(path: 'icons/logo.png') }}" alt="logo"
-                class="toggle-dark"style="width: 80px; height: auto;"> --}}
+            @if(isset($dashboardLogo) && $dashboardLogo)
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="desktop-logo" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="toggle-logo" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="desktop-dark" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="toggle-dark" style="max-height: 50px; width: auto;">
+            @else
+                <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
+            @endif
         </a>
     </div>
     <!-- End::main-sidebar-header -->

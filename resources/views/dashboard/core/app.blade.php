@@ -1,4 +1,18 @@
-@php use Illuminate\Support\Facades\Session; @endphp
+@php 
+use Illuminate\Support\Facades\Session;
+use App\Repository\StructureRepositoryInterface;
+
+// Fetch Footer structure content for logo
+$footerStructure = app(StructureRepositoryInterface::class)->structure('footer');
+$dashboardLogo = null;
+$dashboardWebsiteName = 'البناء المتقدم';
+if ($footerStructure && $footerStructure->content) {
+    $footerContent = json_decode($footerStructure->content, true);
+    $dashboardLogo = $footerContent['image'] ?? null;
+    $currentLocale = app()->getLocale() ?? 'ar';
+    $dashboardWebsiteName = $footerContent['website_name'][$currentLocale] ?? ($footerContent['website_name']['ar'] ?? 'البناء المتقدم');
+}
+@endphp
 <!DOCTYPE html>
 {{-- <html lang="{{ app()->getLocale() }}" @if (app()->getLocale() == 'ar') id="rtl" @endif> --}}
 {{-- romio --}}
@@ -11,9 +25,9 @@
 
 <body>
     <div class="page">
-        @include('dashboard.core.includes.header')
+        @include('dashboard.core.includes.header', ['dashboardLogo' => $dashboardLogo, 'dashboardWebsiteName' => $dashboardWebsiteName])
 
-        @include('dashboard.core.includes.sidebar')
+        @include('dashboard.core.includes.sidebar', ['dashboardLogo' => $dashboardLogo, 'dashboardWebsiteName' => $dashboardWebsiteName])
 
         <div class="main-content app-content">
             @yield('content')

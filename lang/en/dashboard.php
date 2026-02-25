@@ -520,5 +520,8 @@ return [
     'website_name_ar' => 'Website Name (Arabic)',
     'website_name_en' => 'Website Name (English)',
     'website_logo' => 'Website Logo',
+    'location_ar' => 'Location (Arabic)',
+    'location_en' => 'Location (English)',
+    'google_map_link' => 'Google Maps Link',
     'privacy_policy' => 'Privacy Policy',
 ];
