@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Website\LandingPage\LandingPageController;
+use App\Http\Controllers\Website\Seo\RobotsController;
+use App\Http\Controllers\Website\Seo\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-
-
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+Route::get('/robots.txt', RobotsController::class)->name('robots');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -19,6 +21,7 @@ Route::group([
         
         // Contact form submission
         Route::post('contact', [\App\Http\Controllers\Website\Contact\ContactController::class, 'store'])->name('website.contact.store');
+        Route::post('pricing-quote', [\App\Http\Controllers\Website\Contact\ContactController::class, 'storePricingQuote'])->name('website.pricing-quote.store');
         
         // Contact page
         Route::get('contact-us', [\App\Http\Controllers\Website\Contact\ContactController::class, 'index'])->name('website.contact.index');

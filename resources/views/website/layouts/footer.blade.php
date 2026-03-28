@@ -254,25 +254,31 @@
     </style>
 
     <script>
-      // Show WhatsApp button on scroll
-      let whatsappButton = document.getElementById('whatsappButton');
-      let scrollThreshold = 300; // Show after scrolling 300px
-      
-      function toggleWhatsAppButton() {
-        if (window.scrollY > scrollThreshold) {
-          whatsappButton.classList.add('visible');
-          whatsappButton.classList.remove('opacity-0', 'invisible');
-        } else {
-          whatsappButton.classList.remove('visible');
-          whatsappButton.classList.add('opacity-0', 'invisible');
+      (function () {
+        var scrollThreshold = 300;
+        var scrollHandler = null;
+        function setupWhatsAppScroll() {
+          var whatsappButton = document.getElementById('whatsappButton');
+          if (scrollHandler) {
+            window.removeEventListener('scroll', scrollHandler);
+            scrollHandler = null;
+          }
+          if (!whatsappButton) return;
+          scrollHandler = function () {
+            if (window.scrollY > scrollThreshold) {
+              whatsappButton.classList.add('visible');
+              whatsappButton.classList.remove('opacity-0', 'invisible');
+            } else {
+              whatsappButton.classList.remove('visible');
+              whatsappButton.classList.add('opacity-0', 'invisible');
+            }
+          };
+          window.addEventListener('scroll', scrollHandler, { passive: true });
+          scrollHandler();
         }
-      }
-      
-      // Check on scroll
-      window.addEventListener('scroll', toggleWhatsAppButton);
-      
-      // Check on page load
-      toggleWhatsAppButton();
+        document.addEventListener('turbo:load', setupWhatsAppScroll);
+        document.addEventListener('DOMContentLoaded', setupWhatsAppScroll);
+      })();
     </script>
 
     <script>
@@ -327,8 +333,17 @@ function updateSliderDirection() {
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.slider-dot');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
   const totalSlides = slides.length;
   let autoPlayInterval;
+
+  if (!nextBtn || !prevBtn || totalSlides === 0) {
+    window.initializeSliderDirection = function () {};
+    return;
+  }
+
+  const heroSliderEl = document.querySelector('.hero-slider');
 
   // Preload images for better performance
   function preloadImages() {
@@ -377,7 +392,9 @@ function updateSliderDirection() {
 
     // Add active class to current slide and dot
     slides[index].classList.add('active');
-    dots[index].classList.add('active');
+    if (dots[index]) {
+      dots[index].classList.add('active');
+    }
 
     // Add prev class to previous slide for animation
     const prevIndex = index === 0 ? totalSlides - 1 : index - 1;
@@ -416,8 +433,7 @@ function updateSliderDirection() {
     showSlide(prev);
   }
 
-  // Navigation buttons
-  document.getElementById('nextBtn').addEventListener('click', () => {
+  nextBtn.addEventListener('click', () => {
     const isRTL = document.documentElement.dir === 'rtl';
     if (isRTL) {
       nextSlide();
@@ -427,7 +443,7 @@ function updateSliderDirection() {
     resetAutoPlay();
   });
 
-  document.getElementById('prevBtn').addEventListener('click', () => {
+  prevBtn.addEventListener('click', () => {
     const isRTL = document.documentElement.dir === 'rtl';
     if (isRTL) {
       prevSlide();
@@ -445,8 +461,8 @@ function updateSliderDirection() {
     });
   });
 
-  // Auto-play functionality
   function startAutoPlay() {
+    if (totalSlides < 2) return;
     autoPlayInterval = setInterval(nextSlide, 5000);
   }
 
@@ -455,17 +471,14 @@ function updateSliderDirection() {
     startAutoPlay();
   }
 
-  // Pause on hover and parallax effect
-  const slider = document.querySelector('.hero-slider');
-  if (slider) {
-    slider.addEventListener('mouseenter', () => {
+  if (heroSliderEl) {
+    heroSliderEl.addEventListener('mouseenter', () => {
       clearInterval(autoPlayInterval);
     });
 
-    slider.addEventListener('mouseleave', () => {
+    heroSliderEl.addEventListener('mouseleave', () => {
       startAutoPlay();
-      // Reset parallax effect
-      const activeSlide = slider.querySelector('.slide.active');
+      const activeSlide = heroSliderEl.querySelector('.slide.active');
       if (activeSlide) {
         const image = activeSlide.querySelector('.slide-image');
         if (image) {
@@ -474,13 +487,12 @@ function updateSliderDirection() {
       }
     });
 
-    // Parallax effect on mouse move (optional enhancement)
-    slider.addEventListener('mousemove', (e) => {
-      const activeSlide = slider.querySelector('.slide.active');
+    heroSliderEl.addEventListener('mousemove', (e) => {
+      const activeSlide = heroSliderEl.querySelector('.slide.active');
       if (activeSlide) {
         const image = activeSlide.querySelector('.slide-image');
         if (image && window.innerWidth > 768) {
-          const rect = slider.getBoundingClientRect();
+          const rect = heroSliderEl.getBoundingClientRect();
           const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
           const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
           image.style.transform = `scale(1.05) translate(${x}px, ${y}px)`;
@@ -488,15 +500,14 @@ function updateSliderDirection() {
       }
     });
 
-    // Touch/swipe support for mobile
     let touchStartX = 0;
     let touchEndX = 0;
 
-    slider.addEventListener('touchstart', (e) => {
+    heroSliderEl.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     });
 
-    slider.addEventListener('touchend', (e) => {
+    heroSliderEl.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     });
@@ -517,21 +528,22 @@ function updateSliderDirection() {
     }
   }
 
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-      e.preventDefault();
-      const isRTL = document.documentElement.dir === 'rtl';
-      if ((isRTL && e.key === 'ArrowRight') || (!isRTL && e.key === 'ArrowLeft')) {
-        prevSlide();
-      } else {
-        nextSlide();
-      }
-      resetAutoPlay();
+  document.addEventListener('keydown', function onSliderKey(e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    if (!heroSliderEl || !document.body.contains(heroSliderEl)) {
+      document.removeEventListener('keydown', onSliderKey);
+      return;
     }
+    e.preventDefault();
+    const isRTL = document.documentElement.dir === 'rtl';
+    if ((isRTL && e.key === 'ArrowRight') || (!isRTL && e.key === 'ArrowLeft')) {
+      prevSlide();
+    } else {
+      nextSlide();
+    }
+    resetAutoPlay();
   });
 
-  // Initialize auto-play
   startAutoPlay();
 })();
 

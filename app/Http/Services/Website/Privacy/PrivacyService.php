@@ -3,6 +3,7 @@
 namespace App\Http\Services\Website\Privacy;
 
 use App\Repository\StructureRepositoryInterface;
+use App\Support\StructureContent;
 
 class PrivacyService
 {
@@ -17,14 +18,11 @@ class PrivacyService
      */
     public function index()
     {
-        // Fetch Privacy Policy structure content
-        $privacyStructure = $this->structureRepository->structure('privacy_policy');
-        $privacyContent = null;
-        if ($privacyStructure && $privacyStructure->content) {
-            $privacyContent = json_decode($privacyStructure->content, true);
-        }
+        $structures = $this->structureRepository->structuresForKeys(['privacy_policy', 'footer']);
+        $privacyContent = StructureContent::decode($structures['privacy_policy'] ?? null);
+        $footerContent = StructureContent::decode($structures['footer'] ?? null);
 
-        return view('website.privacy', compact('privacyContent'));
+        return view('website.privacy', compact('privacyContent', 'footerContent'));
     }
 }
 

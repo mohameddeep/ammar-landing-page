@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Website\LandingPage;
 
-use App\Repository\LandingPageRepositoryInterface;
+use App\Support\StructureContent;
 use App\Repository\StructureRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
 use App\Repository\ServiceRepositoryInterface;
@@ -13,7 +13,6 @@ class LandingPageService
     
 
     public function __construct(
-        private LandingPageRepositoryInterface $repository,
         private StructureRepositoryInterface $structureRepository,
         private SliderRepositoryInterface $sliderRepository,
         private ServiceRepositoryInterface $serviceRepository,
@@ -22,52 +21,25 @@ class LandingPageService
 
     public function index()
     {
-        // Fetch active sliders
         $sliders = $this->sliderRepository->getActive();
-        
-        // Fetch active services
         $services = $this->serviceRepository->getActive();
 
-        // Fetch About structure content
-        $aboutStructure = $this->structureRepository->structure('about');
-        $aboutContent = null;
-        if ($aboutStructure && $aboutStructure->content) {
-            $aboutContent = json_decode($aboutStructure->content, true);
-        }
+        $structures = $this->structureRepository->structuresForKeys(['about', 'service', 'footer']);
 
-        // Fetch Service structure content
-        $serviceStructure = $this->structureRepository->structure('service');
-        $serviceContent = null;
-        if ($serviceStructure && $serviceStructure->content) {
-            $serviceContent = json_decode($serviceStructure->content, true);
-        }
+        $aboutContent = StructureContent::decode($structures['about'] ?? null);
+        $serviceContent = StructureContent::decode($structures['service'] ?? null);
+        $footerContent = StructureContent::decode($structures['footer'] ?? null);
 
-        // Fetch Footer structure content
-        $footerStructure = $this->structureRepository->structure('footer');
-        $footerContent = null;
-        if ($footerStructure && $footerStructure->content) {
-            $footerContent = json_decode($footerStructure->content, true);
-        }
-        
-
-        // Fetch AboutUs tabs (parents with null parent_id) with children relationship loaded
-        $aboutTabs = $this->aboutUsRepository->getActive(['*'], ['children'])
-            ->where('parent_id', null)
-            ->sortBy('id')
+        $aboutTabs = $this->aboutUsRepository->getActiveRootTabsWithChildren()
             ->map(function ($tab) {
-                // Filter children to only active ones and sort by id
-                $activeChildren = $tab->children->where('is_active', true)->sortBy('id')->values();
-                
                 return [
                     'id' => $tab->id,
                     'title' => $tab->t('title'),
-                    'key' => 'tab_' . $tab->id,
-                    'children' => $activeChildren,
+                    'key' => 'tab_'.$tab->id,
+                    'children' => $tab->children->sortBy('id')->values(),
                 ];
             });
 
         return view('website.landing-page.index', compact('sliders', 'services', 'aboutContent', 'aboutTabs', 'serviceContent', 'footerContent'));
     }
-
-    
 }

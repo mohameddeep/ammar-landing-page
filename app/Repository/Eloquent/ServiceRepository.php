@@ -15,4 +15,14 @@ class ServiceRepository extends Repository implements ServiceRepositoryInterface
     {
         parent::__construct($model);
     }
+
+    public function getOtherActive(int|string $excludeId, int $limit = 3): Collection
+    {
+        return $this->model::query()
+            ->where('is_active', true)
+            ->where('id', '!=', $excludeId)
+            ->orderBy('id')
+            ->limit($limit)
+            ->get();
+    }
 }

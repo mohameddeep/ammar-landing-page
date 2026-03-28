@@ -8,13 +8,166 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>البناء المتقدم - خدمات البناء والتراخيص</title>
-        <title> @lang('website.Home') | @yield('title')</title>
+    @php
+      use App\Support\WebsiteMeta;
+      use Illuminate\Support\Str;
+      $siteTitle = $headerWebsiteName ?? config('app.name');
+      $pageTitle = trim($__env->yieldContent('title'));
+      if ($pageTitle === '') {
+        $pageTitle = __('website.seoHomeTitle');
+      }
+      $fullTitle = $pageTitle.' | '.$siteTitle;
+      $metaDescription = $__env->hasSection('meta_description')
+        ? Str::limit(strip_tags(trim($__env->yieldContent('meta_description'))), 160, '')
+        : WebsiteMeta::metaDescription();
+      $ogImageSection = $__env->hasSection('og_image') ? trim($__env->yieldContent('og_image')) : null;
+      $ogImage = WebsiteMeta::absoluteOgImage($ogImageSection !== '' ? $ogImageSection : null);
+      $canonical = WebsiteMeta::canonicalUrl();
+      $robotsDirectives = $__env->hasSection('robots')
+        ? trim($__env->yieldContent('robots'))
+        : (config('seo.noindex') ? 'noindex, nofollow' : 'index, follow');
+      $ogType = $__env->hasSection('og_type') ? trim($__env->yieldContent('og_type')) : 'website';
+    @endphp
+    <title>{{ $fullTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}" />
+    <meta name="robots" content="{{ $robotsDirectives }}" />
+    <link rel="canonical" href="{{ $canonical }}" />
+    @foreach (WebsiteMeta::hreflangAlternates() as $alt)
+    <link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}" />
+    @endforeach
+    <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_SA' : 'en_US' }}" />
+    @if(app()->getLocale() === 'ar')
+    <meta property="og:locale:alternate" content="en_US" />
+    @else
+    <meta property="og:locale:alternate" content="ar_SA" />
+    @endif
+    <meta property="og:type" content="{{ e($ogType) }}" />
+    <meta property="og:title" content="{{ $fullTitle }}" />
+    <meta property="og:description" content="{{ $metaDescription }}" />
+    <meta property="og:url" content="{{ $canonical }}" />
+    <meta property="og:site_name" content="{{ $siteTitle }}" />
+    @if($ogImage)
+    <meta property="og:image" content="{{ $ogImage }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="{{ $ogImage }}" />
+    @else
+    <meta name="twitter:card" content="summary" />
+    @endif
+    <meta name="twitter:title" content="{{ $fullTitle }}" />
+    <meta name="twitter:description" content="{{ $metaDescription }}" />
+    @if(filled(config('seo.twitter_site')))
+    <meta name="twitter:site" content="{{ config('seo.twitter_site') }}" />
+    @endif
+    <meta name="theme-color" content="#0f172a" />
+    @stack('seo-extra')
+    @if(config('seo.json_ld_enabled', true))
+    @php
+      $orgLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Organization',
+        'name' => $siteTitle,
+        'url' => rtrim(config('app.url'), '/'),
+      ];
+      if ($ogImage) {
+        $orgLd['logo'] = $ogImage;
+      }
+      $webLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => $siteTitle,
+        'url' => rtrim(config('app.url'), '/'),
+        'inLanguage' => ['ar', 'en'],
+      ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($orgLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    <script type="application/ld+json">{!! json_encode($webLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @endif
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('assets/landingpage/index.css') }}">
+    @vite(['resources/css/website.css'])
     <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
+
+    {{-- Turbo Drive + تنقّل يحسّ إنه فوري: سكرول فور النقر، prefetch عند اللمس/المرور، شريط تقدم بدون تأخير --}}
+    <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.13/dist/turbo.es2017-umd.js" defer></script>
+    <script defer>
+      (function () {
+        function turboInstantFeedback() {
+          try {
+            if (window.Turbo && window.Turbo.config && window.Turbo.config.drive) {
+              window.Turbo.config.drive.progressBarDelay = 0;
+            }
+          } catch (e) {}
+        }
+
+        function isInternalNavLink(a) {
+          if (!a || a.getAttribute('data-turbo') === 'false') return false;
+          if (a.target === '_blank' || a.hasAttribute('download')) return false;
+          var href = a.getAttribute('href');
+          if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) return false;
+          try {
+            return new URL(a.href, window.location.origin).origin === window.location.origin;
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function markInternalLinksForPrefetch() {
+          document.querySelectorAll('a[href]').forEach(function (a) {
+            if (!isInternalNavLink(a)) return;
+            if (a.hasAttribute('data-turbo-preload')) return;
+            a.setAttribute('data-turbo-preload', '');
+          });
+        }
+
+        /** أول ما تدوس: لفّ فوق فوراً عشان الإحساس إن الصفحة اتفتحت على طول */
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest('a[href]');
+          if (!a || e.defaultPrevented || !isInternalNavLink(a)) return;
+          try {
+            var u = new URL(a.href, window.location.origin);
+            if (u.pathname === window.location.pathname && u.search === window.location.search) {
+              if (u.hash) return;
+              return;
+            }
+          } catch (err) {
+            return;
+          }
+          window.scrollTo(0, 0);
+        }, true);
+
+        /** Prefetch من أول ما الماوس/الإصبع ينزل على الرابط (أسرع من الانتظار لحد الـ hover لوحده) */
+        var prefetchQueue = [];
+        var PREFETCH_MAX = 28;
+        document.addEventListener('pointerdown', function (e) {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          var a = e.target.closest('a[href]');
+          if (!isInternalNavLink(a)) return;
+          var url;
+          try {
+            url = new URL(a.href, window.location.origin).href;
+          } catch (err) {
+            return;
+          }
+          if (prefetchQueue.indexOf(url) !== -1) return;
+          prefetchQueue.push(url);
+          if (prefetchQueue.length > PREFETCH_MAX) prefetchQueue.shift();
+          var l = document.createElement('link');
+          l.rel = 'prefetch';
+          l.href = url;
+          l.setAttribute('as', 'document');
+          document.head.appendChild(l);
+        }, true);
+
+        function boot() {
+          turboInstantFeedback();
+          markInternalLinksForPrefetch();
+        }
+        document.addEventListener('turbo:load', boot);
+        document.addEventListener('DOMContentLoaded', boot);
+      })();
+    </script>
   </head>
   <body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
     <!-- Navigation -->

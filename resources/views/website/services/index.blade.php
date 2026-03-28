@@ -1,5 +1,6 @@
 @extends('website.layouts.app')
 @section('title', trans('website.services'))
+@section('meta_description', trans('website.seoServicesDescription'))
 @section('content')
 
     @php
@@ -58,9 +59,9 @@
               <div class="relative z-10">
                 <div class="w-16 h-16 bg-gradient-to-br {{ $colorClass['gradient'] }} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   @if($service->image)
-                    <img src="@image($service->image)" alt="{{ $service->t('title') }}" class="w-12 h-12 object-cover rounded-lg" />
+                    <img src="@image($service->image)" alt="{{ $service->t('title') }}" class="w-12 h-12 object-cover rounded-lg" loading="lazy" decoding="async" />
                   @else
-                    <img src="/assets/images/icons/{{ $icon }}.svg" alt="{{ $service->t('title') }}" class="w-10 h-10 object-contain" />
+                    <img src="/assets/images/icons/{{ $icon }}.svg" alt="{{ $service->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
                   @endif
                 </div>
                 <h3 class="text-2xl font-bold mb-4 text-white">{{ $service->t('title') }}</h3>

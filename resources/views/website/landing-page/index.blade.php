@@ -1,6 +1,7 @@
 
 @extends('website.layouts.app')
-@section('title', __('dashboard.users'))
+@section('title', __('website.Home'))
+@section('meta_description', __('website.seoHomeDescription'))
 @section('content')
     <!-- Hero Slider Section -->
     <section class=" pb-20 px-6 relative overflow-hidden hero-slider min-h-[90vh] flex items-center">
@@ -19,6 +20,8 @@
                 alt="{{ $slider->t('title_one') }}" 
                 class="slide-image"
                 loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                decoding="async"
+                fetchpriority="{{ $index === 0 ? 'high' : 'low' }}"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -55,6 +58,8 @@
                 alt="Modern Construction Building" 
                 class="slide-image"
                 loading="eager"
+                decoding="async"
+                fetchpriority="high"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -183,9 +188,9 @@
                             <div class="text-center p-8">
                               <div class="w-32 h-32 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-emerald-500/50">
                                 @if($child->image)
-                                  <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" />
+                                  <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
                                 @else
-                                  <img src="/assets/images/icons/sex.svg" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" />
+                                  <img src="/assets/images/icons/sex.svg" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
                                 @endif
                               </div>
                               <h3 class="text-3xl font-bold mb-4 gradient-text">{{ $child->t('title') }}</h3>
@@ -219,9 +224,9 @@
                           <div class="relative z-10">
                             <div class="w-20 h-20 bg-gradient-to-br {{ $color['gradient'] }} rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg {{ $color['shadow-lg'] }}">
                               @if($child->image)
-                                <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" />
+                                <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                               @else
-                                <img src="/assets/images/icons/four.svg" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" />
+                                <img src="/assets/images/icons/four.svg" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                               @endif
                             </div>
                             @php
@@ -251,9 +256,9 @@
                         <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 {{ $color['border'] }} transition-all hover:scale-105 {{ $color['shadow'] }} text-center group">
                           <div class="w-16 h-16 bg-gradient-to-br {{ $color['gradient'] }} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                             @if($child->image)
-                              <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" />
+                              <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
                             @else
-                              <img src="/assets/images/icons/ten.svg" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" />
+                              <img src="/assets/images/icons/ten.svg" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
                             @endif
                           </div>
                           <h4 class="text-xl font-bold mb-2 text-white">{{ $child->t('title') }}</h4>
@@ -335,9 +340,9 @@
                 
                 <div class="w-20 h-20 bg-gradient-to-br {{ $colorClass['gradient'] }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg {{ $colorClass['shadow-icon'] }}">
                   @if($service->image)
-                    <img src="@image($service->image)" alt="{{ $service->t('title') }}" class="w-16 h-16 object-cover rounded-xl" />
+                    <img src="@image($service->image)" alt="{{ $service->t('title') }}" class="w-16 h-16 object-cover rounded-xl" loading="lazy" decoding="async" />
                   @else
-                    <img src="/assets/images/icons/{{ $icon }}.svg" alt="{{ $service->t('title') }}" class="w-12 h-12 object-contain" />
+                    <img src="/assets/images/icons/{{ $icon }}.svg" alt="{{ $service->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                   @endif
                 </div>
                 <h3 class="text-2xl font-bold mb-4 text-white {{ $colorClass['text'] }} transition-colors">{{ $service->t('title') }}</h3>
@@ -359,7 +364,263 @@
       </div>
     </section>
 
+    <!-- Pricing CTA -->
+    <section id="pricing-cta" class="pricing-cta-section relative py-20 px-6 overflow-hidden border-y border-emerald-500/20">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/50"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-500/15 via-transparent to-transparent pointer-events-none"></div>
+      <div class="absolute inset-0 bg-slate-950/40 pointer-events-none"></div>
+      <div class="relative max-w-7xl mx-auto">
+        <p class="text-center text-lg md:text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-14 md:mb-16">
+          {{ trans('website.pricingCtaLead', [], $currentLocale) }}
+        </p>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+          <div class="{{ $currentLocale !== 'ar' ? 'md:order-2' : '' }} flex {{ $currentLocale === 'ar' ? 'md:justify-start' : 'md:justify-end' }} justify-center">
+            <button
+              type="button"
+              data-pricing-modal-open
+              class="pricing-cta-btn group inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 shadow-lg shadow-emerald-500/30 border border-emerald-400/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-emerald-500/40 whitespace-normal text-center max-w-full cursor-pointer"
+            >
+              <svg class="w-5 h-5 shrink-0 transition-transform group-hover:-translate-x-1 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+              <span>{{ trans('website.pricingCtaButton', [], $currentLocale) }}</span>
+            </button>
+          </div>
+          <div class="{{ $currentLocale !== 'ar' ? 'md:order-1' : '' }} text-center {{ $currentLocale === 'ar' ? 'md:text-right' : 'md:text-left' }}">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+              {{ trans('website.pricingCtaNamePart1', [], $currentLocale) }}<span class="gradient-text">{{ trans('website.pricingCtaNameHighlight', [], $currentLocale) }}</span>{{ trans('website.pricingCtaNamePart2', [], $currentLocale) }}
+            </h2>
+            <p class="text-slate-400 text-lg md:text-xl leading-relaxed max-w-xl {{ $currentLocale === 'ar' ? 'md:mr-0 md:ml-auto' : 'md:ml-0 md:mr-auto' }}">
+              {{ trans('website.pricingCtaDesc', [], $currentLocale) }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Pricing quote modal -->
+    @php
+      $pricingTypeSlugs = [
+        ['slug' => 'residential_building', 'key' => 'pricingTypeResidential'],
+        ['slug' => 'commercial_showrooms', 'key' => 'pricingTypeCommercial'],
+        ['slug' => 'villa', 'key' => 'pricingTypeVilla'],
+        ['slug' => 'warehouses', 'key' => 'pricingTypeWarehouses'],
+        ['slug' => 'other', 'key' => 'pricingTypeOther'],
+        ['slug' => 'tourism', 'key' => 'pricingTypeTourism'],
+        ['slug' => 'hospital', 'key' => 'pricingTypeHospital'],
+        ['slug' => 'hotel', 'key' => 'pricingTypeHotel'],
+      ];
+      $oldProjectTypes = old('project_types', []);
+    @endphp
+    <div
+      id="pricing-quote-modal"
+      class="fixed inset-0 z-[100] px-4 py-8 sm:px-6 sm:py-10"
+      style="overflow-y: auto;"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pricing-quote-modal-title"
+      aria-hidden="true"
+    >
+      <div class="absolute inset-0 z-0 min-h-full bg-slate-950/80 backdrop-blur-sm" data-pricing-modal-backdrop data-pricing-modal-close></div>
+      <div class="relative z-10 mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-lg items-center justify-center py-2 sm:min-h-[calc(100dvh-5rem)] sm:py-4">
+        <div class="rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl shadow-emerald-900/20" style="overflow-y: auto;height:80vh">
+        <div class="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-slate-700/80 bg-slate-900/95 px-5 py-4 backdrop-blur-sm">
+          <h3 id="pricing-quote-modal-title" class="text-lg font-bold text-white sm:text-xl">
+            {{ trans('website.pricingQuoteModalTitle', [], $currentLocale) }}
+          </h3>
+          <button
+            type="button"
+            class="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white"
+            data-pricing-modal-close
+            aria-label="{{ trans('website.pricingQuoteClose', [], $currentLocale) }}"
+          >
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="p-5 sm:p-6">
+          <form
+            action="{{ route('website.pricing-quote.store') }}"
+            method="post"
+            enctype="multipart/form-data"
+            data-turbo="false"
+          >
+            @csrf
+            <input type="hidden" name="pricing_form" value="1">
+
+            <div class="flex flex-col gap-10 py-1" style="gap:20px;">
+            <div>
+              <label for="pricing-name" class="mb-1.5 block text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteName', [], $currentLocale) }}</label>
+              <input
+                id="pricing-name"
+                type="text"
+                name="name"
+                value="{{ old('name') }}"
+                required
+                maxlength="100"
+                class="w-full rounded-xl border bg-slate-800/80 px-4 py-3 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 {{ $errors->has('name') ? 'border-red-500' : 'border-slate-600' }}"
+              />
+              @error('name')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div>
+              <label for="pricing-email" class="mb-1.5 block text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteEmail', [], $currentLocale) }}</label>
+              <input
+                id="pricing-email"
+                type="email"
+                name="email"
+                value="{{ old('email') }}"
+                required
+                maxlength="255"
+                dir="ltr"
+                class="w-full rounded-xl border bg-slate-800/80 px-4 py-3 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 {{ $errors->has('email') ? 'border-red-500' : 'border-slate-600' }}"
+              />
+              @error('email')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div>
+              <label for="pricing-phone" class="mb-1.5 block text-sm font-semibold text-slate-300">{{ trans('website.pricingQuotePhone', [], $currentLocale) }}</label>
+              <input
+                id="pricing-phone"
+                type="tel"
+                name="phone"
+                value="{{ old('phone') }}"
+                required
+                maxlength="20"
+                dir="ltr"
+                class="w-full rounded-xl border bg-slate-800/80 px-4 py-3 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 {{ $errors->has('phone') ? 'border-red-500' : 'border-slate-600' }}"
+              />
+              @error('phone')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <fieldset class="space-y-4 py-1">
+              <legend class="mb-1 block w-full text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteProjectType', [], $currentLocale) }}</legend>
+              <div class="flex flex-wrap gap-3">
+                @foreach ($pricingTypeSlugs as $pt)
+                  <label class="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-700/80 bg-slate-800/40 px-3 py-2.5 text-sm text-slate-200 transition hover:border-emerald-500/40">
+                    <input
+                      type="checkbox"
+                      name="project_types[]"
+                      value="{{ $pt['slug'] }}"
+                      class="mt-0.5 rounded border-slate-600 text-emerald-500 focus:ring-emerald-500/30"
+                      @checked(in_array($pt['slug'], $oldProjectTypes, true))
+                    />
+                    <span>{{ trans('website.'.$pt['key'], [], $currentLocale) }}</span>
+                  </label>
+                @endforeach
+              </div>
+              @if ($errors->has('project_types'))
+                <p class="text-sm text-red-400">{{ $errors->first('project_types') }}</p>
+              @else
+                @foreach ($errors->getMessages() as $field => $messages)
+                  @if (str_starts_with($field, 'project_types.'))
+                    @foreach ($messages as $message)
+                      <p class="text-sm text-red-400">{{ $message }}</p>
+                    @endforeach
+                    @break
+                  @endif
+                @endforeach
+              @endif
+            </fieldset>
+
+            <div>
+              <label for="pricing-space" class="mb-1.5 block text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteSpace', [], $currentLocale) }}</label>
+              <input
+                id="pricing-space"
+                type="text"
+                name="project_space"
+                value="{{ old('project_space') }}"
+                required
+                maxlength="400"
+                class="w-full rounded-xl border bg-slate-800/80 px-4 py-3 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 {{ $errors->has('project_space') ? 'border-red-500' : 'border-slate-600' }}"
+              />
+              @error('project_space')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div>
+              <label for="pricing-city" class="mb-1.5 block text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteCity', [], $currentLocale) }}</label>
+              <input
+                id="pricing-city"
+                type="text"
+                name="city"
+                value="{{ old('city') }}"
+                required
+                maxlength="400"
+                class="w-full rounded-xl border bg-slate-800/80 px-4 py-3 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 {{ $errors->has('city') ? 'border-red-500' : 'border-slate-600' }}"
+              />
+              @error('city')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div>
+              <span class="mb-1.5 block text-sm font-semibold text-slate-300" id="pricing-attachment-label">{{ trans('website.pricingQuoteAttachment', [], $currentLocale) }}</span>
+              <div class="relative overflow-hidden rounded-xl border border-dashed {{ $errors->has('attachment') ? 'border-red-500/70 bg-red-950/20' : 'border-slate-600 bg-slate-800/50' }} transition-colors hover:border-emerald-500/40 hover:bg-slate-800/80">
+                <input
+                  id="pricing-attachment"
+                  type="file"
+                  name="attachment"
+                  accept="image/*,.pdf,.doc,.docx"
+                  class="absolute inset-0 z-10 h-full min-h-[5.5rem] w-full cursor-pointer opacity-0"
+                  aria-labelledby="pricing-attachment-label"
+                />
+                <div class="pointer-events-none flex min-h-[5.5rem] items-center gap-3 px-4 py-3">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/25">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                  </div>
+                  <div class="min-w-0 flex-1 text-start">
+                    <p
+                      id="pricing-attachment-filename"
+                      class="truncate text-sm font-medium text-slate-400"
+                      data-empty="{{ e(trans('website.pricingQuoteFilePlaceholder', [], $currentLocale)) }}"
+                    >{{ trans('website.pricingQuoteFilePlaceholder', [], $currentLocale) }}</p>
+                    <p class="mt-0.5 text-xs text-slate-500">{{ trans('website.pricingQuoteFileHint', [], $currentLocale) }}</p>
+                  </div>
+                  <span class="shrink-0 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 px-3 py-2 text-xs font-semibold text-white shadow-sm shadow-emerald-900/30">
+                    {{ trans('website.pricingQuoteFileBrowse', [], $currentLocale) }}
+                  </span>
+                </div>
+              </div>
+              @error('attachment')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div>
+              <label for="pricing-notes" class="mb-1.5 block text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteNotes', [], $currentLocale) }}</label>
+              <textarea
+                id="pricing-notes"
+                name="notes"
+                rows="4"
+                maxlength="2000"
+                class="w-full resize-none rounded-xl border border-slate-600 bg-slate-800/80 px-4 py-3 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              >{{ old('notes') }}</textarea>
+              @error('notes')
+                <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <button
+              type="submit"
+              class="w-full rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 py-3.5 font-semibold text-white shadow-lg shadow-emerald-500/25 transition hover:from-emerald-500 hover:to-emerald-400"
+            >
+              {{ trans('website.pricingQuoteSubmit', [], $currentLocale) }}
+            </button>
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 px-6 bg-slate-900/50">
@@ -556,6 +817,59 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var pricingModal = document.getElementById('pricing-quote-modal');
+            if (pricingModal) {
+                var pricingOpeners = document.querySelectorAll('[data-pricing-modal-open]');
+                var pricingClosers = pricingModal.querySelectorAll('[data-pricing-modal-close]');
+
+                function openPricingModal() {
+                    pricingModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    pricingModal.setAttribute('aria-hidden', 'false');
+                }
+                function closePricingModal() {
+                    pricingModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    pricingModal.setAttribute('aria-hidden', 'true');
+                }
+
+                pricingOpeners.forEach(function (el) {
+                    el.addEventListener('click', openPricingModal);
+                });
+                pricingClosers.forEach(function (el) {
+                    el.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        closePricingModal();
+                    });
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && !pricingModal.classList.contains('hidden')) {
+                        closePricingModal();
+                    }
+                });
+
+                @if($errors->any() && old('pricing_form'))
+                openPricingModal();
+                @endif
+            }
+
+            var pricingFileInput = document.getElementById('pricing-attachment');
+            var pricingFileNameEl = document.getElementById('pricing-attachment-filename');
+            if (pricingFileInput && pricingFileNameEl) {
+                var pricingFileEmpty = pricingFileNameEl.getAttribute('data-empty') || '';
+                pricingFileInput.addEventListener('change', function () {
+                    if (pricingFileInput.files && pricingFileInput.files.length) {
+                        pricingFileNameEl.textContent = pricingFileInput.files[0].name;
+                        pricingFileNameEl.classList.remove('text-slate-400');
+                        pricingFileNameEl.classList.add('text-emerald-400');
+                    } else {
+                        pricingFileNameEl.textContent = pricingFileEmpty;
+                        pricingFileNameEl.classList.add('text-slate-400');
+                        pricingFileNameEl.classList.remove('text-emerald-400');
+                    }
+                });
+            }
+
             @if(session('success'))
                 Swal.fire({
                     icon: 'success',

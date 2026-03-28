@@ -2,10 +2,12 @@
 
 namespace App\Repository;
 
-use App\Models\Service;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 interface ServiceRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * Active services excluding one id, limited (for “related” blocks without loading all rows).
+     */
+    public function getOtherActive(int|string $excludeId, int $limit = 3): Collection;
 }

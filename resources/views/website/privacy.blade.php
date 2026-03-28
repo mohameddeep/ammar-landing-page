@@ -1,5 +1,6 @@
 @extends('website.layouts.app')
 @section('title', trans('website.footerPrivacy'))
+@section('meta_description', trans('website.seoPrivacyDescription'))
 @section('content')
 
     @php
@@ -9,13 +10,8 @@
       // Get privacy content - structure stores as ['ar' => ['content' => '...'], 'en' => ['content' => '...']]
       $privacyData = $privacyContent ?? [];
       $privacyContentText = $privacyData[$currentLocale]['content'] ?? ($privacyData['ar']['content'] ?? ($privacyData['en']['content'] ?? ''));
-      
-      // Get footer data for contact info
-      $footerStructure = app(\App\Repository\StructureRepositoryInterface::class)->structure('footer');
-      $footerData = null;
-      if ($footerStructure && $footerStructure->content) {
-          $footerData = json_decode($footerStructure->content, true);
-      }
+
+      $footerData = is_array($footerContent ?? null) ? $footerContent : [];
       $footerEmail = $footerData['all']['email'] ?? $footerData['email'] ?? 'info@example.com';
       $footerPhone = $footerData['all']['phone'] ?? $footerData['phone'] ?? '+966 XX XXX XXXX';
     @endphp

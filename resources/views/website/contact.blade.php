@@ -1,5 +1,6 @@
 @extends('website.layouts.app')
 @section('title', trans('website.contactTitle'))
+@section('meta_description', trans('website.seoContactDescription'))
 @section('content')
 
     <!-- Contact Section -->

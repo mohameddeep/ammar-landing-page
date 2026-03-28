@@ -1,5 +1,6 @@
 @extends('website.layouts.app')
 @section('title', trans('website.footerTerms'))
+@section('meta_description', trans('website.seoTermsDescription'))
 @section('content')
 
     @php
@@ -9,13 +10,8 @@
       // Get terms content - structure stores as ['ar' => ['desc' => '...'], 'en' => ['desc' => '...']]
       $termsData = $termsContent ?? [];
       $termsDesc = $termsData[$currentLocale]['desc'] ?? ($termsData['ar']['desc'] ?? ($termsData['en']['desc'] ?? ''));
-      
-      // Get footer data for contact info
-      $footerStructure = app(\App\Repository\StructureRepositoryInterface::class)->structure('footer');
-      $footerData = null;
-      if ($footerStructure && $footerStructure->content) {
-          $footerData = json_decode($footerStructure->content, true);
-      }
+
+      $footerData = is_array($footerContent ?? null) ? $footerContent : [];
       $footerEmail = $footerData['all']['email'] ?? $footerData['email'] ?? 'info@example.com';
       $footerPhone = $footerData['all']['phone'] ?? $footerData['phone'] ?? '+966 XX XXX XXXX';
     @endphp

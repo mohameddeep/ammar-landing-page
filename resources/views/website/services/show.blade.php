@@ -1,5 +1,8 @@
 @extends('website.layouts.app')
 @section('title', $service->t('title'))
+@section('meta_description', \Illuminate\Support\Str::limit(strip_tags((string) ($service->t('content') ?: $service->t('title'))), 160))
+@section('og_type', 'article')
+@section('og_image', $service->image ? asset('storage/'.$service->image) : '')
 @section('content')
 
     @php
@@ -38,10 +41,13 @@
                   src="@image($service->image)" 
                   alt="{{ $service->t('title') }}"
                   class="relative w-full rounded-2xl shadow-2xl"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
                 />
               @else
                 <div class="relative w-full aspect-video bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 rounded-2xl shadow-2xl flex items-center justify-center">
-                  <img src="/assets/images/icons/one.svg" alt="{{ $service->t('title') }}" class="w-32 h-32 object-contain opacity-50" />
+                  <img src="/assets/images/icons/one.svg" alt="{{ $service->t('title') }}" class="w-32 h-32 object-contain opacity-50" decoding="async" fetchpriority="high" />
                 </div>
               @endif
             </div>
@@ -91,10 +97,10 @@
               <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="relative z-10">
                 @if($otherService->image)
-                  <img src="@image($otherService->image)" alt="{{ $otherService->t('title') }}" class="w-full h-48 object-cover rounded-xl mb-4" />
+                  <img src="@image($otherService->image)" alt="{{ $otherService->t('title') }}" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy" decoding="async" />
                 @else
                   <div class="w-full h-48 bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 rounded-xl mb-4 flex items-center justify-center">
-                    <img src="/assets/images/icons/one.svg" alt="{{ $otherService->t('title') }}" class="w-16 h-16 object-contain opacity-50" />
+                    <img src="/assets/images/icons/one.svg" alt="{{ $otherService->t('title') }}" class="w-16 h-16 object-contain opacity-50" loading="lazy" decoding="async" />
                   </div>
                 @endif
                 <h3 class="text-xl font-bold mb-3 text-white">{{ $otherService->t('title') }}</h3>

@@ -3,6 +3,7 @@
 namespace App\Http\Services\Website\Service;
 
 use App\Repository\ServiceRepositoryInterface;
+use App\Support\StructureContent;
 use App\Repository\StructureRepositoryInterface;
 
 class ServiceService
@@ -17,19 +18,9 @@ class ServiceService
         // Fetch active services
         $services = $this->serviceRepository->getActive();
 
-        // Fetch Service structure content
-        $serviceStructure = $this->structureRepository->structure('service');
-        $serviceContent = null;
-        if ($serviceStructure && $serviceStructure->content) {
-            $serviceContent = json_decode($serviceStructure->content, true);
-        }
-
-        // Fetch Footer structure content
-        $footerStructure = $this->structureRepository->structure('footer');
-        $footerContent = null;
-        if ($footerStructure && $footerStructure->content) {
-            $footerContent = json_decode($footerStructure->content, true);
-        }
+        $structures = $this->structureRepository->structuresForKeys(['service', 'footer']);
+        $serviceContent = StructureContent::decode($structures['service'] ?? null);
+        $footerContent = StructureContent::decode($structures['footer'] ?? null);
 
         return view('website.services.index', compact('services', 'serviceContent', 'footerContent'));
     }
@@ -43,17 +34,10 @@ class ServiceService
             abort(404);
         }
 
-        // Fetch other active services (for related services section)
-        $otherServices = $this->serviceRepository->getActive()
-            ->where('id', '!=', $id)
-            ->take(3);
+        $otherServices = $this->serviceRepository->getOtherActive($id, 3);
 
-        // Fetch Footer structure content
         $footerStructure = $this->structureRepository->structure('footer');
-        $footerContent = null;
-        if ($footerStructure && $footerStructure->content) {
-            $footerContent = json_decode($footerStructure->content, true);
-        }
+        $footerContent = StructureContent::decode($footerStructure);
 
         return view('website.services.show', compact('service', 'otherServices', 'footerContent'));
     }
