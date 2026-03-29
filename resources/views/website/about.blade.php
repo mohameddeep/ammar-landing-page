@@ -41,7 +41,7 @@
           @if(isset($aboutTabs) && $aboutTabs->count() > 0)
             <div class="flex flex-wrap justify-center gap-3 mb-8 border-b border-slate-800/50 pb-4">
               @foreach($aboutTabs as $index => $tab)
-                <button class="about-tab {{ $index === 0 ? 'active' : '' }} px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="{{ $tab['key'] }}">
+                <button type="button" class="about-tab {{ $index === 0 ? 'active' : '' }} px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="{{ $tab['key'] }}">
                   <span>{{ $tab['title'] }}</span>
                 </button>
               @endforeach
@@ -179,71 +179,48 @@
 
     @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab switching functionality
-            const tabButtons = document.querySelectorAll('.about-tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const targetTab = this.getAttribute('data-tab');
-
-                    // Remove active class from all tabs and contents
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-
-                    // Show corresponding content
-                    const targetContent = document.querySelector(`[data-content="${targetTab}"]`);
-                    if (targetContent) {
-                        targetContent.classList.add('active');
+        (function () {
+            function wireAboutTabs() {
+                var section = document.getElementById('about');
+                if (!section || section.querySelectorAll('.about-tab').length === 0) {
+                    return;
+                }
+                if (section.dataset.aboutTabsWired === '1') {
+                    return;
+                }
+                section.dataset.aboutTabsWired = '1';
+                section.addEventListener('click', function (e) {
+                    var button = e.target.closest('.about-tab');
+                    if (!button || !section.contains(button)) {
+                        return;
                     }
+                    e.preventDefault();
+                    var targetTab = button.getAttribute('data-tab');
+                    if (!targetTab) {
+                        return;
+                    }
+                    section.querySelectorAll('.about-tab').forEach(function (btn) {
+                        btn.classList.remove('active');
+                    });
+                    section.querySelectorAll('.tab-content').forEach(function (content) {
+                        content.classList.remove('active');
+                    });
+                    button.classList.add('active');
+                    section.querySelectorAll('.tab-content').forEach(function (content) {
+                        if (content.getAttribute('data-content') === targetTab) {
+                            content.classList.add('active');
+                        }
+                    });
                 });
-            });
-
-            // Tab button styles
-            const style = document.createElement('style');
-            style.textContent = `
-                .about-tab {
-                    background: transparent;
-                    color: #94a3b8;
-                    border: none;
-                    cursor: pointer;
-                    position: relative;
-                }
-                .about-tab:hover {
-                    color: #10b981;
-                }
-                .about-tab.active {
-                    color: #10b981;
-                }
-                .about-tab.active::after {
-                    content: '';
-                    position: absolute;
-                    bottom: -17px;
-                    left: 0;
-                    right: 0;
-                    height: 3px;
-                    background: linear-gradient(to right, #10b981, #06b6d4);
-                    border-radius: 3px 3px 0 0;
-                }
-                .tab-content {
-                    display: none;
-                }
-                .tab-content.active {
-                    display: block;
-                    animation: fadeIn 0.5s ease-in;
-                }
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `;
-            document.head.appendChild(style);
-        });
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', wireAboutTabs);
+            } else {
+                wireAboutTabs();
+            }
+            document.addEventListener('turbo:load', wireAboutTabs);
+        })();
     </script>
     @endpush
 
-   @endsection
+@endsection

@@ -142,7 +142,7 @@
           @if(isset($aboutTabs) && $aboutTabs->count() > 0)
             <div class="flex flex-wrap justify-center gap-3 mb-8 border-b border-slate-800/50 pb-4">
               @foreach($aboutTabs as $index => $tab)
-                <button class="about-tab {{ $index === 0 ? 'active' : '' }} px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="{{ $tab['key'] }}">
+                <button type="button" class="about-tab {{ $index === 0 ? 'active' : '' }} px-6 py-3 rounded-xl font-semibold transition-all relative" data-tab="{{ $tab['key'] }}">
                   <span>{{ $tab['title'] }}</span>
                 </button>
               @endforeach
@@ -414,8 +414,7 @@
     @endphp
     <div
       id="pricing-quote-modal"
-      class="fixed inset-0 z-[100] px-4 py-8 sm:px-6 sm:py-10"
-      style="overflow-y: auto;"
+      class="fixed inset-0 z-[100] hidden overflow-y-auto overflow-x-hidden overscroll-y-contain px-4 py-8 sm:px-6 sm:py-10"
       role="dialog"
       aria-modal="true"
       aria-labelledby="pricing-quote-modal-title"
@@ -817,6 +816,33 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                aboutSection.addEventListener('click', function (e) {
+                    var button = e.target.closest('.about-tab');
+                    if (!button || !aboutSection.contains(button)) {
+                        return;
+                    }
+                    e.preventDefault();
+                    var targetTab = button.getAttribute('data-tab');
+                    if (!targetTab) {
+                        return;
+                    }
+                    aboutSection.querySelectorAll('.about-tab').forEach(function (btn) {
+                        btn.classList.remove('active');
+                    });
+                    aboutSection.querySelectorAll('.tab-content').forEach(function (content) {
+                        content.classList.remove('active');
+                    });
+                    button.classList.add('active');
+                    aboutSection.querySelectorAll('.tab-content').forEach(function (content) {
+                        if (content.getAttribute('data-content') === targetTab) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            }
+
             var pricingModal = document.getElementById('pricing-quote-modal');
             if (pricingModal) {
                 var pricingOpeners = document.querySelectorAll('[data-pricing-modal-open]');
@@ -847,10 +873,6 @@
                         closePricingModal();
                     }
                 });
-
-                @if($errors->any() && old('pricing_form'))
-                openPricingModal();
-                @endif
             }
 
             var pricingFileInput = document.getElementById('pricing-attachment');
