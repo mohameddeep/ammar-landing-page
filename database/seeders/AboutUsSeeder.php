@@ -9,22 +9,22 @@ class AboutUsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * 
+     *
      * To run this seeder, use one of the following commands:
-     * 
+     *
      * Run only this seeder:
      * php artisan db:seed --class=AboutUsSeeder
-     * 
+     *
      * Or run all seeders:
      * php artisan db:seed
-     * 
+     *
      * Or refresh database and seed:
      * php artisan migrate:fresh --seed
      */
     public function run(): void
     {
         // Tab 1: Overview Tab (Parent)
-        $overviewTab = AboutUs::create([
+        $overviewTab = $this->seedRow([
             'parent_id' => null,
             'title_ar' => 'نظرة عامة',
             'title_en' => 'Overview',
@@ -35,7 +35,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Overview Tab Content (Child)
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $overviewTab->id,
             'title_ar' => 'شركة رائدة في مجال البناء',
             'title_en' => 'A Leading Company in Construction',
@@ -46,7 +46,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Tab 2: Stats Tab (Parent)
-        $statsTab = AboutUs::create([
+        $statsTab = $this->seedRow([
             'parent_id' => null,
             'title_ar' => 'الإحصائيات',
             'title_en' => 'Statistics',
@@ -57,7 +57,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Stats Tab Children
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $statsTab->id,
             'title_ar' => 'مشروع مكتمل',
             'title_en' => 'Completed Projects',
@@ -67,7 +67,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $statsTab->id,
             'title_ar' => 'التزام بالمعايير',
             'title_en' => 'Compliance',
@@ -77,7 +77,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $statsTab->id,
             'title_ar' => 'سنة خبرة',
             'title_en' => 'Years of Experience',
@@ -88,7 +88,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Tab 3: Mission/Vision Tab (Parent)
-        $missionTab = AboutUs::create([
+        $missionTab = $this->seedRow([
             'parent_id' => null,
             'title_ar' => 'الرؤية والمهمة',
             'title_en' => 'Vision & Mission',
@@ -99,7 +99,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Mission Tab Children
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $missionTab->id,
             'title_ar' => 'رؤيتنا',
             'title_en' => 'Our Vision',
@@ -109,7 +109,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $missionTab->id,
             'title_ar' => 'مهمتنا',
             'title_en' => 'Our Mission',
@@ -119,7 +119,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $missionTab->id,
             'title_ar' => 'قيمنا',
             'title_en' => 'Our Values',
@@ -130,7 +130,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Tab 4: Features Tab (Parent)
-        $featuresTab = AboutUs::create([
+        $featuresTab = $this->seedRow([
             'parent_id' => null,
             'title_ar' => 'المميزات',
             'title_en' => 'Features',
@@ -141,7 +141,7 @@ class AboutUsSeeder extends Seeder
         ]);
 
         // Features Tab Children
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $featuresTab->id,
             'title_ar' => 'خبرة واسعة',
             'title_en' => 'Wide Experience',
@@ -151,7 +151,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $featuresTab->id,
             'title_ar' => 'جودة عالية',
             'title_en' => 'High Quality',
@@ -161,7 +161,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $featuresTab->id,
             'title_ar' => 'سرعة الإنجاز',
             'title_en' => 'Speed of Completion',
@@ -171,7 +171,7 @@ class AboutUsSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        AboutUs::create([
+        $this->seedRow([
             'parent_id' => $featuresTab->id,
             'title_ar' => 'خدمة عملاء',
             'title_en' => 'Customer Service',
@@ -180,5 +180,17 @@ class AboutUsSeeder extends Seeder
             'image' => '/assets/images/icons/thirteen.svg',
             'is_active' => true,
         ]);
+    }
+
+    /**
+     * Creates the row only if the same title does not already exist under the same parent,
+     * so running the seeder again does not duplicate the about tabs.
+     */
+    private function seedRow(array $attributes): AboutUs
+    {
+        return AboutUs::query()->firstOrCreate(
+            ['parent_id' => $attributes['parent_id'], 'title_ar' => $attributes['title_ar']],
+            $attributes,
+        );
     }
 }

@@ -8,10 +8,11 @@
         content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@lang('dashboard.Elryad') | @lang('dashboard.Dashboard') | @yield('title')</title>
+    <title>@yield('title') | @lang('dashboard.Dashboard') | {{ __('website.companyName') }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset(\App\Support\WebsiteImage::MARK) }}" type="image/svg+xml">
 
     <!-- Choices JS -->
     <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
@@ -54,8 +55,10 @@
         <link rel="stylesheet" href="{{ asset('css/adminlte-rtl.css') }}">
     @endif
 
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Google Font: Cairo (same as the website) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap RTL CSS -->
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}" />
@@ -87,4 +90,7 @@
     </style>
     <!-- CSS addons -->
     @yield('css_addons')
+
+    <!-- Brand theme (website look); keep last so it overrides the template -->
+    <link rel="stylesheet" href="{{ asset('assets/css/dashboard-brand.css') }}?v={{ filemtime(public_path('assets/css/dashboard-brand.css')) }}">
 </head>

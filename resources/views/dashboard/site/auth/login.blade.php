@@ -11,87 +11,104 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Charm&display=swap" rel="stylesheet">
-
-
-
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset(\App\Support\WebsiteImage::MARK) }}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        .direction-ltr {
-            direction: ltr !important;
-        }
-
-        .direction-rtl {
-            direction: rtl !important;
-        }
-
+        /* Same look as the public website: deep navy, emerald accents, Cairo */
+        .direction-ltr { direction: ltr !important; }
+        .direction-rtl { direction: rtl !important; }
 
         body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Cairo', system-ui, sans-serif;
+            color: #e2e8f0;
+            background:
+                radial-gradient(ellipse at 85% 10%, rgba(16, 185, 129, 0.22), transparent 50%),
+                radial-gradient(ellipse at 10% 90%, rgba(59, 130, 246, 0.2), transparent 50%),
+                #0b1222;
             position: relative;
-            top: 1px;
-            height: 100vh;
-            background-color: rgba(248, 249, 250, 1);
-            background-image: url('{{ asset('icons/background.jpg') }}');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-blend-mode: overlay;
-
         }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+            pointer-events: none;
+        }
+
+        .container { position: relative; }
 
         .card {
-            border-radius: 10px;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            background: linear-gradient(160deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.92));
+            box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(12px);
+            color: #e2e8f0;
         }
 
-        .btn-primary {
-            width: 100%;
-        }
+        .form-label { color: #cbd5e1; font-weight: 600; }
 
         .form-control {
-            text-align: right;
+            text-align: start;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #f1f5f9;
+            border-radius: 0.75rem;
+            padding: 0.7rem 0.9rem;
+        }
+
+        .form-control::placeholder { color: rgba(148, 163, 184, 0.7); }
+
+        .form-control:focus,
+        .form-check-input:focus {
+            background: #0f172a;
+            color: #f1f5f9;
+            border-color: #10b981;
+            box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.22);
         }
 
         .input-group-text {
             cursor: pointer;
+            background: #1e293b;
+            border-color: #334155;
+            color: #cbd5e1;
         }
 
-        a {
-            text-decoration: none;
-            color: #0d6efd;
+        .btn-primary {
+            width: 100%;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 12px 25px -10px rgba(16, 185, 129, 0.65);
         }
 
-        a:hover {
-
-            color: #0a58ca;
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: linear-gradient(135deg, #34d399, #10b981);
         }
 
-        .allure-font {
-            font-family: 'Charm', cursive;
-            font-weight: 400;
-            font-size: 30px;
-            line-height: 27px;
-            letter-spacing: 0;
-            text-align: center;
-            display: inline-block;
-            background: linear-gradient(90deg, #476B59, #8fa299, #678073);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .form-check-input { background-color: #0f172a; border-color: #475569; }
+        .form-check-input:checked { background-color: #10b981; border-color: #10b981; }
+        .form-check-label { color: #cbd5e1; }
 
-        .form-check-input:checked {
-            background-color: #476B59;
-            border-color: #476B59;
-        }
+        a { text-decoration: none; color: #34d399; }
+        a:hover { color: #6ee7b7; }
 
-        .form-control:focus {
-            border-color: #8fa299;
-            box-shadow: 0 0 0 0.25rem rgba(71, 107, 89, 0.25);
-        }
-
-        .form-check-input:focus {
-            border-color: #8fa299;
-            box-shadow: 0 0 0 0.25rem rgba(71, 107, 89, 0.25);
-        }
+        .text-danger { color: #fca5a5 !important; }
     </style>
 </head>
 
@@ -107,12 +124,12 @@
                             use App\Repository\StructureRepositoryInterface;
                             $footerStructure = app(StructureRepositoryInterface::class)->structure('footer');
                             $loginLogo = null;
-                            $loginWebsiteName = 'البناء المتقدم';
+                            $loginWebsiteName = __('website.companyName');
                             if ($footerStructure && $footerStructure->content) {
                                 $footerContent = json_decode($footerStructure->content, true);
                                 $loginLogo = $footerContent['image'] ?? null;
                                 $currentLocale = app()->getLocale() ?? 'ar';
-                                $loginWebsiteName = $footerContent['website_name'][$currentLocale] ?? ($footerContent['website_name']['ar'] ?? 'البناء المتقدم');
+                                $loginWebsiteName = $footerContent['website_name'][$currentLocale] ?? __('website.companyName');
                             }
                         @endphp
                         <div class="text-center mb-4">
@@ -121,8 +138,8 @@
                                     <img class="m-0" src="{{ asset($loginLogo) }}" alt="{{ $loginWebsiteName }}"
                                         style="max-width: 150px; max-height: 100px; width: auto; height: auto;">
                                 @else
-                                    <img class="m-0" src="{{ asset('icons/logo.png') }}" alt="Logo"
-                                        style="width: 100px; height: auto;">
+                                    <img class="m-0" src="{{ asset(\App\Support\WebsiteImage::LOGO) }}" alt="{{ $loginWebsiteName }}"
+                                        style="width: 260px; max-width: 100%; height: auto;">
                                 @endif
                             </a>
                         </div>
@@ -153,8 +170,7 @@
                                     <label class="form-check-label" for="remember_me">@lang('dashboard.Remember Me')</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary"
-                                style="background-color: #476B59; border-color: #476B59; color: #fff;">
+                            <button type="submit" class="btn btn-primary">
                                 @lang('dashboard.Login')
                             </button>
                         </form>

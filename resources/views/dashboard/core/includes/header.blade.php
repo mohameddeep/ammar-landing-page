@@ -12,23 +12,19 @@
                 <div class="horizontal-logo">
                     <a href="{{ url('/admin') }}" class="header-logo">
                         @if(isset($dashboardLogo) && $dashboardLogo)
-                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}"
+                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}"
                                 class="desktop-logo" style="max-height: 40px; width: auto;">
-                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}"
+                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}"
                                 class="toggle-logo" style="max-height: 40px; width: auto;">
-                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}"
+                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}"
                                 class="desktop-dark" style="max-height: 40px; width: auto;">
-                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}"
+                            <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}"
                                 class="toggle-dark" style="max-height: 40px; width: auto;">
                         @else
-                            <img src="{{ asset('assets/images/brand-logos/desktop-logo.png') }}" alt="logo"
-                                class="desktop-logo">
-                            <img src="{{ asset('assets/images/brand-logos/toggle-logo.png') }}" alt="logo"
-                                class="toggle-logo">
-                            <img src="{{ asset('assets/images/brand-logos/desktop-dark.png') }}" alt="logo"
-                                class="desktop-dark">
-                            <img src="{{ asset('assets/images/brand-logos/toggle-dark.png') }}" alt="logo"
-                                class="toggle-dark">
+                            <img src="{{ asset(\App\Support\WebsiteImage::LOGO_LIGHT) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="desktop-logo" style="max-height: 40px; width: auto;">
+                            <img src="{{ asset(\App\Support\WebsiteImage::MARK) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="toggle-logo" style="height: 36px; width: 36px;">
+                            <img src="{{ asset(\App\Support\WebsiteImage::LOGO) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="desktop-dark" style="max-height: 40px; width: auto;">
+                            <img src="{{ asset(\App\Support\WebsiteImage::MARK) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="toggle-dark" style="height: 36px; width: 36px;">
                         @endif
                     </a>
                 </div>

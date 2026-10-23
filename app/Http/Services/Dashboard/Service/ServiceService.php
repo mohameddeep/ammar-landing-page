@@ -6,6 +6,7 @@ namespace App\Http\Services\Dashboard\Service;
 
 use App\Http\Helpers\Http;
 use App\Http\Traits\FileTrait;
+use App\Models\Service;
 use App\Repository\ServiceRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -26,14 +27,17 @@ final class ServiceService
 
     public function index()
     {
-        $services = $this->repository->paginate(10);
+        // Main services with their sub-services nested, in display order (drag and drop).
+        $services = $this->repository->getTreeForDashboard();
 
         return view('dashboard.site.services.index', compact('services'));
     }
 
     public function create()
     {
-        return view('dashboard.site.services.create');
+        $parentOptions = $this->repository->getParentOptions();
+
+        return view('dashboard.site.services.create', compact('parentOptions'));
     }
 
     public function store($request)
@@ -47,6 +51,7 @@ final class ServiceService
                 $data['image'] = $this->image($request->file('image'), 'services');
             }
 
+            $data['sort_order'] = Service::nextSortOrder($data['parent_id'] ?? null);
             store_model($this->repository, $data, true);
 
             DB::commit();
@@ -62,8 +67,10 @@ final class ServiceService
     public function edit($id)
     {
         $service = $this->repository->getById($id);
-        
-        return view('dashboard.site.services.edit', compact('service'));
+        $parentOptions = $this->repository->getParentOptions($id);
+        $hasChildren = $service->children()->exists();
+
+        return view('dashboard.site.services.edit', compact('service', 'parentOptions', 'hasChildren'));
     }
 
     public function update($request, $id)
@@ -72,8 +79,8 @@ final class ServiceService
         try {
             // $service = $this->repository->getById($id); // Unused variable
             $data = $request->except('id', 'image', 'is_active', '_method', '_token');
-            $data['is_active'] = $request->input('is_active') == 'on' || $request->input('is_active') == 1 ? 1 : 0; 
-            // Note: UpdateServiceRequest merge prepared is_active, but SliderService handled it manually too? 
+            $data['is_active'] = $request->input('is_active') == 'on' || $request->input('is_active') == 1 ? 1 : 0;
+            // Note: UpdateServiceRequest merge prepared is_active, but SliderService handled it manually too?
             // SliderService logic: $data['is_active'] was NOT explicitly set in update??
             // Wait, SliderService update: $data = $request->except(...)
             // Does it handle is_active?
@@ -90,9 +97,14 @@ final class ServiceService
             // line 74: $data = $request->except('id', 'image', 'is_active', '_method', '_token');
             // So SliderService update() does NOT update is_active. is_active is updated via toggle().
             // I will do the same to match the pattern.
-            
+
             if ($request->hasFile('image')) {
                 $data['image'] = $this->image($request->file('image'), 'services');
+            }
+            // Moving to another parent places the service at the end of its new group.
+            $current = $this->repository->getById($id);
+            if ($current && array_key_exists('parent_id', $data) && (int) $current->parent_id !== (int) $data['parent_id']) {
+                $data['sort_order'] = Service::nextSortOrder($data['parent_id']);
             }
             update_model($this->repository, $id, $data);
 
@@ -104,6 +116,15 @@ final class ServiceService
 
             return back()->with(['error' => __('messages.Something went wrong')]);
         }
+    }
+
+    public function reorder($request)
+    {
+        if (! $this->repository->reorder($request->input('ids', []))) {
+            return responseFail(Http::UNPROCESSABLE_ENTITY, __('dashboard.services_order_invalid'));
+        }
+
+        return responseSuccess(Http::OK, __('dashboard.services_order_saved'), true);
     }
 
     public function toggle($id)

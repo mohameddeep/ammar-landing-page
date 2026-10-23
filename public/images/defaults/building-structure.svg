@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Completed building structure">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f1d33"/>
+      <stop offset="0.65" stop-color="#29506f"/>
+      <stop offset="1" stop-color="#c98f5a"/>
+    </linearGradient>
+    <linearGradient id="facade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8dcc6"/>
+      <stop offset="1" stop-color="#bfae90"/>
+    </linearGradient>
+    <linearGradient id="facadeSide" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9c8b6f"/>
+      <stop offset="1" stop-color="#7d6e57"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3343"/>
+      <stop offset="1" stop-color="#121821"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="1000" cy="180" r="40" fill="#f8fafc" fill-opacity="0.85"/>
+
+  <!-- finished residential block -->
+  <g>
+    <rect x="260" y="200" width="460" height="460" fill="url(#facade)"/>
+    <polygon points="720,200 860,250 860,660 720,660" fill="url(#facadeSide)"/>
+    <rect x="250" y="188" width="480" height="14" fill="#f5efe2"/>
+    <polygon points="730,188 870,240 860,252 720,202" fill="#d8ccb4"/>
+    <!-- window grid -->
+    <g fill="#284a6b">
+      <rect x="290" y="230" width="70" height="80"/><rect x="390" y="230" width="70" height="80"/><rect x="520" y="230" width="70" height="80"/><rect x="620" y="230" width="70" height="80"/>
+      <rect x="290" y="340" width="70" height="80"/><rect x="390" y="340" width="70" height="80"/><rect x="520" y="340" width="70" height="80"/><rect x="620" y="340" width="70" height="80"/>
+      <rect x="290" y="450" width="70" height="80"/><rect x="390" y="450" width="70" height="80"/><rect x="520" y="450" width="70" height="80"/><rect x="620" y="450" width="70" height="80"/>
+    </g>
+    <g fill="#ffd59a" fill-opacity="0.75">
+      <rect x="390" y="340" width="70" height="80"/>
+      <rect x="620" y="230" width="70" height="80"/>
+      <rect x="290" y="450" width="70" height="80"/>
+    </g>
+    <g fill="#ffffff" fill-opacity="0.15">
+      <rect x="290" y="230" width="70" height="8"/><rect x="390" y="230" width="70" height="8"/><rect x="520" y="230" width="70" height="8"/><rect x="620" y="230" width="70" height="8"/>
+    </g>
+    <!-- vertical feature strip -->
+    <rect x="478" y="200" width="24" height="460" fill="#f97316" fill-opacity="0.85"/>
+    <!-- side windows -->
+    <g fill="#1d3550">
+      <polygon points="750,240 830,268 830,320 750,295"/>
+      <polygon points="750,350 830,375 830,425 750,402"/>
+      <polygon points="750,460 830,482 830,530 750,510"/>
+    </g>
+    <!-- entrance -->
+    <rect x="440" y="560" width="100" height="100" fill="#1d3550"/>
+    <rect x="420" y="548" width="140" height="12" fill="#f5efe2"/>
+    <rect x="300" y="570" width="110" height="70" fill="#284a6b"/>
+    <rect x="570" y="570" width="110" height="70" fill="#284a6b"/>
+  </g>
+
+  <!-- adjacent structural frame (in progress) -->
+  <g stroke="#94a3b8" stroke-width="10" fill="none">
+    <path d="M920 660 V380 H1120 V660"/>
+    <path d="M920 470 H1120"/>
+    <path d="M920 560 H1120"/>
+    <path d="M1020 380 V660"/>
+  </g>
+  <g stroke="#cbd5e1" stroke-width="3" stroke-opacity="0.6">
+    <line x1="920" y1="380" x2="1020" y2="470"/>
+    <line x1="1020" y1="470" x2="1120" y2="560"/>
+  </g>
+
+  <!-- checkmark seal (completion) -->
+  <g transform="translate(110 250)">
+    <circle r="64" fill="#0f172a" fill-opacity="0.65" stroke="#10b981" stroke-width="6"/>
+    <path d="M-28 2 L-8 22 L30 -20" fill="none" stroke="#10b981" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- ground -->
+  <rect y="660" width="1200" height="140" fill="url(#ground)"/>
+  <rect y="660" width="1200" height="4" fill="#f97316" fill-opacity="0.5"/>
+  <g>
+    <rect x="196" y="620" width="8" height="44" fill="#3f3221"/>
+    <circle cx="200" cy="610" r="26" fill="#2f6b4f"/>
+    <rect x="876" y="626" width="8" height="38" fill="#3f3221"/>
+    <circle cx="880" cy="616" r="22" fill="#2f6b4f"/>
+  </g>
+</svg>

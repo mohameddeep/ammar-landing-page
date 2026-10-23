@@ -1,0 +1,383 @@
+/* ==========================================================================
+   Dashboard brand theme: matches the public website
+   (deep navy surfaces, emerald/cyan accents, Cairo typography).
+   Works through the Ynex template variables, so every component follows.
+   Loaded after the template CSS; remove this file's <link> to get the stock theme back.
+   ========================================================================== */
+
+/* Brand colours in every mode (!important beats the template's inline colour switcher) */
+html {
+  --primary-rgb: 16, 185, 129 !important;
+  --secondary-rgb: 6, 182, 212 !important;
+  --success-rgb: 16, 185, 129;
+  --info-rgb: 6, 182, 212;
+  --warning-rgb: 249, 115, 22;
+  --default-font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Dark mode (default): navy palette from the website */
+html[data-theme-mode="dark"] {
+  --body-bg-rgb: 15, 23, 42 !important;
+  --light-rgb: 30, 41, 59 !important;
+  --custom-white: #121c31;
+  --menu-bg: #0b1222;
+  --header-bg: rgba(11, 18, 34, 0.96);
+  --menu-border-color: rgba(148, 163, 184, 0.12);
+  --header-border-color: rgba(148, 163, 184, 0.12);
+  --default-border: rgba(148, 163, 184, 0.14);
+  --bootstrap-card-border: rgba(148, 163, 184, 0.14);
+  --form-control-bg: #0f172a;
+  --input-border: #334155;
+  --default-text-color: rgba(226, 232, 240, 0.88);
+  --text-muted: rgba(148, 163, 184, 0.9);
+  --menu-prime-color: rgba(203, 213, 225, 0.78);
+  --header-prime-color: rgba(203, 213, 225, 0.82);
+  --list-hover-focus-bg: rgba(16, 185, 129, 0.08);
+  --default-body-bg-color: #0f172a;
+}
+
+body {
+  font-family: var(--default-font-family);
+  letter-spacing: 0;
+}
+
+html[data-theme-mode="dark"] body {
+  background:
+    radial-gradient(ellipse at 85% 0%, rgba(16, 185, 129, 0.08), transparent 45%),
+    radial-gradient(ellipse at 0% 100%, rgba(59, 130, 246, 0.07), transparent 45%),
+    #0f172a;
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6,
+.card-title,
+.page-title {
+  font-family: var(--default-font-family);
+  font-weight: 700;
+}
+
+/* ---- Header & sidebar ---- */
+html[data-theme-mode="dark"] .app-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+html[data-theme-mode="dark"] .app-sidebar {
+  background: linear-gradient(180deg, #0b1222 0%, #0d1628 100%);
+}
+
+.app-sidebar .main-sidebar-header {
+  min-height: 4.5rem;
+}
+
+.app-sidebar .main-sidebar-header .header-logo img.desktop-logo,
+.app-sidebar .main-sidebar-header .header-logo img.desktop-dark {
+  max-width: 190px;
+  object-fit: contain;
+}
+
+.app-sidebar .side-menu__item {
+  border-radius: 0.65rem;
+  margin-inline: 0.5rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.app-sidebar .side-menu__item:hover {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.app-sidebar .side-menu__item.active {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.08)) !important;
+  color: #34d399 !important;
+  box-shadow: inset 3px 0 0 #10b981;
+}
+
+html[dir="rtl"] .app-sidebar .side-menu__item.active {
+  background: linear-gradient(270deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.08)) !important;
+  box-shadow: inset -3px 0 0 #10b981;
+}
+
+.app-sidebar .side-menu__item.active .side-menu__icon,
+.app-sidebar .side-menu__item.active .side-menu__label {
+  color: #34d399 !important;
+}
+
+/* ---- Cards ---- */
+.card.custom-card,
+.card {
+  border-radius: 1rem;
+  border: 1px solid var(--bootstrap-card-border);
+}
+
+html[data-theme-mode="dark"] .card.custom-card,
+html[data-theme-mode="dark"] .card {
+  background: linear-gradient(160deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.85));
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.75);
+}
+
+.card.custom-card .card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--default-border);
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.card.custom-card .card-header .card-title::before {
+  background: linear-gradient(180deg, #10b981, #06b6d4) !important;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px -8px rgba(16, 185, 129, 0.6);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(135deg, #34d399, #10b981) !important;
+  color: #fff !important;
+}
+
+.btn {
+  border-radius: 0.65rem;
+  font-weight: 600;
+}
+
+/* ---- Forms ---- */
+.form-control,
+.form-select {
+  border-radius: 0.65rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.2) !important;
+}
+
+.form-check-input:checked {
+  background-color: #10b981;
+  border-color: #10b981;
+}
+
+html[data-theme-mode="dark"] .form-control::placeholder {
+  color: rgba(148, 163, 184, 0.7);
+}
+
+html[data-theme-mode="dark"] .form-text {
+  color: var(--text-muted);
+}
+
+/* Rich-text editor in dark mode */
+html[data-theme-mode="dark"] .note-editor.note-frame {
+  border-color: var(--input-border);
+  border-radius: 0.65rem;
+  overflow: hidden;
+}
+
+html[data-theme-mode="dark"] .note-editor .note-toolbar {
+  background: #1e293b;
+  border-bottom: 1px solid var(--input-border);
+}
+
+html[data-theme-mode="dark"] .note-editor .note-editing-area .note-editable {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+html[data-theme-mode="dark"] .note-editor .note-btn {
+  background: #273449;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+html[data-theme-mode="dark"] .note-editor .note-statusbar {
+  background: #1e293b;
+}
+
+/* ---- Tables ---- */
+html[data-theme-mode="dark"] .table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--default-text-color);
+}
+
+html[data-theme-mode="dark"] .table thead th {
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: none;
+  border-bottom-color: var(--default-border);
+}
+
+.table > :not(caption) > * > * {
+  vertical-align: middle;
+}
+
+/* ---- Badges ---- */
+.bg-primary-transparent {
+  background: rgba(16, 185, 129, 0.14) !important;
+  color: #34d399 !important;
+}
+
+/* ==========================================================================
+   Services tree (drag and drop ordering)
+   ========================================================================== */
+.svc-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.svc-group {
+  border: 1px solid var(--default-border);
+  border-radius: 1rem;
+  background: rgba(var(--light-rgb), 0.35);
+  overflow: hidden;
+}
+
+.svc-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.svc-row:hover {
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.svc-children {
+  border-top: 1px dashed var(--default-border);
+  padding-block: 0.25rem;
+}
+
+.svc-children:empty {
+  display: none;
+}
+
+.svc-row--child {
+  padding-inline-start: 3rem;
+  position: relative;
+}
+
+/* tree connector */
+.svc-row--child::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 1.6rem;
+  top: 0;
+  bottom: 50%;
+  width: 0.85rem;
+  border-inline-start: 2px solid rgba(16, 185, 129, 0.35);
+  border-bottom: 2px solid rgba(16, 185, 129, 0.35);
+  border-end-start-radius: 0.5rem;
+}
+
+.svc-row--child .svc-thumb {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.svc-handle {
+  cursor: grab;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.svc-row:active .svc-handle {
+  cursor: grabbing;
+}
+
+.svc-pos {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.svc-thumb {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.65rem;
+  object-fit: cover;
+  border: 1px solid var(--default-border);
+}
+
+.svc-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.svc-title {
+  font-weight: 700;
+  color: var(--default-text-color);
+}
+
+.svc-row:not(.svc-row--child) .svc-title {
+  font-size: 1rem;
+}
+
+.svc-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: start;
+}
+
+html[dir="rtl"] .svc-sub {
+  text-align: right;
+}
+
+.svc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.svc-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.svc-group.is-dragging,
+.svc-row.is-dragging {
+  opacity: 0.45;
+  outline: 2px dashed #10b981;
+  outline-offset: -2px;
+}
+
+@media (max-width: 991.98px) {
+  .svc-row {
+    flex-wrap: wrap;
+  }
+
+  .svc-info {
+    flex-basis: calc(100% - 9rem);
+  }
+
+  .svc-meta,
+  .svc-actions {
+    width: 100%;
+    padding-inline-start: 2.75rem;
+  }
+}
+
+/* "On" switches (active / visible) use the brand emerald */
+.custom-toggle-switch > label.label-secondary {
+  background: #10b981;
+}

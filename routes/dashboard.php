@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Setting\SettingController as SettingSettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\Service\ServiceController;
+use App\Http\Controllers\Dashboard\Project\ProjectController;
 use App\Http\Controllers\Dashboard\Structure\AboutUsController as StructureAboutUsController;
 use App\Http\Controllers\Dashboard\Structure\LandingPageFooterController;
 use App\Http\Controllers\Dashboard\Structure\TermsAndConditionsController;
@@ -57,6 +58,12 @@ Route::group([
             // Services
             Route::resource('services', controller: ServiceController::class)->except(['show']);
             Route::post('services/toggle/{id}', [ServiceController::class, 'toggle'])->name('services.toggle');
+            Route::post('services/reorder', [ServiceController::class, 'reorder'])->name('services.reorder');
+
+            // Projects portfolio
+            Route::resource('projects', ProjectController::class)->except(['show']);
+            Route::post('projects/toggle/{id}', [ProjectController::class, 'toggle'])->name('projects.toggle');
+            Route::delete('projects/images/{image}', [ProjectController::class, 'destroyImage'])->name('projects.images.destroy');
 
             // About Us Children
             Route::controller(AboutUsChildrenController::class)->group(function () {

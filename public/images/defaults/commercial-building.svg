@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Modern commercial building">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b4b7a"/>
+      <stop offset="0.7" stop-color="#6aa3c9"/>
+      <stop offset="1" stop-color="#d7e7f0"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f3b57"/>
+      <stop offset="0.45" stop-color="#3f7aa6"/>
+      <stop offset="0.55" stop-color="#9cc9e6"/>
+      <stop offset="1" stop-color="#284a6b"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#16293f"/>
+      <stop offset="1" stop-color="#25425f"/>
+    </linearGradient>
+    <linearGradient id="plaza" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cbd2d9"/>
+      <stop offset="1" stop-color="#8d969f"/>
+    </linearGradient>
+    <pattern id="mullion" width="40" height="44" patternUnits="userSpaceOnUse">
+      <rect width="40" height="44" fill="none"/>
+      <rect x="0" y="0" width="2" height="44" fill="#0f2235" fill-opacity="0.6"/>
+      <rect x="0" y="0" width="40" height="3" fill="#0f2235" fill-opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <g fill="#ffffff" fill-opacity="0.5">
+    <ellipse cx="220" cy="140" rx="90" ry="18"/>
+    <ellipse cx="300" cy="125" rx="60" ry="14"/>
+    <ellipse cx="960" cy="200" rx="110" ry="20"/>
+  </g>
+
+  <!-- background tower -->
+  <rect x="820" y="180" width="160" height="480" fill="#30587d"/>
+  <rect x="820" y="180" width="160" height="480" fill="url(#mullion)"/>
+
+  <!-- main commercial building (perspective) -->
+  <polygon points="300,660 300,170 640,110 640,660" fill="url(#glass)"/>
+  <polygon points="300,660 300,170 640,110 640,660" fill="url(#mullion)"/>
+  <polygon points="640,660 640,110 800,170 800,660" fill="url(#side)"/>
+  <g stroke="#0f2235" stroke-opacity="0.55" stroke-width="2">
+    <line x1="640" y1="200" x2="800" y2="240"/>
+    <line x1="640" y1="300" x2="800" y2="330"/>
+    <line x1="640" y1="400" x2="800" y2="420"/>
+    <line x1="640" y1="500" x2="800" y2="510"/>
+    <line x1="680" y1="120" x2="680" y2="660"/>
+    <line x1="720" y1="135" x2="720" y2="660"/>
+    <line x1="760" y1="150" x2="760" y2="660"/>
+  </g>
+  <!-- reflection band -->
+  <polygon points="420,660 420,150 470,141 470,660" fill="#ffffff" fill-opacity="0.12"/>
+  <!-- roof crown -->
+  <polygon points="300,170 640,110 800,170 800,180 640,122 300,182" fill="#0f2235"/>
+
+  <!-- podium / entrance -->
+  <rect x="260" y="590" width="580" height="70" fill="#e5e7eb"/>
+  <rect x="260" y="584" width="580" height="8" fill="#f97316"/>
+  <rect x="460" y="606" width="180" height="54" fill="#1f3b57"/>
+  <rect x="548" y="606" width="4" height="54" fill="#cbd5e1"/>
+  <g fill="#94a3b8">
+    <rect x="290" y="606" width="140" height="40"/>
+    <rect x="670" y="606" width="140" height="40"/>
+  </g>
+
+  <!-- side low building -->
+  <rect x="60" y="460" width="220" height="200" fill="#e2e0d8"/>
+  <g fill="#3f6f93" fill-opacity="0.85">
+    <rect x="80" y="485" width="50" height="40"/>
+    <rect x="145" y="485" width="50" height="40"/>
+    <rect x="210" y="485" width="50" height="40"/>
+    <rect x="80" y="545" width="50" height="40"/>
+    <rect x="145" y="545" width="50" height="40"/>
+    <rect x="210" y="545" width="50" height="40"/>
+  </g>
+
+  <!-- plaza -->
+  <rect y="660" width="1200" height="140" fill="url(#plaza)"/>
+  <g fill="#ffffff" fill-opacity="0.35">
+    <rect x="0" y="700" width="1200" height="3"/>
+    <rect x="0" y="750" width="1200" height="3"/>
+  </g>
+  <!-- trees -->
+  <g>
+    <rect x="896" y="610" width="8" height="60" fill="#3f3221"/>
+    <circle cx="900" cy="600" r="34" fill="#2f6b4f"/>
+    <rect x="1036" y="620" width="8" height="50" fill="#3f3221"/>
+    <circle cx="1040" cy="612" r="28" fill="#2f6b4f"/>
+    <rect x="196" y="640" width="6" height="30" fill="#3f3221"/>
+    <circle cx="199" cy="632" r="20" fill="#2f6b4f"/>
+  </g>
+</svg>

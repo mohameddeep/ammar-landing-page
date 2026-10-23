@@ -5,12 +5,12 @@ use App\Repository\StructureRepositoryInterface;
 // Fetch Footer structure content for logo
 $footerStructure = app(StructureRepositoryInterface::class)->structure('footer');
 $dashboardLogo = null;
-$dashboardWebsiteName = 'البناء المتقدم';
+$dashboardWebsiteName = __('website.companyName');
 if ($footerStructure && $footerStructure->content) {
     $footerContent = json_decode($footerStructure->content, true);
     $dashboardLogo = $footerContent['image'] ?? null;
     $currentLocale = app()->getLocale() ?? 'ar';
-    $dashboardWebsiteName = $footerContent['website_name'][$currentLocale] ?? ($footerContent['website_name']['ar'] ?? 'البناء المتقدم');
+    $dashboardWebsiteName = $footerContent['website_name'][$currentLocale] ?? __('website.companyName');
 }
 @endphp
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ if ($footerStructure && $footerStructure->content) {
 <html dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" lang="{{ app()->getLocale() }}"
     {{-- class="{{ app()->getLocale() === 'ar' ? 'direction-rtl' : 'direction-ltr' }}"  --}}
     data-nav-layout="vertical"
-    data-theme-mode="light" data-header-styles="light" data-menu-styles="dark" data-toggled="close">
+    data-theme-mode="dark" data-header-styles="dark" data-menu-styles="dark" data-toggled="close">
 
 @include('dashboard.core.tags.head')
 

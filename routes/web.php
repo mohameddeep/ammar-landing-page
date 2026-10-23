@@ -18,6 +18,12 @@ Route::group([
         Route::get('/', [LandingPageController::class, 'index'])->name('website.landing-page');
         Route::get('services', [\App\Http\Controllers\Website\Service\ServiceController::class, 'index'])->name('website.services.index');
         Route::get('services/{id}', [\App\Http\Controllers\Website\Service\ServiceController::class, 'show'])->name('website.service.show');
+
+        // Projects portfolio
+        Route::get('projects', [\App\Http\Controllers\Website\Project\ProjectController::class, 'index'])->name('website.projects.index');
+        Route::get('projects/{slug}', [\App\Http\Controllers\Website\Project\ProjectController::class, 'show'])
+            ->where('slug', '[A-Za-z0-9\-]+')
+            ->name('website.projects.show');
         
         // Contact form submission
         Route::post('contact', [\App\Http\Controllers\Website\Contact\ContactController::class, 'store'])->name('website.contact.store');

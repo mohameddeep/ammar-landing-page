@@ -3,8 +3,8 @@
 namespace App\Http\Services\Website\Service;
 
 use App\Repository\ServiceRepositoryInterface;
-use App\Support\StructureContent;
 use App\Repository\StructureRepositoryInterface;
+use App\Support\StructureContent;
 
 class ServiceService
 {
@@ -15,8 +15,8 @@ class ServiceService
 
     public function index()
     {
-        // Fetch active services
-        $services = $this->serviceRepository->getActive();
+        // Top-level services; parents carry their active children for the hover list
+        $services = $this->serviceRepository->getActiveTopLevelWithChildren();
 
         $structures = $this->structureRepository->structuresForKeys(['service', 'footer']);
         $serviceContent = StructureContent::decode($structures['service'] ?? null);
@@ -30,11 +30,16 @@ class ServiceService
         // Fetch service by ID
         $service = $this->serviceRepository->getById($id);
 
-        if (!$service || !$service->is_active) {
+        if (! $service || ! $service->is_active) {
             abort(404);
         }
 
-        $otherServices = $this->serviceRepository->getOtherActive($id, 3);
+        $service->load(['parent', 'activeChildren']);
+
+        // A child shows its siblings; a top-level service shows other top-level services.
+        $otherServices = $service->parent_id
+            ? $this->serviceRepository->getOtherActive($id, 3, $service->parent_id)
+            : $this->serviceRepository->getActiveTopLevelWithChildren()->where('id', '!=', $service->id)->take(3)->values();
 
         $footerStructure = $this->structureRepository->structure('footer');
         $footerContent = StructureContent::decode($footerStructure);
@@ -42,4 +47,3 @@ class ServiceService
         return view('website.services.show', compact('service', 'otherServices', 'footerContent'));
     }
 }
-

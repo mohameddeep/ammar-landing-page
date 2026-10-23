@@ -48,7 +48,8 @@ class WebsiteMeta
 
     public static function absoluteOgImage(?string $relativeOrAbsolute = null): ?string
     {
-        $raw = $relativeOrAbsolute ?: config('seo.og_image');
+        // Branded share image when neither the page nor SEO_OG_IMAGE provides one.
+        $raw = $relativeOrAbsolute ?: config('seo.og_image') ?: 'images/branding/og-image.png';
         if (! $raw) {
             return null;
         }

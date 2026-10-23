@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             StructureSeeder::class,
             AboutUsSeeder::class,
             ServiceSeeder::class,
+            ServiceParentSeeder::class,
             SliderSeeder::class,
 
         ]);

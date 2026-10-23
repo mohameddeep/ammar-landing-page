@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\UserTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +17,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('phone')->unique();
             $table->string('image')->nullable();
-          
+
             $table->boolean('otp_verified')->default(0);
             $table->timestamps();
         });

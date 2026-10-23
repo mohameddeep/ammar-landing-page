@@ -13,18 +13,18 @@
           // Get footer data
           $footerWhatsApp = $footerContent['all']['whatsapp'] ?? $footerContent['whatsapp'] ?? '+966 XX XXX XXXX';
           $footerEmail = $footerContent['all']['email'] ?? $footerContent['email'] ?? 'info@example.com';
-          $footerLocation = $footerContent['all']['location'] ?? $footerContent['location'] ?? 'المملكة العربية السعودية';
-          $footerLocationEn = $footerContent['all']['location_en'] ?? $footerContent['location_en'] ?? 'Saudi Arabia';
+          $footerLocation = $footerContent['all']['location'] ?? $footerContent['location'] ?? trans('website.defaultLocation', [], 'ar');
+          $footerLocationEn = $footerContent['all']['location_en'] ?? $footerContent['location_en'] ?? trans('website.defaultLocation', [], 'en');
           $mapLink = $footerContent['all']['google_map_link'] ?? $footerContent['google_map_link'] ?? 'https://www.google.com/maps/search/?api=1&query=Riyadh+Saudi+Arabia';
           $locationText = $currentLocale === 'ar' ? $footerLocation : $footerLocationEn;
           
           // Clean WhatsApp number for URL
-          $whatsappNumber = preg_replace('/[^0-9+]/', '', $footerWhatsApp);
+          $whatsappNumber = preg_replace('/D/', '', $footerWhatsApp); // wa.me expects digits only (no +)
           $whatsappUrl = 'https://wa.me/' . $whatsappNumber;
         @endphp
         
         <div class="text-center mb-16">
-          <h2 class="text-5xl font-bold mb-4">{{ trans('website.contactTitle', [], $currentLocale) }}</h2>
+          <h1 class="section-title font-bold mb-4">{{ trans('website.contactTitle', [], $currentLocale) }}</h1>
           <p class="text-xl text-slate-400">{{ trans('website.contactSubtitle', [], $currentLocale) }}</p>
         </div>
 
@@ -154,7 +154,14 @@
     @push('scripts')
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Runs on first load and after Turbo navigations (DOMContentLoaded fires only once with Turbo).
+        (function (run) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', run, { once: true });
+            } else {
+                run();
+            }
+        })(function() {
             @if(session('success'))
                 Swal.fire({
                     icon: 'success',

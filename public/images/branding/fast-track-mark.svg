@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="المسار السريع">
+  <defs>
+    <linearGradient id="fm-bg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset="0.55" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="fm-road" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#0b1222"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="fm-shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- badge -->
+  <rect x="4" y="4" width="120" height="120" rx="32" fill="url(#fm-bg)"/>
+  <rect x="4" y="4" width="120" height="120" rx="32" fill="url(#fm-shine)"/>
+
+  <!-- one shape: a road in perspective that rises into a forward arrow -->
+  <path d="M64 15 L101 60 H77 L95 113 H33 L51 60 H27 Z"
+        fill="url(#fm-road)" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>
+
+  <!-- centre line (orange) running from the near road up into the arrowhead -->
+  <rect x="60.5" y="94" width="7" height="13" rx="2.2" fill="#f97316"/>
+  <rect x="61.2" y="77" width="5.6" height="10" rx="1.8" fill="#f97316"/>
+  <rect x="61.8" y="62" width="4.4" height="8" rx="1.4" fill="#f97316"/>
+  <rect x="62.3" y="49" width="3.4" height="7" rx="1.1" fill="#fb923c"/>
+  <rect x="62.7" y="38" width="2.6" height="5.5" rx="0.9" fill="#fdba74"/>
+</svg>

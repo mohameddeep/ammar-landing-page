@@ -22,6 +22,8 @@ use App\Repository\SliderRepositoryInterface;
 use App\Repository\StructureRepositoryInterface;
 use App\Repository\ServiceRepositoryInterface;
 use App\Repository\Eloquent\ServiceRepository;
+use App\Repository\ProjectRepositoryInterface;
+use App\Repository\Eloquent\ProjectRepository;
 use App\Repository\LandingPageRepositoryInterface;
 use App\Repository\Eloquent\LandingPageRepository;
 use Illuminate\Support\ServiceProvider;
@@ -43,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->singleton(AdminProfileRepositoryInterface::class, AminProfileRepository::class);
         $this->app->singleton(AboutUsRepositoryInterface::class, AboutUsRepository::class);
         $this->app->singleton(ServiceRepositoryInterface::class, ServiceRepository::class);
+        $this->app->singleton(ProjectRepositoryInterface::class, ProjectRepository::class);
         $this->app->singleton(LandingPageRepositoryInterface::class, LandingPageRepository::class);
     }
 

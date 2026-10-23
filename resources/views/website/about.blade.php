@@ -17,9 +17,9 @@
           $currentLocale = \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocale() ?? app()->getLocale() ?? 'ar';
           // Ensure app locale is set correctly
           app()->setLocale($currentLocale);
-          $aboutData = $aboutContent[$currentLocale] ?? ($aboutContent['ar'] ?? []);
+          $aboutData = \App\Support\StructureContent::forLocale($aboutContent ?? null, $currentLocale);
           $aboutTitle = $aboutData['title'] ?? trans('website.aboutTitle', [], $currentLocale);
-          $aboutDesc = $aboutData['desc'] ?? trans('website.aboutSubtitle', [], $currentLocale);
+          $aboutDesc = $aboutData['desc'] ?? e(trans('website.aboutSubtitle', [], $currentLocale));
         @endphp
         <div class="text-center mb-16">
           <div class="inline-block mb-4">
@@ -27,9 +27,9 @@
               <img src="/assets/images/icons/sex.svg" alt="{{ trans('website.aboutBadge', [], $currentLocale) }}" class="inline w-6 h-6 object-contain align-middle" />  {{ trans('website.aboutBadge', [], $currentLocale) }}
             </span>
           </div>
-          <h2 class="text-5xl md:text-6xl font-bold mb-6">
+          <h1 class="section-title font-bold mb-6">
             <span>{{ $aboutTitle }}</span>
-          </h2>
+          </h1>
           <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
             {!! $aboutDesc !!}
           </p>
@@ -86,11 +86,7 @@
                           <div class="aspect-[4/3] bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-blue-500/20 flex items-center justify-center">
                             <div class="text-center p-8">
                               <div class="w-32 h-32 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-emerald-500/50">
-                                @if($child->image)
-                                  <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
-                                @else
-                                  <img src="/assets/images/icons/sex.svg" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
-                                @endif
+                                <x-website.image :src="$child->image ?: 'assets/images/icons/sex.svg'" type="icon" :alt="$child->t('title')" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
                               </div>
                               <h3 class="text-3xl font-bold mb-4 gradient-text">{{ $child->t('title') }}</h3>
                             </div>
@@ -119,11 +115,7 @@
                           <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                           <div class="relative z-10">
                             <div class="w-20 h-20 bg-gradient-to-br {{ $color['gradient'] }} rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg {{ $color['shadow-lg'] }}">
-                              @if($child->image)
-                                <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
-                              @else
-                                <img src="/assets/images/icons/four.svg" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
-                              @endif
+                              <x-website.image :src="$child->image ?: 'assets/images/icons/four.svg'" type="icon" :alt="$child->t('title')" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                             </div>
                             @php
                               $contentValue = $child->t('content');
@@ -151,11 +143,7 @@
                         @php $color = $colors[$childIndex % count($colors)]; @endphp
                         <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 {{ $color['border'] }} transition-all hover:scale-105 {{ $color['shadow'] }} text-center group">
                           <div class="w-16 h-16 bg-gradient-to-br {{ $color['gradient'] }} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            @if($child->image)
-                              <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
-                            @else
-                              <img src="/assets/images/icons/ten.svg" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
-                            @endif
+                            <x-website.image :src="$child->image ?: 'assets/images/icons/ten.svg'" type="icon" :alt="$child->t('title')" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
                           </div>
                           <h4 class="text-xl font-bold mb-2 text-white">{{ $child->t('title') }}</h4>
                           @if($child->t('content'))

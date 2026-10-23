@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Dashboard\Service;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Service\ReorderServicesRequest;
 use App\Http\Requests\Dashboard\Service\StoreServiceRequest;
 use App\Http\Requests\Dashboard\Service\UpdateServiceRequest;
 use App\Http\Services\Dashboard\Service\ServiceService;
@@ -41,6 +42,11 @@ final class ServiceController extends Controller
     public function destroy($id)
     {
         return $this->service->destroy($id);
+    }
+
+    public function reorder(ReorderServicesRequest $request)
+    {
+        return $this->service->reorder($request);
     }
 
     public function toggle($id)

@@ -15,12 +15,15 @@
     <div class="main-sidebar-header">
         <a href="{{ url('/admin') }}" class="header-logo">
             @if(isset($dashboardLogo) && $dashboardLogo)
-                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="desktop-logo" style="max-height: 50px; width: auto;">
-                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="toggle-logo" style="max-height: 50px; width: auto;">
-                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="desktop-dark" style="max-height: 50px; width: auto;">
-                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? 'البناء المتقدم' }}" class="toggle-dark" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="desktop-logo" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="toggle-logo" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="desktop-dark" style="max-height: 50px; width: auto;">
+                <img src="{{ asset($dashboardLogo) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="toggle-dark" style="max-height: 50px; width: auto;">
             @else
-                <img src="{{ asset('icons/logo.png') }}" alt="logo" class="desktop-dark">
+                <img src="{{ asset(\App\Support\WebsiteImage::LOGO_LIGHT) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="desktop-logo" style="max-height: 44px; width: auto;">
+                <img src="{{ asset(\App\Support\WebsiteImage::MARK) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="toggle-logo" style="height: 36px; width: 36px;">
+                <img src="{{ asset(\App\Support\WebsiteImage::LOGO) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="desktop-dark" style="max-height: 44px; width: auto;">
+                <img src="{{ asset(\App\Support\WebsiteImage::MARK) }}" alt="{{ $dashboardWebsiteName ?? __('website.companyName') }}" class="toggle-dark" style="height: 36px; width: 36px;">
             @endif
         </a>
     </div>
@@ -89,7 +92,6 @@
                     </a>
                 </li>
                 <!-- End::about-us -->
-                <!-- End::orders -->
                 <!-- Start::services -->
                 <li class="slide">
                     <a href="{{ route('services.index') }}"
@@ -99,6 +101,15 @@
                     </a>
                 </li>
                 <!-- End::services -->
+                <!-- Start::projects -->
+                <li class="slide">
+                    <a href="{{ route('projects.index') }}"
+                        class="side-menu__item {{ request()->routeIs('projects.*') ? 'active' : '' }}">
+                        <i class="ti ti-building-skyscraper side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.projects')</span>
+                    </a>
+                </li>
+                <!-- End::projects -->
                 <!-- Start::contacts -->
                 <li class="slide">
                     <a href="{{ route('contacts.index') }}"

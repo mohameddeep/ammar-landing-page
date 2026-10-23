@@ -24,6 +24,12 @@
                 <x-input.input-field name="title_en" label="{{ __('dashboard.title_en') }}"
                     placeholder="{{ __('dashboard.title_en') }}" id="title_en" :value="$service->title_en" />
 
+                @include('dashboard.site.services.partials.parent-select', [
+                    'parentOptions' => $parentOptions,
+                    'selected' => $service->parent_id,
+                    'locked' => $hasChildren,
+                ])
+
                 <x-input.input-field class="" type="checkbox" name="is_active" id="is_active"
                     label="{{ __('dashboard.Activate') }}" :value="$service->is_active" />
 

@@ -3,59 +3,64 @@
 @section('title', __('website.Home'))
 @section('meta_description', __('website.seoHomeDescription'))
 @section('content')
+    @php
+      $currentLocale = \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocale() ?? app()->getLocale() ?? 'ar';
+    @endphp
     <!-- Hero Slider Section -->
-    <section class=" pb-20 px-6 relative overflow-hidden hero-slider min-h-[90vh] flex items-center">
+    <section class="hero-slider relative overflow-hidden" aria-roledescription="carousel">
       <!-- Background Effects -->
       <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"></div>
-      <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
-      <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-      <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+      <div class="absolute top-20 start-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-float pointer-events-none"></div>
+      <div class="absolute bottom-10 end-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float pointer-events-none" style="animation-delay: 2s;"></div>
 
-      <div class="max-w-7xl mx-auto relative w-full">
+      <div class="hero-slider__track max-w-7xl mx-auto relative w-full">
         @forelse($sliders as $index => $slider)
-          <div class="slide {{ $index === 0 ? 'active' : '' }} slide-bg-{{ $index + 1 }}">
+          <div class="slide {{ $index === 0 ? 'active' : '' }} slide-bg-{{ ($index % 3) + 1 }}" role="group" aria-roledescription="slide" aria-label="{{ $index + 1 }} / {{ $sliders->count() }}">
             <div class="slide-image-wrapper">
-              <img 
-                src="@image($slider->image)" 
-                alt="{{ $slider->t('title_one') }}" 
+              <x-website.image
+                :src="$slider->image"
+                type="hero"
+                :seed="$index"
+                :alt="$slider->t('title_one') ?: trans('website.heroImageAlt', [], $currentLocale)"
                 class="slide-image"
-                loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                :loading="$index === 0 ? 'eager' : 'lazy'"
                 decoding="async"
-                fetchpriority="{{ $index === 0 ? 'high' : 'low' }}"
+                :fetchpriority="$index === 0 ? 'high' : 'low'"
               />
               <div class="slide-overlay"></div>
             </div>
-            <div class="text-center slide-content py-20 relative z-10">
+            <div class="slide-content relative z-10">
               @if($slider->t('title_one'))
-                <div class="mb-6 inline-block">
-                  <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm inline-flex items-center gap-2">
-                    <img src="/assets/images/icons/sex.svg" alt="icon" class="w-5 h-5 object-contain" />
+                <div class="mb-5 inline-block">
+                  <span class="px-5 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-300 text-sm font-semibold backdrop-blur-sm inline-flex items-center gap-2">
+                    <img src="{{ asset('assets/images/icons/sex.svg') }}" alt="" aria-hidden="true" class="w-5 h-5 object-contain" />
                     {{ $slider->t('title_one') }}
                   </span>
                 </div>
               @endif
-              <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+              <h1 class="hero-title font-bold mb-5">
                 @if($slider->t('title_two'))
-                  <span>{{ $slider->t('title_two') }}</span>
+                  <span class="block">{{ $slider->t('title_two') }}</span>
                 @endif
                 @if($slider->t('title_three'))
-                  <span class="block gradient-text mt-2 {{ $index === 0 ? 'animate-float' : '' }}">{{ $slider->t('title_three') }}</span>
+                  <span class="block gradient-text mt-1">{{ $slider->t('title_three') }}</span>
                 @endif
               </h1>
               @if($slider->t('content'))
-                <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10">
+                <p class="hero-text text-slate-200 leading-relaxed">
                   {{ $slider->t('content') }}
                 </p>
               @endif
             </div>
           </div>
         @empty
-          <!-- Default slide if no sliders -->
+          <!-- Default slide when no active sliders exist -->
           <div class="slide active slide-bg-1">
             <div class="slide-image-wrapper">
-              <img 
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                alt="Modern Construction Building" 
+              <x-website.image
+                type="hero"
+                :seed="0"
+                :alt="trans('website.heroImageAlt', [], $currentLocale)"
                 class="slide-image"
                 loading="eager"
                 decoding="async"
@@ -63,41 +68,41 @@
               />
               <div class="slide-overlay"></div>
             </div>
-            <div class="text-center slide-content py-20 relative z-10">
-              <div class="mb-6 inline-block">
-                <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm inline-flex items-center gap-2">
-                  <img src="/assets/images/icons/sex.svg" alt="icon" class="w-5 h-5 object-contain" />
-                  🏗️ خبرة 15+ سنة
+            <div class="slide-content relative z-10">
+              <div class="mb-5 inline-block">
+                <span class="px-5 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-300 text-sm font-semibold backdrop-blur-sm inline-flex items-center gap-2">
+                  <img src="{{ asset('assets/images/icons/sex.svg') }}" alt="" aria-hidden="true" class="w-5 h-5 object-contain" />
+                  {{ trans('website.heroDefaultBadge', [], $currentLocale) }}
                 </span>
               </div>
-              <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
-                <span>شريكك الموثوق في</span>
-                <span class="block gradient-text mt-2 animate-float">البناء والتراخيص</span>
+              <h1 class="hero-title font-bold mb-5">
+                <span class="block">{{ trans('website.heroDefaultTitle', [], $currentLocale) }}</span>
+                <span class="block gradient-text mt-1">{{ trans('website.heroDefaultHighlight', [], $currentLocale) }}</span>
               </h1>
-              <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-10">
-                نقدم خدمات متكاملة في إصدار التراخيص والإشراف على المشاريع والمقاولات بأعلى معايير الجودة والاحترافية
+              <p class="hero-text text-slate-200 leading-relaxed">
+                {{ trans('website.heroDefaultContent', [], $currentLocale) }}
               </p>
             </div>
           </div>
         @endforelse
 
-        <!-- Navigation Arrows -->
-        <button id="prevBtn" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 slider-nav-btn w-14 h-14 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-500 transition-all">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
-        </button>
-        <button id="nextBtn" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 slider-nav-btn w-14 h-14 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-500 transition-all">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </button>
+        @if($sliders->count() > 1)
+          <!-- Navigation Arrows: previous at inline-start, next at inline-end -->
+          <button type="button" id="prevBtn" class="absolute start-3 sm:start-4 top-1/2 -translate-y-1/2 z-20 slider-nav-btn w-11 h-11 sm:w-14 sm:h-14 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-500 transition-all" aria-label="{{ trans('website.sliderPrev', [], $currentLocale) }}">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          <button type="button" id="nextBtn" class="absolute end-3 sm:end-4 top-1/2 -translate-y-1/2 z-20 slider-nav-btn w-11 h-11 sm:w-14 sm:h-14 bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-500/20 hover:border-emerald-500 transition-all" aria-label="{{ trans('website.sliderNext', [], $currentLocale) }}">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
 
-        <!-- Slider Dots -->
-        @if($sliders->count() > 0)
-          <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-3">
+          <!-- Slider Dots -->
+          <div class="absolute bottom-6 inset-x-0 z-20 flex justify-center gap-3">
             @foreach($sliders as $index => $slider)
-              <button class="slider-dot w-3 h-3 rounded-full bg-slate-600 hover:bg-emerald-500 transition-all {{ $index === 0 ? 'active' : '' }}"></button>
+              <button type="button" class="slider-dot w-3 h-3 rounded-full bg-slate-500 hover:bg-emerald-500 transition-all {{ $index === 0 ? 'active' : '' }}" aria-label="{{ trans('website.sliderGoTo', ['number' => $index + 1], $currentLocale) }}"></button>
             @endforeach
           </div>
         @endif
@@ -118,9 +123,9 @@
           $currentLocale = \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocale() ?? app()->getLocale() ?? 'ar';
           // Ensure app locale is set correctly
           app()->setLocale($currentLocale);
-          $aboutData = $aboutContent[$currentLocale] ?? ($aboutContent['ar'] ?? []);
-          $aboutTitle = $aboutData['title'] ?? 'من نحن';
-          $aboutDesc = $aboutData['desc'] ?? 'شركة متخصصة في خدمات البناء والتراخيص مع خبرة تمتد لأكثر من 15 عاماً في السوق السعودي';
+          $aboutData = \App\Support\StructureContent::forLocale($aboutContent ?? null, $currentLocale);
+          $aboutTitle = $aboutData['title'] ?? trans('website.aboutTitle', [], $currentLocale);
+          $aboutDesc = $aboutData['desc'] ?? e(trans('website.aboutSubtitle', [], $currentLocale));
         @endphp
         <div class="text-center mb-16">
           <div class="inline-block mb-4">
@@ -128,7 +133,7 @@
               <img src="/assets/images/icons/sex.svg" alt="@lang('website.aboutBadge')" class="inline w-6 h-6 object-contain align-middle" />  {{ trans('website.aboutBadge', [], $currentLocale) }}
             </span>
           </div>
-          <h2 class="text-5xl md:text-6xl font-bold mb-6">
+          <h2 class="section-title font-bold mb-6">
             <span>{{ $aboutTitle }}</span>
           </h2>
           <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
@@ -187,11 +192,7 @@
                           <div class="aspect-[4/3] bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-blue-500/20 flex items-center justify-center">
                             <div class="text-center p-8">
                               <div class="w-32 h-32 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-emerald-500/50">
-                                @if($child->image)
-                                  <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
-                                @else
-                                  <img src="/assets/images/icons/sex.svg" alt="{{ $child->t('title') }}" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
-                                @endif
+                                <x-website.image :src="$child->image ?: 'assets/images/icons/sex.svg'" type="icon" :alt="$child->t('title')" class="w-20 h-20 object-contain" loading="lazy" decoding="async" />
                               </div>
                               <h3 class="text-3xl font-bold mb-4 gradient-text">{{ $child->t('title') }}</h3>
                               {{-- @if($aboutContent && isset($aboutContent['ar']['desc']))
@@ -223,11 +224,7 @@
                           <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                           <div class="relative z-10">
                             <div class="w-20 h-20 bg-gradient-to-br {{ $color['gradient'] }} rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-lg {{ $color['shadow-lg'] }}">
-                              @if($child->image)
-                                <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
-                              @else
-                                <img src="/assets/images/icons/four.svg" alt="{{ $child->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
-                              @endif
+                              <x-website.image :src="$child->image ?: 'assets/images/icons/four.svg'" type="icon" :alt="$child->t('title')" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                             </div>
                             @php
                               $contentValue = $child->t('content');
@@ -255,11 +252,7 @@
                         @php $color = $colors[$childIndex % count($colors)]; @endphp
                         <div class="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 {{ $color['border'] }} transition-all hover:scale-105 {{ $color['shadow'] }} text-center group">
                           <div class="w-16 h-16 bg-gradient-to-br {{ $color['gradient'] }} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                            @if($child->image)
-                              <img src="{{ asset($child->image) }}" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
-                            @else
-                              <img src="/assets/images/icons/ten.svg" alt="{{ $child->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
-                            @endif
+                            <x-website.image :src="$child->image ?: 'assets/images/icons/ten.svg'" type="icon" :alt="$child->t('title')" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
                           </div>
                           <h4 class="text-xl font-bold mb-2 text-white">{{ $child->t('title') }}</h4>
                           @if($child->t('content'))
@@ -291,10 +284,10 @@
         @php
           $currentLocale = \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocale() ?? app()->getLocale() ?? 'ar';
           app()->setLocale($currentLocale);
-          $serviceData = $serviceContent[$currentLocale] ?? ($serviceContent['ar'] ?? []);
-          $serviceBadge = $serviceData['badge'] ?? '✨ خدماتنا';
-          $serviceTitle = $serviceData['title'] ?? 'خدماتنا المتميزة';
-          $serviceDesc = $serviceData['content'] ?? 'حلول شاملة لجميع احتياجاتك في البناء والتراخيص';
+          $serviceData = \App\Support\StructureContent::forLocale($serviceContent ?? null, $currentLocale);
+          $serviceBadge = $serviceData['badge'] ?? trans('website.servicesBadge', [], $currentLocale);
+          $serviceTitle = $serviceData['title'] ?? trans('website.servicesTitle', [], $currentLocale);
+          $serviceDesc = $serviceData['content'] ?? e(trans('website.servicesSubtitle', [], $currentLocale));
         @endphp
         <div class="text-center mb-16">
           <div class="inline-block mb-4">
@@ -302,7 +295,7 @@
               {{ $serviceBadge }}
             </span>
           </div>
-          <h2 class="text-5xl md:text-6xl font-bold mb-6">
+          <h2 class="section-title font-bold mb-6">
             <span class="gradient-text">{{ $serviceTitle }}</span>
           </h2>
           <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
@@ -331,24 +324,22 @@
             @endphp
             <div class="service-card group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 {{ $colorClass['border'] }} transition-all duration-300 hover:scale-105 hover:shadow-2xl {{ $colorClass['shadow'] }} overflow-hidden">
               <!-- Decorative Background -->
-              <div class="absolute top-0 right-0 w-32 h-32 {{ $colorClass['bg'] }} rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div class="absolute bottom-0 left-0 w-24 h-24 {{ $colorClass['bg2'] }} rounded-full blur-xl"></div>
+              <div class="absolute top-0 end-0 w-32 h-32 {{ $colorClass['bg'] }} rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute bottom-0 start-0 w-24 h-24 {{ $colorClass['bg2'] }} rounded-full blur-xl"></div>
               
               <div class="relative z-10">
                 <!-- Service Number Badge -->
-                <div class="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br {{ $colorClass['gradient'] }} rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg {{ $colorClass['shadow-lg'] }}">{{ $number }}</div>
+                <div class="absolute -top-3 -end-3 w-10 h-10 bg-gradient-to-br {{ $colorClass['gradient'] }} rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg {{ $colorClass['shadow-lg'] }}">{{ $number }}</div>
                 
                 <div class="w-20 h-20 bg-gradient-to-br {{ $colorClass['gradient'] }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 text-4xl shadow-lg {{ $colorClass['shadow-icon'] }}">
-                  @if($service->image)
-                    <img src="@image($service->image)" alt="{{ $service->t('title') }}" class="w-16 h-16 object-cover rounded-xl" loading="lazy" decoding="async" />
-                  @else
-                    <img src="/assets/images/icons/{{ $icon }}.svg" alt="{{ $service->t('title') }}" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
-                  @endif
+                  <x-website.image :src="$service->image" type="service" :seed="$service->title_en ?: $service->title_ar" :alt="$service->t('title')" class="w-16 h-16 object-cover rounded-xl" loading="lazy" decoding="async" />
                 </div>
                 <h3 class="text-2xl font-bold mb-4 text-white {{ $colorClass['text'] }} transition-colors">{{ $service->t('title') }}</h3>
                 @if($service->t('content'))
-                  <p class="text-slate-400 leading-relaxed">{{ Str::limit($service->t('content'), 100) }}</p>
+                  <p class="text-slate-400 leading-relaxed">{{ Str::limit(strip_tags($service->t('content')), 100) }}</p>
                 @endif
+
+                <x-website.service-children :service="$service" />
 
                 <a href="{{ route('website.service.show', $service->id) }}" class="block mt-6 px-4 py-2 bg-slate-800/80 {{ $colorClass['button'] }} rounded-lg border border-slate-700 text-sm font-semibold transition-all text-center">
                   <span>{{ trans('website.viewDetails', [], $currentLocale) }}</span>
@@ -357,7 +348,7 @@
             </div>
           @empty
             <div class="col-span-full text-center py-12">
-              <p class="text-slate-400 text-lg">لا توجد خدمات متاحة حالياً</p>
+              <p class="text-slate-400 text-lg">{{ trans('website.noServices', [], $currentLocale) }}</p>
             </div>
           @endforelse
         </div>
@@ -374,23 +365,25 @@
           {{ trans('website.pricingCtaLead', [], $currentLocale) }}
         </p>
         <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
-          <div class="{{ $currentLocale !== 'ar' ? 'md:order-2' : '' }} flex {{ $currentLocale === 'ar' ? 'md:justify-start' : 'md:justify-end' }} justify-center">
+          {{-- Text first (inline-start), button second (inline-end): mirrors automatically between RTL and LTR. --}}
+          <div class="md:order-2 flex md:justify-end justify-center">
             <button
               type="button"
               data-pricing-modal-open
               class="pricing-cta-btn group inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-white bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 shadow-lg shadow-emerald-500/30 border border-emerald-400/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-emerald-500/40 whitespace-normal text-center max-w-full cursor-pointer"
             >
-              <svg class="w-5 h-5 shrink-0 transition-transform group-hover:-translate-x-1 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-              </svg>
               <span>{{ trans('website.pricingCtaButton', [], $currentLocale) }}</span>
+              {{-- Forward arrow: points right in LTR, left in RTL --}}
+              <svg class="w-5 h-5 shrink-0 transition-transform rtl:-scale-x-100 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
             </button>
           </div>
-          <div class="{{ $currentLocale !== 'ar' ? 'md:order-1' : '' }} text-center {{ $currentLocale === 'ar' ? 'md:text-right' : 'md:text-left' }}">
+          <div class="md:order-1 text-center md:text-start">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               {{ trans('website.pricingCtaNamePart1', [], $currentLocale) }}<span class="gradient-text">{{ trans('website.pricingCtaNameHighlight', [], $currentLocale) }}</span>{{ trans('website.pricingCtaNamePart2', [], $currentLocale) }}
             </h2>
-            <p class="text-slate-400 text-lg md:text-xl leading-relaxed max-w-xl {{ $currentLocale === 'ar' ? 'md:mr-0 md:ml-auto' : 'md:ml-0 md:mr-auto' }}">
+            <p class="text-slate-400 text-lg md:text-xl leading-relaxed max-w-xl mx-auto md:mx-0">
               {{ trans('website.pricingCtaDesc', [], $currentLocale) }}
             </p>
           </div>
@@ -629,7 +622,7 @@
           app()->setLocale($currentLocale);
         @endphp
         <div class="text-center mb-16">
-          <h2 class="text-5xl font-bold mb-4">{{ trans('website.contactTitle', [], $currentLocale) }}</h2>
+          <h2 class="section-title font-bold mb-4">{{ trans('website.contactTitle', [], $currentLocale) }}</h2>
           <p class="text-xl text-slate-400">{{ trans('website.contactSubtitle', [], $currentLocale) }}</p>
         </div>
 
@@ -637,13 +630,13 @@
         @php
           $footerWhatsApp = $footerContent['all']['whatsapp'] ?? $footerContent['whatsapp'] ?? '+966 XX XXX XXXX';
           $footerEmail = $footerContent['all']['email'] ?? $footerContent['email'] ?? 'info@example.com';
-          $footerLocation = $footerContent['all']['location'] ?? $footerContent['location'] ?? 'المملكة العربية السعودية';
-          $footerLocationEn = $footerContent['all']['location_en'] ?? $footerContent['location_en'] ?? 'Saudi Arabia';
+          $footerLocation = $footerContent['all']['location'] ?? $footerContent['location'] ?? trans('website.defaultLocation', [], 'ar');
+          $footerLocationEn = $footerContent['all']['location_en'] ?? $footerContent['location_en'] ?? trans('website.defaultLocation', [], 'en');
           $mapLink = $footerContent['all']['google_map_link'] ?? $footerContent['google_map_link'] ?? 'https://www.google.com/maps/search/?api=1&query=Riyadh+Saudi+Arabia';
           $locationText = $currentLocale === 'ar' ? $footerLocation : $footerLocationEn;
           
           // Clean WhatsApp number for URL (remove spaces, dashes, parentheses, and keep only numbers and +)
-          $whatsappNumber = preg_replace('/[^0-9+]/', '', $footerWhatsApp);
+          $whatsappNumber = preg_replace('/D/', '', $footerWhatsApp); // wa.me expects digits only (no +)
           $whatsappUrl = 'https://wa.me/' . $whatsappNumber;
         @endphp
         <div class="grid md:grid-cols-3 gap-8 mb-16">
@@ -664,7 +657,7 @@
               ✉
             </div>
             <h3 class="text-xl font-bold mb-3 text-white">{{ trans('website.contactEmail', [], $currentLocale) }}</h3>
-            <p class="text-slate-400 group-hover:text-cyan-400 transition-colors font-medium break-all">{{ $footerEmail }}</p>
+            <p class="text-slate-400 group-hover:text-cyan-400 transition-colors font-medium break-all" dir="ltr">{{ $footerEmail }}</p>
           </a>
 
           <!-- Location -->
@@ -815,7 +808,14 @@
     @push('scripts')
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Runs on first load and after Turbo navigations (DOMContentLoaded fires only once with Turbo).
+        (function initLandingPage(run) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', run, { once: true });
+            } else {
+                run();
+            }
+        })(function() {
             var aboutSection = document.getElementById('about');
             if (aboutSection) {
                 aboutSection.addEventListener('click', function (e) {

@@ -22,7 +22,7 @@ class LandingPageService
     public function index()
     {
         $sliders = $this->sliderRepository->getActive();
-        $services = $this->serviceRepository->getActive();
+        $services = $this->serviceRepository->getActiveTopLevelWithChildren();
 
         $structures = $this->structureRepository->structuresForKeys(['about', 'service', 'footer']);
 

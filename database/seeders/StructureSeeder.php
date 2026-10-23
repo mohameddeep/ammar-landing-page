@@ -22,23 +22,23 @@ class StructureSeeder extends Seeder
                     'en' => [
                         'title' => 'About Us',
                         'desc' => 'A company specialized in construction and licensing services with over 15 years of experience in the Saudi market.',
-                         'statistics' => [
+                        'statistics' => [
                             [
                                 'value' => '+500',
                                 'name' => 'Completed Projects',
-                                'icon' => '/assets/images/icons/four.svg'
+                                'icon' => '/assets/images/icons/four.svg',
                             ],
                             [
                                 'value' => '100%',
                                 'name' => 'Adherence to Standards',
-                                'icon' => '/assets/images/icons/five.svg'
+                                'icon' => '/assets/images/icons/five.svg',
                             ],
-                             [
+                            [
                                 'value' => '15+',
                                 'name' => 'Years of Experience',
-                                'icon' => '/assets/images/icons/six.svg'
-                            ]
-                        ]
+                                'icon' => '/assets/images/icons/six.svg',
+                            ],
+                        ],
                     ],
                     'ar' => [
                         'title' => 'من نحن',
@@ -47,19 +47,19 @@ class StructureSeeder extends Seeder
                             [
                                 'value' => '+500',
                                 'name' => 'مشروع مكتمل',
-                                'icon' => '/assets/images/icons/four.svg'
+                                'icon' => '/assets/images/icons/four.svg',
                             ],
                             [
                                 'value' => '100%',
                                 'name' => 'التزام بالمعايير',
-                                'icon' => '/assets/images/icons/five.svg'
+                                'icon' => '/assets/images/icons/five.svg',
                             ],
-                             [
+                            [
                                 'value' => '15+',
                                 'name' => 'سنة خبرة',
-                                'icon' => '/assets/images/icons/six.svg'
-                            ]
-                        ]
+                                'icon' => '/assets/images/icons/six.svg',
+                            ],
+                        ],
                     ],
                 ]),
             ]
@@ -70,8 +70,8 @@ class StructureSeeder extends Seeder
             ],
             [
                 'content' => json_encode([
-                    'en' => [['title' => 'service'], ['content' => 'Feature services']],
-                    'ar' => [['title' => 'خدماتنا'], ['content' => ' خدماتنا المتميزة ']],
+                    'en' => ['title' => 'Our Services', 'content' => 'Comprehensive solutions for all your engineering, building and licensing needs'],
+                    'ar' => ['title' => 'خدماتنا', 'content' => 'حلول شاملة لجميع احتياجاتك في الخدمات الهندسية والبناء والتراخيص'],
                 ]),
             ]
         );
@@ -174,9 +174,6 @@ class StructureSeeder extends Seeder
             ]
         );
 
-
-
-
         // Footer
         Structure::query()->updateOrCreate(
             ['key' => 'footer'],
@@ -195,8 +192,8 @@ class StructureSeeder extends Seeder
                         'linkedin_link' => 'https://linkedin.com/example',
                     ],
                     'website_name' => [
-                        'ar' => 'البناء المتقدم',
-                        'en' => 'Advanced Building',
+                        'ar' => 'المسار السريع للخدمات الهندسية والتقنية',
+                        'en' => 'Fast Track Engineering & Technical Services',
                     ],
                     'image' => null,
                     'content' => [
@@ -204,8 +201,8 @@ class StructureSeeder extends Seeder
                         'ar' => 'شريكك الموثوق في خدمات البناء والتراخيص مع خبرة تمتد لأكثر من 15 عاماً في السوق السعودي',
                     ],
                     'copyright' => [
-                        'en' => '© 2024 Advanced Building. All rights reserved.',
-                        'ar' => '© 2024 البناء المتقدم. جميع الحقوق محفوظة.',
+                        'en' => '© 2026 Fast Track Engineering & Technical Services. All rights reserved.',
+                        'ar' => '© 2026 المسار السريع للخدمات الهندسية والتقنية. جميع الحقوق محفوظة.',
                     ],
                 ]),
             ]

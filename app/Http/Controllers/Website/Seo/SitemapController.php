@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website\Seo;
 
 use App\Http\Controllers\Controller;
+use App\Repository\ProjectRepositoryInterface;
 use App\Repository\ServiceRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -13,6 +14,7 @@ class SitemapController extends Controller
 {
     public function __construct(
         private readonly ServiceRepositoryInterface $serviceRepository,
+        private readonly ProjectRepositoryInterface $projectRepository,
     ) {}
 
     public function __invoke(): Response
@@ -24,11 +26,15 @@ class SitemapController extends Controller
         $staticSuffixes = [
             ['suffix' => '', 'priority' => '1.0', 'changefreq' => 'weekly'],
             ['suffix' => 'services', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['suffix' => 'projects', 'priority' => '0.9', 'changefreq' => 'weekly'],
             ['suffix' => 'about-us', 'priority' => '0.85', 'changefreq' => 'monthly'],
             ['suffix' => 'contact-us', 'priority' => '0.85', 'changefreq' => 'monthly'],
             ['suffix' => 'terms-and-conditions', 'priority' => '0.4', 'changefreq' => 'yearly'],
             ['suffix' => 'privacy-policy', 'priority' => '0.4', 'changefreq' => 'yearly'],
         ];
+
+        $services = $this->serviceRepository->getActive(['id']);
+        $projects = $this->projectRepository->getActiveForGallery();
 
         foreach ($locales as $locale) {
             foreach ($staticSuffixes as $item) {
@@ -41,10 +47,19 @@ class SitemapController extends Controller
                 ];
             }
 
-            foreach ($this->serviceRepository->getActive() as $service) {
+            foreach ($services as $service) {
                 $urls[] = [
                     'loc' => URL::to('/'.$locale.'/services/'.$service->id),
                     'lastmod' => $lastmod,
+                    'priority' => '0.8',
+                    'changefreq' => 'monthly',
+                ];
+            }
+
+            foreach ($projects as $project) {
+                $urls[] = [
+                    'loc' => URL::to('/'.$locale.'/projects/'.$project->slug),
+                    'lastmod' => $project->updated_at?->toAtomString() ?? $lastmod,
                     'priority' => '0.8',
                     'changefreq' => 'monthly',
                 ];

@@ -9,10 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 use function App\Http\Helpers\responseFail;
 
@@ -50,18 +46,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e): mixed
     {
-        if ($e instanceof TokenExpiredException) {
-            return responseFail(Http::UNAUTHORIZED, 'messages.Token expired');
-        }
-        if ($e instanceof TokenBlacklistedException) {
-            return responseFail(Http::UNAUTHORIZED, 'messages.Token blacklisted');
-        }
-        if ($e instanceof TokenInvalidException) {
-            return responseFail(Http::UNAUTHORIZED, 'messages.Token invalid');
-        }
-        if ($e instanceof JWTException) {
-            return responseFail(Http::UNAUTHORIZED, 'messages.JWT error');
-        }
         if ($e instanceof AuthenticationException) {
             if ($request->expectsJson()) {
                 return responseFail(Http::UNAUTHORIZED, 'messages.Unauthenticated');
@@ -77,10 +61,11 @@ class Handler extends ExceptionHandler
     {
         $errors = $e->validator->errors()->all();
         if ($this->isFrontend($request)) {
-            return $request->ajax() ? response()->json($errors, Http::UNPROCESSABLE_ENTITY) : redirect()->back()->withInput()->withErrors($errors);
+            // Keep field keys so @error('field') can show messages next to each input.
+            return $request->ajax() ? response()->json($errors, Http::UNPROCESSABLE_ENTITY) : redirect()->back()->withInput()->withErrors($e->validator);
         }
 
-        return responseFail(Http::BAD_REQUEST, $errors[0],$errors);
+        return responseFail(Http::BAD_REQUEST, $errors[0], $errors);
     }
 
     private function isFrontend($request)

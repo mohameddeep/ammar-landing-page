@@ -7,9 +7,16 @@
       
       // Get footer data
       $footerData = $footerContent ?? [];
-      $websiteName = $footerData['website_name'][$currentLocale] ?? ($footerData['website_name']['ar'] ?? 'البناء المتقدم');
-      $footerDescription = $footerData['content'][$currentLocale] ?? ($footerData['content']['ar'] ?? 'شريكك الموثوق في خدمات البناء والتراخيص');
-      $footerCopyright = $footerData['copyright'][$currentLocale] ?? ($footerData['copyright']['ar'] ?? '© 2024 جميع الحقوق محفوظة');
+      $websiteName = filled($footerData['website_name'][$currentLocale] ?? null)
+        ? $footerData['website_name'][$currentLocale]
+        : trans('website.companyName', [], $currentLocale);
+      $footerDescription = filled($footerData['content'][$currentLocale] ?? null)
+        ? $footerData['content'][$currentLocale]
+        : e(trans('website.footerDefaultDescription', [], $currentLocale));
+      $footerCopyright = filled($footerData['copyright'][$currentLocale] ?? null)
+        ? $footerData['copyright'][$currentLocale]
+        : e(trans('website.footerDefaultCopyright', ['year' => date('Y'), 'name' => $websiteName], $currentLocale));
+      $footerLogo = \App\Support\WebsiteImage::logo($footerData['image'] ?? null);
       
       // Social media links
       $facebookLink = $footerData['all']['facebook_link'] ?? $footerData['facebook_link'] ?? '#';
@@ -20,22 +27,19 @@
       // Contact info
       $footerPhone = $footerData['all']['phone'] ?? $footerData['phone'] ?? '+966 XX XXX XXXX';
       $footerEmail = $footerData['all']['email'] ?? $footerData['email'] ?? 'info@example.com';
-      $footerLocation = $footerData['all']['location'] ?? $footerData['location'] ?? 'المملكة العربية السعودية';
-      $footerLocationEn = $footerData['all']['location_en'] ?? $footerData['location_en'] ?? 'Saudi Arabia';
+      $footerLocation = $footerData['all']['location'] ?? $footerData['location'] ?? trans('website.defaultLocation', [], 'ar');
+      $footerLocationEn = $footerData['all']['location_en'] ?? $footerData['location_en'] ?? trans('website.defaultLocation', [], 'en');
       $locationText = $currentLocale === 'ar' ? $footerLocation : $footerLocationEn;
       
       // WhatsApp
       $footerWhatsApp = $footerData['all']['whatsapp'] ?? $footerData['whatsapp'] ?? '+966501234567';
-      $whatsappNumber = preg_replace('/[^0-9+]/', '', $footerWhatsApp);
+      $whatsappNumber = preg_replace('/D/', '', $footerWhatsApp); // wa.me expects digits only (no +)
       $whatsappUrl = 'https://wa.me/' . $whatsappNumber;
       
       // Get active services for footer
-      $footerServices = app(ServiceRepositoryInterface::class)->getActive(['id', 'title_ar', 'title_en'])->take(4);
+      $footerServices = ($navServices ?? app(ServiceRepositoryInterface::class)->getActiveTopLevelWithChildren())->take(4);
       
-      // WhatsApp button position
-      $isRTL = $currentLocale === 'ar';
-      $positionClass = $isRTL ? 'right-6' : 'left-6';
-      $notificationPosition = $isRTL ? '-left-1' : '-right-1';
+      $footerPhoneHref = 'tel:'.preg_replace('/[^0-9+]/', '', $footerPhone);
     @endphp
     <footer class="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-t border-slate-800/50 overflow-hidden">
       <!-- Background Effects -->
@@ -49,16 +53,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           <!-- Company Info -->
           <div class="lg:col-span-1">
-            <div class="flex items-center gap-2 mb-6">
-              @if(isset($footerData['image']) && $footerData['image'])
-                <img src="{{ asset($footerData['image']) }}" alt="{{ $websiteName }}" class="w-12 h-12 object-contain" />
-              @else
-                <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30">
-                  <span class="text-white font-bold text-xl">🏗</span>
-                </div>
-              @endif
-              <span class="text-2xl font-bold gradient-text">{{ $websiteName }}</span>
-            </div>
+            <a href="{{ route('website.landing-page') }}" class="brand-logo brand-logo--footer mb-6">
+              <img src="{{ $footerLogo }}" alt="{{ trans('website.logoAlt', [], $currentLocale) }}" width="1269" height="243" loading="lazy" decoding="async" class="brand-logo__img" data-fallback-src="{{ asset(\App\Support\WebsiteImage::LOGO) }}" onerror="this.onerror=null;if(this.src!==this.dataset.fallbackSrc){this.src=this.dataset.fallbackSrc;}" />
+              <span class="sr-only">{{ $websiteName }}</span>
+            </a>
             <p class="text-slate-400 mb-6 leading-relaxed">
               {!! $footerDescription !!}
             </p>
@@ -158,8 +156,8 @@
                 </div>
                 <div>
                   <p class="text-slate-400 text-sm mb-1">{{ trans('website.footerPhoneLabel', [], $currentLocale) }}</p>
-                  <p class="text-white font-medium">{{ $footerPhone }}</p>
-                  </div>
+                  <a href="{{ $footerPhoneHref }}" class="text-white font-medium ltr-value" dir="ltr">{{ $footerPhone }}</a>
+                </div>
               </li>
               <li class="flex items-start gap-3">
                 <div class="w-10 h-10 bg-cyan-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -169,8 +167,7 @@
                 </div>
                 <div>
                   <p class="text-slate-400 text-sm mb-1">{{ trans('website.footerEmailLabel', [], $currentLocale) }}</p>
-                  <p class="text-white font-medium">{{ $footerEmail }}</p>
-
+                  <a href="mailto:{{ $footerEmail }}" class="text-white font-medium ltr-value break-all" dir="ltr">{{ $footerEmail }}</a>
                 </div>
               </li>
               <li class="flex items-start gap-3">
@@ -204,130 +201,30 @@
       </div>
     </footer>
 
-    <!-- WhatsApp Floating Button -->
-    <a 
-      href="{{ $whatsappUrl }}" 
-      target="_blank" 
+    <!-- WhatsApp Floating Button: always visible on every page; kept across Turbo navigations -->
+    @php
+      $whatsappChatUrl = $whatsappUrl.'?text='.rawurlencode(trans('website.whatsappMessage', [], $currentLocale));
+    @endphp
+    <a
+      href="{{ $whatsappChatUrl }}"
+      target="_blank"
       rel="noopener noreferrer"
-      class="whatsapp-float fixed bottom-6 {{ $positionClass }} z-50 w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full shadow-lg shadow-green-500/50 flex items-center justify-center hover:scale-110 transition-all duration-300 opacity-0 invisible group"
+      class="whatsapp-float group"
       id="whatsappButton"
-      aria-label="{{ trans('website.whatsapp', [], $currentLocale) }}"
+      data-turbo="false"
+      data-turbo-permanent
+      aria-label="{{ trans('website.whatsappCta', [], $currentLocale) }}"
     >
-      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-      </svg>
-      <span class="absolute -top-1 {{ $notificationPosition }} w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+      <span class="whatsapp-float__label" aria-hidden="true">{{ trans('website.whatsappCta', [], $currentLocale) }}</span>
+      <span class="whatsapp-float__icon">
+        <span class="whatsapp-float__ring" aria-hidden="true"></span>
+        <svg class="relative w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </span>
     </a>
 
-    <style>
-      .whatsapp-float {
-        animation: fadeInUp 0.5s ease-out forwards;
-      }
-      
-      .whatsapp-float.visible {
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-      
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      
-      .whatsapp-float:hover {
-        box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
-      }
-      
-      @media (max-width: 768px) {
-        .whatsapp-float {
-          bottom: 20px;
-          width: 56px;
-          height: 56px;
-        }
-      }
-    </style>
-
     <script>
-      (function () {
-        var scrollThreshold = 300;
-        var scrollHandler = null;
-        function setupWhatsAppScroll() {
-          var whatsappButton = document.getElementById('whatsappButton');
-          if (scrollHandler) {
-            window.removeEventListener('scroll', scrollHandler);
-            scrollHandler = null;
-          }
-          if (!whatsappButton) return;
-          scrollHandler = function () {
-            if (window.scrollY > scrollThreshold) {
-              whatsappButton.classList.add('visible');
-              whatsappButton.classList.remove('opacity-0', 'invisible');
-            } else {
-              whatsappButton.classList.remove('visible');
-              whatsappButton.classList.add('opacity-0', 'invisible');
-            }
-          };
-          window.addEventListener('scroll', scrollHandler, { passive: true });
-          scrollHandler();
-        }
-        document.addEventListener('turbo:load', setupWhatsAppScroll);
-        document.addEventListener('DOMContentLoaded', setupWhatsAppScroll);
-      })();
-    </script>
-
-    <script>
-
-
-// Translations object
-
-
-
-
-function updateSliderDirection() {
-  const isRTL = currentLang === 'ar';
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  
-  if (prevBtn && nextBtn) {
-    // Remove all position classes first
-    prevBtn.classList.remove('left-4', 'right-4');
-    nextBtn.classList.remove('left-4', 'right-4');
-    
-    // Add correct positions for RTL/LTR
-    if (isRTL) {
-      // RTL: prev on right, next on left
-      prevBtn.classList.add('right-4');
-      nextBtn.classList.add('left-4');
-    } else {
-      // LTR: prev on left, next on right
-      prevBtn.classList.add('left-4');
-      nextBtn.classList.add('right-4');
-    }
-  }
-  
-  // Update slide transitions for RTL/LTR
-  const slides = document.querySelectorAll('.slide');
-  slides.forEach(slide => {
-    if (slide.classList.contains('active')) {
-      // Keep active slide visible
-      slide.style.transform = 'translateX(0)';
-    } else if (slide.classList.contains('prev')) {
-      // Position prev slide correctly based on direction
-      slide.style.transform = isRTL ? 'translateX(100%)' : 'translateX(-100%)';
-    } else {
-      // Position inactive slides correctly based on direction
-      slide.style.transform = isRTL ? 'translateX(-100%)' : 'translateX(100%)';
-    }
-  });
-}
-
-
 // Hero Slider Functionality
 (function() {
   let currentSlide = 0;
@@ -345,26 +242,13 @@ function updateSliderDirection() {
 
   const heroSliderEl = document.querySelector('.hero-slider');
 
-  // Preload images for better performance
-  function preloadImages() {
-    const images = document.querySelectorAll('.slide-image');
-    images.forEach((img, index) => {
-      if (img.complete) {
-        img.classList.add('loaded');
-      } else {
-        img.addEventListener('load', function() {
-          this.classList.add('loaded');
-        });
-        img.addEventListener('error', function() {
-          // Fallback if image fails to load
-          this.style.display = 'none';
-        });
-      }
-    });
-  }
-
-  // Initialize image preloading
-  preloadImages();
+  // Images that already failed before this script ran (onerror missed) get their local fallback.
+  document.querySelectorAll('.slide-image').forEach((img) => {
+    if (img.complete && img.naturalWidth === 0 && img.dataset.fallbackSrc && img.src !== img.dataset.fallbackSrc) {
+      img.onerror = null;
+      img.src = img.dataset.fallbackSrc;
+    }
+  });
 
   // Initialize slider direction on load - exposed globally
   window.initializeSliderDirection = function() {
@@ -415,9 +299,9 @@ function updateSliderDirection() {
     const activeSlideImage = slides[index].querySelector('.slide-image');
     if (activeSlideImage) {
       activeSlideImage.style.animation = 'none';
-      setTimeout(() => {
-        activeSlideImage.style.animation = 'zoomIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-      }, 3000);
+      requestAnimationFrame(() => {
+        activeSlideImage.style.animation = '';
+      });
     }
 
     currentSlide = index;
@@ -433,23 +317,15 @@ function updateSliderDirection() {
     showSlide(prev);
   }
 
+  // Buttons use logical positions (prev at inline-start, next at inline-end),
+  // so their meaning is the same in both directions.
   nextBtn.addEventListener('click', () => {
-    const isRTL = document.documentElement.dir === 'rtl';
-    if (isRTL) {
-      nextSlide();
-    } else {
-      prevSlide();
-    }
+    nextSlide();
     resetAutoPlay();
   });
 
   prevBtn.addEventListener('click', () => {
-    const isRTL = document.documentElement.dir === 'rtl';
-    if (isRTL) {
-      prevSlide();
-    } else {
-      nextSlide();
-    }
+    prevSlide();
     resetAutoPlay();
   });
 
@@ -518,7 +394,8 @@ function updateSliderDirection() {
       const isRTL = document.documentElement.dir === 'rtl';
 
       if (Math.abs(diff) > swipeThreshold) {
-        if ((isRTL && diff > 0) || (!isRTL && diff < 0)) {
+        // LTR: swipe left (diff > 0) = next. RTL: swipe right (diff < 0) = next.
+        if ((!isRTL && diff > 0) || (isRTL && diff < 0)) {
           nextSlide();
         } else {
           prevSlide();
@@ -534,6 +411,9 @@ function updateSliderDirection() {
       document.removeEventListener('keydown', onSliderKey);
       return;
     }
+    // Never hijack arrow keys while typing or while a dialog is open.
+    if (e.target && e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"], [role="dialog"]')) return;
+    if (document.querySelector('[role="dialog"][aria-hidden="false"]')) return;
     e.preventDefault();
     const isRTL = document.documentElement.dir === 'rtl';
     if ((isRTL && e.key === 'ArrowRight') || (!isRTL && e.key === 'ArrowLeft')) {
@@ -545,6 +425,9 @@ function updateSliderDirection() {
   });
 
   startAutoPlay();
+
+  // Turbo keeps this page in memory; stop the timer when navigating away.
+  document.addEventListener('turbo:before-render', () => clearInterval(autoPlayInterval), { once: true });
 })();
 
 
@@ -612,36 +495,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
       }, 800);
     }
-  });
-});
-
-// Service details toggle buttons
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.service-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.service-card');
-      if (!card) return;
-      const details = card.querySelector('.service-details');
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-
-      if (details) {
-        details.classList.toggle('hidden');
-      }
-
-      btn.setAttribute('aria-expanded', String(!expanded));
-
-      // Update button label (simple toggle) — language will be reapplied by setLanguage when switching
-      const labelSpan = btn.querySelector('[data-i18n]');
-      if (labelSpan) {
-        if (!expanded) {
-          // now expanded -> show "Hide" text
-          labelSpan.textContent = currentLang === 'ar' ? 'إخفاء' : 'Hide';
-        } else {
-          // collapsed -> show learn more
-          labelSpan.textContent = translations[currentLang].serviceLearnMore || (currentLang === 'ar' ? 'اعرف المزيد' : 'Learn More');
-        }
-      }
-    });
   });
 });
 

@@ -11,15 +11,21 @@
       }
   }
 
-  $headerLogo = $footerContent['image'] ?? null;
-  $headerWebsiteName = $footerContent['website_name'][$currentLocale] ?? ($footerContent['website_name']['ar'] ?? 'البناء المتقدم');
+  // Logo uploaded from the dashboard footer settings wins; otherwise the official logo.
+  $headerLogo = \App\Support\WebsiteImage::logo($footerContent['image'] ?? null);
+  $headerWebsiteName = filled($footerContent['website_name'][$currentLocale] ?? null)
+      ? $footerContent['website_name'][$currentLocale]
+      : trans('website.companyName', [], $currentLocale);
+
+  // Top-level services with their children: navbar dropdown + footer list.
+  $navServices = app(\App\Repository\ServiceRepositoryInterface::class)->getActiveTopLevelWithChildren();
 @endphp
 
-@include('website.layouts.header', ['headerLogo' => $headerLogo, 'headerWebsiteName' => $headerWebsiteName, 'currentLocale' => $currentLocale])
+@include('website.layouts.header', ['headerLogo' => $headerLogo, 'headerWebsiteName' => $headerWebsiteName, 'currentLocale' => $currentLocale, 'navServices' => $navServices])
 
 
 @yield('content')
 
 @stack('scripts')
 
-@include('website.layouts.footer', ['footerContent' => $footerContent, 'currentLocale' => $currentLocale])
+@include('website.layouts.footer', ['footerContent' => $footerContent, 'currentLocale' => $currentLocale, 'navServices' => $navServices])

@@ -1,5 +1,31 @@
+/* Typography: Cairo covers Arabic and Latin; system fallbacks per script */
 body {
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+html[lang="en"] body {
+  font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Arabic glyphs need extra line height so tall letters and dots are not clipped */
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3 {
+  line-height: 1.4;
+}
+
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
 .gradient-text {
@@ -9,6 +35,65 @@ body {
   background-clip: text;
   display: inline-block;
   position: relative;
+  padding-block: 0.05em 0.12em;
+}
+
+html[dir="rtl"] .gradient-text {
+  background-image: linear-gradient(to left, #10b981, #06b6d4, #3b82f6);
+}
+
+/* Phone numbers, e-mails and similar LTR values inside RTL text */
+.ltr-value {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+html[dir="rtl"] input[dir="ltr"],
+html[dir="rtl"] textarea[dir="ltr"] {
+  text-align: right;
+}
+
+/* Brand logo: the lockup is drawn for dark backgrounds, so it sits directly on the navbar/footer */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-logo:hover {
+  filter: drop-shadow(0 4px 14px rgba(16, 185, 129, 0.35));
+}
+
+.brand-logo:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 4px;
+}
+
+/* Sized by height; the wide lockup (about 5:1) scales its width from it */
+.brand-logo__img {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .brand-logo__img {
+    height: 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .brand-logo__img {
+    height: 3.1rem;
+  }
+}
+
+.brand-logo--footer .brand-logo__img {
+  height: 3.4rem;
 }
 
 .glow-emerald {
@@ -66,24 +151,39 @@ html[dir="ltr"] .service-card svg {
   transform: scaleX(1);
 }
 
-/* Slider Styles */
+/* ==========================================================================
+   Hero slider
+   Source order inside a slide: image wrapper, then content. On desktop the
+   grid places content first (inline-start) and the image second (inline-end),
+   so Arabic shows text on the right and English shows text on the left.
+   ========================================================================== */
 .hero-slider {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-slider__track {
+  position: relative;
 }
 
 .slide {
-  opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
+  inset: 0;
   width: 100%;
-  top: 0;
-  left: 0;
-  height: 100%;
-  min-height: 90vh;
+  min-height: clamp(520px, 78svh, 760px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.8s;
 }
 
-/* LTR (English) - slides come from right */
+/* LTR (English) - next slide enters from the right */
 html[dir="ltr"] .slide {
   transform: translateX(100%);
 }
@@ -92,7 +192,7 @@ html[dir="ltr"] .slide.prev {
   transform: translateX(-100%);
 }
 
-/* RTL (Arabic) - slides come from left */
+/* RTL (Arabic) - next slide enters from the left */
 html[dir="rtl"] .slide {
   transform: translateX(-100%);
 }
@@ -102,229 +202,66 @@ html[dir="rtl"] .slide.prev {
 }
 
 .slide.active {
-  opacity: 1;
-  transform: translateX(0) !important;
   position: relative;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) !important;
+  transition-delay: 0s;
 }
 
-/* Slide Image Wrapper */
 .slide-image-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   overflow: hidden;
   z-index: 0;
-}
-
-/* Desktop Layout: Two columns - Image and Text side by side */
-@media (min-width: 1024px) {
-  .hero-slider {
-    min-height: 90vh;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-
-  .slide {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    position: absolute;
-    width: 100%;
-    height: auto;
-    min-height: 80vh;
-    align-items: stretch;
-  }
-
-  html[dir="rtl"] .slide {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .slide-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 80vh;
-    order: 1;
-  }
-
-  html[dir="rtl"] .slide-image-wrapper {
-    order: 2;
-  }
-
-  .slide-image {
-    width: 100%;
-    height: 100%;
-    min-height: 80vh;
-    object-fit: cover;
-    transform: scale(1);
-    animation: none;
-  }
-
-  .slide.active .slide-image {
-    transform: scale(1);
-    animation: none;
-  }
-
-  .slide.prev .slide-image {
-    transform: scale(1);
-  }
-
-  /* Reduce overlay opacity on desktop since text is separate */
-  .slide-overlay {
-    opacity: 0.3;
-    background: linear-gradient(
-      135deg,
-      rgba(15, 23, 42, 0.4) 0%,
-      rgba(30, 41, 59, 0.3) 50%,
-      rgba(15, 23, 42, 0.4) 100%
-    );
-  }
-
-  .slide-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem 4rem;
-    background: linear-gradient(
-      to bottom,
-      rgba(15, 23, 42, 0.98) 0%,
-      rgba(30, 41, 59, 0.95) 100%
-    );
-    order: 2;
-    z-index: 2;
-  }
-
-  html[dir="rtl"] .slide-content {
-    order: 1;
-  }
-
-  /* Adjust text sizes for desktop */
-  .slide-content h1 {
-    font-size: 3.5rem;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-  }
-
-  .slide-content p {
-    font-size: 1.25rem;
-    max-width: 42rem;
-    margin-bottom: 2rem;
-  }
-
-  /* Adjust navigation buttons position for desktop */
-  .slider-nav-btn {
-    top: 50%;
-  }
-
-  .slider-nav-btn:not(:hover) {
-    transform: translateY(-50%);
-  }
-
-  .slider-nav-btn:hover {
-    transform: translateY(-50%) scale(1.15);
-  }
-
-  /* Adjust dots position */
-  .hero-slider .slider-dot {
-    bottom: 2rem;
-  }
+  background: #1e293b;
 }
 
 .slide-image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.1);
+  transform: scale(1.06);
   transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
 }
 
 .slide.active .slide-image {
   transform: scale(1);
-  animation: zoomIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.slide.prev .slide-image {
-  transform: scale(1.1);
+  animation: zoomIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes zoomIn {
   from {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
   to {
     transform: scale(1);
   }
 }
 
-/* Slide Overlay for text readability */
+/* Overlay keeps text readable without hiding the photo */
 .slide-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.85) 0%,
-    rgba(30, 41, 59, 0.75) 50%,
-    rgba(15, 23, 42, 0.85) 100%
-  );
+  inset: 0;
   z-index: 1;
-  transition: opacity 0.8s ease;
-}
-
-.slide.active .slide-overlay {
-  opacity: 1;
-}
-
-.slide.prev .slide-overlay {
-  opacity: 0.5;
-}
-
-/* Additional gradient overlays for each slide */
-.slide-bg-1 .slide-overlay {
+  pointer-events: none;
   background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.9) 0%,
-    rgba(16, 185, 129, 0.2) 30%,
-    rgba(6, 182, 212, 0.15) 70%,
-    rgba(15, 23, 42, 0.9) 100%
-  );
-}
-
-.slide-bg-2 .slide-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.9) 0%,
-    rgba(59, 130, 246, 0.2) 30%,
-    rgba(139, 92, 246, 0.15) 70%,
-    rgba(15, 23, 42, 0.9) 100%
-  );
-}
-
-.slide-bg-3 .slide-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.9) 0%,
-    rgba(236, 72, 153, 0.2) 30%,
-    rgba(251, 146, 60, 0.15) 70%,
-    rgba(15, 23, 42, 0.9) 100%
+    180deg,
+    rgba(15, 23, 42, 0.45) 0%,
+    rgba(15, 23, 42, 0.62) 55%,
+    rgba(15, 23, 42, 0.85) 100%
   );
 }
 
 .slide-content {
-  animation: slideInUp 0.8s ease-out 0.3s both;
   position: relative;
-  z-index: 10;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding: 4.5rem 5rem 5.5rem;
+  animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
 @keyframes slideInUp {
@@ -338,6 +275,118 @@ html[dir="rtl"] .slide.prev {
   }
 }
 
+.hero-title {
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.hero-text {
+  max-width: 42rem;
+  margin-inline: auto;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+/* Colour tints per slide (mobile / tablet, where text sits on the photo) */
+@media (max-width: 1023px) {
+  .slide-bg-1 .slide-overlay {
+    background:
+      radial-gradient(ellipse at 15% 15%, rgba(16, 185, 129, 0.22), transparent 60%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.62) 55%, rgba(15, 23, 42, 0.85) 100%);
+  }
+
+  .slide-bg-2 .slide-overlay {
+    background:
+      radial-gradient(ellipse at 85% 15%, rgba(59, 130, 246, 0.22), transparent 60%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.62) 55%, rgba(15, 23, 42, 0.85) 100%);
+  }
+
+  .slide-bg-3 .slide-overlay {
+    background:
+      radial-gradient(ellipse at 50% 10%, rgba(249, 115, 22, 0.2), transparent 60%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.62) 55%, rgba(15, 23, 42, 0.85) 100%);
+  }
+}
+
+/* Phones: arrows move to the bottom corners so they never cover the text */
+@media (max-width: 639px) {
+  .slide {
+    min-height: clamp(480px, 82svh, 680px);
+  }
+
+  .slide-content {
+    padding: 3.5rem 1.25rem 6rem;
+  }
+
+  .hero-slider .slider-nav-btn {
+    top: auto;
+    bottom: 1rem;
+    translate: none;
+  }
+}
+
+/* Desktop: two columns, text at inline-start and image at inline-end */
+@media (min-width: 1024px) {
+  .hero-slider {
+    padding-block: 2.5rem 3rem;
+  }
+
+  .hero-slider__track {
+    padding-inline: 1.5rem;
+  }
+
+  .slide {
+    inset-inline: 1.5rem;
+    width: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    min-height: clamp(520px, 72vh, 680px);
+    border-radius: 1.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(51, 65, 85, 0.6);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+  }
+
+  /* The active slide is in normal flow; offsets would shift it off-centre */
+  .slide.active {
+    inset: auto;
+  }
+
+  .slide-content {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: start;
+    padding-block: 3rem;
+    padding-inline: 5.5rem 3rem;
+    background: linear-gradient(160deg, rgba(15, 23, 42, 0.97) 0%, rgba(30, 41, 59, 0.94) 100%);
+  }
+
+  .slide-content .hero-text {
+    margin-inline: 0;
+  }
+
+  .slide-image-wrapper {
+    order: 2;
+    position: relative;
+    inset: auto;
+    min-height: 100%;
+  }
+
+  /* Soft blend from the text column into the photo */
+  .slide-overlay {
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.08) 40%, transparent 70%);
+  }
+
+  html[dir="rtl"] .slide-overlay {
+    background: linear-gradient(to left, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.08) 40%, transparent 70%);
+  }
+}
+
 .slider-nav-btn {
   transition: all 0.3s ease;
   z-index: 20;
@@ -345,31 +394,16 @@ html[dir="rtl"] .slide.prev {
 }
 
 .slider-nav-btn:hover {
+  scale: 1.1;
   box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
   background: rgba(16, 185, 129, 0.3) !important;
   border-color: rgba(16, 185, 129, 0.8) !important;
 }
 
-/* Mobile hover transform */
-@media (max-width: 1023px) {
-  .slider-nav-btn:hover {
-    transform: scale(1.15);
-  }
-}
-
-/* Reverse arrow directions in RTL mode */
+/* Arrow glyphs point outwards: mirror them in RTL */
 html[dir="rtl"] #prevBtn svg,
 html[dir="rtl"] #nextBtn svg {
   transform: scaleX(-1);
-  transition: transform 0.3s ease;
-}
-
-/* Desktop RTL arrow transform */
-@media (min-width: 1024px) {
-  html[dir="rtl"] #prevBtn svg,
-  html[dir="rtl"] #nextBtn svg {
-    transform: scaleX(-1);
-  }
 }
 
 .slider-dot {
@@ -388,35 +422,15 @@ html[dir="rtl"] #nextBtn svg {
   box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
 }
 
-/* Parallax effect on hover */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-slider:hover .slide.active .slide-image {
-    transition: transform 0.6s ease-out;
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .slide-image,
+  .slide-content {
+    transition: none;
+    animation: none;
   }
 }
 
-/* Image loading state */
-.slide-image {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-.slide-image.loaded {
-  opacity: 1;
-}
-
-.slide.active .slide-image {
-  opacity: 1;
-}
-
-/* RTL/LTR Transitions */
-html {
-  transition: direction 0.3s ease;
-}
-
-body {
-  transition: direction 0.3s ease;
-}
 
 /* Language Switcher */
 #langBtn, #langBtnMobile {
@@ -424,8 +438,10 @@ body {
 }
 
 /* Enhanced Navbar Styles */
+/* Sticky keeps the bar visible while still reserving its space (no content hidden underneath) */
 #navbar {
-  position: relative;
+  position: sticky;
+  top: 0;
   transition: all 0.3s ease;
   min-height: auto;
 }
@@ -480,19 +496,14 @@ body {
 .mobile-nav-link.active::before {
   content: '';
   position: absolute;
-  right: 0;
+  inset-inline-start: 0;
   top: 50%;
   transform: translateY(-50%);
   width: 3px;
   height: 60%;
   background: linear-gradient(to bottom, #10b981, #06b6d4);
-  border-radius: 0 4px 4px 0;
-}
-
-html[dir="ltr"] .mobile-nav-link.active::before {
-  right: auto;
-  left: 0;
-  border-radius: 4px 0 0 4px;
+  border-start-start-radius: 4px;
+  border-end-start-radius: 4px;
 }
 
 /* Mobile Menu Button Animation */
@@ -518,24 +529,18 @@ html[dir="ltr"] .mobile-nav-link.active::before {
 }
 
 /* Mobile Menu Styles */
+/* Drops down directly below the navbar bar */
 #mobileMenu {
-  max-height: auto;
-  height: auto;
-  overflow-y: visible;
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  max-height: calc(100svh - 4rem);
+  overflow-y: auto;
   will-change: transform, opacity;
-  position: fixed;
-  top: 0;
-  pointer-events: none;
 }
 
-#mobileMenu.translate-y-0 {
+#mobileMenu.is-open {
   pointer-events: auto;
-}
-
-/* RTL support for mobile menu */
-html[dir="rtl"] #mobileMenu {
-  left: 0;
-  right: 0;
 }
 
 /* Only show scrollbar if content overflows (shouldn't happen now) */
@@ -575,11 +580,6 @@ html[dir="rtl"] #mobileMenu {
   #mobileMenu .max-w-7xl {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-  }
-  
-  #logoLink span {
-    font-size: 1rem;
-    line-height: 1.2;
   }
 }
 
@@ -671,12 +671,13 @@ footer a {
   transition: all 0.3s ease;
 }
 
-footer a:hover {
-  transform: translateX(-3px);
+/* Nudge list links toward the reading direction (excludes the logo and icon buttons) */
+footer ul a:hover {
+  transform: translateX(3px);
 }
 
-html[dir="ltr"] footer a:hover {
-  transform: translateX(3px);
+html[dir="rtl"] footer ul a:hover {
+  transform: translateX(-3px);
 }
 
 footer ul li a {
@@ -820,3 +821,558 @@ footer .group:hover .w-1\.5 {
   box-shadow: 0 0 12px rgba(16, 185, 129, 0.45);
 }
 
+
+/* ==========================================================================
+   Services dropdown (desktop navbar)
+   The navbar links sit at the inline-end of the bar in both languages, so the
+   panel aligns to the link's inline-end edge and the children flyout opens
+   toward inline-start (left in English, right in Arabic) to stay on screen.
+   ========================================================================== */
+.nav-dropdown__panel,
+.nav-dropdown__flyout {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+  z-index: 60;
+}
+
+.nav-dropdown__panel {
+  top: 100%;
+  inset-inline-end: 0;
+  padding-top: 0.75rem;
+}
+
+.nav-dropdown__flyout {
+  top: -0.5rem;
+  inset-inline-end: 100%;
+  padding-inline-end: 0.5rem;
+}
+
+.nav-dropdown:hover > .nav-dropdown__panel,
+.nav-dropdown:focus-within > .nav-dropdown__panel,
+.nav-dropdown__item:hover > .nav-dropdown__flyout,
+.nav-dropdown__item:focus-within > .nav-dropdown__flyout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.nav-dropdown__menu {
+  width: 17rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(51, 65, 85, 0.7);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.65);
+}
+
+.nav-dropdown__item {
+  position: relative;
+}
+
+.nav-dropdown__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.65rem;
+  color: rgb(203, 213, 225);
+  font-weight: 500;
+  text-align: start;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-dropdown__link:hover,
+.nav-dropdown__item:hover > .nav-dropdown__link,
+.nav-dropdown__item:focus-within > .nav-dropdown__link {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+}
+
+.nav-dropdown__heading {
+  padding: 0.4rem 0.85rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #34d399;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  margin-bottom: 0.25rem;
+}
+
+.nav-dropdown__footer {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+.mobile-services > summary {
+  list-style: none;
+}
+
+.mobile-services summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-services summary {
+  list-style: none;
+}
+
+/* ==========================================================================
+   Parent service cards: sub-services revealed on hover (always visible on touch)
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  .service-children {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+  }
+
+  .group:hover .service-children,
+  .group:focus-within .service-children {
+    max-height: 20rem;
+    overflow-y: auto;
+    opacity: 1;
+    margin-top: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   WhatsApp floating button: visible on every page from first paint.
+   Sits at the inline-end corner; the label opens toward the page centre.
+   ========================================================================== */
+.whatsapp-float {
+  position: fixed;
+  z-index: 55;
+  inset-inline-end: 1.25rem;
+  bottom: max(1.25rem, calc(env(safe-area-inset-bottom) + 0.75rem));
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  animation: whatsappIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
+}
+
+.whatsapp-float__icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.55), 0 0 0 3px rgba(255, 255, 255, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.whatsapp-float:hover .whatsapp-float__icon,
+.whatsapp-float:focus-visible .whatsapp-float__icon {
+  transform: scale(1.08);
+  box-shadow: 0 14px 30px -6px rgba(37, 211, 102, 0.7), 0 0 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.whatsapp-float:focus-visible {
+  outline: none;
+}
+
+.whatsapp-float__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #25d366;
+  animation: whatsappPulse 2.4s ease-out infinite;
+}
+
+.whatsapp-float__label {
+  display: none;
+  padding: 0.6rem 1rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 10px 25px -8px rgba(2, 6, 23, 0.5);
+  transition: transform 0.25s ease;
+}
+
+.whatsapp-float:hover .whatsapp-float__label {
+  transform: translateX(-3px);
+}
+
+html[dir="rtl"] .whatsapp-float:hover .whatsapp-float__label {
+  transform: translateX(3px);
+}
+
+/* Label only where there is room; phones get the icon alone */
+@media (min-width: 768px) {
+  .whatsapp-float {
+    inset-inline-end: 1.75rem;
+    bottom: max(1.75rem, calc(env(safe-area-inset-bottom) + 1rem));
+  }
+
+  .whatsapp-float__label {
+    display: inline-block;
+  }
+}
+
+@keyframes whatsappIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes whatsappPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float,
+  .whatsapp-float__ring {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Projects portfolio
+   ========================================================================== */
+.projects-hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  pointer-events: none;
+}
+
+.project-filter {
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(71, 85, 105, 0.7);
+  background: rgba(30, 41, 59, 0.6);
+  color: rgb(203, 213, 225);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.project-filter:hover {
+  border-color: rgba(16, 185, 129, 0.6);
+  color: #34d399;
+}
+
+.project-filter.is-active {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: transparent;
+  color: #fff;
+}
+
+.project-card {
+  display: block;
+  border-radius: 1.25rem;
+  outline: none;
+}
+
+.project-card[hidden] {
+  display: none;
+}
+
+.project-card__media {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  /* Loading state: soft shimmer until the photo paints over it */
+  background: linear-gradient(110deg, #1e293b 30%, #273449 50%, #1e293b 70%);
+  background-size: 200% 100%;
+  animation: projectShimmer 1.6s linear infinite;
+  box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.project-card__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0) 35%, rgba(2, 6, 23, 0.55) 65%, rgba(2, 6, 23, 0.92) 100%);
+}
+
+.project-card__chip {
+  position: absolute;
+  top: 1rem;
+  inset-inline-start: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+.project-card__body {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 1.25rem 1.35rem 1.35rem;
+  text-align: start;
+}
+
+.project-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.project-card__meta {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgb(203, 213, 225);
+  font-size: 0.9rem;
+}
+
+.project-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  color: #34d399;
+  font-size: 0.875rem;
+  font-weight: 700;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, gap 0.3s ease;
+}
+
+.project-card:hover .project-card__img,
+.project-card:focus-visible .project-card__img {
+  transform: scale(1.06);
+}
+
+.project-card:hover .project-card__media,
+.project-card:focus-visible .project-card__media {
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 24px 48px -20px rgba(16, 185, 129, 0.35);
+}
+
+.project-card:hover .project-card__cta,
+.project-card:focus-visible .project-card__cta {
+  opacity: 1;
+  gap: 0.65rem;
+}
+
+@keyframes projectShimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Project page hero */
+.project-hero {
+  min-height: clamp(420px, 62vh, 640px);
+}
+
+.project-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-hero__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.35) 0%, rgba(2, 6, 23, 0.55) 45%, rgba(15, 23, 42, 0.97) 100%);
+}
+
+.project-content p {
+  margin-bottom: 1rem;
+}
+
+.project-content ul {
+  list-style: disc;
+  padding-inline-start: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Gallery: lead image spans two rows on wide screens */
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .project-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 13rem;
+    grid-auto-flow: dense;
+    gap: 1rem;
+  }
+
+  .project-gallery__item--lead {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+.project-gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  aspect-ratio: 4 / 3;
+  background: #1e293b;
+  cursor: zoom-in;
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+@media (min-width: 768px) {
+  .project-gallery__item {
+    aspect-ratio: auto;
+  }
+}
+
+.project-gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.project-gallery__item:hover .project-gallery__img,
+.project-gallery__item:focus-visible .project-gallery__img {
+  transform: scale(1.05);
+}
+
+.project-gallery__item:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 2px;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  background: rgba(2, 6, 23, 0.94);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+}
+
+.lightbox__figure {
+  margin: 0;
+  width: min(1200px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Fixed viewing box: photos and size-less SVG fallbacks both fill it without distortion */
+.lightbox__img {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 9rem);
+  height: calc(100dvh - 9rem);
+  object-fit: contain;
+}
+
+.lightbox__caption {
+  color: rgb(148, 163, 184);
+  font-size: 0.875rem;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(71, 85, 105, 0.8);
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  background: rgba(16, 185, 129, 0.35);
+}
+
+.lightbox__close {
+  top: 1rem;
+  inset-inline-end: 1rem;
+}
+
+.lightbox__nav {
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.lightbox__nav--prev {
+  inset-inline-start: 1rem;
+}
+
+.lightbox__nav--next {
+  inset-inline-end: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__media {
+    animation: none;
+  }
+
+  .project-card__img,
+  .project-gallery__img {
+    transition: none;
+  }
+}

@@ -6,14 +6,14 @@
     @php
       $currentLocale = \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getCurrentLocale() ?? app()->getLocale() ?? 'ar';
       app()->setLocale($currentLocale);
-      $serviceData = $serviceContent[$currentLocale] ?? ($serviceContent['ar'] ?? []);
+      $serviceData = \App\Support\StructureContent::forLocale($serviceContent ?? null, $currentLocale);
       $serviceBadge = $serviceData['badge'] ?? trans('website.servicesBadge', [], $currentLocale);
       $serviceTitle = $serviceData['title'] ?? trans('website.servicesTitle', [], $currentLocale);
-      $serviceDesc = $serviceData['content'] ?? trans('website.servicesSubtitle', [], $currentLocale);
+      $serviceDesc = $serviceData['content'] ?? e(trans('website.servicesSubtitle', [], $currentLocale));
     @endphp
 
     <!-- Page Header -->
-    <section class="pt-24 pb-8 px-6 relative overflow-hidden">
+    <section class="pt-12 pb-8 px-6 relative overflow-hidden">
       <!-- Background Effects -->
       <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"></div>
       <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
@@ -24,7 +24,7 @@
           <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm inline-block mb-4">
             {{ $serviceBadge }}
           </span>
-          <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+          <h1 class="section-title font-bold mb-4">
             <span class="block">{{ $serviceTitle }}</span>
           </h1>
           <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
@@ -54,23 +54,21 @@
               $colorClass = $colorClasses[$index % count($colorClasses)];
               $icon = $icons[$index % count($icons)];
             @endphp
-            <div class="group relative bg-slate-800/40 backdrop-blur-md border border-slate-700/50 rounded-2xl p-8 {{ $colorClass['border'] }} transition-all duration-300 hover:shadow-xl {{ $colorClass['shadow'] }} overflow-hidden">
+            <div data-service-card class="group relative bg-slate-800/40 backdrop-blur-md border border-slate-700/50 rounded-2xl p-8 {{ $colorClass['border'] }} transition-all duration-300 hover:shadow-xl {{ $colorClass['shadow'] }} overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-br {{ $colorClass['bg'] }} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="relative z-10">
                 <div class="w-16 h-16 bg-gradient-to-br {{ $colorClass['gradient'] }} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  @if($service->image)
-                    <img src="@image($service->image)" alt="{{ $service->t('title') }}" class="w-12 h-12 object-cover rounded-lg" loading="lazy" decoding="async" />
-                  @else
-                    <img src="/assets/images/icons/{{ $icon }}.svg" alt="{{ $service->t('title') }}" class="w-10 h-10 object-contain" loading="lazy" decoding="async" />
-                  @endif
+                  <x-website.image :src="$service->image" type="service" :seed="$service->title_en ?: $service->title_ar" :alt="$service->t('title')" class="w-12 h-12 object-cover rounded-lg" loading="lazy" decoding="async" />
                 </div>
                 <h3 class="text-2xl font-bold mb-4 text-white">{{ $service->t('title') }}</h3>
                 @if($service->t('content'))
                   <p class="text-slate-300 mb-6 leading-relaxed">
-                    {{ Str::limit($service->t('content'), 120) }}
+                    {{ Str::limit(strip_tags($service->t('content')), 120) }}
                   </p>
                 @endif
-                <a href="{{ route('website.service.show', $service->id) }}" class="block w-full px-6 py-3 {{ $colorClass['button'] }} border border-slate-700/50 rounded-lg hover:border-{{ explode('-', $colorClass['gradient'])[0] }}-500/50 transition-all font-semibold text-center {{ $colorClass['text'] }}">
+
+                <x-website.service-children :service="$service" class="mb-6" />
+                <a href="{{ route('website.service.show', $service->id) }}" class="block w-full px-6 py-3 {{ $colorClass['button'] }} border border-slate-700/50 rounded-lg {{ $colorClass['border'] }} transition-all font-semibold text-center {{ $colorClass['text'] }}">
                   {{ trans('website.viewDetails', [], $currentLocale) }}
                 </a>
               </div>

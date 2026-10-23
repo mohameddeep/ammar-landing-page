@@ -23,7 +23,7 @@
           <div class="inline-block mb-4">
             <span class="px-6 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold backdrop-blur-sm">🔒 {{ trans('website.footerPrivacy', [], $currentLocale) }}</span>
           </div>
-          <h2 class="text-5xl md:text-6xl font-bold mb-6">{{ trans('website.footerPrivacy', [], $currentLocale) }}</h2>
+          <h1 class="section-title font-bold mb-6">{{ trans('website.footerPrivacy', [], $currentLocale) }}</h1>
           <p class="text-xl text-slate-400">{{ trans('website.privacyDescription', [], $currentLocale) }}</p>
         </div>
 

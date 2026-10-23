@@ -62,6 +62,10 @@
     <meta name="twitter:site" content="{{ config('seo.twitter_site') }}" />
     @endif
     <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any" />
+    <link rel="icon" href="{{ asset(\App\Support\WebsiteImage::MARK) }}" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="{{ asset('images/branding/apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
     @stack('seo-extra')
     @if(config('seo.json_ld_enabled', true))
     @php
@@ -71,9 +75,7 @@
         'name' => $siteTitle,
         'url' => rtrim(config('app.url'), '/'),
       ];
-      if ($ogImage) {
-        $orgLd['logo'] = $ogImage;
-      }
+      $orgLd['logo'] = asset('images/branding/icon-512.png');
       $webLd = [
         '@context' => 'https://schema.org',
         '@type' => 'WebSite',
@@ -166,66 +168,166 @@
         }
         document.addEventListener('turbo:load', boot);
         document.addEventListener('DOMContentLoaded', boot);
+
+        /** Turbo copies <html lang> on render but not dir; keep both in sync with the new page. */
+        document.addEventListener('turbo:before-render', function (e) {
+          var newDoc = e.detail && e.detail.newBody && e.detail.newBody.ownerDocument;
+          var newDir = newDoc && newDoc.documentElement && newDoc.documentElement.getAttribute('dir');
+          if (newDir) document.documentElement.setAttribute('dir', newDir);
+        });
       })();
     </script>
   </head>
   <body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    @php
+      $otherLocale = $currentLocale === 'ar' ? 'en' : 'ar';
+      // Same page in the other language; keeps path segments (e.g. service id) and the query string.
+      $switchUrl = LaravelLocalization::getLocalizedURL($otherLocale, request()->fullUrl(), [], true);
+      $navItems = [
+        ['url' => route('website.landing-page'), 'label' => trans('website.navHome', [], $currentLocale), 'active' => request()->routeIs('website.landing-page')],
+        ['url' => route('website.services.index'), 'label' => trans('website.navServices', [], $currentLocale), 'active' => request()->routeIs('website.services.index', 'website.service.show'), 'services' => true],
+        ['url' => route('website.projects.index'), 'label' => trans('website.navProjects', [], $currentLocale), 'active' => request()->routeIs('website.projects.*')],
+        ['url' => route('website.about.index'), 'label' => trans('website.navAbout', [], $currentLocale), 'active' => request()->routeIs('website.about.index')],
+        ['url' => route('website.contact.index'), 'label' => trans('website.navContact', [], $currentLocale), 'active' => request()->routeIs('website.contact.index')],
+      ];
+      $navServices = $navServices ?? collect();
+      $chevron = '<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+      // Points toward the inline-start side, where the children flyout opens.
+      $chevronStart = '<svg class="w-4 h-4 shrink-0 rtl:-scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>';
+    @endphp
     <!-- Navigation -->
-    <nav class="fixed w-full bg-slate-900/95 backdrop-blur-xl z-50 border-b border-slate-700/50 shadow-lg shadow-slate-900/50 transition-all duration-300" id="navbar">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4">
-        <div class="flex items-center justify-between">
-          <!-- Logo -->
-          <a href="{{ LaravelLocalization::localizeUrl('/') }}" class="flex items-center gap-2 group" id="logoLink">
-            @if(isset($headerLogo) && $headerLogo)
-              <img src="{{ asset($headerLogo) }}" alt="{{ $headerWebsiteName ?? 'البناء المتقدم' }}" class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain rounded-xl flex-shrink-0 group-hover:scale-110 transition-transform" />
-            @else
-              <div class="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:shadow-emerald-500/50 transition-all group-hover:scale-110 flex-shrink-0">
-                <span class="text-white font-bold text-base sm:text-lg lg:text-xl">🏗</span>
-              </div>
-            @endif
-            <span class="text-lg sm:text-xl lg:text-2xl font-bold leading-tight gradient-text logo-text relative inline-block px-4 py-2 rounded-lg transition-all duration-300" data-i18n="companyName">{{ $headerWebsiteName ?? 'البناء المتقدم' }}</span>
+    <nav class="w-full bg-slate-900/95 backdrop-blur-xl z-50 border-b border-slate-700/50 shadow-lg shadow-slate-900/50 transition-all duration-300" id="navbar">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+        <div class="flex items-center justify-between gap-3">
+          <!-- Logo (first in source order: right in RTL, left in LTR) -->
+          <a href="{{ route('website.landing-page') }}" class="brand-logo group shrink-0" id="logoLink">
+            <img src="{{ $headerLogo }}" alt="{{ trans('website.logoAlt', [], $currentLocale) }}" width="1269" height="243" class="brand-logo__img" data-fallback-src="{{ asset(\App\Support\WebsiteImage::LOGO) }}" onerror="this.onerror=null;if(this.src!==this.dataset.fallbackSrc){this.src=this.dataset.fallbackSrc;}" />
+            <span class="sr-only">{{ $headerWebsiteName }}</span>
           </a>
 
           <!-- Desktop Navigation -->
           <div class="hidden lg:flex gap-2 items-center">
-            <a href="{{ LaravelLocalization::localizeUrl('/') }}" class="nav-link px-4 py-2 rounded-lg font-medium transition-all hover:bg-emerald-500/10 hover:text-emerald-400">{{ trans('website.navHome', [], $currentLocale) }}</a>
-            <a href="{{ LaravelLocalization::localizeUrl('/services') }}" class="nav-link px-4 py-2 rounded-lg font-medium transition-all hover:bg-emerald-500/10 hover:text-emerald-400">{{ trans('website.navServices', [], $currentLocale) }}</a>
-            <a href="{{ LaravelLocalization::localizeUrl('/about-us') }}" class="nav-link px-4 py-2 rounded-lg font-medium transition-all hover:bg-emerald-500/10 hover:text-emerald-400">{{ trans('website.navAbout', [], $currentLocale) }}</a>
-            <a href="{{ route('website.contact.index') }}" class="nav-link px-4 py-2 rounded-lg font-medium transition-all hover:bg-emerald-500/10 hover:text-emerald-400">{{ trans('website.navContact', [], $currentLocale) }}</a>
-            @php
-              $otherLocale = $currentLocale === 'ar' ? 'en' : 'ar';
-              $switchUrl = LaravelLocalization::getLocalizedURL($otherLocale, null, [], true);
-            @endphp
-            <a href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL(app()->getLocale() == 'ar' ? 'en' : 'ar') }}" class="ml-2 px-4 py-2 bg-slate-800/80 hover:bg-emerald-500/20 hover:border-emerald-500/50 rounded-lg border border-slate-700 transition-all hover:scale-105 font-semibold text-sm">
-              {{ strtoupper($otherLocale) }}
+            @foreach($navItems as $item)
+              @if(($item['services'] ?? false) && $navServices->isNotEmpty())
+                {{-- Services dropdown: parents listed; hovering a parent opens its children (toward inline-start). --}}
+                <div class="nav-dropdown relative">
+                  <a href="{{ $item['url'] }}" class="nav-link inline-flex items-center gap-1 px-4 py-2 rounded-lg font-medium transition-all hover:bg-emerald-500/10 hover:text-emerald-400 {{ $item['active'] ? 'active' : '' }}" aria-haspopup="true" @if($item['active']) aria-current="page" @endif>
+                    {{ $item['label'] }} {!! $chevron !!}
+                  </a>
+                  <div class="nav-dropdown__panel">
+                    <ul class="nav-dropdown__menu">
+                      @foreach($navServices as $navParent)
+                        <li class="nav-dropdown__item">
+                          <a href="{{ route('website.service.show', $navParent->id) }}" class="nav-dropdown__link">
+                            <span>{{ $navParent->t('title') }}</span>
+                            @if($navParent->activeChildren->isNotEmpty())
+                              {!! $chevronStart !!}
+                            @endif
+                          </a>
+                          @if($navParent->activeChildren->isNotEmpty())
+                            <div class="nav-dropdown__flyout">
+                              <ul class="nav-dropdown__menu">
+                                <li class="nav-dropdown__heading">{{ $navParent->t('title') }}</li>
+                                @foreach($navParent->activeChildren as $navChild)
+                                  <li><a href="{{ route('website.service.show', $navChild->id) }}" class="nav-dropdown__link">{{ $navChild->t('title') }}</a></li>
+                                @endforeach
+                              </ul>
+                            </div>
+                          @endif
+                        </li>
+                      @endforeach
+                      <li class="nav-dropdown__footer">
+                        <a href="{{ $item['url'] }}" class="nav-dropdown__link text-emerald-400">{{ trans('website.navServicesAll', [], $currentLocale) }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              @else
+                <a href="{{ $item['url'] }}" class="nav-link px-4 py-2 rounded-lg font-medium transition-all hover:bg-emerald-500/10 hover:text-emerald-400 {{ $item['active'] ? 'active' : '' }}" @if($item['active']) aria-current="page" @endif>{{ $item['label'] }}</a>
+              @endif
+            @endforeach
+            <a href="{{ $switchUrl }}" hreflang="{{ $otherLocale }}" lang="{{ $otherLocale }}" data-turbo="false" class="ms-2 px-4 py-2 bg-slate-800/80 hover:bg-emerald-500/20 hover:border-emerald-500/50 rounded-lg border border-slate-700 transition-all hover:scale-105 font-semibold text-sm" aria-label="{{ trans('website.switchLanguage', [], $currentLocale) }}">
+              {{ $otherLocale === 'ar' ? 'العربية' : 'English' }}
             </a>
           </div>
 
           <!-- Mobile Menu Button -->
           <div class="flex lg:hidden items-center gap-3 relative z-50">
-            @php
-              $otherLocale = $currentLocale === 'ar' ? 'en' : 'ar';
-              $switchUrl = LaravelLocalization::getLocalizedURL($otherLocale, null, [], true);
-            @endphp
-            <a href="{{ $switchUrl }}" class="relative z-50 px-3 py-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-lg border border-slate-700 transition-all font-semibold text-sm">
-              {{ strtoupper($otherLocale) }}
+            <a href="{{ $switchUrl }}" hreflang="{{ $otherLocale }}" lang="{{ $otherLocale }}" data-turbo="false" class="relative z-50 px-3 py-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-lg border border-slate-700 transition-all font-semibold text-sm" aria-label="{{ trans('website.switchLanguage', [], $currentLocale) }}">
+              {{ $otherLocale === 'ar' ? 'ع' : 'EN' }}
             </a>
-            <button id="mobileMenuBtn" class="relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg hover:bg-slate-800/80 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/50" aria-label="Toggle menu">
+            <button type="button" id="mobileMenuBtn" class="relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5 p-2 rounded-lg hover:bg-slate-800/80 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/50" aria-label="{{ trans('website.toggleMenu', [], $currentLocale) }}" aria-controls="mobileMenu" aria-expanded="false">
               <span class="mobile-menu-line w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
               <span class="mobile-menu-line w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
               <span class="mobile-menu-line w-6 h-0.5 bg-white transition-all duration-300 origin-center"></span>
             </button>
           </div>
         </div>
+      </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="lg:hidden fixed left-0 right-0 bg-slate-900 backdrop-blur-2xl border-b border-slate-700/50 shadow-2xl transform -translate-y-full opacity-0 transition-all duration-300 ease-in-out z-40 mobile-menu-backdrop pointer-events-none">
-          <div class="max-w-7xl mx-auto px-4 py-4 space-y-2">
-            <a href="{{ LaravelLocalization::localizeUrl('/') }}" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-medium text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all border border-transparent hover:border-emerald-500/30">{{ trans('website.navHome', [], $currentLocale) }}</a>
-            <a href="{{ LaravelLocalization::localizeUrl('/services') }}" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-medium text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all border border-transparent hover:border-emerald-500/30">{{ trans('website.navServices', [], $currentLocale) }}</a>
-            <a href="{{ LaravelLocalization::localizeUrl('/about-us') }}" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-medium text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all border border-transparent hover:border-emerald-500/30">{{ trans('website.navAbout', [], $currentLocale) }}</a>
-            <a href="{{ route('website.contact.index') }}" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-medium text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all border border-transparent hover:border-emerald-500/30">{{ trans('website.navContact', [], $currentLocale) }}</a>
-          </div>
+      <!-- Mobile Menu (drops down below the bar) -->
+      <div id="mobileMenu" class="lg:hidden bg-slate-900 border-b border-slate-700/50 shadow-2xl -translate-y-2 opacity-0 invisible transition-all duration-300 ease-in-out z-40 mobile-menu-backdrop pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 py-4 space-y-2">
+          @foreach($navItems as $item)
+            @if(($item['services'] ?? false) && $navServices->isNotEmpty())
+              {{-- Services accordion: each parent expands to show its children. --}}
+              <details class="mobile-services group/services" @if($item['active']) open @endif>
+                <summary class="mobile-nav-link flex items-center justify-between px-4 py-2.5 rounded-xl font-medium text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all border border-transparent hover:border-emerald-500/30 cursor-pointer {{ $item['active'] ? 'active' : '' }}">
+                  <span>{{ $item['label'] }}</span>
+                  <span class="transition-transform group-open/services:rotate-180">{!! $chevron !!}</span>
+                </summary>
+                <div class="mt-1 ms-4 ps-3 border-s border-slate-700/60 space-y-1">
+                  @foreach($navServices as $navParent)
+                    @if($navParent->activeChildren->isNotEmpty())
+                      <details class="group/parent">
+                        <summary class="flex items-center justify-between px-3 py-2 rounded-lg text-slate-300 hover:text-emerald-400 cursor-pointer">
+                          <span>{{ $navParent->t('title') }}</span>
+                          <span class="transition-transform group-open/parent:rotate-180">{!! $chevron !!}</span>
+                        </summary>
+                        <div class="ms-3 ps-3 border-s border-slate-700/60 space-y-1 pb-1">
+                          <a href="{{ route('website.service.show', $navParent->id) }}" class="block px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 hover:bg-emerald-500/10">{{ trans('website.viewDetails', [], $currentLocale) }}</a>
+                          @foreach($navParent->activeChildren as $navChild)
+                            <a href="{{ route('website.service.show', $navChild->id) }}" class="block px-3 py-1.5 rounded-lg text-sm text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10">{{ $navChild->t('title') }}</a>
+                          @endforeach
+                        </div>
+                      </details>
+                    @else
+                      <a href="{{ route('website.service.show', $navParent->id) }}" class="block px-3 py-2 rounded-lg text-slate-300 hover:text-emerald-400">{{ $navParent->t('title') }}</a>
+                    @endif
+                  @endforeach
+                  <a href="{{ $item['url'] }}" class="block px-3 py-2 rounded-lg text-sm font-semibold text-emerald-400 hover:bg-emerald-500/10">{{ trans('website.navServicesAll', [], $currentLocale) }}</a>
+                </div>
+              </details>
+            @else
+              <a href="{{ $item['url'] }}" class="mobile-nav-link block px-4 py-2.5 rounded-xl font-medium text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all border border-transparent hover:border-emerald-500/30 {{ $item['active'] ? 'active' : '' }}" @if($item['active']) aria-current="page" @endif>{{ $item['label'] }}</a>
+            @endif
+          @endforeach
         </div>
       </div>
     </nav>
+    <script>
+      (function () {
+        var btn = document.getElementById('mobileMenuBtn');
+        var menu = document.getElementById('mobileMenu');
+        if (!btn || !menu) return;
+        function setOpen(open) {
+          btn.classList.toggle('active', open);
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          menu.classList.toggle('is-open', open);
+          ['-translate-y-2', 'opacity-0', 'invisible', 'pointer-events-none'].forEach(function (c) { menu.classList.toggle(c, !open); });
+        }
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setOpen(!menu.classList.contains('is-open'));
+        });
+        menu.addEventListener('click', function (e) {
+          if (e.target.closest('a')) setOpen(false);
+        });
+        document.addEventListener('click', function (e) {
+          if (menu.classList.contains('is-open') && !menu.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && menu.classList.contains('is-open')) { setOpen(false); btn.focus(); }
+        });
+      })();
+    </script>
