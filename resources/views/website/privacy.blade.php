@@ -30,7 +30,7 @@
         <div class="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 space-y-8">
           @if(!empty($privacyContentText))
             <div class="text-slate-300 leading-relaxed prose prose-invert max-w-none">
-              {!! $privacyContentText !!}
+              {!! \App\Support\RichText::html($privacyContentText) !!}
             </div>
           @else
             <!-- Default content if no data -->

@@ -28,7 +28,7 @@
             <span class="block">{{ $serviceTitle }}</span>
           </h1>
           <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            {!! $serviceDesc !!}
+            {!! \App\Support\RichText::html($serviceDesc) !!}
           </p>
         </div>
       </div>
@@ -63,7 +63,7 @@
                 <h3 class="text-2xl font-bold mb-4 text-white">{{ $service->t('title') }}</h3>
                 @if($service->t('content'))
                   <p class="text-slate-300 mb-6 leading-relaxed">
-                    {{ Str::limit(strip_tags($service->t('content')), 120) }}
+                    {{ \App\Support\RichText::text($service->t('content'), 120) }}
                   </p>
                 @endif
 

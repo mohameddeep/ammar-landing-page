@@ -77,7 +77,7 @@
             <p class="mb-6 text-lg leading-relaxed text-slate-200">{{ $project->t('summary') }}</p>
           @endif
           @if($project->t('content'))
-            <div class="project-content text-slate-300 leading-loose">{!! $project->t('content') !!}</div>
+            <div class="project-content text-slate-300 leading-loose">{!! \App\Support\RichText::html($project->t('content')) !!}</div>
           @endif
         </div>
 

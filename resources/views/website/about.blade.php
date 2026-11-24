@@ -30,9 +30,9 @@
           <h1 class="section-title font-bold mb-6">
             <span>{{ $aboutTitle }}</span>
           </h1>
-          <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            {!! $aboutDesc !!}
-          </p>
+          <div class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            {!! \App\Support\RichText::html($aboutDesc) !!}
+          </div>
         </div>
 
         <!-- Tab System -->
@@ -98,9 +98,9 @@
                       <div>
                         <h3 class="text-3xl font-bold mb-6 text-white">{{ $child->t('title') }}</h3>
                         @if($child->t('content'))
-                          <p class="text-slate-400 text-lg leading-relaxed mb-6">
-                            {!! nl2br(e($child->t('content'))) !!}
-                          </p>
+                          <div class="text-slate-400 text-lg leading-relaxed mb-6">
+                            {!! \App\Support\RichText::html($child->t('content')) !!}
+                          </div>
                         @endif
                       </div>
                     </div>
@@ -118,16 +118,16 @@
                               <x-website.image :src="$child->image ?: 'assets/images/icons/four.svg'" type="icon" :alt="$child->t('title')" class="w-12 h-12 object-contain" loading="lazy" decoding="async" />
                             </div>
                             @php
-                              $contentValue = $child->t('content');
+                              $contentValue = \App\Support\RichText::text($child->t('content'));
                               $isNumeric = is_numeric(str_replace(['+', '%'], '', $contentValue));
                             @endphp
                             @if($isNumeric)
-                              <h3 class="text-5xl font-bold mb-3 bg-gradient-to-r {{ $color['gradient'] }} bg-clip-text text-transparent">{{ $contentValue }}</h3>
+                              <h3 class="text-5xl font-bold mb-3 bg-gradient-to-r {{ $color['gradient'] }} bg-clip-text text-transparent">{{ \App\Support\RichText::text($contentValue) }}</h3>
                               <p class="text-slate-400 text-lg font-medium">{{ $child->t('title') }}</p>
                             @else
                               <h3 class="text-2xl font-bold mb-4 text-white">{{ $child->t('title') }}</h3>
                               @if($contentValue)
-                                <p class="text-slate-400 leading-relaxed">{{ $contentValue }}</p>
+                                <p class="text-slate-400 leading-relaxed">{{ \App\Support\RichText::text($contentValue) }}</p>
                               @endif
                             @endif
                           </div>
@@ -147,7 +147,7 @@
                           </div>
                           <h4 class="text-xl font-bold mb-2 text-white">{{ $child->t('title') }}</h4>
                           @if($child->t('content'))
-                            <p class="text-slate-400 text-sm">{{ $child->t('content') }}</p>
+                            <p class="text-slate-400 text-sm">{{ \App\Support\RichText::text($child->t('content')) }}</p>
                           @endif
                         </div>
                       @endforeach

@@ -58,7 +58,7 @@
               <span class="sr-only">{{ $websiteName }}</span>
             </a>
             <p class="text-slate-400 mb-6 leading-relaxed">
-              {!! $footerDescription !!}
+              {!! \App\Support\RichText::html($footerDescription) !!}
             </p>
             <!-- Social Media Links -->
             <div class="flex gap-3">
@@ -189,7 +189,7 @@
         <!-- Bottom Bar -->
         <div class="pt-8 border-t border-slate-800/50">
           <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-slate-500 text-sm">{!! $footerCopyright !!}</p>
+            <p class="text-slate-500 text-sm">{!! \App\Support\RichText::html($footerCopyright) !!}</p>
             <div class="flex items-center gap-2 text-slate-500 text-sm">
               <span>{{ trans('website.footerMadeWith', [], $currentLocale) }}</span>
               <span class="text-red-400 animate-pulse">❤️</span>

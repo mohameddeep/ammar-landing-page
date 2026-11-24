@@ -69,9 +69,9 @@
               {{ $service->t('title') }}
             </h1>
             @if($service->t('content'))
-              <p class="text-xl text-slate-300 leading-relaxed mb-8">
-                {!! nl2br(e($service->t('content'))) !!}
-              </p>
+              <div class="text-xl text-slate-300 leading-relaxed mb-8">
+                {!! \App\Support\RichText::html($service->t('content')) !!}
+              </div>
             @endif
             
             <div class="flex gap-4 flex-wrap">
@@ -108,7 +108,7 @@
               <x-website.image :src="$child->image" type="service" :seed="$child->title_en ?: $child->title_ar" :alt="$child->t('title')" class="w-full h-48 object-cover rounded-xl mb-5" loading="lazy" decoding="async" />
               <h3 class="text-xl font-bold mb-3 text-white group-hover:text-emerald-400 transition-colors">{{ $child->t('title') }}</h3>
               @if($child->t('content'))
-                <p class="text-slate-400 mb-5 text-sm leading-relaxed">{{ Str::limit(strip_tags($child->t('content')), 120) }}</p>
+                <p class="text-slate-400 mb-5 text-sm leading-relaxed">{{ \App\Support\RichText::text($child->t('content'), 120) }}</p>
               @endif
               <span class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">
                 {{ trans('website.viewDetails', [], $currentLocale) }}
@@ -141,7 +141,7 @@
                 <h3 class="text-xl font-bold mb-3 text-white">{{ $otherService->t('title') }}</h3>
                 @if($otherService->t('content'))
                   <p class="text-slate-400 mb-4 text-sm leading-relaxed">
-                    {{ Str::limit($otherService->t('content'), 100) }}
+                    {{ \App\Support\RichText::text($otherService->t('content'), 100) }}
                   </p>
                 @endif
                 <a href="{{ route('website.service.show', $otherService->id) }}" class="inline-block px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded-lg hover:bg-emerald-500/30 transition-all font-semibold text-emerald-400 text-sm">
