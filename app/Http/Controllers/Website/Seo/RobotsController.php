@@ -10,7 +10,7 @@ class RobotsController extends Controller
 {
     public function __invoke(): Response
     {
-        $base = rtrim(config('app.url'), '/');
+        $base = \App\Support\WebsiteMeta::baseUrl();
         $sitemap = $base.'/sitemap.xml';
 
         $lines = ['User-agent: *'];

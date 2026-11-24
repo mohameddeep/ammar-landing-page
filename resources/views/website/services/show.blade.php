@@ -1,8 +1,25 @@
 @extends('website.layouts.app')
 @section('title', $service->t('title'))
-@section('meta_description', \Illuminate\Support\Str::limit(strip_tags((string) ($service->t('content') ?: $service->t('title'))), 160))
+@section('meta_description', (string) ($service->t('content') ?: $service->t('title')))
 @section('og_type', 'article')
 @section('og_image', \App\Support\WebsiteImage::url($service->image, 'service', $service->title_en ?: $service->title_ar))
+@push('schema')
+  {!! \App\Support\WebsiteMeta::jsonLd(\App\Support\WebsiteMeta::breadcrumbs([
+    ['name' => __('website.navHome'), 'url' => \App\Support\WebsiteMeta::url(app()->getLocale())],
+    ['name' => __('website.navServices'), 'url' => \App\Support\WebsiteMeta::url(app()->getLocale().'/services')],
+    ['name' => $service->t('title')],
+  ])) !!}
+  {!! \App\Support\WebsiteMeta::jsonLd([
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    'name' => \App\Support\RichText::text($service->t('title')),
+    'description' => \App\Support\WebsiteMeta::metaDescription((string) $service->t('content'), 300),
+    'url' => \App\Support\WebsiteMeta::canonicalUrl(),
+    'image' => \App\Support\WebsiteMeta::absoluteOgImage(\App\Support\WebsiteImage::url($service->image, 'service', $service->title_en ?: $service->title_ar)),
+    'inLanguage' => app()->getLocale(),
+    'provider' => ['@type' => 'Organization', 'name' => config('app.name'), 'url' => \App\Support\WebsiteMeta::baseUrl()],
+  ]) !!}
+@endpush
 @section('content')
 
     @php

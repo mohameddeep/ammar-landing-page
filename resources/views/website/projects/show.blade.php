@@ -1,8 +1,26 @@
 @extends('website.layouts.app')
 @section('title', $project->t('title'))
-@section('meta_description', \Illuminate\Support\Str::limit(strip_tags((string) ($project->t('summary') ?: $project->t('content') ?: $project->t('title'))), 160))
+@section('meta_description', (string) ($project->t('summary') ?: $project->t('content') ?: $project->t('title')))
 @section('og_type', 'article')
 @section('og_image', \App\Support\WebsiteImage::url($project->image, 'project', $project->id))
+@push('schema')
+  {!! \App\Support\WebsiteMeta::jsonLd(\App\Support\WebsiteMeta::breadcrumbs([
+    ['name' => __('website.navHome'), 'url' => \App\Support\WebsiteMeta::url(app()->getLocale())],
+    ['name' => __('website.navProjects'), 'url' => \App\Support\WebsiteMeta::url(app()->getLocale().'/projects')],
+    ['name' => $project->t('title')],
+  ])) !!}
+  {!! \App\Support\WebsiteMeta::jsonLd(array_filter([
+    '@context' => 'https://schema.org',
+    '@type' => 'CreativeWork',
+    'name' => \App\Support\RichText::text($project->t('title')),
+    'description' => \App\Support\WebsiteMeta::metaDescription((string) ($project->t('summary') ?: $project->t('content')), 300),
+    'url' => \App\Support\WebsiteMeta::canonicalUrl(),
+    'image' => \App\Support\WebsiteMeta::absoluteOgImage(\App\Support\WebsiteImage::url($project->image, 'project', $project->id)),
+    'inLanguage' => app()->getLocale(),
+    'dateModified' => $project->updated_at?->toAtomString(),
+    'publisher' => ['@type' => 'Organization', 'name' => config('app.name'), 'url' => \App\Support\WebsiteMeta::baseUrl()],
+  ])) !!}
+@endpush
 @section('content')
 
     @php

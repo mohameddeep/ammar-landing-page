@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Website\Seo;
 use App\Http\Controllers\Controller;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\ServiceRepositoryInterface;
-use Carbon\Carbon;
+use App\Support\WebsiteMeta;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Cache;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class SitemapController extends Controller
@@ -19,58 +19,62 @@ class SitemapController extends Controller
 
     public function __invoke(): Response
     {
-        $lastmod = Carbon::now()->toAtomString();
-        $locales = array_keys(LaravelLocalization::getSupportedLocales());
-        $urls = [];
-
-        $staticSuffixes = [
-            ['suffix' => '', 'priority' => '1.0', 'changefreq' => 'weekly'],
-            ['suffix' => 'services', 'priority' => '0.9', 'changefreq' => 'weekly'],
-            ['suffix' => 'projects', 'priority' => '0.9', 'changefreq' => 'weekly'],
-            ['suffix' => 'about-us', 'priority' => '0.85', 'changefreq' => 'monthly'],
-            ['suffix' => 'contact-us', 'priority' => '0.85', 'changefreq' => 'monthly'],
-            ['suffix' => 'terms-and-conditions', 'priority' => '0.4', 'changefreq' => 'yearly'],
-            ['suffix' => 'privacy-policy', 'priority' => '0.4', 'changefreq' => 'yearly'],
-        ];
-
-        $services = $this->serviceRepository->getActive(['id']);
-        $projects = $this->projectRepository->getActiveForGallery();
-
-        foreach ($locales as $locale) {
-            foreach ($staticSuffixes as $item) {
-                $path = $item['suffix'] === '' ? $locale : $locale.'/'.$item['suffix'];
-                $urls[] = [
-                    'loc' => URL::to('/'.$path),
-                    'lastmod' => $lastmod,
-                    'priority' => $item['priority'],
-                    'changefreq' => $item['changefreq'],
-                ];
-            }
-
-            foreach ($services as $service) {
-                $urls[] = [
-                    'loc' => URL::to('/'.$locale.'/services/'.$service->id),
-                    'lastmod' => $lastmod,
-                    'priority' => '0.8',
-                    'changefreq' => 'monthly',
-                ];
-            }
-
-            foreach ($projects as $project) {
-                $urls[] = [
-                    'loc' => URL::to('/'.$locale.'/projects/'.$project->slug),
-                    'lastmod' => $project->updated_at?->toAtomString() ?? $lastmod,
-                    'priority' => '0.8',
-                    'changefreq' => 'monthly',
-                ];
-            }
-        }
-
-        $xml = view('website.seo.sitemap-xml', ['urls' => $urls])->render();
+        $xml = Cache::remember('sitemap.xml.'.md5(WebsiteMeta::baseUrl()), 3600, fn (): string => $this->build());
 
         return response($xml, 200, [
             'Content-Type' => 'application/xml; charset=UTF-8',
             'Cache-Control' => 'public, max-age=3600',
         ]);
+    }
+
+    private function build(): string
+    {
+        $locales = array_keys(LaravelLocalization::getSupportedLocales());
+        $default = in_array(config('app.locale'), $locales, true) ? config('app.locale') : $locales[0];
+
+        $services = $this->serviceRepository->getActive(['id', 'updated_at']);
+        $projects = $this->projectRepository->getActiveForGallery();
+
+        $servicesLastmod = $services->max('updated_at');
+        $projectsLastmod = $projects->max('updated_at');
+        $siteLastmod = collect([$servicesLastmod, $projectsLastmod])->filter()->max();
+
+        // [path without locale, lastmod, changefreq, priority]
+        $pages = [
+            ['', $siteLastmod, 'weekly', '1.0'],
+            ['services', $servicesLastmod, 'weekly', '0.9'],
+            ['projects', $projectsLastmod, 'weekly', '0.9'],
+            ['about-us', null, 'monthly', '0.7'],
+            ['contact-us', null, 'monthly', '0.7'],
+            ['terms-and-conditions', null, 'yearly', '0.3'],
+            ['privacy-policy', null, 'yearly', '0.3'],
+        ];
+        foreach ($services as $service) {
+            $pages[] = ['services/'.$service->id, $service->updated_at, 'monthly', '0.8'];
+        }
+        foreach ($projects as $project) {
+            $pages[] = ['projects/'.$project->slug, $project->updated_at, 'monthly', '0.8'];
+        }
+
+        $urls = [];
+        foreach ($pages as [$suffix, $lastmod, $changefreq, $priority]) {
+            $alternates = [];
+            foreach ($locales as $locale) {
+                $alternates[] = ['hreflang' => $locale, 'href' => WebsiteMeta::url($locale.($suffix !== '' ? '/'.$suffix : ''))];
+            }
+            $alternates[] = ['hreflang' => 'x-default', 'href' => WebsiteMeta::url($default.($suffix !== '' ? '/'.$suffix : ''))];
+
+            foreach ($locales as $locale) {
+                $urls[] = [
+                    'loc' => WebsiteMeta::url($locale.($suffix !== '' ? '/'.$suffix : '')),
+                    'lastmod' => $lastmod?->toAtomString(),
+                    'changefreq' => $changefreq,
+                    'priority' => $priority,
+                    'alternates' => $alternates,
+                ];
+            }
+        }
+
+        return view('website.seo.sitemap-xml', ['urls' => $urls])->render();
     }
 }

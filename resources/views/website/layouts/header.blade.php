@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"></noscript>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @php
       use App\Support\WebsiteMeta;
@@ -19,10 +22,11 @@
       if ($pageTitle === '') {
         $pageTitle = __('website.seoHomeTitle');
       }
-      $fullTitle = $pageTitle.' | '.$siteTitle;
-      $metaDescription = $__env->hasSection('meta_description')
-        ? Str::limit(strip_tags(trim($__env->yieldContent('meta_description'))), 160, '')
-        : WebsiteMeta::metaDescription();
+      $pageTitle = \App\Support\RichText::text($pageTitle);
+      $fullTitle = Str::contains($pageTitle, $siteTitle) ? $pageTitle : $pageTitle.' | '.$siteTitle;
+      $metaDescription = WebsiteMeta::metaDescription(
+        $__env->hasSection('meta_description') ? trim($__env->yieldContent('meta_description')) : null
+      );
       $ogImageSection = $__env->hasSection('og_image') ? trim($__env->yieldContent('og_image')) : null;
       $ogImage = WebsiteMeta::absoluteOgImage($ogImageSection !== '' ? $ogImageSection : null);
       $canonical = WebsiteMeta::canonicalUrl();
@@ -51,8 +55,10 @@
     <meta property="og:site_name" content="{{ $siteTitle }}" />
     @if($ogImage)
     <meta property="og:image" content="{{ $ogImage }}" />
+    <meta property="og:image:alt" content="{{ $pageTitle }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="{{ $ogImage }}" />
+    <meta name="twitter:image:alt" content="{{ $pageTitle }}" />
     @else
     <meta name="twitter:card" content="summary" />
     @endif
@@ -73,19 +79,25 @@
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
         'name' => $siteTitle,
-        'url' => rtrim(config('app.url'), '/'),
+        'url' => WebsiteMeta::baseUrl(),
       ];
-      $orgLd['logo'] = asset('images/branding/icon-512.png');
+      $orgLd['logo'] = WebsiteMeta::url('images/branding/icon-512.png');
+      $sameAs = collect([$footerContent['all']['facebook_link'] ?? null, $footerContent['all']['twitter_link'] ?? null, $footerContent['all']['linkedin_link'] ?? null])
+        ->filter(fn ($u) => is_string($u) && Str::startsWith($u, ['http://', 'https://']))->values()->all();
+      if ($sameAs) {
+        $orgLd['sameAs'] = $sameAs;
+      }
       $webLd = [
         '@context' => 'https://schema.org',
         '@type' => 'WebSite',
         'name' => $siteTitle,
-        'url' => rtrim(config('app.url'), '/'),
+        'url' => WebsiteMeta::baseUrl(),
         'inLanguage' => ['ar', 'en'],
       ];
     @endphp
     <script type="application/ld+json">{!! json_encode($orgLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     <script type="application/ld+json">{!! json_encode($webLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @stack('schema')
     @endif
 
     @vite(['resources/css/website.css'])
