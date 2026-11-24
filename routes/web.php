@@ -11,7 +11,7 @@ Route::get('/robots.txt', RobotsController::class)->name('robots');
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', \App\Http\Middleware\TrackVisitor::class],
 ], function () {
 
 

@@ -86,6 +86,31 @@
                         </a>
                     </div>
 
+                    <div class="col-lg-4 col-sm-6 col-md-6 col-xl-4">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div
+                                        class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-center ecommerce-icon info px-0">
+                                        <span class="rounded p-3 bg-info-transparent">
+                                            <i class="ti ti-eye fs-24 text-info"></i>
+                                        </span>
+                                    </div>
+                                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 ps-0">
+                                        <div class="mb-2">@lang('dashboard.visitors')</div>
+                                        <div class="text-muted mb-1 fs-12">
+                                            <span class="text-dark fw-semibold fs-20 lh-1 vertical-bottom">
+                                                {{ number_format($statistics['visitors_count'] ?? 0) }}
+                                            </span>
+                                            <span class="ms-2">+{{ $statistics['visitors_today'] ?? 0 }}
+                                                @lang('dashboard.new_today')</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

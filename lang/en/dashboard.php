@@ -565,4 +565,8 @@ return [
     'add_sub_service' => 'Sub-service',
     'services_order_saved' => 'Order saved',
     'services_order_invalid' => 'Could not save the order. Reload the page and try again.',
+    'visitors' => 'Unique visitors',
+    'new_today' => 'new today',
+    'visitors' => 'Unique visitors',
+    'new_today' => 'new today',
 ];

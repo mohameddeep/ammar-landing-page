@@ -569,5 +569,7 @@ return [
     'add_sub_service' => 'خدمة فرعية',
     'services_order_saved' => 'تم حفظ الترتيب',
     'services_order_invalid' => 'تعذر حفظ الترتيب، أعد تحميل الصفحة وحاول مرة أخرى.',
+    'visitors' => 'الزوار (بدون تكرار)',
+    'new_today' => 'جديد اليوم',
 ];
 
