@@ -35,7 +35,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->group(base_path('routes/web.php'));
 
                 Route::middleware('web')
-                    ->domain('PRODUCTION_DASHBOARD_SUBDOMAIN')
+                    ->domain(env('PRODUCTION_DASHBOARD_SUBDOMAIN') ?: null)
                     ->group(base_path('routes/dashboard.php'));
             } else {
                 Route::group(['middleware' => ['api', 'localize-api']], function () {
