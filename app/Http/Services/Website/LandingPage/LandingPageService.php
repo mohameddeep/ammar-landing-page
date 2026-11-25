@@ -7,6 +7,7 @@ use App\Repository\StructureRepositoryInterface;
 use App\Repository\SliderRepositoryInterface;
 use App\Repository\ServiceRepositoryInterface;
 use App\Repository\AboutUsRepositoryInterface;
+use App\Repository\ProjectTypeRepositoryInterface;
 
 class LandingPageService
 {
@@ -17,6 +18,7 @@ class LandingPageService
         private SliderRepositoryInterface $sliderRepository,
         private ServiceRepositoryInterface $serviceRepository,
         private AboutUsRepositoryInterface $aboutUsRepository,
+        private ProjectTypeRepositoryInterface $projectTypeRepository,
     ) {}
 
     public function index()
@@ -40,6 +42,8 @@ class LandingPageService
                 ];
             });
 
-        return view('website.landing-page.index', compact('sliders', 'services', 'aboutContent', 'aboutTabs', 'serviceContent', 'footerContent'));
+        $projectTypes = $this->projectTypeRepository->getActiveOrdered();
+
+        return view('website.landing-page.index', compact('projectTypes', 'sliders', 'services', 'aboutContent', 'aboutTabs', 'serviceContent', 'footerContent'));
     }
 }

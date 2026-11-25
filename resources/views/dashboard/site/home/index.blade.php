@@ -87,6 +87,33 @@
                     </div>
 
                     <div class="col-lg-4 col-sm-6 col-md-6 col-xl-4">
+                        <a href="{{ route('pricing-requests.index') }}" class="text-decoration-none">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div
+                                            class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 d-flex align-items-center justify-content-center ecommerce-icon danger px-0">
+                                            <span class="rounded p-3 bg-danger-transparent">
+                                                <i class="ti ti-file-invoice fs-24 text-danger"></i>
+                                            </span>
+                                        </div>
+                                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 ps-0">
+                                            <div class="mb-2">@lang('dashboard.pricing_requests')</div>
+                                            <div class="text-muted mb-1 fs-12">
+                                                <span class="text-dark fw-semibold fs-20 lh-1 vertical-bottom">
+                                                    {{ $statistics['pricing_requests_count'] ?? 0 }}
+                                                </span>
+                                                <span class="ms-2">{{ $statistics['pricing_requests_new'] ?? 0 }}
+                                                    @lang('dashboard.new_requests')</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-6 col-md-6 col-xl-4">
                         <div class="card custom-card">
                             <div class="card-body">
                                 <div class="row">

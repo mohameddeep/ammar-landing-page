@@ -570,6 +570,17 @@ return [
     'services_order_saved' => 'تم حفظ الترتيب',
     'services_order_invalid' => 'تعذر حفظ الترتيب، أعد تحميل الصفحة وحاول مرة أخرى.',
     'visitors' => 'الزوار (بدون تكرار)',
+    'all' => 'الكل',
+    'pricing_requests' => 'طلبات التسعير',
+    'project_types' => 'أنواع المشاريع',
+    'project_space' => 'مساحة المشروع',
+    'admin_notes' => 'ملاحظات داخلية',
+    'project_type_in_use' => 'هذا النوع مستخدم في طلبات تسعير ولا يمكن حذفه، يمكنك إلغاء تفعيله.',
+    'pricing_status_new' => 'جديد',
+    'pricing_status_contacted' => 'تم التواصل',
+    'pricing_status_quoted' => 'تم إرسال العرض',
+    'pricing_status_closed' => 'مغلق',
+    'new_requests' => 'جديد',
     'new_today' => 'جديد اليوم',
 ];
 

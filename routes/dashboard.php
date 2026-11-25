@@ -9,7 +9,9 @@ use App\Http\Controllers\Dashboard\Home\HomeController;
 use App\Http\Controllers\Dashboard\Setting\SettingController as SettingSettingController;
 use App\Http\Controllers\Dashboard\Slider\SliderController;
 use App\Http\Controllers\Dashboard\Service\ServiceController;
+use App\Http\Controllers\Dashboard\PricingRequest\PricingRequestController;
 use App\Http\Controllers\Dashboard\Project\ProjectController;
+use App\Http\Controllers\Dashboard\ProjectType\ProjectTypeController;
 use App\Http\Controllers\Dashboard\Structure\AboutUsController as StructureAboutUsController;
 use App\Http\Controllers\Dashboard\Structure\LandingPageFooterController;
 use App\Http\Controllers\Dashboard\Structure\TermsAndConditionsController;
@@ -64,6 +66,12 @@ Route::group([
             Route::resource('projects', ProjectController::class)->except(['show']);
             Route::post('projects/toggle/{id}', [ProjectController::class, 'toggle'])->name('projects.toggle');
             Route::delete('projects/images/{image}', [ProjectController::class, 'destroyImage'])->name('projects.images.destroy');
+
+            // Pricing requests and the project types offered in the website form
+            Route::resource('project-types', ProjectTypeController::class)->except(['show']);
+            Route::post('project-types/toggle/{id}', [ProjectTypeController::class, 'toggle'])->name('project-types.toggle');
+            Route::resource('pricing-requests', PricingRequestController::class)->only(['index', 'show', 'update', 'destroy']);
+            Route::get('pricing-requests/{id}/attachment', [PricingRequestController::class, 'attachment'])->name('pricing-requests.attachment');
 
             // About Us Children
             Route::controller(AboutUsChildrenController::class)->group(function () {

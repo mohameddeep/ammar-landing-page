@@ -25,6 +25,10 @@ use App\Repository\Eloquent\ServiceRepository;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\Eloquent\ProjectRepository;
 use App\Repository\LandingPageRepositoryInterface;
+use App\Repository\Eloquent\PricingRequestRepository;
+use App\Repository\Eloquent\ProjectTypeRepository;
+use App\Repository\PricingRequestRepositoryInterface;
+use App\Repository\ProjectTypeRepositoryInterface;
 use App\Repository\Eloquent\LandingPageRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,6 +51,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(ServiceRepositoryInterface::class, ServiceRepository::class);
         $this->app->singleton(ProjectRepositoryInterface::class, ProjectRepository::class);
         $this->app->singleton(LandingPageRepositoryInterface::class, LandingPageRepository::class);
+        $this->app->singleton(ProjectTypeRepositoryInterface::class, ProjectTypeRepository::class);
+        $this->app->singleton(PricingRequestRepositoryInterface::class, PricingRequestRepository::class);
     }
 
     /**

@@ -17,6 +17,8 @@ class HomeService
             'services_count' => \App\Models\Service::count(),
             'sliders_count' => \App\Models\Slider::count(),
             'contacts_count' => \App\Models\ContactUs::count(),
+            'pricing_requests_count' => \App\Models\PricingRequest::count(),
+            'pricing_requests_new' => \App\Models\PricingRequest::where('status', 'new')->count(),
             'visitors_count' => \App\Models\Visitor::count(),
             'visitors_today' => \App\Models\Visitor::whereDate('first_visited_at', today())->count(),
         ];

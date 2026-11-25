@@ -119,6 +119,22 @@
                     </a>
                 </li>
                 <!-- End::contacts -->
+                <!-- Start::pricing -->
+                <li class="slide">
+                    <a href="{{ route('pricing-requests.index') }}"
+                        class="side-menu__item {{ request()->routeIs('pricing-requests.*') ? 'active' : '' }}">
+                        <i class="ti ti-file-invoice side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.pricing_requests')</span>
+                    </a>
+                </li>
+                <li class="slide">
+                    <a href="{{ route('project-types.index') }}"
+                        class="side-menu__item {{ request()->routeIs('project-types.*') ? 'active' : '' }}">
+                        <i class="ti ti-category side-menu__icon"></i>
+                        <span class="side-menu__label">@lang('dashboard.project_types')</span>
+                    </a>
+                </li>
+                <!-- End::pricing -->
 
 
 

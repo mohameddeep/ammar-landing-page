@@ -393,16 +393,6 @@
 
     <!-- Pricing quote modal -->
     @php
-      $pricingTypeSlugs = [
-        ['slug' => 'residential_building', 'key' => 'pricingTypeResidential'],
-        ['slug' => 'commercial_showrooms', 'key' => 'pricingTypeCommercial'],
-        ['slug' => 'villa', 'key' => 'pricingTypeVilla'],
-        ['slug' => 'warehouses', 'key' => 'pricingTypeWarehouses'],
-        ['slug' => 'other', 'key' => 'pricingTypeOther'],
-        ['slug' => 'tourism', 'key' => 'pricingTypeTourism'],
-        ['slug' => 'hospital', 'key' => 'pricingTypeHospital'],
-        ['slug' => 'hotel', 'key' => 'pricingTypeHotel'],
-      ];
       $oldProjectTypes = old('project_types', []);
     @endphp
     <div
@@ -493,16 +483,16 @@
             <fieldset class="space-y-4 py-1">
               <legend class="mb-1 block w-full text-sm font-semibold text-slate-300">{{ trans('website.pricingQuoteProjectType', [], $currentLocale) }}</legend>
               <div class="flex flex-wrap gap-3">
-                @foreach ($pricingTypeSlugs as $pt)
+                @foreach ($projectTypes as $projectType)
                   <label class="flex cursor-pointer items-start gap-2 rounded-lg border border-slate-700/80 bg-slate-800/40 px-3 py-2.5 text-sm text-slate-200 transition hover:border-emerald-500/40">
                     <input
                       type="checkbox"
                       name="project_types[]"
-                      value="{{ $pt['slug'] }}"
+                      value="{{ $projectType->id }}"
                       class="mt-0.5 rounded border-slate-600 text-emerald-500 focus:ring-emerald-500/30"
-                      @checked(in_array($pt['slug'], $oldProjectTypes, true))
+                      @checked(in_array((string) $projectType->id, $oldProjectTypes, true))
                     />
-                    <span>{{ trans('website.'.$pt['key'], [], $currentLocale) }}</span>
+                    <span>{{ $projectType->t('name') }}</span>
                   </label>
                 @endforeach
               </div>

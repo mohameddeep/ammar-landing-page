@@ -27,7 +27,7 @@ Route::group([
         
         // Contact form submission
         Route::post('contact', [\App\Http\Controllers\Website\Contact\ContactController::class, 'store'])->name('website.contact.store');
-        Route::post('pricing-quote', [\App\Http\Controllers\Website\Contact\ContactController::class, 'storePricingQuote'])->name('website.pricing-quote.store');
+        Route::post('pricing-quote', [\App\Http\Controllers\Website\Contact\ContactController::class, 'storePricingQuote'])->middleware('throttle:10,1')->name('website.pricing-quote.store');
         
         // Contact page
         Route::get('contact-us', [\App\Http\Controllers\Website\Contact\ContactController::class, 'index'])->name('website.contact.index');
