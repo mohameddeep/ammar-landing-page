@@ -132,6 +132,10 @@
                                             <span class="ms-2">+{{ $statistics['visitors_today'] ?? 0 }}
                                                 @lang('dashboard.new_today')</span>
                                         </div>
+                                        <div class="fs-12">
+                                            @lang('dashboard.visitors_saudi'):
+                                            <span class="fw-semibold">{{ number_format($statistics['visitors_saudi'] ?? 0) }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

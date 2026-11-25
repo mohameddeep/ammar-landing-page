@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Models\Visitor;
+use App\Support\SaudiIpRanges;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -31,6 +31,7 @@ final class TrackVisitor
                     'locale' => app()->getLocale(),
                     'first_path' => mb_substr('/'.ltrim($request->path(), '/'), 0, 255),
                     'first_visited_at' => now(),
+                    'is_saudi' => SaudiIpRanges::contains($request->ip()),
                 ]);
 
                 Cookie::queue(self::COOKIE, substr($hash, 0, 16), 60 * 24 * 365 * 5);

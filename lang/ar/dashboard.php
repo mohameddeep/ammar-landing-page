@@ -582,6 +582,7 @@ return [
     'pricing_status_closed' => 'مغلق',
     'new_requests' => 'جديد',
     'toggle_theme' => 'تبديل الوضع الداكن / الفاتح',
+    'visitors_saudi' => 'من السعودية',
     'new_today' => 'جديد اليوم',
 ];
 

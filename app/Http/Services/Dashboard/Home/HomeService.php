@@ -20,6 +20,7 @@ class HomeService
             'pricing_requests_count' => \App\Models\PricingRequest::count(),
             'pricing_requests_new' => \App\Models\PricingRequest::where('status', 'new')->count(),
             'visitors_count' => \App\Models\Visitor::count(),
+            'visitors_saudi' => \App\Models\Visitor::where('is_saudi', true)->count(),
             'visitors_today' => \App\Models\Visitor::whereDate('first_visited_at', today())->count(),
         ];
 
