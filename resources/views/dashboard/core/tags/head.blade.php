@@ -20,6 +20,21 @@
     <!-- Main Theme Js -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    <!-- Saved dark/light choice (dark is the default) -->
+    <script>
+        (function () {
+            var theme = 'dark';
+            try {
+                theme = localStorage.getItem('dashboardTheme') === 'light' ? 'light' : 'dark';
+            } catch (e) {}
+            var html = document.documentElement;
+            html.setAttribute('data-theme-mode', theme);
+            html.setAttribute('data-header-styles', theme);
+            // The sidebar stays dark in both modes so the logo remains readable.
+            html.setAttribute('data-menu-styles', 'dark');
+        })();
+    </script>
+
     <!-- Bootstrap Css -->
 
     @if (app()->getLocale() === 'ar')

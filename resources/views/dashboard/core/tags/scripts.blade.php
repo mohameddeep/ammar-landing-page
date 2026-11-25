@@ -41,4 +41,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<!-- Dark / light toggle -->
+<script>
+    document.getElementById('theme-toggle')?.addEventListener('click', function () {
+        var html = document.documentElement;
+        var theme = html.getAttribute('data-theme-mode') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme-mode', theme);
+        html.setAttribute('data-header-styles', theme);
+        try {
+            localStorage.setItem('dashboardTheme', theme);
+            // The template's own script forces dark while this key exists.
+            localStorage.removeItem('ynexdarktheme');
+        } catch (e) {}
+    });
+</script>
+
 @stack('scripts')

@@ -581,6 +581,7 @@ return [
     'pricing_status_quoted' => 'تم إرسال العرض',
     'pricing_status_closed' => 'مغلق',
     'new_requests' => 'جديد',
+    'toggle_theme' => 'تبديل الوضع الداكن / الفاتح',
     'new_today' => 'جديد اليوم',
 ];
 

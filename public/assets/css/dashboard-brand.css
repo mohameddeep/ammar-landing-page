@@ -381,3 +381,71 @@ html[dir="rtl"] .svc-sub {
 .custom-toggle-switch > label.label-secondary {
   background: #10b981;
 }
+
+/* ==========================================================================
+   Light mode (the sidebar keeps the dark brand look)
+   ========================================================================== */
+html[data-theme-mode="light"] {
+  --body-bg-rgb: 241, 245, 249;
+  --default-body-bg-color: #f1f5f9;
+  --custom-white: #ffffff;
+  --default-text-color: #1e293b;
+  --text-muted: #64748b;
+  --default-border: #e2e8f0;
+  --bootstrap-card-border: #e2e8f0;
+  --header-bg: #ffffff;
+  --header-border-color: #e2e8f0;
+  --header-prime-color: #475569;
+  --form-control-bg: #ffffff;
+  --input-border: #cbd5e1;
+  --list-hover-focus-bg: rgba(16, 185, 129, 0.08);
+}
+
+html[data-theme-mode="light"] body {
+  background:
+    radial-gradient(ellipse at 85% 0%, rgba(16, 185, 129, 0.07), transparent 45%),
+    radial-gradient(ellipse at 0% 100%, rgba(59, 130, 246, 0.06), transparent 45%),
+    #f1f5f9;
+  background-attachment: fixed;
+}
+
+html[data-theme-mode="light"][data-menu-styles="dark"] {
+  --menu-bg: #0b1222;
+  --menu-border-color: rgba(148, 163, 184, 0.12);
+  --menu-prime-color: rgba(203, 213, 225, 0.78);
+}
+
+html[data-theme-mode="light"] .app-sidebar {
+  background: linear-gradient(180deg, #0b1222 0%, #0d1628 100%);
+}
+
+html[data-theme-mode="light"] .card.custom-card,
+html[data-theme-mode="light"] .card {
+  background: #ffffff;
+  box-shadow: 0 10px 30px -20px rgba(15, 23, 42, 0.25);
+}
+
+html[data-theme-mode="light"] .table thead th {
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+html[data-theme-mode="light"] .bg-primary-transparent,
+html[data-theme-mode="light"] .svc-pos {
+  color: #047857 !important;
+}
+
+/* Logos made for dark backgrounds stay visible in the light header (mobile) */
+html[data-theme-mode="light"] .app-header .header-logo {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  background: #0b1222;
+}
+
+/* Theme toggle: show the icon of the mode you can switch to */
+html[data-theme-mode="dark"] .theme-icon-moon,
+html[data-theme-mode="light"] .theme-icon-sun {
+  display: none;
+}

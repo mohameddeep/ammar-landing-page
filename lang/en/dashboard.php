@@ -566,6 +566,7 @@ return [
     'services_order_saved' => 'Order saved',
     'services_order_invalid' => 'Could not save the order. Reload the page and try again.',
     'visitors' => 'Unique visitors',
+    'toggle_theme' => 'Switch dark / light mode',
     'new_today' => 'new today',
     'all' => 'All',
     'pricing_requests' => 'Pricing requests',
