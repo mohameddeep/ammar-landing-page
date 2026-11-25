@@ -863,6 +863,23 @@
                         closePricingModal();
                     }
                 });
+
+                @if ($errors->any() && old('pricing_form'))
+                    // The submission was rejected: reopen the form so the visitor sees why.
+                    openPricingModal();
+                    Swal.fire({
+                        icon: 'error',
+                        title: @js($errors->first()),
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 7000,
+                        timerProgressBar: true,
+                        background: '#1e293b',
+                        color: '#fff',
+                        iconColor: '#ef4444',
+                    });
+                @endif
             }
 
             var pricingFileInput = document.getElementById('pricing-attachment');
